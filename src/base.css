@@ -1,0 +1,11 @@
+/* The integration's default injected base.css file */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Глобальный ограничитель ширины контейнера */
+.main-max-width {
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 1240px;
+}
