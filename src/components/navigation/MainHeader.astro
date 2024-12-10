@@ -1,0 +1,105 @@
+---
+import { Image } from "astro:assets";
+import logoDark from "@/assets/logo/logo_dark.svg";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+interface MainHeaderProps {
+  menuItems: { label: string; href: string }[];
+}
+
+let menuIcon = "cross-big";
+
+const { menuItems } = Astro.props as MainHeaderProps;
+
+let isMenuOpen = false;
+
+const toggleMenu = () => {
+  isMenuOpen = !isMenuOpen;
+  const menu = document.querySelector(".navigation-menu");
+  const burgerButton = document.querySelector(".burger-button");
+
+  if (menu && burgerButton) {
+    if (isMenuOpen) {
+      menu.classList.remove("hidden"); // Убираем класс hidden
+      burgerButton.setAttribute("leftIcon", "cross-big"); // Меняем иконку на "X"
+    } else {
+      menu.classList.add("hidden"); // Добавляем класс hidden
+      burgerButton.setAttribute("leftIcon", "hamburger-menu"); // Меняем иконку на бургер
+    }
+  }
+};
+---
+
+<header class="z-[999] fixed bg-zinc-800 w-[100%]">
+  <div
+    class="flex justify-between items-center bg-zinc-600 mx-auto lg:py-0 min-h-[48px] lg:min-h-[64px] main-max-width">
+    <!-- Логотип -->
+    <a
+      href="/"
+      class="lg:hover:opacity-80 mr-[8px] lg:mr-0 w-[100px] lg:w-[132px]">
+      <Image
+        src={logoDark}
+        alt="Alarm Image"
+      />
+    </a>
+
+    <!-- Меню навигации -->
+    <div
+      class="lg:relative top-[48px] lg:top-0 left-0 absolute flex lg:flex lg:flex-row flex-col justify-end lg:items-center gap-[12px] lg:gap-[24px] hidden bg-zinc-900 px-[16px] lg:px-0 py-[24px] lg:py-0 w-[100%] navigation-menu">
+      {
+        menuItems.map((item) => (
+          <a href={item.href}>
+            <span class="font-light lg:font-medium text-zinc-200 hover:text-primary-300">
+              {item.label}
+            </span>
+          </a>
+        ))
+      }
+      <!-- Кнопка скачать -->
+      <a href="/download">
+        <ButtonGeneric
+          type="primary"
+          size="default"
+          style="filled"
+          customClass="mt-[16px] lg:m-0"
+          leftIcon={menuIcon}>
+          Скачать
+        </ButtonGeneric>
+      </a>
+    </div>
+
+    <!-- Кнопка бургера для мобильных устройств -->
+    <ButtonGeneric
+      type="secondary"
+      size="default"
+      style="outlined"
+      customClass="lg:hidden burger-button"
+      leftIcon=""
+      onclick={toggleMenu}
+    />
+  </div>
+</header>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleMenu = () => {
+      const menu = document.querySelector(".navigation-menu");
+      const burgerButton = document.querySelector(".burger-button");
+
+      if (menu && burgerButton) {
+        const isMenuOpen = menu.classList.contains("hidden");
+        if (isMenuOpen) {
+          menu.classList.remove("hidden");
+          burgerButton.setAttribute("leftIcon", "cross-big");
+        } else {
+          menu.classList.add("hidden");
+          burgerButton.setAttribute("leftIcon", "hamburger-menu");
+        }
+      }
+    };
+
+    const burgerButton = document.querySelector(".burger-button");
+    if (burgerButton) {
+      burgerButton.addEventListener("click", toggleMenu);
+    }
+  });
+</script>

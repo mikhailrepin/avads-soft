@@ -1,3 +1,23 @@
+---
+import "@/base.css";
+import MainHeader from "@/components/navigation/MainHeader.astro";
+interface Props {
+  pageTitle?: string;
+}
+
+const { pageTitle = "The title of the current page is not set" } =
+  Astro.props as Props;
+
+const menuItems = [
+  { label: "Продукты", href: "/all-products" },
+  { label: "Цены", href: "/price" },
+  { label: "О компании", href: "/about-us" },
+  { label: "Техподдержка", href: "/support" },
+  { label: "Контакты", href: "/contacts" },
+  { label: "❖ Tmp", href: "/templates" },
+];
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -15,19 +35,13 @@
       name="generator"
       content={Astro.generator}
     />
-    <title>Astro Basics</title>
+    <title>АВАДС | {pageTitle}</title>
   </head>
   <body
-    class="flex flex-col bg-zinc-950 m-0 p-0 w-[100%] h-[100%] text-zinc-200">
-    <slot />
+    class="flex flex-col items-center bg-zinc-950 m-0 p-0 w-[100%] h-[100%] text-zinc-200 subpixel-antialiased">
+    <MainHeader menuItems={menuItems} />
+    <main class="mt-[48px] lg:mt-[64px]">
+      <slot />
+    </main>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
