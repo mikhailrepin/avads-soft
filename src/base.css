@@ -9,3 +9,18 @@
   padding-right: 16px;
   max-width: 1240px;
 }
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-['Montserrat'] leading-none lg:leading-relaxed
+}
+
+h1 {
+  @apply font-black text-3xl lg:text-6xl
+}
+
+h2 {
+  @apply font-medium text-base lg:text-lg
+}

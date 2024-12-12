@@ -5,7 +5,20 @@ import Layout from "@/layouts/Layout.astro";
 <Layout pageTitle="Продвинутые системы автоматизации">
   <section
     id="main-hero"
-    class="relative bg-[url('./assets/hero/main-page.png')] bg-cover bg-no-repeat bg-center min-w-[100vw] min-h-[100dvh]">
-    <div class="absolute w-[100%] h-[100%] header-overlay"></div>
+    class="flex justify-center items-center bg-[url('./assets/hero/main-page.png')] bg-cover bg-no-repeat bg-center py-[40px] min-w-[100dvw] min-h-[40dvh] lg:min-h-[80dvh]">
+    <!-- Элемент для перекрытия фона -->
+    <div
+      class="top-0 left-0 z-0 absolute bg-zinc-950 opacity-75 w-[100%] h-[100%]">
+    </div>
+    <!-- Область контента -->
+    <div class="relative z-1 flex flex-col gap-4 w-[100%] main-max-width">
+      <h1 class="uppercase tracking-[0.10rem]">
+        Продвинутые <span class="text-primary-300"><br />системы</span><br
+        />автоматизации
+      </h1>
+      <h2 class="">
+        Программное обеспечение для автоматизации и диспетчеризации
+      </h2>
+    </div>
   </section>
 </Layout>

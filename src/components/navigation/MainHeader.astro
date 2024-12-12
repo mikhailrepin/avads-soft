@@ -7,32 +7,14 @@ interface MainHeaderProps {
   menuItems: { label: string; href: string }[];
 }
 
-let menuIcon = "cross-big";
-
 const { menuItems } = Astro.props as MainHeaderProps;
-
-let isMenuOpen = false;
-
-const toggleMenu = () => {
-  isMenuOpen = !isMenuOpen;
-  const menu = document.querySelector(".navigation-menu");
-  const burgerButton = document.querySelector(".burger-button");
-
-  if (menu && burgerButton) {
-    if (isMenuOpen) {
-      menu.classList.remove("hidden"); // Убираем класс hidden
-      burgerButton.setAttribute("leftIcon", "cross-big"); // Меняем иконку на "X"
-    } else {
-      menu.classList.add("hidden"); // Добавляем класс hidden
-      burgerButton.setAttribute("leftIcon", "hamburger-menu"); // Меняем иконку на бургер
-    }
-  }
-};
 ---
 
-<header class="z-[999] fixed bg-zinc-800 w-[100%]">
+<header
+  id="main-header"
+  class="z-[999] fixed border-zinc-900 backdrop-blur-sm w-[100%] transition">
   <div
-    class="flex justify-between items-center bg-zinc-600 mx-auto lg:py-0 min-h-[48px] lg:min-h-[64px] main-max-width">
+    class="flex justify-between items-center mx-auto lg:py-0 min-h-[48px] lg:min-h-[64px] main-max-width">
     <!-- Логотип -->
     <a
       href="/"
@@ -45,11 +27,11 @@ const toggleMenu = () => {
 
     <!-- Меню навигации -->
     <div
-      class="lg:relative top-[48px] lg:top-0 left-0 absolute flex lg:flex lg:flex-row flex-col justify-end lg:items-center gap-[12px] lg:gap-[24px] hidden bg-zinc-900 px-[16px] lg:px-0 py-[24px] lg:py-0 w-[100%] navigation-menu">
+      class="lg:relative top-[48px] lg:top-0 left-0 absolute flex lg:flex lg:flex-row flex-col justify-end lg:items-center gap-[12px] lg:gap-[24px] border-y border-zinc-900 hidden bg-zinc-950 lg:bg-transparent shadow-2xl shadow-zinc-950/90 lg:shadow-none px-[16px] lg:px-0 py-[24px] lg:py-0 lg:border-transparent w-[100%] navigation-menu">
       {
         menuItems.map((item) => (
           <a href={item.href}>
-            <span class="font-light lg:font-medium text-zinc-200 hover:text-primary-300">
+            <span class="font-light lg:font-medium text-lg lg:text-base">
               {item.label}
             </span>
           </a>
@@ -61,45 +43,161 @@ const toggleMenu = () => {
           type="primary"
           size="default"
           style="filled"
-          customClass="mt-[16px] lg:m-0"
-          leftIcon={menuIcon}>
+          customClass="my-[16px] lg:m-0"
+          leftIcon="">
           Скачать
         </ButtonGeneric>
       </a>
     </div>
 
     <!-- Кнопка бургера для мобильных устройств -->
-    <ButtonGeneric
-      type="secondary"
-      size="default"
-      style="outlined"
-      customClass="lg:hidden burger-button"
-      leftIcon=""
-      onclick={toggleMenu}
-    />
+    <button
+      id="mobile-menu-button"
+      class="flex justify-center items-center border-zinc-600 hover:border-zinc-900 lg:hidden hover:bg-zinc-900 border rounded w-[32px] h-[32px] font-semibold text-zinc-300">
+      <svg
+        class="w-[16px] h-[16px] transition-opacity duration-200 ease-in-out"
+        id="burger-icon">
+        <use xlink:href="/sprites.svg#hamburger-menu"></use>
+      </svg>
+    </button>
   </div>
 </header>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const toggleMenu = () => {
-      const menu = document.querySelector(".navigation-menu");
-      const burgerButton = document.querySelector(".burger-button");
 
-      if (menu && burgerButton) {
-        const isMenuOpen = menu.classList.contains("hidden");
-        if (isMenuOpen) {
-          menu.classList.remove("hidden");
-          burgerButton.setAttribute("leftIcon", "cross-big");
-        } else {
-          menu.classList.add("hidden");
-          burgerButton.setAttribute("leftIcon", "hamburger-menu");
+<script>
+  let isMenuOpen: boolean = false; // Явно указываем тип для isMenuOpen
+
+  // Функция для смены иконки с анимацией
+  const changeIcon = (iconId: string): void => {
+    const burgerIcon = document.getElementById("burger-icon");
+    if (burgerIcon) {
+      burgerIcon.classList.add("opacity-0"); // Плавное исчезновение
+      setTimeout(() => {
+        burgerIcon.innerHTML = `<use xlink:href="/sprites.svg#${iconId}"></use>`; // Обновляем иконку
+        burgerIcon.classList.remove("opacity-0"); // Плавное появление
+      }, 120); // Совпадает с длительностью анимации
+    }
+  };
+
+  // Функция для закрытия меню
+  const closeMenu = (): void => {
+    const menu = document.querySelector(".navigation-menu");
+    if (menu) {
+      menu.classList.add("hidden"); // Скрываем меню
+    }
+    changeIcon("hamburger-menu"); // Меняем иконку на бургер
+    isMenuOpen = false; // Обновляем состояние
+
+    // Удаляем классы у header, если страница находится в верхней точке
+    if (window.scrollY === 0) {
+      removeHeaderClasses();
+    }
+  };
+
+  // Функция для переключения меню
+  const toggleMenu = (): void => {
+    isMenuOpen = !isMenuOpen;
+    const menu = document.querySelector(".navigation-menu");
+
+    if (menu) {
+      if (isMenuOpen) {
+        menu.classList.remove("hidden");
+        changeIcon("cross-big"); // Меняем иконку на "X"
+        addHeaderClasses(); // Добавляем классы к header при открытии меню
+      } else {
+        closeMenu(); // Закрываем меню и меняем иконку
+      }
+    }
+  };
+
+  // Функция для закрытия меню при клике вне header
+  const closeMenuOnOutsideClick = (event: Event): void => {
+    const header = document.getElementById("main-header");
+
+    // Проверяем, что event.target является элементом Node
+    if (
+      event.target instanceof Node &&
+      header &&
+      !header.contains(event.target) &&
+      isMenuOpen
+    ) {
+      closeMenu(); // Закрываем меню и меняем иконку
+    }
+  };
+
+  // Функция для установки активного класса для текущей ссылки
+  const setActiveLink = (): void => {
+    const currentUrl = window.location.pathname; // Получаем текущий URL
+    const links = document.querySelectorAll(".navigation-menu a"); // Получаем все ссылки в меню
+
+    links.forEach((link) => {
+      const href = link.getAttribute("href"); // Получаем href ссылки
+      const span = link.querySelector("span"); // Получаем span внутри ссылки
+
+      if (href === currentUrl) {
+        // Если href совпадает с текущим URL, добавляем активный класс
+        if (span) {
+          span.classList.add("text-primary-300"); // Устанавливаем активный цвет текста
+          span.classList.remove("hover:text-primary-300"); // Убираем hover-стиль для активной ссылки
+        }
+      } else {
+        // Иначе возвращаем стандартные стили
+        if (span) {
+          span.classList.remove("text-primary-300"); // Убираем активный цвет текста
+          span.classList.add("hover:text-primary-300"); // Возвращаем hover-стиль для неактивных ссылок
         }
       }
-    };
+    });
+  };
 
-    const burgerButton = document.querySelector(".burger-button");
+  // Функция для добавления классов к header
+  const addHeaderClasses = (): void => {
+    const header = document.getElementById("main-header");
+    if (header) {
+      header.classList.add("bg-zinc-950", "border-b");
+    }
+  };
+
+  // Функция для удаления классов у header
+  const removeHeaderClasses = (): void => {
+    const header = document.getElementById("main-header");
+    if (header) {
+      header.classList.remove("bg-zinc-950", "border-b");
+    }
+  };
+
+  // Функция для обработки прокрутки
+  const handleScroll = (): void => {
+    const header = document.getElementById("main-header");
+    if (header && !isMenuOpen) {
+      // Проверяем, что меню закрыто
+      if (window.scrollY > 64) {
+        addHeaderClasses(); // Добавляем классы, если прокрутка больше 64px
+      } else {
+        removeHeaderClasses(); // Убираем классы, если прокрутка меньше 64px
+      }
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const burgerButton = document.getElementById("mobile-menu-button");
     if (burgerButton) {
       burgerButton.addEventListener("click", toggleMenu);
+      burgerButton.addEventListener("touchstart", toggleMenu); // Добавляем поддержку touchstart
     }
+
+    // Добавляем обработчик клика/касания на весь документ
+    document.addEventListener("click", closeMenuOnOutsideClick);
+    document.addEventListener("touchstart", closeMenuOnOutsideClick); // Добавляем поддержку touchstart
+
+    // Устанавливаем активный класс для текущей ссылки
+    setActiveLink();
+
+    // Проверяем текущую прокрутку при загрузке страницы
+    if (window.scrollY > 64) {
+      addHeaderClasses();
+    }
+
+    // Добавляем обработчик прокрутки
+    window.addEventListener("scroll", handleScroll);
   });
 </script>

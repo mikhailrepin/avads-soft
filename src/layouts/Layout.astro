@@ -1,5 +1,6 @@
 ---
 import "@/base.css";
+import { Helpers } from "@/data/helpers.js";
 import MainHeader from "@/components/navigation/MainHeader.astro";
 interface Props {
   pageTitle?: string;
@@ -35,7 +36,7 @@ const menuItems = [
       name="generator"
       content={Astro.generator}
     />
-    <title>АВАДС | {pageTitle}</title>
+    <title>{Helpers.company.name} | {pageTitle}</title>
   </head>
   <body
     class="flex flex-col items-center bg-zinc-950 m-0 p-0 w-[100%] h-[100%] text-zinc-200 subpixel-antialiased">
