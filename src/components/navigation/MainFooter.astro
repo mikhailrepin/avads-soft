@@ -1,0 +1,85 @@
+---
+import { Image } from "astro:assets";
+import logoDark from "@/assets/logo/logo_dark.svg";
+
+interface MainFooterProps {
+  menuItems: { label: string; href: string }[];
+  serviceItems: { label: string; href: string }[];
+}
+
+const { menuItems, serviceItems } = Astro.props as MainFooterProps;
+---
+
+<footer class="relative z-[999] bg-zinc-950 py-8 w-[100%]">
+  <!-- Элементы подвала -->
+  <div
+    class="flex flex-col justify-between items-start mx-auto px-4 w-[100%] main-max-width">
+    <!-- Логотип и описание компании -->
+    <div class="flex justify-between w-full">
+      <div class="flex flex-col items-start">
+        <Image
+          src={logoDark}
+          alt="Логотип"
+        />
+        <p class="mt-2 text-gray-400 text-sm">
+          Продвинутые системы автоматизации
+        </p>
+      </div>
+
+      <!-- Меню и контакты -->
+      <div class="flex gap-8 navigation-menu">
+        <!-- Меню навигации -->
+        <div class="flex flex-col gap-2">
+          {
+            menuItems.map((item) => (
+              <a href={item.href}>
+                <span class="font-light lg:font-medium text-lg lg:text-base">
+                  {item.label}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+
+        <!-- Меню сервисов -->
+        <div class="flex flex-col gap-2">
+          {
+            serviceItems.map((item) => (
+              <a href={item.href}>
+                <span class="font-light lg:font-medium text-lg lg:text-base">
+                  {item.label}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+        <!-- Телефон -->
+        <div class="flex flex-col items-end">
+          <p class="text-lg text-primary-300">+7 (495) 023 54 45</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Права и ссылки -->
+    <div class="border-gray-700 mt-8 pt-4 border-t">
+      <p>© 2022 – 2023 АВАДС СОФТ. Все права защищены</p>
+      <div class="flex justify-center gap-4 mt-2">
+        <a
+          href="#"
+          class="text-gray-300 text-sm hover:text-primary-300 transition-colors"
+          >Конфиденциальность</a
+        >
+        <a
+          href="#"
+          class="text-gray-300 text-sm hover:text-primary-300 transition-colors"
+          >Правовая информация</a
+        >
+        <a
+          href="#"
+          class="text-gray-300 text-sm hover:text-primary-300 transition-colors"
+          >Настройки cookie</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

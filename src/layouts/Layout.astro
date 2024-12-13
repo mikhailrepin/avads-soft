@@ -2,6 +2,7 @@
 import "@/base.css";
 import { Helpers } from "@/data/helpers.js";
 import MainHeader from "@/components/navigation/MainHeader.astro";
+import MainFooter from "@/components/navigation/MainFooter.astro";
 interface Props {
   pageTitle?: string;
 }
@@ -16,6 +17,12 @@ const menuItems = [
   { label: "Техподдержка", href: "/support" },
   { label: "Контакты", href: "/contacts" },
   { label: "❖ Tmp", href: "/templates" },
+];
+
+const serviceItems = [
+  { label: "Сервер архивирования", href: "/" },
+  { label: "Скачать демоверсию", href: "/" },
+  { label: "Обратиться в службу поддержки", href: "/" },
 ];
 ---
 
@@ -44,5 +51,9 @@ const menuItems = [
     <main class="mt-[48px] lg:mt-[64px]">
       <slot />
     </main>
+    <MainFooter
+      menuItems={menuItems}
+      serviceItems={serviceItems}
+    />
   </body>
 </html>
