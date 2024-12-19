@@ -3,7 +3,8 @@
 export const Helpers = {
   company: {
     name: "АВАДС",
-    phone: "+7 (999) 999-99-99",
+    slogan: "Серебро и золото отечественной автоматизации",
+    phone: "+7 (495) 023 54 45",
     mail: {
       sails: "sales@avads.ru",
       info: "info@avads.ru",

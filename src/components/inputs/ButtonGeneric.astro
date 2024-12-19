@@ -2,6 +2,7 @@
 type ButtonType = "primary" | "secondary";
 type ButtonSize = "default" | "big";
 type ButtonStyle = "filled" | "outlined";
+type ButtonTarget = "button" | "link";
 
 interface ButtonProps {
   type?: ButtonType;
@@ -9,8 +10,12 @@ interface ButtonProps {
   style?: ButtonStyle;
   customClass?: string;
   leftIcon?: string;
+  buttonLabel?: string;
   rightIcon?: string;
   onclick?: () => void;
+  href?: string;
+
+  target?: ButtonTarget;
 }
 
 const {
@@ -19,8 +24,11 @@ const {
   style = "filled",
   customClass,
   leftIcon,
+  buttonLabel,
   rightIcon,
   onclick,
+  href,
+  target = "button",
 } = Astro.props as ButtonProps;
 
 const baseClasses =
@@ -49,22 +57,38 @@ const sizeClasses = {
 const buttonClasses = `${baseClasses} ${customClass} ${typeStyleClasses[type][style]} ${sizeClasses[size]}`;
 ---
 
-<button
-  class={buttonClasses}
-  onclick={onclick}>
-  {
-    leftIcon && (
-      <svg class="flex items-center w-[16px] h-[16px]">
-        <use xlink:href={`/sprites.svg#${leftIcon}`} />
-      </svg>
-    )
-  }
-  <slot />
-  {
-    rightIcon && (
-      <svg class="flex items-center w-[16px] h-[16px]">
-        <use xlink:href={`/sprites.svg#${rightIcon}`} />
-      </svg>
-    )
-  }
-</button>
+{
+  target === "link" ? (
+    <a
+      class={buttonClasses}
+      href={href}>
+      {leftIcon && (
+        <svg class="flex items-center w-[16px] h-[16px]">
+          <use xlink:href={`/sprites.svg#${leftIcon}`} />
+        </svg>
+      )}
+      {buttonLabel}
+      {rightIcon && (
+        <svg class="flex items-center w-[16px] h-[16px]">
+          <use xlink:href={`/sprites.svg#${rightIcon}`} />
+        </svg>
+      )}
+    </a>
+  ) : (
+    <button
+      class={buttonClasses}
+      onclick={onclick}>
+      {leftIcon && (
+        <svg class="flex items-center w-[16px] h-[16px]">
+          <use xlink:href={`/sprites.svg#${leftIcon}`} />
+        </svg>
+      )}
+      {buttonLabel}
+      {rightIcon && (
+        <svg class="flex items-center w-[16px] h-[16px]">
+          <use xlink:href={`/sprites.svg#${rightIcon}`} />
+        </svg>
+      )}
+    </button>
+  )
+}

@@ -10,6 +10,16 @@
   max-width: 1240px;
 }
 
+* {
+  box-sizing: border-box;
+  @apply text-pretty;
+}
+
+html,
+body {
+  min-height: 100dvh;
+}
+
 h1,
 h2,
 h3,
@@ -22,5 +32,21 @@ h1 {
 }
 
 h2 {
-  @apply font-medium text-base lg:text-lg
+  @apply font-semibold text-2xl lg:text-4xl my-[12px] lg:my-[24px]
+}
+
+h3 {
+  @apply font-semibold text-xl lg:text-2xl
+}
+
+.separator {
+  @apply block bg-gradient-to-r h-[2px] w-[100%] my-[12px] mx-auto border-0 rounded-sm
+}
+
+.silver {
+  @apply from-zinc-300
+}
+
+.gold {
+  @apply from-primary-300
 }

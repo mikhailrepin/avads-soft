@@ -26,7 +26,7 @@ const { menuItems } = Astro.props as MainHeaderProps;
     </a>
 
     <!-- Меню навигации -->
-    <div
+    <nav
       class="lg:relative top-[48px] lg:top-0 left-0 absolute flex lg:flex lg:flex-row flex-col justify-end lg:items-center gap-[12px] lg:gap-[24px] border-y border-zinc-900 hidden bg-zinc-950 lg:bg-transparent shadow-2xl shadow-zinc-950/90 lg:shadow-none px-[16px] lg:px-0 py-[24px] lg:py-0 lg:border-transparent w-[100%] navigation-menu">
       {
         menuItems.map((item) => (
@@ -38,17 +38,16 @@ const { menuItems } = Astro.props as MainHeaderProps;
         ))
       }
       <!-- Кнопка скачать -->
-      <a href="/download">
-        <ButtonGeneric
-          type="primary"
-          size="default"
-          style="filled"
-          customClass="my-[16px] lg:m-0"
-          leftIcon="">
-          Скачать
-        </ButtonGeneric>
-      </a>
-    </div>
+      <ButtonGeneric
+        type="primary"
+        size="default"
+        style="filled"
+        customClass="my-[16px] lg:m-0"
+        buttonLabel="Скачать"
+        href="/download"
+        target="link"
+      />
+    </nav>
 
     <!-- Кнопка бургера для мобильных устройств -->
     <button

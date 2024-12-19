@@ -1,3 +1,7 @@
-# My Post Page
+---
+layout: "@/layouts/Layout.astro"
+---
 
-![Alarm image.](../assets/alarm.png)
+# Title
+
+This is my page, written in **Markdown.**

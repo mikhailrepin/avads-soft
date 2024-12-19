@@ -1,0 +1,79 @@
+---
+
+---
+
+<script>
+  // Контролируем неразрывные предлоги
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const prepositions = [
+      "в",
+      "на",
+      "под",
+      "над",
+      "перед",
+      "после",
+      "с",
+      "у",
+      "о",
+      "об",
+      "от",
+      "до",
+      "из",
+      "за",
+      "к",
+      "около",
+      "вокруг",
+      "между",
+      "около",
+      "возле",
+      "вблизи",
+      "вдали",
+      "внутри",
+      "снаружи",
+      "впереди",
+      "позади",
+      "вместо",
+      "ввиду",
+      "вследствие",
+      "вслед",
+    ];
+
+    function replacePrepositions(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        let text = node.textContent;
+        prepositions.forEach((preposition) => {
+          const regex = new RegExp(`\\b${preposition} \\b`, "g");
+          text = text.replace(regex, `${preposition}&nbsp;`);
+        });
+        node.textContent = text;
+      } else if (
+        node.nodeType === Node.ELEMENT_NODE &&
+        !["SCRIPT", "STYLE"].includes(node.tagName)
+      ) {
+        node.childNodes.forEach((child) => replacePrepositions(child));
+      }
+    }
+
+    replacePrepositions(document.body);
+  });
+
+  // Замена западных кавычек на православные
+
+  document.addEventListener("DOMContentLoaded", () => {
+    function replaceQuotes(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        let text = node.textContent;
+        text = text.replace(/"([^"]*)"/g, "«$1»");
+        node.textContent = text;
+      } else if (
+        node.nodeType === Node.ELEMENT_NODE &&
+        !["SCRIPT", "STYLE"].includes(node.tagName)
+      ) {
+        node.childNodes.forEach((child) => replaceQuotes(child));
+      }
+    }
+
+    replaceQuotes(document.body);
+  });
+</script>

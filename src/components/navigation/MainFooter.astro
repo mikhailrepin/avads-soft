@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import logoDark from "@/assets/logo/logo_dark.svg";
+import { Helpers } from "@/data/helpers.js";
 
 interface MainFooterProps {
   menuItems: { label: string; href: string }[];
@@ -10,76 +11,65 @@ interface MainFooterProps {
 const { menuItems, serviceItems } = Astro.props as MainFooterProps;
 ---
 
-<footer class="relative z-[999] bg-zinc-950 py-8 w-[100%]">
-  <!-- Элементы подвала -->
-  <div
-    class="flex flex-col justify-between items-start mx-auto px-4 w-[100%] main-max-width">
+<footer class="relative z-[998] border-zinc-900 bg-zinc-950 border-t w-full">
+  <!-- Верхняя часть -->
+  <div class="flex justify-between mx-auto py-[16px] main-max-width">
     <!-- Логотип и описание компании -->
-    <div class="flex justify-between w-full">
-      <div class="flex flex-col items-start">
+    <div class="flex flex-col">
+      <a
+        href="/"
+        class="lg:hover:opacity-80 w-[100px] lg:w-[132px]">
         <Image
           src={logoDark}
-          alt="Логотип"
+          alt="Alarm Image"
         />
-        <p class="mt-2 text-gray-400 text-sm">
-          Продвинутые системы автоматизации
-        </p>
-      </div>
-
-      <!-- Меню и контакты -->
-      <div class="flex gap-8 navigation-menu">
-        <!-- Меню навигации -->
-        <div class="flex flex-col gap-2">
-          {
-            menuItems.map((item) => (
-              <a href={item.href}>
-                <span class="font-light lg:font-medium text-lg lg:text-base">
-                  {item.label}
-                </span>
-              </a>
-            ))
-          }
-        </div>
-
-        <!-- Меню сервисов -->
-        <div class="flex flex-col gap-2">
-          {
-            serviceItems.map((item) => (
-              <a href={item.href}>
-                <span class="font-light lg:font-medium text-lg lg:text-base">
-                  {item.label}
-                </span>
-              </a>
-            ))
-          }
-        </div>
-        <!-- Телефон -->
-        <div class="flex flex-col items-end">
-          <p class="text-lg text-primary-300">+7 (495) 023 54 45</p>
-        </div>
-      </div>
+      </a>
+      <p class="mt-1 ml-[32px] lg:ml-[40px] w-[132px] text-xs text-zinc-400">
+        {Helpers.company.slogan}
+      </p>
     </div>
 
-    <!-- Права и ссылки -->
-    <div class="border-gray-700 mt-8 pt-4 border-t">
-      <p>© 2022 – 2023 АВАДС СОФТ. Все права защищены</p>
-      <div class="flex justify-center gap-4 mt-2">
-        <a
-          href="#"
-          class="text-gray-300 text-sm hover:text-primary-300 transition-colors"
-          >Конфиденциальность</a
-        >
-        <a
-          href="#"
-          class="text-gray-300 text-sm hover:text-primary-300 transition-colors"
-          >Правовая информация</a
-        >
-        <a
-          href="#"
-          class="text-gray-300 text-sm hover:text-primary-300 transition-colors"
-          >Настройки cookie</a
-        >
-      </div>
+    <!-- Меню навигации -->
+    <div
+      class="flex lg:flex-row flex-col gap-[8px] lg:gap-[12px] py-[4px] min-h-[32px] navigation-menu">
+      {
+        menuItems.map((item) => (
+          <a href={item.href}>
+            <span class="font-light lg:font-medium text-sm">{item.label}</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Телефон -->
+    <div class="flex flex-col items-end">
+      <p class="font-semibold text-lg text-primary-300 lg:text-2xl">
+        {Helpers.company.phone}
+      </p>
+    </div>
+  </div>
+
+  <!-- Нижняя часть -->
+  <div class="bg-zinc-900/80 py-[12px]">
+    <div
+      class="flex lg:flex-row flex-col mx-auto w-[100%] font-light text-xs text-zinc-400 main-max-width">
+      <p class="border-zinc-700 pr-[12px] border-r">
+        © 2022 – {new Date().getFullYear()}
+        {Helpers.company.name}. Все права защищены
+      </p>
+      <ul class="flex navigation-menu">
+        {
+          serviceItems.map((item) => (
+            <li class="border-zinc-700 lg:px-[12px] border-r last:border-r-0">
+              <a
+                href={item.href}
+                class="hover:text-primary-300">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </footer>

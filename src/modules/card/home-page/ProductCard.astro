@@ -1,0 +1,74 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+interface ProductCardProps {
+  image: string;
+  title?: string;
+  description?: string;
+  showFirstButton?: boolean;
+  showSecondButton?: boolean;
+  firstButtonLabel?: string;
+  secondButtonLabel?: string;
+  firstButtonIconLeft?: string;
+  secondButtonIconLeft?: string;
+  firstButtonLink?: string;
+  secondButtonLink?: string;
+}
+
+const {
+  image,
+  title = "Название продукта",
+  description = "Описание продукта",
+  showFirstButton = true,
+  showSecondButton = true,
+  firstButtonLabel = "First Button",
+  secondButtonLabel = "Second Button",
+  firstButtonIconLeft,
+  firstButtonIconRight,
+  secondButtonIconLeft,
+  secondButtonIconRight,
+  firstButtonLink = "#",
+  secondButtonLink = "#",
+} = Astro.props as ProductCardProps;
+---
+
+<div
+  class="flex flex-col gap-4 border-zinc-700 bg-zinc-900/50 p-[32px] border rounded-md w-full">
+  <img
+    src={image}
+    alt={title}
+    class="w-[80px] h-auto"
+  />
+  <h3 class="uppercase">{title}</h3>
+  <p>{description}</p>
+  <div class="flex gap-4">
+    {
+      showFirstButton && (
+        <ButtonGeneric
+          type="primary"
+          size="default"
+          style="filled"
+          leftIcon={firstButtonIconLeft}
+          rightIcon={firstButtonIconRight}
+          href={firstButtonLink}
+          target="link"
+          buttonLabel={firstButtonLabel}
+        />
+      )
+    }
+    {
+      showSecondButton && (
+        <ButtonGeneric
+          type="secondary"
+          size="default"
+          style="outlined"
+          leftIcon={secondButtonIconLeft}
+          rightIcon={secondButtonIconRight}
+          href={secondButtonLink}
+          target="link"
+          buttonLabel={secondButtonLabel}
+        />
+      )
+    }
+  </div>
+</div>
