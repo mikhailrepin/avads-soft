@@ -24,7 +24,9 @@ h1,
 h2,
 h3,
 h4 {
-  @apply font-['Montserrat'] leading-none lg:leading-relaxed
+  @apply leading-none lg:leading-relaxed;
+  /* font-family: 'Montserrat', sans-serif; */
+  ;
 }
 
 h1 {

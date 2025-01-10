@@ -1,13 +1,24 @@
 ---
 import Welcome from "@/components/Welcome.astro";
 import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/modules/section/MainHero.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import { Image } from "astro:assets";
 import alarmImage from "@/assets/alarm.png";
+
+const heroBbackground =
+  "https://cs12.pikabu.ru/post_img/big/2021/08/29/11/1630262921188049149.jpg";
 ---
 
 <Layout pageTitle="Страница шаблонов">
-  <section class="main-max-width">
+  <MainHero backgroundUrl={heroBbackground}>
+    <h1 class="uppercase tracking-[0.10rem]">
+      Страница <span class="text-primary-300"><br />шаблонов</span><br />и
+      компонентов
+    </h1>
+    <h3 class="pt-3">Для тестирования элементов</h3>
+  </MainHero>
+  <section class="mx-auto main-max-width">
     <Welcome />
     <ButtonGeneric
       type="secondary"

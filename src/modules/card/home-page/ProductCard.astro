@@ -4,6 +4,7 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 interface ProductCardProps {
   image: string;
   title?: string;
+  status?: string;
   description?: string;
   showFirstButton?: boolean;
   showSecondButton?: boolean;
@@ -23,6 +24,7 @@ const {
   showSecondButton = true,
   firstButtonLabel = "First Button",
   secondButtonLabel = "Second Button",
+  status,
   firstButtonIconLeft,
   firstButtonIconRight,
   secondButtonIconLeft,
@@ -32,16 +34,16 @@ const {
 } = Astro.props as ProductCardProps;
 ---
 
-<div
-  class="flex flex-col gap-4 border-zinc-700 bg-zinc-900/50 p-[32px] border rounded-md w-full">
+<div class="card-box">
+  {status && <div class="bage">{status}</div>}
   <img
     src={image}
     alt={title}
-    class="w-[80px] h-auto"
+    class="w-[64px] h-auto"
   />
   <h3 class="uppercase">{title}</h3>
   <p>{description}</p>
-  <div class="flex gap-4">
+  <div class="flex gap-4 pt-4">
     {
       showFirstButton && (
         <ButtonGeneric
@@ -72,3 +74,33 @@ const {
     }
   </div>
 </div>
+
+<style>
+  .card-box {
+    @apply relative flex flex-col gap-4 border-zinc-500 bg-[#101012] p-[32px] border rounded-md w-full overflow-hidden;
+  }
+  .card-box:hover {
+    @apply border-primary-300 shadow-lg shadow-primary-300/40 transition-all bg-zinc-950;
+    & .bage {
+      @apply top-[-8px] bg-gradient-to-b from-primary-400 to-primary-300 transition-all ease-in-out;
+      &::after {
+        @apply bg-zinc-950;
+      }
+    }
+    & img {
+      @apply transition-all ease-in-out scale-[110%];
+    }
+  }
+
+  .bage {
+    @apply top-0 right-5 absolute bg-zinc-500 px-2 pt-5 pb-3 font-bold text-left text-zinc-900 uppercase transition-all;
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+    transform: rotate(180deg);
+    &::after {
+      @apply block top-[-1px] right-0 absolute bg-[#101012] w-[40px] h-[12px];
+      content: "";
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+  }
+</style>

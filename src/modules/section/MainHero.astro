@@ -7,8 +7,8 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
 ---
 
 <section
-  id="main-hero"
-  class={`bg-[url('${backgroundUrl}')] relative overflow-hidden flex justify-center items-center bg-cover bg-no-repeat bg-center py-[40px] min-w-[100dvw] min-h-[40dvh] lg:min-h-[80dvh]`}>
+  class="relative flex justify-center items-center bg-cover bg-no-repeat bg-center py-[40px] min-w-[100dvw] min-h-[40dvh] lg:min-h-[60dvh] overflow-hidden"
+  style={`background-image: url(${backgroundUrl});`}>
   <!-- Элемент для перекрытия фона -->
   <div class="top-0 left-0 z-0 absolute bg-zinc-950 opacity-75 w-full h-full">
   </div>

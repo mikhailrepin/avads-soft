@@ -2,81 +2,47 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/modules/section/MainHero.astro";
 import ProductCard from "@/modules/card/home-page/ProductCard.astro";
-const backgroundUrl = "/hero/main-page.png";
-import { Products } from "@/data/products";
+import { products } from "@/data/productsData";
 
-const products = [
-  {
-    image: "/public/favicon.svg",
-    title: Products.apps.tsdb.name,
-    description: Products.apps.tsdb.shortDescription,
-    showSecondButton: false,
-    firstButtonLabel: "Скачать демо",
-    secondButtonLabel: "Подробнее",
-    firstButtonIconLeft: "download-bold",
-    //firstButtonIconRight: "download-bold",
-    secondButtonIconLeft: "alarm-info-fill",
-    secondButtonIconRight: "alarm-info-fill",
-    firstButtonLink: Products.apps.tsdb.links.buy,
-    secondButtonLink: Products.apps.tsdb.links.more,
-  },
-  {
-    image: "/public/favicon.svg",
-    title: "СЕРВЕР АРХИВИРОВАНИЯ",
-    description:
-      "База данных временных рядов (TSDB) для архивирования в системах реального времени",
-    showFirstButton: false,
-    showSecondButton: false,
-    firstButtonLabel: "Купить",
-    secondButtonLabel: "Подробнее",
-    firstButtonIconLeft: "alarm-info-fill",
-    firstButtonIconRight: "alarm-info-fill",
-    secondButtonIconLeft: "alarm-info-fill",
-    secondButtonIconRight: "alarm-info-fill",
-    firstButtonLink: "/",
-    secondButtonLink: "/",
-  },
-];
+const heroBbackground = "/public/hero/main-page.png";
 ---
 
 <Layout pageTitle="Продвинутые системы автоматизации">
-  <MainHero backgroundUrl={backgroundUrl}>
+  <MainHero backgroundUrl={heroBbackground}>
     <h1 class="uppercase tracking-[0.10rem]">
       Продвинутые <span class="text-primary-300"><br />системы</span><br
       />автоматизации
     </h1>
+    <h3 class="pt-3">
+      Программное обеспечение для автоматизации и диспетчеризации
+    </h3>
   </MainHero>
   <section class="mx-auto main-max-width">
     <hr class="separator silver" />
-    <h2 class="">Продукты</h2>
-    <!-- Описание продуктов -->
-    <div class="gap-4 grid grid-cols-1 lg:grid-cols-2 my-[32px]">
-      <p class="">
-        Компания АВАДС СОФТ выпускает программные продукты для систем
-        автоматизации, диспетчеризации и учета на промышленных объектах,
-        объектах ЖКХ, системах автоматизации зданий и умных домов. <br />Наше
-        программное обеспечение ориентировано на использование в таких системах
-        как, АСУТП, АСУЭ, АСКУЭ, АСТУЭ, АСУЗ (BMS). Мы разрабатываем софт для
-        задач создания цифровых городов и цифровых предприятий. Наше ПО решает
-        задачи импортозамещения в самых чувствительных IT секторах.
+    <h2>Продукты</h2>
+    <div class="gap-6 grid grid-cols-1 lg:grid-cols-2 my-[48px]">
+      <p>
+        Компания АВАДС СОФТ является разработчиком программных решений <br />для
+        автоматизации, диспетчеризации и учёта на промышленных объектах, <br />в
+        ЖКХ, системах автоматизации зданий и умных домов. Интегрирует
+        собственные цифровые продукты с АСУТП, АСУЭ, АСКУЭ, АСТУЭ, АСУЗ (BMS).
+        Также осуществляет импортозамещение в ключевых IT секторах.
       </p>
-      <p class="">
-        Вторым направлением нашей деятельности является разработка программных
-        систем для автоматизации бизнеса и систем создания Интернет-сайтов. Все
-        наши продукты являются кроссплатформенными. <br />Они могут работать на
-        самых разных аппаратных платформах под управлением самых популярных на
-        сегодня операционных систем. <br />В нашем программном обеспечении мы
-        уделяем много внимания оптимизации кода для создания на базе нашего ПО
-        быстрых, надежных и безопасных систем.
+      <p>
+        Вторым направлением деятельности является разработка программных систем
+        для цифровизации бизнеса и создания интернет-порталов. Решения являются
+        кроссплатформенными и поддерживают работу на различных аппаратных
+        конфигурациях. Особое внимание уделяется оптимизации кода, надёжности и
+        безопасности данных.
       </p>
     </div>
-    <!-- Карточки продуктов -->
-    <div class="gap-4 grid grid-cols-1 lg:grid-cols-2 my-[32px]">
+    <div class="gap-6 grid grid-cols-1 lg:grid-cols-2 my-[52px]">
       {
         products.map((product) => (
           <ProductCard
             image={product.image}
             title={product.title}
+            status={product.status}
             description={product.description}
             showFirstButton={product.showFirstButton}
             showSecondButton={product.showSecondButton}
