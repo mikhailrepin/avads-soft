@@ -1,74 +1,66 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-
-interface ProductCardProps {
-  image: string;
-  title?: string;
-  status?: string;
-  description?: string;
-  showFirstButton?: boolean;
-  showSecondButton?: boolean;
-  firstButtonLabel?: string;
-  secondButtonLabel?: string;
-  firstButtonIconLeft?: string;
-  secondButtonIconLeft?: string;
-  firstButtonLink?: string;
-  secondButtonLink?: string;
-}
+import type { BaseCard, BaseText, BaseButton } from "@/types/interfaces";
 
 const {
-  image,
-  title = "Название продукта",
-  description = "Описание продукта",
-  showFirstButton = true,
-  showSecondButton = true,
-  firstButtonLabel = "First Button",
-  secondButtonLabel = "Second Button",
-  status,
-  firstButtonIconLeft,
-  firstButtonIconRight,
-  secondButtonIconLeft,
-  secondButtonIconRight,
-  firstButtonLink = "#",
-  secondButtonLink = "#",
-} = Astro.props as ProductCardProps;
+  Image = "",
+  Status = "",
+  Title = "Название продукта" as BaseText["Title"],
+  Description = "Описание продукта" as BaseText["Description"],
+  FirstButton = {
+    Visible: true,
+    ButtonLabel: "First Button",
+    ButtonLink: "#",
+    IconLeft: { IconSprite: "", IconVisible: false },
+    IconRight: { IconSprite: "", IconVisible: false },
+  } as BaseButton,
+  SecondButton = {
+    Visible: true,
+    ButtonLabel: "Second Button",
+    ButtonLink: "#",
+    IconLeft: { IconSprite: "", IconVisible: false },
+    IconRight: { IconSprite: "", IconVisible: false },
+  } as BaseButton,
+} = Astro.props as BaseCard;
 ---
 
 <div class="card-box">
-  {status && <div class="bage">{status}</div>}
+  {Status && <div class="bage">{Status}</div>}
   <img
-    src={image}
-    alt={title}
+    src={Image}
+    alt={Title}
     class="w-[64px] h-auto"
   />
-  <h3 class="uppercase">{title}</h3>
-  <p>{description}</p>
+  <h3 class="uppercase">{Title}</h3>
+  <p>{Description}</p>
   <div class="flex gap-4 pt-4">
     {
-      showFirstButton && (
+      FirstButton && (
         <ButtonGeneric
-          type="primary"
-          size="default"
-          style="filled"
-          leftIcon={firstButtonIconLeft}
-          rightIcon={firstButtonIconRight}
-          href={firstButtonLink}
-          target="link"
-          buttonLabel={firstButtonLabel}
+          Variant="primary"
+          Size="default"
+          Style="filled"
+          Visible={FirstButton.Visible}
+          IconLeft={FirstButton.IconLeft}
+          IconRight={FirstButton.IconRight}
+          ButtonLink={FirstButton.ButtonLink}
+          Target="link"
+          ButtonLabel={FirstButton.ButtonLabel}
         />
       )
     }
     {
-      showSecondButton && (
+      SecondButton && (
         <ButtonGeneric
-          type="secondary"
-          size="default"
-          style="outlined"
-          leftIcon={secondButtonIconLeft}
-          rightIcon={secondButtonIconRight}
-          href={secondButtonLink}
-          target="link"
-          buttonLabel={secondButtonLabel}
+          Variant="secondary"
+          Size="default"
+          Style="outlined"
+          Visible={SecondButton.Visible}
+          IconLeft={SecondButton.IconLeft}
+          IconRight={SecondButton.IconRight}
+          ButtonLink={SecondButton.ButtonLink}
+          Target="link"
+          ButtonLabel={SecondButton.ButtonLabel}
         />
       )
     }

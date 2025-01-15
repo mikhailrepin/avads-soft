@@ -42,7 +42,7 @@ h3 {
 }
 
 .separator {
-  @apply block bg-gradient-to-r h-[2px] w-[100%] my-[12px] mx-auto border-0 rounded-sm
+  @apply block bg-gradient-to-r h-[2px] w-[100%] mx-auto border-0 rounded-sm
 }
 
 .silver {
@@ -51,4 +51,12 @@ h3 {
 
 .gold {
   @apply from-primary-300
+}
+
+.text-gold {
+  @apply bg-clip-text bg-gradient-to-b from-yellow-700 via-yellow-200 to-yellow-800 text-transparent;
+}
+
+.text-silver {
+  @apply bg-clip-text bg-gradient-to-b from-zinc-400 via-zinc-100 to-zinc-500 text-transparent;
 }

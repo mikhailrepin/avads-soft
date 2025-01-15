@@ -1,0 +1,42 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import BgBlurSpot from "@/components/decorations/BgBlurSpot.astro";
+import type { CallToAction } from "@/types/interfaces";
+
+const { Title, Description, ButtonProps } = Astro.props as CallToAction;
+---
+
+<div class="relative cta group">
+  <BgBlurSpot
+    customClass="blur-bg w-[100%] h-[100%] top-[0] left-[0] opacity-0 transition-opacity duration-300 group-hover:opacity-10"
+  />
+  <h2 class="text-silver">{Title}</h2>
+  <p>{Description}</p>
+  {
+    ButtonProps && (
+      <ButtonGeneric
+        Variant="primary"
+        Size="big"
+        Style="outlined"
+        Visible={true}
+        IconLeft={ButtonProps.IconLeft}
+        IconRight={ButtonProps.IconRight}
+        ButtonLink={ButtonProps.ButtonLink}
+        Target={ButtonProps.Target || "link"}
+        ButtonLabel={ButtonProps.ButtonLabel}
+      />
+    )
+  }
+</div>
+
+<style>
+  .cta {
+    @apply relative flex flex-col items-center gap-[16px] border-zinc-500 px-[16px] py-[40px] rounded-md w-full overflow-hidden;
+    & h2 {
+      @apply my-0 text-center;
+    }
+    & p {
+      @apply my-0 mb-[12px] max-w-[612px] text-center text-lg text-zinc-300;
+    }
+  }
+</style>

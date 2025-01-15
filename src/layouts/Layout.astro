@@ -4,7 +4,7 @@ import { Helpers } from "@/data/helpers.js";
 import { ClientRouter, fade, slide } from "astro:transitions";
 import MainHeader from "@/components/navigation/MainHeader.astro";
 import MainFooter from "@/components/navigation/MainFooter.astro";
-import Grammar from "@/modules/scripts/Grammar.astro";
+
 interface Props {
   pageTitle?: string;
 }
@@ -60,6 +60,5 @@ const serviceItems = [
       menuItems={menuItems}
       serviceItems={serviceItems}
     />
-    <Grammar />
   </body>
 </html>

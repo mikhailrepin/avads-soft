@@ -1,0 +1,22 @@
+---
+import type { BgSpotProps } from "@/types/interfaces";
+
+const { customClass } = Astro.props as BgSpotProps;
+---
+
+<div class={`blur-figure ${customClass ? customClass : ""}`}></div>
+
+<style>
+  .blur-figure {
+    display: block;
+    position: absolute;
+    min-height: 40px;
+    min-width: 40px;
+    z-index: -1;
+    background: radial-gradient(
+      circle,
+      rgba(228, 179, 98, 1) 0%,
+      rgba(228, 179, 98, 0) 70%
+    );
+  }
+</style>

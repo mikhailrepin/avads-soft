@@ -8,6 +8,7 @@ interface MainHeaderProps {
 }
 
 const { menuItems } = Astro.props as MainHeaderProps;
+const currentPath = Astro.url.pathname;
 ---
 
 <header
@@ -31,7 +32,15 @@ const { menuItems } = Astro.props as MainHeaderProps;
       {
         menuItems.map((item) => (
           <a href={item.href}>
-            <span class="font-light lg:font-medium text-lg lg:text-base">
+            <span
+              class:list={[
+                "font-light lg:font-medium text-lg lg:text-base transition-colors",
+                { "text-primary-300": currentPath === item.href },
+                {
+                  "text-zinc-300 hover:text-primary-300":
+                    currentPath !== item.href,
+                },
+              ]}>
               {item.label}
             </span>
           </a>
@@ -39,13 +48,15 @@ const { menuItems } = Astro.props as MainHeaderProps;
       }
       <!-- Кнопка скачать -->
       <ButtonGeneric
-        type="primary"
-        size="default"
-        style="filled"
-        customClass="my-[16px] lg:m-0"
-        buttonLabel="Скачать"
-        href="/download"
-        target="link"
+        Variant="primary"
+        Visible={true}
+        Size="default"
+        Style="outlined"
+        IconLeft={{ IconSprite: "download-light", IconVisible: false }}
+        CustomClass="my-[16px] lg:m-0"
+        ButtonLabel="Скачать"
+        ButtonLink="/download"
+        Target="link"
       />
     </nav>
 
@@ -123,31 +134,6 @@ const { menuItems } = Astro.props as MainHeaderProps;
     }
   };
 
-  // Функция для установки активного класса для текущей ссылки
-  const setActiveLink = (): void => {
-    const currentUrl = window.location.pathname; // Получаем текущий URL
-    const links = document.querySelectorAll(".navigation-menu a"); // Получаем все ссылки в меню
-
-    links.forEach((link) => {
-      const href = link.getAttribute("href"); // Получаем href ссылки
-      const span = link.querySelector("span"); // Получаем span внутри ссылки
-
-      if (href === currentUrl) {
-        // Если href совпадает с текущим URL, добавляем активный класс
-        if (span) {
-          span.classList.add("text-primary-300"); // Устанавливаем активный цвет текста
-          span.classList.remove("hover:text-primary-300"); // Убираем hover-стиль для активной ссылки
-        }
-      } else {
-        // Иначе возвращаем стандартные стили
-        if (span) {
-          span.classList.remove("text-primary-300"); // Убираем активный цвет текста
-          span.classList.add("hover:text-primary-300"); // Возвращаем hover-стиль для неактивных ссылок
-        }
-      }
-    });
-  };
-
   // Функция для добавления классов к header
   const addHeaderClasses = (): void => {
     const header = document.getElementById("main-header");
@@ -188,9 +174,6 @@ const { menuItems } = Astro.props as MainHeaderProps;
     document.addEventListener("click", closeMenuOnOutsideClick);
     document.addEventListener("touchstart", closeMenuOnOutsideClick); // Добавляем поддержку touchstart
 
-    // Устанавливаем активный класс для текущей ссылки
-    setActiveLink();
-
     // Проверяем текущую прокрутку при загрузке страницы
     if (window.scrollY > 64) {
       addHeaderClasses();
@@ -200,3 +183,7 @@ const { menuItems } = Astro.props as MainHeaderProps;
     window.addEventListener("scroll", handleScroll);
   });
 </script>
+
+<style>
+  /* Можно удалить стили, так как они теперь встроены в классы */
+</style>

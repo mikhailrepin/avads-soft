@@ -1,94 +1,134 @@
 ---
-type ButtonType = "primary" | "secondary";
-type ButtonSize = "default" | "big";
-type ButtonStyle = "filled" | "outlined";
-type ButtonTarget = "button" | "link";
-
-interface ButtonProps {
-  type?: ButtonType;
-  size?: ButtonSize;
-  style?: ButtonStyle;
-  customClass?: string;
-  leftIcon?: string;
-  buttonLabel?: string;
-  rightIcon?: string;
-  onclick?: () => void;
-  href?: string;
-
-  target?: ButtonTarget;
-}
+import type { BaseButton, Elem, IconProps } from "@/types/interfaces";
 
 const {
-  type = "primary",
-  size = "default",
-  style = "filled",
-  customClass,
-  leftIcon,
-  buttonLabel,
-  rightIcon,
-  onclick,
-  href,
-  target = "button",
-} = Astro.props as ButtonProps;
+  Visible = true,
+  Variant = "primary" as Elem["Variant"],
+  Size = "default" as Elem["Size"],
+  Style = "filled" as Elem["Style"],
+  Disabled = false,
+  Loading = false,
+  Toggle = false,
+  Tooltip = "",
+  IconLeft = { IconSprite: "", IconVisible: false } as IconProps,
+  IconRight = { IconSprite: "", IconVisible: false } as IconProps,
+  ButtonLabel,
+  ButtonLink = "",
+  CustomClass = "",
+  Onclick,
+  Target = "action" as Elem["Target"],
+} = Astro.props as BaseButton;
 
-const baseClasses =
-  "flex items-center gap-2 justify-center border rounded font-semibold";
+const BaseClasses = "base-classes";
 
-const typeStyleClasses = {
+const StyleClasses = {
   primary: {
-    filled:
-      "border-primary-300 text-primary-500 bg-primary-300 hover:bg-primary-400 hover:border-primary-400",
-    outlined:
-      "border-primary-300 text-primary-300 hover:bg-primary-400 hover:border-primary-400 hover:text-primary-500",
+    filled: "primary filled",
+    outlined: "primary outlined",
+    ghosted: "primary ghosted",
+    hidden: "hidden",
   },
   secondary: {
-    filled:
-      "border-zinc-800 text-zinc-200 bg-zinc-800 hover:bg-zinc-900 hover:text-zinc-400 hover:border-zinc-900",
-    outlined:
-      "border-zinc-600 text-zinc-300 hover:bg-zinc-900 hover:border-zinc-900",
+    filled: "secondary filled",
+    outlined: "secondary outlined",
+    ghosted: "secondary ghosted",
+    hidden: "hidden",
   },
+  disabled: "disabled",
 };
 
-const sizeClasses = {
-  default: "p-3 max-h-[32px] md:max-h-[40px]",
-  big: "p-4 max-h-[40px] md:max-h-[48px] text-base md:text-xl",
+const SizeClasses = {
+  default: "size default",
+  small: "size small",
+  big: "size big",
 };
 
-const buttonClasses = `${baseClasses} ${customClass} ${typeStyleClasses[type][style]} ${sizeClasses[size]}`;
+const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Style]} ${SizeClasses[Size]}`;
 ---
 
 {
-  target === "link" ? (
-    <a
-      class={buttonClasses}
-      href={href}>
-      {leftIcon && (
-        <svg class="flex items-center w-[16px] h-[16px]">
-          <use xlink:href={`/sprites.svg#${leftIcon}`} />
-        </svg>
-      )}
-      {buttonLabel}
-      {rightIcon && (
-        <svg class="flex items-center w-[16px] h-[16px]">
-          <use xlink:href={`/sprites.svg#${rightIcon}`} />
-        </svg>
-      )}
-    </a>
-  ) : (
-    <button
-      class={buttonClasses}
-      onclick={onclick}>
-      {leftIcon && (
-        <svg class="flex items-center w-[16px] h-[16px]">
-          <use xlink:href={`/sprites.svg#${leftIcon}`} />
-        </svg>
-      )}
-      {buttonLabel}
-      {rightIcon && (
-        <svg class="flex items-center w-[16px] h-[16px]">
-          <use xlink:href={`/sprites.svg#${rightIcon}`} />
-        </svg>
-      )}
-    </button>
-  )
+  Visible &&
+    (Target === "link" ? (
+      <a
+        class={ButtonClasses}
+        href={ButtonLink}
+        title={Tooltip}>
+        {IconLeft.IconVisible && (
+          <svg class="icon">
+            <use xlink:href={`/sprites.svg#${IconLeft.IconSprite}`} />
+          </svg>
+        )}
+        {ButtonLabel}
+        {IconRight.IconVisible && (
+          <svg class="icon">
+            <use xlink:href={`/sprites.svg#${IconRight.IconSprite}`} />
+          </svg>
+        )}
+      </a>
+    ) : (
+      <button
+        class={ButtonClasses}
+        onclick={Onclick}
+        title={Tooltip}>
+        {IconLeft.IconVisible && (
+          <svg class="icon">
+            <use xlink:href={`/sprites.svg#${IconLeft.IconSprite}`} />
+          </svg>
+        )}
+        {ButtonLabel}
+        {IconRight.IconVisible && (
+          <svg class="icon">
+            <use xlink:href={`/sprites.svg#${IconRight.IconSprite}`} />
+          </svg>
+        )}
+      </button>
+    ))
 }
+
+<style>
+  .icon {
+    @apply flex items-center w-[16px] h-[16px];
+  }
+  .base-classes {
+    @apply flex justify-center items-center gap-2 border rounded font-semibold;
+  }
+  .hidden {
+    display: none;
+  }
+  .disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  .primary {
+    &.filled {
+      @apply border-primary-300 hover:border-primary-400 bg-primary-300 hover:bg-primary-400 text-primary-500;
+    }
+    &.outlined {
+      @apply border-primary-300 hover:border-primary-400 hover:bg-primary-400 text-primary-300 hover:text-primary-500;
+    }
+    &.ghosted {
+      @apply hover:border-primary-400 hover:bg-primary-400 border-transparent text-primary-300 hover:text-primary-500;
+    }
+  }
+  .secondary {
+    &.filled {
+      @apply border-zinc-800 hover:border-zinc-900 bg-zinc-800 hover:bg-zinc-900 text-zinc-200 hover:text-zinc-400;
+    }
+    &.outlined {
+      @apply border-zinc-600 hover:border-zinc-900 hover:bg-zinc-900 text-zinc-300;
+    }
+    &.ghosted {
+      @apply border-zinc-600 hover:border-zinc-900 hover:bg-zinc-900 text-zinc-300 hover:text-zinc-400;
+    }
+  }
+  .size {
+    &.small {
+      @apply p-2 max-h-[24px] md:max-h-[32px] text-sm;
+    }
+    &.default {
+      @apply p-3 max-h-[32px] md:max-h-[40px];
+    }
+    &.big {
+      @apply p-4 max-h-[40px] md:max-h-[48px] text-base md:text-xl;
+    }
+  }
+</style>
