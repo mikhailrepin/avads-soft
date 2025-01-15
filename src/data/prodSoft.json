@@ -66,9 +66,9 @@
         "status": ""
       },
       "button": {
-        "first": {
-          "label": "Скачать демо",
-          "link": "/downloads/#modbus-opc"
+        "second": {
+          "label": "Подробнее",
+          "link": "/modbus-opc"
         }
       }
     }

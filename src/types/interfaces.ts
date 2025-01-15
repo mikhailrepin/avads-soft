@@ -46,6 +46,7 @@ export interface BaseCard extends BaseText {
   Status?: string;
   FirstButton?: BaseButton;
   SecondButton?: BaseButton;
+  CustomClass?: string;
 }
 
 // Интерфейс для Call to Action
