@@ -43,7 +43,7 @@ const SizeClasses = {
   big: "size big",
 };
 
-const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Style]} ${SizeClasses[Size]}`;
+const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Style]} ${SizeClasses[Size]} ${Disabled ? StyleClasses.disabled : ""}`;
 ---
 
 {
@@ -91,12 +91,15 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
   }
   .base-classes {
     @apply flex justify-center items-center gap-2 border rounded font-semibold;
+    &:focus {
+      @apply transition-all ease-in-out scale-[80%];
+    }
   }
   .hidden {
     display: none;
   }
   .disabled {
-    @apply opacity-50 cursor-not-allowed;
+    @apply opacity-50 pointer-events-none;
   }
   .primary {
     &.filled {
