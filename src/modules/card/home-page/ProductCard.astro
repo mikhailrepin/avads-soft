@@ -73,9 +73,9 @@ const {
 
 <style>
   .card-box {
-    @apply relative flex flex-col gap-4 border-zinc-800 bg-zinc-950 p-[32px] border rounded-[8px] w-full overflow-hidden;
+    @apply relative flex flex-col gap-4 border-zinc-800/70 bg-zinc-950 p-[32px] border rounded-[8px] w-full overflow-hidden;
     &::before {
-      @apply absolute inset-[2px] content-[''] bg-zinc-950 rounded-[4px];
+      @apply absolute inset-[2px] content-[''] border-zinc-800 bg-zinc-950 border rounded-[4px];
       z-index: 2;
     }
     & img {
@@ -106,9 +106,9 @@ const {
     background: conic-gradient(
       from var(--angle) at 50% 50%,
       transparent 0%,
-      rgba(255, 215, 0, 0) 14%,
-      rgba(255, 215, 0, 1) 25%,
-      rgba(255, 215, 0, 0) 35%,
+      rgba(255, 255, 255, 0) 14%,
+      rgba(255, 255, 255, 1) 25%,
+      rgba(255, 255, 255, 0) 35%,
       transparent 100%
     );
     --angle: 0deg;

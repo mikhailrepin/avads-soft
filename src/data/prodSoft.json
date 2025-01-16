@@ -5,7 +5,7 @@
       "app": {
         "name": "СЕРВЕР АРХИВИРОВАНИЯ",
         "description": "Компактная и высокоскоростная база данных временных рядов (TSDB) для архивирования в системах реального времени",
-        "image": "/public/products/tsdb/tsdb.svg",
+        "image": "/products/tsdb/tsdb.svg",
         "status": "релиз"
       },
       "button": {
@@ -24,7 +24,7 @@
       "app": {
         "name": "САР-ЭКСПЕРТ",
         "description": "Доступная настройка и контроль ПИД-регуляторов за несколько кликов",
-        "image": "/public/products/sar-expert/sar-expert.svg",
+        "image": "/products/sar-expert/sar-expert.svg",
         "status": "демо"
       },
       "button": {
@@ -43,7 +43,7 @@
       "app": {
         "name": "OPC-DB ШЛЮЗ",
         "description": "Доступ к TSDB АВАДС Сервер архивирования",
-        "image": "/public/products/opc-db/opc-db.svg",
+        "image": "/products/opc-db/opc-db.svg",
         "status": "демо"
       },
       "button": {
@@ -62,7 +62,7 @@
       "app": {
         "name": "MODBUS-OPC СЕРВЕР",
         "description": "Сервер протокола MODBUS RTU/TCP/ASCII",
-        "image": "/public/products/modbus-opc/modbus-opc.svg",
+        "image": "/products/modbus-opc/modbus-opc.svg",
         "status": ""
       },
       "button": {

@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.astro": "astro"
+  },
+  "css.validate": false,
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  }
+}
