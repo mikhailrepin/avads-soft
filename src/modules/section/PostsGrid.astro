@@ -19,7 +19,14 @@ const {
 ---
 
 <div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
-  {posts.map((post) => <PostCard post={post} />)}
+  {
+    posts.map((post) => (
+      <PostCard
+        post={post}
+        transition:animate="slide"
+      />
+    ))
+  }
 </div>
 
 <div class="flex justify-center gap-4">
@@ -44,9 +51,12 @@ const {
           {currentPage > 1 && (
             <ButtonGeneric
               Variant="secondary"
-              Size="small"
+              Size="default"
               Style="ghosted"
-              ButtonLabel="Назад"
+              IconLeft={{
+                IconSprite: "chevron-left-big-outline",
+                IconVisible: true,
+              }}
               ButtonLink={`/news?page=${currentPage - 1}`}
               Target="link"
               CustomClass="w-fit"
@@ -55,23 +65,27 @@ const {
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <ButtonGeneric
               Variant="secondary"
-              Size="small"
-              Style={page === currentPage ? "filled" : "ghosted"}
+              Size="default"
+              Style={currentPage === page ? "filled" : "ghosted"}
               ButtonLabel={page.toString()}
-              ButtonLink={`/news?page=${page}`}
+              ButtonLink={`/news/${page}`}
               Target="link"
-              CustomClass="w-fit"
+              CustomClass={`w-fit ${currentPage === page ? "pointer-events-none" : ""}`}
             />
           ))}
           {currentPage < totalPages && (
             <ButtonGeneric
               Variant="secondary"
-              Size="small"
+              Size="default"
               Style="ghosted"
-              ButtonLabel="Вперед"
-              ButtonLink={`/news?page=${currentPage + 1}`}
+              IconRight={{
+                IconSprite: "chevron-right-big-outline",
+                IconVisible: true,
+              }}
+              ButtonLabel=""
+              ButtonLink={`/news/${currentPage + 1}`}
               Target="link"
-              CustomClass="w-fit"
+              CustomClass=""
             />
           )}
         </div>

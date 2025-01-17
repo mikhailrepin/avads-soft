@@ -8,42 +8,112 @@ interface Props {
 const { post } = Astro.props;
 const { title, description, date, image } = post;
 
-// Форматируем дату
-const formattedDate = new Date(date).toLocaleDateString("ru-RU", {
-  year: "numeric",
-  month: "long",
+// Парсим дату из формата dd.mm.yyyy и форматируем в "dd месяца yyyy г."
+const formattedDate = new Date(
+  date.split(".").reverse().join("-")
+).toLocaleDateString("ru-RU", {
   day: "numeric",
+  month: "long",
+  year: "numeric",
 });
 ---
 
+<!-- Карточка поста -->
 <article class="group post-card">
   <a
     href={post.url}
-    class="flex flex-col h-full">
-    <div class="relative rounded-t-lg overflow-hidden aspect-video">
-      <img
-        src={image}
-        alt={title}
-        class="group-hover:scale-105 w-full h-full transition-transform duration-300 object-cover"
-      />
+    class="top-0 left-0 z-10 absolute w-full h-full"
+  ></a>
+  <!-- Изображение поста -->
+  <div class="image-container">
+    <img
+      src={image}
+      alt={title}
+      class="group-hover:scale-105 top-0 left-0 z-[2] absolute w-full h-full transition-all invisible object-cover"
+    />
+  </div>
+  <!-- Контент поста -->
+  <div class="content-container">
+    <!-- Дата -->
+    <div class="relative w-fit date-wrapper">
+      <span class="invisible date">{formattedDate}</span>
+      <div class="top-0 h-[12px] skeleton-layer"></div>
     </div>
-    <div class="flex flex-col flex-grow bg-zinc-900 p-4 rounded-b-lg">
-      <time class="text-sm text-zinc-400">{formattedDate}</time>
-      <h3 class="mt-2 line-clamp-2 font-semibold text-xl">
-        {title}
-      </h3>
-      <p class="mt-2 line-clamp-3 text-zinc-400">
-        {description}
-      </p>
+    <!-- Заголовок -->
+    <div class="relative overflow-hidden title-wrapper">
+      <h2 class="invisible title">{title}</h2>
+      <div class="top-[8px] h-[16px] skeleton-layer"></div>
+      <div class="bottom-[6px] h-[16px] skeleton-layer"></div>
     </div>
-  </a>
+    <!-- Описание -->
+    <div class="relative overflow-hidden description-wrapper">
+      <p class="invisible description">{description}</p>
+      <div class="top-[6px] h-[12px] skeleton-layer"></div>
+      <div class="top-[30px] h-[12px] skeleton-layer"></div>
+      <div class="bottom-[6px] h-[12px] skeleton-layer"></div>
+    </div>
+  </div>
 </article>
 
 <style>
   .post-card {
-    @apply border-zinc-800 border rounded-lg transition-all overflow-hidden;
+    @apply relative flex flex-col border-zinc-800 border rounded-lg w-full min-h-[200px] transition-all overflow-hidden;
     &:hover {
-      @apply border-primary-500/50 shadow-lg shadow-primary-500/10;
+      @apply bg-zinc-900/30;
+    }
+  }
+  .image-container {
+    @apply relative rounded-t-lg w-full min-w-[200px] h-[200px] overflow-hidden aspect-video;
+    &::before {
+      content: "";
+      @apply top-0 left-0 z-0 absolute bg-zinc-800 w-full h-full animate-pulse;
+    }
+  }
+  .content-container {
+    @apply flex flex-col flex-grow gap-[8px] px-6 pt-4 pb-8;
+    & .date {
+      @apply relative w-fit text-zinc-500;
+    }
+    & .title {
+      @apply m-0 h-fit font-bold text-xl;
+      overflow-wrap: break-word;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    & .description {
+      @apply m-0 text-zinc-300;
+      overflow-wrap: break-word;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    & .skeleton-layer {
+      @apply left-0 z-0 absolute bg-zinc-800 rounded-[4px] w-full animate-pulse;
     }
   }
 </style>
+
+<script>
+  function showContent(card: HTMLElement) {
+    setTimeout(() => {
+      // Удаляем все скелетоны
+      card.querySelectorAll(".skeleton-layer").forEach((el) => el.remove());
+      // Показываем контент
+      card.querySelectorAll(".invisible").forEach((el) => {
+        el.classList.remove("invisible");
+        el.classList.add("visible");
+      });
+    }, 100);
+  }
+
+  // Инициализация для каждой карточки
+  document.querySelectorAll(".post-card").forEach((card) => {
+    const img = card.querySelector("img");
+    if (img?.complete) {
+      showContent(card as HTMLElement);
+    }
+  });
+</script>

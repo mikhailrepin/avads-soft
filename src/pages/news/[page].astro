@@ -1,0 +1,75 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PostsGrid from "@/modules/section/PostsGrid.astro";
+import type { Post } from "@/types/interfaces";
+
+interface AstroPost {
+  frontmatter: {
+    title: string;
+    description: string;
+    date: string;
+    image: string;
+  };
+  file: string;
+}
+
+export async function getStaticPaths() {
+  const posts: AstroPost[] = await Astro.glob("../posts/*.md");
+  const postsPerPage = 6;
+
+  const sortedPosts = posts
+    .filter((post): post is AstroPost => {
+      if (!post || !post.frontmatter) return false;
+      const date = new Date(post.frontmatter.date);
+      return (
+        post.frontmatter.title &&
+        post.frontmatter.description &&
+        post.frontmatter.date &&
+        post.frontmatter.image &&
+        post.frontmatter.image.startsWith("http") &&
+        !isNaN(date.getTime())
+      );
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.frontmatter.date).getTime() -
+        new Date(a.frontmatter.date).getTime()
+    );
+
+  const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+
+  return Array.from({ length: totalPages }, (_, i) => {
+    const pageNum = i + 1;
+    const pageStart = i * postsPerPage;
+    const pageEnd = pageStart + postsPerPage;
+
+    return {
+      params: { page: pageNum.toString() },
+      props: {
+        posts: sortedPosts.slice(pageStart, pageEnd).map((post) => ({
+          title: post.frontmatter.title,
+          description: post.frontmatter.description,
+          date: post.frontmatter.date,
+          image: post.frontmatter.image,
+          url: `/posts/${post.file.split("/").pop()?.replace(".md", "")}`,
+        })),
+        currentPage: pageNum,
+        totalPages,
+      },
+    };
+  });
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+---
+
+<Layout pageTitle="Новости">
+  <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
+    <h1 class="mb-8 font-bold text-4xl">Новости компании</h1>
+    <PostsGrid
+      posts={posts}
+      currentPage={currentPage}
+      totalPages={totalPages}
+    />
+  </section>
+</Layout>

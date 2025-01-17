@@ -33,7 +33,7 @@ export interface BaseButton {
   Tooltip?: string;
   IconLeft?: IconProps;
   IconRight?: IconProps;
-  ButtonLabel: string;
+  ButtonLabel?: string;
   ButtonLink?: string;
   CustomClass?: string;
   Onclick?: () => void;

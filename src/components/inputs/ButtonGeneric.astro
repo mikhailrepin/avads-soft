@@ -2,7 +2,7 @@
 import type { BaseButton, Elem, IconProps } from "@/types/interfaces";
 
 interface Props extends BaseButton {
-  ButtonLabel: string;
+  ButtonLabel?: string;
   ButtonLink?: string;
   CustomClass?: string;
   LabelClass?: string;
@@ -22,7 +22,6 @@ const {
   ButtonLabel,
   ButtonLink = "",
   CustomClass = "",
-  LabelClass = "",
   Onclick,
   Target = "action" as Elem["Target"],
 } = Astro.props as BaseButton;
@@ -66,7 +65,9 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
             <use xlink:href={`/sprites.svg#${IconLeft.IconSprite}`} />
           </svg>
         )}
-        <span class:list={["button-label", LabelClass]}>{ButtonLabel}</span>
+        {ButtonLabel && (
+          <span class:list={["button-label"]}>{ButtonLabel}</span>
+        )}
         {IconRight.IconVisible && (
           <svg class="icon">
             <use xlink:href={`/sprites.svg#${IconRight.IconSprite}`} />
@@ -83,7 +84,9 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
             <use xlink:href={`/sprites.svg#${IconLeft.IconSprite}`} />
           </svg>
         )}
-        <span class:list={["button-label", LabelClass]}>{ButtonLabel}</span>
+        {ButtonLabel && (
+          <span class:list={["button-label"]}>{ButtonLabel}</span>
+        )}
         {IconRight.IconVisible && (
           <svg class="icon">
             <use xlink:href={`/sprites.svg#${IconRight.IconSprite}`} />
@@ -97,8 +100,14 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
   .icon {
     @apply flex items-center w-[16px] h-[16px];
   }
+  .button-label {
+    @apply block max-w-[200px] truncate;
+  }
+  .only-desktop > .button-label {
+    @apply lg:block hidden;
+  }
   .base-classes {
-    @apply flex justify-center items-center gap-2 border rounded font-semibold;
+    @apply flex justify-center items-center gap-2 border rounded;
     &:active {
       @apply transition-all ease-in-out scale-[90%];
     }
@@ -133,13 +142,22 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
   }
   .size {
     &.small {
-      @apply p-2 max-h-[24px] md:max-h-[32px] text-sm;
+      @apply p-[4px] max-h-[24px];
+      & .button-label {
+        @apply px-[4px] text-[12px];
+      }
     }
     &.default {
-      @apply p-3 max-h-[32px] md:max-h-[40px];
+      @apply p-[8px] max-h-[32px];
+      & .button-label {
+        @apply px-[4px] font-semibold text-[16px];
+      }
     }
     &.big {
-      @apply p-4 max-h-[40px] md:max-h-[48px] text-base md:text-xl;
+      @apply p-[12px] max-h-[40px] md:max-h-[48px] text-base md:text-xl;
+      & .button-label {
+        @apply px-[4px] font-semibold text-[16px];
+      }
     }
   }
 </style>

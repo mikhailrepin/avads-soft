@@ -6,7 +6,7 @@ import PostsGrid from "@/modules/section/PostsGrid.astro";
 const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
 const postsPerPage = 6; // Количество постов на странице
 
-// Получаем все посты
+// Получаем все посты и фильтруем их
 const posts = await Astro.glob("./posts/*.md");
 const sortedPosts = posts
   .filter((post) => {
@@ -30,6 +30,11 @@ const sortedPosts = posts
 // Вычисляем общее количество страниц
 const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 
+// Если запрошенная страница больше максимальной или меньше 1, редиректим на первую страницу
+if (currentPage > totalPages || currentPage < 1) {
+  return Astro.redirect("/news?page=1");
+}
+
 // Получаем посты для текущей страницы
 const pageStart = (currentPage - 1) * postsPerPage;
 const pageEnd = pageStart + postsPerPage;
@@ -52,4 +57,3 @@ const currentPosts = sortedPosts.slice(pageStart, pageEnd).map((post) => ({
     />
   </section>
 </Layout>
-

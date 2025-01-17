@@ -80,7 +80,7 @@ const validNextPost =
           prevPost && (
             <ButtonGeneric
               Variant="secondary"
-              Size="small"
+              Size="default"
               Style="ghosted"
               IconLeft={{
                 IconSprite: "chevron-left-big-outline",
@@ -89,8 +89,7 @@ const validNextPost =
               ButtonLabel={prevPost.frontmatter.title}
               ButtonLink={`/posts/${prevPost.file.split("/").pop()?.replace(".md", "")}`}
               Target="link"
-              CustomClass="w-fit"
-              LabelClass="max-w-[200px] truncate block"
+              CustomClass="w-fit uppercase only-desktop"
             />
           )
         }
@@ -100,12 +99,12 @@ const validNextPost =
       <div class="justify-self-center">
         <ButtonGeneric
           Variant="secondary"
-          Size="small"
+          Size="default"
           Style="ghosted"
           ButtonLabel="Все новости"
           ButtonLink="/news"
           Target="link"
-          CustomClass="w-fit"
+          CustomClass="w-fit uppercase"
         />
       </div>
 
@@ -115,7 +114,7 @@ const validNextPost =
           nextPost && (
             <ButtonGeneric
               Variant="secondary"
-              Size="small"
+              Size="default"
               Style="ghosted"
               IconRight={{
                 IconSprite: "chevron-right-big-outline",
@@ -124,8 +123,7 @@ const validNextPost =
               ButtonLabel={nextPost.frontmatter.title}
               ButtonLink={`/posts/${nextPost.file.split("/").pop()?.replace(".md", "")}`}
               Target="link"
-              CustomClass="w-fit"
-              LabelClass="max-w-[200px] truncate block"
+              CustomClass="w-fit uppercase only-desktop"
             />
           )
         }
