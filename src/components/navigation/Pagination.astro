@@ -1,0 +1,66 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+  class?: string;
+}
+
+const { currentPage, totalPages, baseUrl, class: className } = Astro.props;
+
+// Создаем массив номеров страниц
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+// Функция для генерации URL страницы
+const getPageUrl = (pageNum: number) => {
+  if (pageNum === 1) return baseUrl;
+  return `${baseUrl}?page=${pageNum}`;
+};
+---
+
+<nav class:list={["flex justify-center items-center gap-2", className]}>
+  {/* Кнопка "Назад" */}
+  <a
+    href={currentPage > 1 ? getPageUrl(currentPage - 1) : "#"}
+    class:list={[
+      "px-4 py-2 rounded-lg border transition-colors",
+      currentPage === 1
+        ? "border-zinc-800 text-zinc-600 cursor-not-allowed"
+        : "border-primary-500 hover:bg-primary-500/10",
+    ]}
+    aria-disabled={currentPage === 1}>
+    Назад
+  </a>
+
+  {/* Номера страниц */}
+  <div class="flex gap-2">
+    {
+      pages.map((page) => (
+        <a
+          href={getPageUrl(page)}
+          class:list={[
+            "px-4 py-2 rounded-lg border transition-colors",
+            page === currentPage
+              ? "bg-primary-500 border-primary-500 text-white"
+              : "border-primary-500 hover:bg-primary-500/10",
+          ]}>
+          {page}
+        </a>
+      ))
+    }
+  </div>
+
+  {/* Кнопка "Вперед" */}
+  <a
+    href={currentPage < totalPages ? getPageUrl(currentPage + 1) : "#"}
+    class:list={[
+      "px-4 py-2 rounded-lg border transition-colors",
+      currentPage === totalPages
+        ? "border-zinc-800 text-zinc-600 cursor-not-allowed"
+        : "border-primary-500 hover:bg-primary-500/10",
+    ]}
+    aria-disabled={currentPage === totalPages}>
+    Вперед
+  </a>
+</nav>
+

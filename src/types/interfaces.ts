@@ -23,7 +23,7 @@ export interface IconProps {
 
 // Базовый интерфейс для кнопки
 export interface BaseButton {
-  Visible: boolean;
+  Visible?: boolean;
   Variant?: Elem["Variant"];
   Size?: Elem["Size"];
   Style?: Elem["Style"];
@@ -52,4 +52,13 @@ export interface BaseCard extends BaseText {
 // Интерфейс для Call to Action
 export interface CallToAction extends BaseText {
   ButtonProps?: BaseButton;
+}
+
+// Интерфейс для карточек новостей
+export interface Post {
+  title: string;
+  description: string;
+  date: string;
+  image: string;
+  url: string;
 }

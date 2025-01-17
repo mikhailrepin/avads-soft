@@ -1,0 +1,81 @@
+---
+import PostCard from "@/modules/card/news/PostCard.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import type { Post } from "@/types/interfaces";
+
+interface Props {
+  posts: Post[];
+  showAllNewsButton?: boolean;
+  currentPage?: number;
+  totalPages?: number;
+}
+
+const {
+  posts,
+  showAllNewsButton = false,
+  currentPage = 1,
+  totalPages = 1,
+} = Astro.props;
+---
+
+<div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
+  {posts.map((post) => <PostCard post={post} />)}
+</div>
+
+<div class="flex justify-center gap-4">
+  {
+    showAllNewsButton ? (
+      <ButtonGeneric
+        Variant="primary"
+        Size="small"
+        Style="ghosted"
+        IconRight={{
+          IconSprite: "chevron-right-big-outline",
+          IconVisible: true,
+        }}
+        ButtonLabel="Все новости"
+        ButtonLink="/news"
+        Target="link"
+        CustomClass="w-fit"
+      />
+    ) : (
+      totalPages > 1 && (
+        <div class="flex gap-2">
+          {currentPage > 1 && (
+            <ButtonGeneric
+              Variant="secondary"
+              Size="small"
+              Style="ghosted"
+              ButtonLabel="Назад"
+              ButtonLink={`/news?page=${currentPage - 1}`}
+              Target="link"
+              CustomClass="w-fit"
+            />
+          )}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <ButtonGeneric
+              Variant="secondary"
+              Size="small"
+              Style={page === currentPage ? "filled" : "ghosted"}
+              ButtonLabel={page.toString()}
+              ButtonLink={`/news?page=${page}`}
+              Target="link"
+              CustomClass="w-fit"
+            />
+          ))}
+          {currentPage < totalPages && (
+            <ButtonGeneric
+              Variant="secondary"
+              Size="small"
+              Style="ghosted"
+              ButtonLabel="Вперед"
+              ButtonLink={`/news?page=${currentPage + 1}`}
+              Target="link"
+              CustomClass="w-fit"
+            />
+          )}
+        </div>
+      )
+    )
+  }
+</div>

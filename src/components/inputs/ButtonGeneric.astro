@@ -1,6 +1,13 @@
 ---
 import type { BaseButton, Elem, IconProps } from "@/types/interfaces";
 
+interface Props extends BaseButton {
+  ButtonLabel: string;
+  ButtonLink?: string;
+  CustomClass?: string;
+  LabelClass?: string;
+}
+
 const {
   Visible = true,
   Variant = "primary" as Elem["Variant"],
@@ -15,6 +22,7 @@ const {
   ButtonLabel,
   ButtonLink = "",
   CustomClass = "",
+  LabelClass = "",
   Onclick,
   Target = "action" as Elem["Target"],
 } = Astro.props as BaseButton;
@@ -58,7 +66,7 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
             <use xlink:href={`/sprites.svg#${IconLeft.IconSprite}`} />
           </svg>
         )}
-        {ButtonLabel}
+        <span class:list={["button-label", LabelClass]}>{ButtonLabel}</span>
         {IconRight.IconVisible && (
           <svg class="icon">
             <use xlink:href={`/sprites.svg#${IconRight.IconSprite}`} />
@@ -75,7 +83,7 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
             <use xlink:href={`/sprites.svg#${IconLeft.IconSprite}`} />
           </svg>
         )}
-        {ButtonLabel}
+        <span class:list={["button-label", LabelClass]}>{ButtonLabel}</span>
         {IconRight.IconVisible && (
           <svg class="icon">
             <use xlink:href={`/sprites.svg#${IconRight.IconSprite}`} />
@@ -120,7 +128,7 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
       @apply border-zinc-600 hover:border-zinc-900 hover:bg-zinc-900 text-zinc-300;
     }
     &.ghosted {
-      @apply border-zinc-600 hover:border-zinc-900 hover:bg-zinc-900 text-zinc-300 hover:text-zinc-400;
+      @apply hover:border-zinc-900 hover:bg-zinc-900 border-transparent text-zinc-300 hover:text-zinc-400;
     }
   }
   .size {

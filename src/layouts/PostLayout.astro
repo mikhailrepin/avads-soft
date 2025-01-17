@@ -1,0 +1,135 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import type { Post } from "@/types/interfaces";
+
+interface Props {
+  frontmatter: Post;
+}
+
+const { frontmatter } = Astro.props;
+const { title, description, date, image } = frontmatter;
+
+// Получаем все посты и сортируем их по дате
+const posts = await Astro.glob("../pages/posts/*.md");
+const sortedPosts = posts
+  .filter((post) => {
+    // Проверяем что файл не пустой и имеет все необходимые поля
+    if (!post || !post.frontmatter) return false;
+
+    const date = new Date(post.frontmatter.date);
+    return (
+      post.frontmatter.title &&
+      post.frontmatter.description &&
+      post.frontmatter.date &&
+      post.frontmatter.image &&
+      post.frontmatter.image.startsWith("http") &&
+      !isNaN(date.getTime())
+    );
+  })
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  );
+
+// Находим индекс текущего поста
+const currentIndex = sortedPosts.findIndex(
+  (post) => post.frontmatter.title === title
+);
+
+// Получаем предыдущий и следующий посты
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost =
+  currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+
+// Проверяем валидность постов
+const validPrevPost =
+  prevPost && prevPost.frontmatter && prevPost.frontmatter.title;
+const validNextPost =
+  nextPost && nextPost.frontmatter && nextPost.frontmatter.title;
+---
+
+<Layout pageTitle={title}>
+  <article class="mx-auto py-8 main-max-width">
+    <div class="mb-8">
+      <h1 class="mb-4 font-bold text-4xl">{title}</h1>
+      <p class="mb-4 text-gray-500">{date}</p>
+      {
+        image && (
+          <img
+            src={image}
+            alt={title}
+            class="mb-8 rounded-lg w-full h-[250px] md:h-[400px] object-cover"
+          />
+        )
+      }
+      <p class="mb-8 text-gray-700 text-xl">{description}</p>
+    </div>
+
+    <div class="max-w-none prose prose-lg">
+      <slot />
+    </div>
+
+    {/* Навигация между постами */}
+    <div
+      class="items-center border-zinc-800 grid grid-cols-3 mt-12 pt-8 border-t">
+      {/* Левая кнопка */}
+      <div class="justify-self-start">
+        {
+          prevPost && (
+            <ButtonGeneric
+              Variant="secondary"
+              Size="small"
+              Style="ghosted"
+              IconLeft={{
+                IconSprite: "chevron-left-big-outline",
+                IconVisible: true,
+              }}
+              ButtonLabel={prevPost.frontmatter.title}
+              ButtonLink={`/posts/${prevPost.file.split("/").pop()?.replace(".md", "")}`}
+              Target="link"
+              CustomClass="w-fit"
+              LabelClass="max-w-[200px] truncate block"
+            />
+          )
+        }
+      </div>
+
+      {/* Центральная кнопка */}
+      <div class="justify-self-center">
+        <ButtonGeneric
+          Variant="secondary"
+          Size="small"
+          Style="ghosted"
+          ButtonLabel="Все новости"
+          ButtonLink="/news"
+          Target="link"
+          CustomClass="w-fit"
+        />
+      </div>
+
+      {/* Правая кнопка */}
+      <div class="justify-self-end">
+        {
+          nextPost && (
+            <ButtonGeneric
+              Variant="secondary"
+              Size="small"
+              Style="ghosted"
+              IconRight={{
+                IconSprite: "chevron-right-big-outline",
+                IconVisible: true,
+              }}
+              ButtonLabel={nextPost.frontmatter.title}
+              ButtonLink={`/posts/${nextPost.file.split("/").pop()?.replace(".md", "")}`}
+              Target="link"
+              CustomClass="w-fit"
+              LabelClass="max-w-[200px] truncate block"
+            />
+          )
+        }
+      </div>
+    </div>
+  </article>
+</Layout>

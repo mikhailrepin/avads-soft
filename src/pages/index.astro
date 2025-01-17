@@ -6,7 +6,27 @@ import BgBlurSpot from "@/components/decorations/BgBlurSpot.astro";
 import CallToAction from "@/modules/section/CallToAction.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
+import PostsGrid from "@/modules/section/PostsGrid.astro";
+
 const heroBbackground = "/hero/main-page.png";
+
+// Получаем все .md файлы из директории posts
+const posts = await Astro.glob("../pages/posts/*.md");
+// Сортируем по дате и берем первые 3 поста
+const latestPosts = posts
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  )
+  .slice(0, 3)
+  .map((post) => ({
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
+    date: post.frontmatter.date,
+    image: post.frontmatter.image,
+    url: `/posts/${post.file.split("/").pop()?.replace(".md", "")}`,
+  }));
 ---
 
 <Layout pageTitle="Продвинутые системы автоматизации">
@@ -102,6 +122,12 @@ const heroBbackground = "/hero/main-page.png";
         ButtonLabel: "Оставить заявку",
         ButtonLink: "/contacts",
       }}
+    />
+    <hr class="my-[52px] separator silver" />
+    <h2 class="mb-[48px]">Новости компании</h2>
+    <PostsGrid
+      posts={latestPosts}
+      showAllNewsButton={true}
     />
     <hr class="my-[52px] separator silver" />
   </section>
