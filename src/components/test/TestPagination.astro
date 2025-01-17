@@ -1,0 +1,102 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+}
+
+const { currentPage, totalPages } = Astro.props;
+
+// Для отладки
+console.log("Props currentPage:", currentPage, typeof currentPage);
+
+// Функция для генерации массива страниц с многоточием
+function getPaginationRange(current: number, total: number) {
+  const delta = 2;
+  const range = [];
+
+  for (let i = 1; i <= total; i++) {
+    if (
+      i === 1 ||
+      i === total ||
+      (i >= current - delta && i <= current + delta)
+    ) {
+      range.push({ type: "page", value: i });
+    } else if (i === current - delta - 1) {
+      const middlePage = Math.floor((1 + (current - delta)) / 2);
+      range.push({ type: "dots", value: middlePage });
+    } else if (i === current + delta + 1) {
+      const middlePage = Math.floor((total + (current + delta)) / 2);
+      range.push({ type: "dots", value: middlePage });
+    }
+  }
+
+  return range;
+}
+---
+
+<div class="flex gap-2">
+  <ButtonGeneric
+    Variant="secondary"
+    Size="default"
+    Style="ghosted"
+    IconLeft={{
+      IconSprite: "chevron-left-big-outline",
+      IconVisible: true,
+    }}
+    ButtonLink={`/pagination-test/${currentPage - 1}`}
+    Target="link"
+    CustomClass={`w-fit ${currentPage <= 1 ? "pointer-events-none opacity-50" : ""}`}
+  />
+
+  {
+    getPaginationRange(currentPage, totalPages).map((item) => {
+      // Для отладки
+      console.log(
+        "Item value:",
+        item.value,
+        typeof item.value,
+        "Current:",
+        currentPage,
+        "Equal:",
+        item.value === currentPage
+      );
+
+      return item.type === "dots" ? (
+        <ButtonGeneric
+          Variant="secondary"
+          Size="default"
+          Style="ghosted"
+          ButtonLabel="..."
+          ButtonLink={`/pagination-test/${item.value}`}
+          Target="link"
+          CustomClass="w-fit"
+        />
+      ) : (
+        <ButtonGeneric
+          Variant="secondary"
+          Size="default"
+          Style={Number(item.value) === currentPage ? "filled" : "ghosted"}
+          ButtonLabel={item.value.toString()}
+          ButtonLink={`/pagination-test/${item.value}`}
+          Target="link"
+          CustomClass={`w-fit ${Number(item.value) === currentPage ? "pointer-events-none" : ""}`}
+        />
+      );
+    })
+  }
+
+  <ButtonGeneric
+    Variant="secondary"
+    Size="default"
+    Style="ghosted"
+    IconRight={{
+      IconSprite: "chevron-right-big-outline",
+      IconVisible: true,
+    }}
+    ButtonLink={`/pagination-test/${currentPage + 1}`}
+    Target="link"
+    CustomClass={`w-fit ${currentPage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
+  />
+</div>

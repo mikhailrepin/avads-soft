@@ -17,23 +17,23 @@ function generateTestPosts(count: number) {
 // Параметры для тестирования
 const totalPosts = 100;
 const postsPerPage = 9;
-
-// Получаем и парсим номер страницы из URL
-const url = new URL(Astro.request.url);
-const pageParam = url.searchParams.get("page");
-const currentPage = pageParam ? Math.max(1, parseInt(pageParam, 10)) : 1;
-
-// Для отладки
-console.log("Full URL:", url.toString());
-console.log("Page param:", pageParam);
-console.log("Current page:", currentPage);
-
+const currentPage = parseInt(Astro.params.page || "1", 10);
 const totalPages = Math.ceil(totalPosts / postsPerPage);
 
 // Получаем посты для текущей страницы
 const start = (currentPage - 1) * postsPerPage;
 const end = start + postsPerPage;
 const currentPosts = generateTestPosts(totalPosts).slice(start, end);
+
+// Для отладки
+console.log("Page param:", Astro.params.page);
+console.log("Current page:", currentPage);
+
+export function getStaticPaths() {
+  return Array.from({ length: Math.ceil(100 / 9) }, (_, i) => ({
+    params: { page: (i + 1).toString() },
+  }));
+}
 ---
 
 <Layout pageTitle="Тест пагинации">
@@ -50,3 +50,4 @@ const currentPosts = generateTestPosts(totalPosts).slice(start, end);
     </div>
   </div>
 </Layout>
+
