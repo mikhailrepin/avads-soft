@@ -18,25 +18,45 @@ const heroBbackground =
     </h1>
     <h3 class="pt-3">Для тестирования элементов</h3>
   </MainHero>
-  <section class="mx-auto main-max-width">
+  <section class="flex flex-col gap-4 mx-auto main-max-width">
     <Welcome />
-    <ButtonGeneric
-      type="secondary"
-      size="default"
-      style="outlined"
-      leftIcon="alarm-info-fill">
-      Button
-    </ButtonGeneric>
+
+    <div class="flex flex-row items-center gap-4 py-2">
+      <ButtonGeneric
+        Variant="primary"
+        Size="big"
+        Style="filled"
+        Visible={true}
+        IconLeft={{
+          IconSprite: "alarm-success-fill",
+          IconVisible: true,
+        }}
+        ButtonLink="/templates"
+        ButtonLabel="Button generic"
+      />
+      <ButtonGeneric
+        Variant="secondary"
+        Size="default"
+        Style="outlined"
+        Visible={true}
+        IconLeft="alarm-info-fill"
+        ButtonLink="/templates"
+        ButtonLabel="Button generic"
+      />
+    </div>
+
     <svg class="w-[16px] h-[16px]">
       <use xlink:href="/sprites.svg#alarm-info-fill"></use>
     </svg>
+
     <hr class="main-max-width separator silver" />
+
     <Image
       src={alarmImage}
       alt="Alarm Image"
       width={50}
     />
-    <p class="p-8 font-light text-m text-pretty leading-relaxed">
+    <p class="font-light text-m text-pretty leading-relaxed">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde inventore ea
       repellendus perspiciatis numquam atque assumenda possimus animi adipisci
       nisi dicta quasi eaque ducimus deserunt illum dolore veniam, repellat
@@ -89,5 +109,4 @@ const heroBbackground =
       temporibus maxime?
     </p>
   </section>
-  <hr class="main-max-width separator silver" />
 </Layout>
