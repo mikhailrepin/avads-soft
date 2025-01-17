@@ -16,6 +16,32 @@ const {
   currentPage = 1,
   totalPages = 1,
 } = Astro.props;
+
+// Функция для генерации массива страниц с многоточием
+function getPaginationRange(current: number, total: number) {
+  const delta = 2;
+  const range = [];
+
+  for (let i = 1; i <= total; i++) {
+    if (
+      i === 1 ||
+      i === total ||
+      (i >= current - delta && i <= current + delta)
+    ) {
+      range.push({ type: "page", value: i });
+    } else if (i === current - delta - 1) {
+      // Вычисляем среднюю страницу для левого многоточия
+      const middlePage = Math.floor((1 + (current - delta)) / 2);
+      range.push({ type: "dots", value: middlePage });
+    } else if (i === current + delta + 1) {
+      // Вычисляем среднюю страницу для правого многоточия
+      const middlePage = Math.floor((total + (current + delta)) / 2);
+      range.push({ type: "dots", value: middlePage });
+    }
+  }
+
+  return range;
+}
 ---
 
 <div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
@@ -48,46 +74,47 @@ const {
     ) : (
       totalPages > 1 && (
         <div class="flex gap-2">
-          {currentPage > 1 && (
-            <ButtonGeneric
-              Variant="secondary"
-              Size="default"
-              Style="ghosted"
-              IconLeft={{
-                IconSprite: "chevron-left-big-outline",
-                IconVisible: true,
-              }}
-              ButtonLink={`/news?page=${currentPage - 1}`}
-              Target="link"
-              CustomClass="w-fit"
-            />
+          <ButtonGeneric
+            Variant="secondary"
+            Size="default"
+            Style="ghosted"
+            IconLeft={{
+              IconSprite: "chevron-left-big-outline",
+              IconVisible: true,
+            }}
+            ButtonLink={`/news?page=${currentPage - 1}`}
+            Target="link"
+            CustomClass={`w-fit ${currentPage <= 1 ? "pointer-events-none opacity-50" : ""}`}
+          />
+
+          {getPaginationRange(currentPage, totalPages).map((item) =>
+            item.type === "page" ? (
+              <ButtonGeneric
+                Variant="secondary"
+                Size="default"
+                Style={currentPage === item.value ? "filled" : "ghosted"}
+                ButtonLabel={item.value.toString()}
+                ButtonLink={`/news/${item.value}`}
+                Target="link"
+                CustomClass={`w-fit ${currentPage === item.value ? "pointer-events-none" : ""}`}
+              />
+            ) : (
+              <span class="flex items-center px-2 text-zinc-500">...</span>
+            )
           )}
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <ButtonGeneric
-              Variant="secondary"
-              Size="default"
-              Style={currentPage === page ? "filled" : "ghosted"}
-              ButtonLabel={page.toString()}
-              ButtonLink={`/news/${page}`}
-              Target="link"
-              CustomClass={`w-fit ${currentPage === page ? "pointer-events-none" : ""}`}
-            />
-          ))}
-          {currentPage < totalPages && (
-            <ButtonGeneric
-              Variant="secondary"
-              Size="default"
-              Style="ghosted"
-              IconRight={{
-                IconSprite: "chevron-right-big-outline",
-                IconVisible: true,
-              }}
-              ButtonLabel=""
-              ButtonLink={`/news/${currentPage + 1}`}
-              Target="link"
-              CustomClass=""
-            />
-          )}
+
+          <ButtonGeneric
+            Variant="secondary"
+            Size="default"
+            Style="ghosted"
+            IconRight={{
+              IconSprite: "chevron-right-big-outline",
+              IconVisible: true,
+            }}
+            ButtonLink={`/news/${currentPage + 1}`}
+            Target="link"
+            CustomClass={`w-fit ${currentPage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
+          />
         </div>
       )
     )
