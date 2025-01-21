@@ -4724,17 +4724,6 @@
         </clipPath>
       </defs>
     </symbol>
-    <symbol id="time-lock-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-      <g clip-path="url(#a)">
-        <path d="M8 15c.215 0 .427-.01.636-.028A4.491 4.491 0 0 1 7 11.5c0-.925.28-1.785.758-2.5H7V4h1v4h.671c.773-.625 1.757-1 2.829-1 1.397 0 2.646.637 3.472 1.636A7 7 0 1 0 8 15Z"/>
-        <path fill-rule="evenodd" d="M15 15v-4h-1v-1a2 2 0 1 0-4 0v1H9v4h6Zm-4-1v-1h2v1h-2Zm0-4v1h2v-1a1 1 0 1 0-2 0Z" clip-rule="evenodd"/>
-      </g>
-      <defs>
-        <clipPath id="a">
-          <path d="M0 0h16v16H0z"/>
-        </clipPath>
-      </defs>
-    </symbol>
     <symbol id="scales-lock-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
         <path d="M8 1v13H1v-1h6v-2H4v-1h3V8H1V7h6V5H4V4h3V2H1V1h7Z"/>
@@ -5438,6 +5427,110 @@
       <g clip-path="url(#a)">
         <path d="M10 13h4v-3h1v4h-5v-1Zm0-10h4v3h1V2h-5v1ZM6 3H2v3H1V2h5v1Zm0 10H2v-3H1v4h5v-1ZM1 7h5v2H1V7Zm9 0h5v2h-5V7Z"/>
         <path fill-rule="evenodd" d="M7 1h2v5H7V1Zm2 6H7v2h2V7Zm-2 8v-5h2v5H7Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="printer-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M3 6V1h10v5h2v7h-2v2H3v-2H1V6h2Zm1-4h8v4H4V2Zm10 10h-1v-2H3v2H2V7h12v5ZM4 11h8v3H4v-3Z" clip-rule="evenodd"/>
+        <path d="M12 8v1h1V8h-1Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="printer-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M4 1h8v4H4V1Zm0 10h8v4H4v-4Z"/>
+        <path fill-rule="evenodd" d="M15 6H1v7h2v-3h10v3h2V6Zm-3 3V8h1v1h-1Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="slicer" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M1 1h1v14H1V1Zm13 0h1v14h-1V1ZM3 5l4-4h2L3 7V5Zm0-4h2L3 3V1Zm0 8 8-8h2L3 11V9Zm0 4L13 3v2L3 15v-2Zm2 2 8-8v2l-6 6H5Zm4 0 4-4v2l-2 2H9Z"/>
+    </symbol>
+    <symbol id="slicer-add" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M2 1H1v14h1V1Zm13 0h-1v6.758c.378.253.715.561 1 .913V1ZM7.193 12.807c.147.485.373.935.664 1.336L7 15H5l2.193-2.193Zm3.776-5.776a4.502 4.502 0 0 0-3.938 3.938L3 15v-2L13 3v2l-2.031 2.031ZM3 7V5l4-4h2L3 7Zm2-6H3v2l2-2Zm6 0h2L3 11V9l8-8ZM8 12h3v3h1v-3h3v-1h-3V8h-1v3H8v1Z"/>
+    </symbol>
+    <symbol id="slicer-remove" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M2 1H1v14h1V1Zm13 0h-1v6.758c.378.253.715.561 1 .913V1ZM7.193 12.807c.147.485.373.935.664 1.336L7 15H5l2.193-2.193Zm3.776-5.776a4.502 4.502 0 0 0-3.938 3.938L3 15v-2L13 3v2l-2.031 2.031ZM3 7V5l4-4h2L3 7Zm2-6H3v2l2-2Zm6 0h2L3 11V9l8-8ZM8 12h7v-1H8v1Z"/>
+    </symbol>
+    <symbol id="theme-default" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M8 14A6 6 0 0 0 8 2v12Zm0 1A7 7 0 1 0 8 1a7 7 0 0 0 0 14Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="theme-system" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M8 2a6 6 0 0 1 5.995 5.754c.367.246.696.543.977.882a7 7 0 1 0-6.335 6.335A4.491 4.491 0 0 1 7 11.5c0-1.072.375-2.056 1-2.829V2Z"/>
+        <path fill-rule="evenodd" d="M11 8h1l2 6h-1l-.5-1.5h-2L10 14H9l2-6Zm1 3.5-.5-1.5-.5 1.5h1Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="theme-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M9 1H7v2h2V1ZM3.757 2.343l1.486 1.485-1.415 1.415-1.485-1.486 1.414-1.414ZM1 7h2v2H1V7Zm1.343 5.243 1.485-1.486 1.415 1.415-1.486 1.485-1.414-1.414ZM7 15v-2h2v2H7Zm5.243-1.343-1.486-1.485 1.415-1.415 1.485 1.486-1.414 1.414ZM15 9h-2V7h2v2Zm-1.343-5.243-1.485 1.486-1.415-1.415 1.486-1.485 1.414 1.414ZM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="theme-dark" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M13.96 11.672A6 6 0 0 1 8.64 1.028a7 7 0 1 0 5.321 10.644Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="time-lock-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M8 15c.215 0 .427-.01.636-.028A4.491 4.491 0 0 1 7 11.5c0-.925.28-1.785.758-2.5H7V4h1v4h.671c.773-.625 1.757-1 2.829-1 1.397 0 2.646.637 3.472 1.636A7 7 0 1 0 8 15Z"/>
+        <path fill-rule="evenodd" d="M15 15v-4h-1v-1a2 2 0 1 0-4 0v1H9v4h6Zm-4-1v-1h2v1h-2Zm0-4v1h2v-1a1 1 0 1 0-2 0Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="home-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M15 6v9H1V6l7-5 7 5ZM4 11v2h8v-2H4Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="home-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M14 6.515 8 2.229 2 6.515V14h12V6.515ZM15 6 8 1 1 6v9h14V6Z" clip-rule="evenodd"/>
+        <path d="M4 10h8v2H4v-2Z"/>
       </g>
       <defs>
         <clipPath id="a">

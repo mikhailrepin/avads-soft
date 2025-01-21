@@ -44,7 +44,7 @@ function getPaginationRange(current: number, total: number) {
 }
 ---
 
-<div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
+<div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
   {
     posts.map((post) => (
       <PostCard
@@ -55,12 +55,12 @@ function getPaginationRange(current: number, total: number) {
   }
 </div>
 
-<div class="flex justify-center gap-4">
+<div class="flex justify-center gap-4 my-8 w-full">
   {
     showAllNewsButton ? (
       <ButtonGeneric
         Variant="primary"
-        Size="small"
+        Size="default"
         Style="ghosted"
         IconRight={{
           IconSprite: "chevron-right-big-outline",

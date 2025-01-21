@@ -7,8 +7,14 @@
 
 @layer components {
   * {
-    box-sizing: border-box;
     @apply text-pretty;
+  }
+
+  /* Глобальный ограничитель ширины контейнера */
+  .main-max-width {
+    padding-left: 16px;
+    padding-right: 16px;
+    max-width: 1240px;
   }
 
   h1,
@@ -52,14 +58,11 @@
   }
 }
 
-/* Глобальный ограничитель ширины контейнера */
-.main-max-width {
-  padding-left: 16px;
-  padding-right: 16px;
-  max-width: 1240px;
+
+
+* {
+  box-sizing: border-box;
 }
-
-
 
 html,
 body {

@@ -63,9 +63,9 @@ export async function getStaticPaths() {
 const { posts, currentPage, totalPages } = Astro.props;
 ---
 
-<Layout pageTitle="Новости">
+<Layout pageTitle="Все новости">
   <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
-    <h1 class="mb-8 font-bold text-4xl">Новости компании</h1>
+    <h1 class="mb-8 font-bold text-4xl">Новости и события компании</h1>
     <PostsGrid
       posts={posts}
       currentPage={currentPage}

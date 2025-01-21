@@ -4,13 +4,13 @@ import { Helpers } from "@/data/helpers.js";
 import { ClientRouter, fade, slide } from "astro:transitions";
 import MainHeader from "@/components/navigation/MainHeader.astro";
 import MainFooter from "@/components/navigation/MainFooter.astro";
+import BreadCrumbs from "@/components/navigation/BreadCrumbs.astro";
 
 interface Props {
-  pageTitle?: string;
+  pageTitle: string;
 }
 
-const { pageTitle = "The title of the current page is not set" } =
-  Astro.props as Props;
+const { pageTitle } = Astro.props;
 
 const menuItems = [
   { label: "Продукты", href: "/all-products" },
@@ -29,7 +29,7 @@ const serviceItems = [
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -52,8 +52,9 @@ const serviceItems = [
     class="flex flex-col items-center bg-zinc-950 m-0 p-0 w-[100%] h-[100%] text-zinc-200 subpixel-antialiased">
     <MainHeader menuItems={menuItems} />
     <main
-      class="mt-[48px] lg:mt-[64px]"
+      class="mt-[48px] lg:mt-[64px] w-full"
       transition:animate={fade({ duration: "0.3s" })}>
+      <BreadCrumbs pageTitle={pageTitle} />
       <slot />
     </main>
     <MainFooter

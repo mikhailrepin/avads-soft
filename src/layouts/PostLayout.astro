@@ -10,6 +10,15 @@ interface Props {
 const { frontmatter } = Astro.props;
 const { title, description, date, image } = frontmatter;
 
+// Форматируем дату так же, как в PostCard
+const formattedDate = new Date(
+  date.split(".").reverse().join("-")
+).toLocaleDateString("ru-RU", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
 // Получаем все посты и сортируем их по дате
 const posts = await Astro.glob("../pages/posts/*.md");
 const sortedPosts = posts
@@ -51,30 +60,42 @@ const validNextPost =
 ---
 
 <Layout pageTitle={title}>
-  <article class="mx-auto py-8 main-max-width">
-    <div class="mb-8">
-      <h1 class="mb-4 font-bold text-4xl">{title}</h1>
-      <p class="mb-4 text-gray-500">{date}</p>
-      {
-        image && (
-          <img
-            src={image}
-            alt={title}
-            class="mb-8 rounded-lg w-full h-[250px] md:h-[400px] object-cover"
-          />
-        )
-      }
-      <p class="mb-8 text-gray-700 text-xl">{description}</p>
-    </div>
-
-    <div class="max-w-none prose prose-lg">
-      <slot />
-    </div>
-
-    {/* Навигация между постами */}
+  <article class="mx-auto main-max-width">
+    <!-- Секция с заголовком -->
     <div
-      class="items-center border-zinc-800 grid grid-cols-3 mt-12 pt-8 border-t">
-      {/* Левая кнопка */}
+      class="relative flex flex-col justify-center items-start bg-zinc-900 bg-cover bg-center my-4 px-4 lg:px-10 rounded-lg w-full min-h-[40dvh] overflow-hidden"
+      style={`background-image: url('${image}')`}>
+      <!-- Затемняющий слой -->
+      <div class="absolute inset-0 bg-zinc-900/70"></div>
+
+      <!-- Контент поверх изображения -->
+      <div class="relative z-10">
+        <h1 class="mb-4 w-full md:max-w-[75%] font-bold text-4xl text-white">
+          {title}
+        </h1>
+        <div class="flex items-center gap-2 w-fit font-medium text-zinc-400">
+          <svg class="w-[16px] h-[16px]">
+            <use xlink:href="/sprites.svg#calendar-single-fill"></use>
+          </svg>
+          <time>{formattedDate}</time>
+        </div>
+      </div>
+    </div>
+
+    <!-- Описание и контент -->
+    <div class="py-4">
+      <h2 class="m-0 mb-8 w-full md:max-w-[75%] text-2xl text-zinc-200">
+        {description}
+      </h2>
+      <div class="max-w-full prose prose-lg">
+        <slot />
+      </div>
+    </div>
+
+    <!-- Навигация между постами -->
+    <div
+      class="items-center grid grid-cols-3 bg-zinc-900/30 my-8 p-4 rounded-lg w-full">
+      <!-- Левая кнопка -->
       <div class="justify-self-start">
         {
           prevPost && (
