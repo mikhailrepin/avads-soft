@@ -1,4 +1,6 @@
 ---
+import { Fragment } from "astro/components";
+
 interface Props {
   pageTitle?: string;
 }
@@ -45,11 +47,49 @@ function filterSegments(segments: string[]) {
     return segment;
   });
 }
+
+function renderBreadcrumbs(segments: string[]) {
+  if (segments.length <= 3) {
+    // Если сегментов <= 3, показываем все
+    return segments.map((segment, index, array) => {
+      const isLast = index === array.length - 1;
+      return {
+        type: "link",
+        href: getPath(segment, index, array),
+        text: isLast && pageTitle ? pageTitle : formatSegment(segment),
+        isLast,
+      };
+    });
+  }
+
+  // Если сегментов > 3, показываем первый, многоточие и последний
+  const firstSegment = segments[0];
+  const lastSegment = segments[segments.length - 1];
+
+  return [
+    {
+      type: "link",
+      href: getPath(firstSegment, 0, segments),
+      text: formatSegment(firstSegment),
+      isLast: false,
+    },
+    {
+      type: "dots",
+      text: "...",
+    },
+    {
+      type: "link",
+      href: getPath(lastSegment, segments.length - 1, segments),
+      text: pageTitle || formatSegment(lastSegment),
+      isLast: true,
+    },
+  ];
+}
 ---
 
 {
   !isHomePage && (
-    <div class="py-[4px] w-full">
+    <div class="py-[8px] w-full">
       <ul class="breadcrumbs main-max-width">
         <li>
           <a
@@ -60,27 +100,27 @@ function filterSegments(segments: string[]) {
             </svg>
           </a>
         </li>
-        {filterSegments(
-          Astro.url.pathname.split("/").filter((segment) => segment)
-        ).map((segment, index, array) => {
-          const path = getPath(segment, index, array);
-          const isLast = index === array.length - 1;
-          const name = isLast && pageTitle ? pageTitle : formatSegment(segment);
-
-          return (
-            <li>
+        {renderBreadcrumbs(
+          filterSegments(
+            Astro.url.pathname.split("/").filter((segment) => segment)
+          )
+        ).map((item) => (
+          <li>
+            {item.type === "dots" ? (
+              <span class="text-zinc-600">{item.text}</span>
+            ) : (
               <a
-                href={path}
+                href={item.href}
                 class={
-                  isLast
-                    ? "pointer-events-none text-zinc-100"
+                  item.isLast
+                    ? "text-zinc-100 pointer-events-none"
                     : "text-zinc-500 hover:text-primary-300"
                 }>
-                <span>{name}</span>
+                <span>{item.text}</span>
               </a>
-            </li>
-          );
-        })}
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   )

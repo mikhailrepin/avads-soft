@@ -1,0 +1,21 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const pageTitle =
+  "Очень длинный заголовок страницы для тестирования обрезания текста в навигации";
+---
+
+<Layout pageTitle={pageTitle}>
+  <div class="mx-auto px-4 py-8 container">
+    <h1 class="mb-8 font-bold text-3xl">{pageTitle}</h1>
+    <p>Эта страница создана для тестирования:</p>
+    <ul class="space-y-2 mt-4 pl-6 list-disc">
+      <li>Длинной цепочки навигации (> 3 элементов)</li>
+      <li>Обрезания длинных заголовков (> 200px)</li>
+      <li>Корректного отображения многоточия</li>
+      <li>Стилей активных/неактивных ссылок</li>
+      <li>Отступов между элементами</li>
+    </ul>
+  </div>
+</Layout>
+
