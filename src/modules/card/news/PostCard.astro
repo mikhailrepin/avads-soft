@@ -1,11 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import type { Post } from "@/types/interfaces";
 
 interface Props {
   post: Post;
+  isFirstRow?: boolean;
 }
 
-const { post } = Astro.props;
+const { post, isFirstRow = false } = Astro.props;
 const { title, description, date, image } = post;
 
 // Парсим дату из формата dd.mm.yyyy и форматируем в "dd месяца yyyy г."
@@ -23,12 +25,16 @@ const formattedDate = new Date(
   <a
     href={post.url}
     class="top-0 left-0 z-10 absolute w-full h-full"
+    aria-label={`Читать статью: ${title}`}
   ></a>
   <!-- Изображение поста -->
   <div class="image-container">
-    <img
+    <Image
       src={image}
       alt={title}
+      width={400}
+      height={225}
+      loading={isFirstRow ? "eager" : "lazy"}
       class="group-hover:scale-105 top-0 left-0 z-[2] absolute w-full h-full transition-all invisible object-cover"
     />
   </div>

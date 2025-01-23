@@ -11,65 +11,88 @@ interface MainFooterProps {
 const { menuItems, serviceItems } = Astro.props as MainFooterProps;
 ---
 
-<footer class="relative z-[998] border-zinc-900 bg-zinc-950 border-t w-full">
+<footer>
   <!-- Верхняя часть -->
-  <div class="flex justify-between mx-auto py-[16px] main-max-width">
+  <div class="footer-top">
     <!-- Логотип и описание компании -->
-    <div class="flex flex-col">
-      <a
-        href="/"
-        class="lg:hover:opacity-80 w-[100px] lg:w-[132px]">
-        <Image
-          src={logoDark}
-          alt="Alarm Image"
-        />
-      </a>
-      <p class="mt-1 ml-[32px] lg:ml-[40px] w-[132px] text-xs text-zinc-400">
-        {Helpers.company.slogan}
-      </p>
-    </div>
+    <a
+      href="/"
+      class="logo-link">
+      <Image
+        src={logoDark}
+        alt="Логотип компании"
+        height={32}
+      />
+      <span>{Helpers.company.slogan}</span>
+    </a>
 
     <!-- Меню навигации -->
-    <div
-      class="flex lg:flex-row flex-col gap-[8px] lg:gap-[12px] py-[4px] min-h-[32px] navigation-menu">
+    <nav class="nav-menu">
       {
         menuItems.map((item) => (
           <a href={item.href}>
-            <span class="font-light lg:font-medium text-sm">{item.label}</span>
+            <span>{item.label}</span>
           </a>
         ))
       }
-    </div>
+    </nav>
 
     <!-- Телефон -->
-    <div class="flex flex-col items-end">
-      <p class="font-semibold text-lg text-primary-300 lg:text-2xl">
-        {Helpers.company.phone}
-      </p>
-    </div>
+    <a
+      href={`tel:${Helpers.company.phone}`}
+      class="phone-link">
+      {Helpers.company.phone}
+    </a>
   </div>
 
   <!-- Нижняя часть -->
-  <div class="bg-zinc-900/80 py-[12px]">
-    <div
-      class="flex lg:flex-row flex-col mx-auto w-[100%] font-light text-xs text-zinc-400 main-max-width">
-      <p class="border-zinc-700 pr-[12px] border-r">
+  <div class="footer-bottom">
+    <ul>
+      <li>
         © 2022 – {new Date().getFullYear()}
         {Helpers.company.name}. Все права защищены
-      </p>
-      <ul class="flex navigation-menu">
-        {
-          serviceItems.map((item) => (
-            <li class="border-zinc-700 lg:px-[12px] border-r last:border-r-0">
-              <a
-                href={item.href}
-                class="hover:text-primary-300">
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+      </li>
+      {
+        serviceItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </footer>
+
+<style>
+  footer {
+    @apply flex flex-col border-zinc-900 bg-zinc-950 mb-10 border-t w-full;
+    & .footer-top {
+      @apply flex lg:flex-row flex-col lg:justify-between gap-6 lg:gap-0 mx-auto lg:py-[16px] p-4 w-full main-max-width;
+      & .logo-link {
+        @apply flex flex-col;
+        filter: grayscale(1);
+        &:hover {
+          filter: grayscale(0);
+        }
+        & span {
+          @apply text-xs text-zinc-300;
+        }
+      }
+    }
+    & .footer-bottom {
+      @apply bg-zinc-900 w-full;
+      & ul {
+        @apply flex flex-wrap gap-4 mx-auto py-[8px] text-xs main-max-width;
+        & li {
+          @apply border-zinc-700 pr-[12px] border-r text-zinc-400 hover:text-zinc-100;
+        }
+        & li:first-child:hover {
+          @apply text-zinc-400;
+        }
+        & li:last-child {
+          @apply border-none;
+        }
+      }
+    }
+  }
+</style>

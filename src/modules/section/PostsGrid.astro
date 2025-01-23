@@ -17,6 +17,18 @@ const {
   totalPages = 1,
 } = Astro.props;
 
+// Функция для определения количества карточек в первом ряду в зависимости от брейкпоинта
+function getFirstRowCount() {
+  return {
+    mobile: 1, // 1 колонка на мобильных
+    tablet: 2, // 2 колонки на планшетах
+    desktop: 3, // 3 колонки на десктопе
+  };
+}
+
+const firstRowCounts = getFirstRowCount();
+const maxFirstRowItems = Math.max(...Object.values(firstRowCounts));
+
 // Функция для генерации массива страниц с многоточием
 function getPaginationRange(current: number, total: number) {
   const delta = 2;
@@ -46,9 +58,10 @@ function getPaginationRange(current: number, total: number) {
 
 <div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
   {
-    posts.map((post) => (
+    posts.map((post, index) => (
       <PostCard
         post={post}
+        isFirstRow={index < maxFirstRowItems}
         transition:animate="slide"
       />
     ))
