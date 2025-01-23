@@ -10,6 +10,9 @@ interface Props {
 const { frontmatter } = Astro.props;
 const { title, description, date, image } = frontmatter;
 
+// Ограничиваем длину заголовка до 60 символов
+const truncatedTitle = title.length > 60 ? title.slice(0, 60) + "..." : title;
+
 // Форматируем дату так же, как в PostCard
 const formattedDate = new Date(
   date.split(".").reverse().join("-")
@@ -70,8 +73,9 @@ const validNextPost =
 
       <!-- Контент поверх изображения -->
       <div class="relative z-10">
-        <h1 class="mb-4 w-full md:max-w-[75%] font-bold">
-          {title}
+        <h1
+          class="mb-4 w-full md:max-w-[75%] font-bold text-3xl lg:text-4xl break-words">
+          {truncatedTitle}
         </h1>
         <div class="flex items-center gap-2 w-fit font-medium text-zinc-400">
           <svg class="w-[16px] h-[16px]">
