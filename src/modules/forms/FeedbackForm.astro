@@ -1,0 +1,25 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+---
+
+<form class="flex flex-col gap-4">
+  <input
+    type="text"
+    placeholder="Контактное лицо"
+  />
+  <input
+    type="email"
+    placeholder="Email"
+  />
+  <input
+    type="text"
+    placeholder="Телефон"
+  />
+  <textarea placeholder="Сообщение"></textarea>
+  <input
+    type="file"
+    id="file-upload"
+    class="hidden"
+    multiple
+  />
+</form>

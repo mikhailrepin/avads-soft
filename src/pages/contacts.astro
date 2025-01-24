@@ -1,7 +1,119 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import FeedbackForm from "@/modules/forms/FeedbackForm.astro";
+import { Helpers } from "@/data/helpers.js";
+
+const heroBbackground = "/hero/gradient.avif";
 ---
 
 <Layout pageTitle="Контакты">
-  <section></section>
+  <section class="content-wrapper main-max-width">
+    <!-- Область с контактами -->
+    <div class="contacts-wrapper">
+      <div class="content-box">
+        <h3>Каналы связи</h3>
+        <div class="contact-card">
+          <a
+            class="text-2xl"
+            href={`tel:${Helpers.company.phone}`}>
+            {Helpers.company.phone}
+          </a>
+          <a
+            class="text-xl"
+            href={`mailto:${Helpers.company.mail.sales}`}>
+            {Helpers.company.mail.sales}
+          </a>
+          <p class="text-zinc-300">По вопросам закупок</p>
+        </div>
+        <div class="flex lg:flex-row flex-col gap-4">
+          <div class="contact-card">
+            <a
+              class="text-xl"
+              href={`mailto:${Helpers.company.mail.info}`}>
+              {Helpers.company.mail.info}
+            </a>
+            <p class="text-zinc-300">По общим вопросам</p>
+          </div>
+          <div class="contact-card">
+            <a
+              class="text-xl"
+              href={`mailto:${Helpers.company.mail.support}`}>
+              {Helpers.company.mail.support}
+            </a>
+            <p class="text-zinc-300">Техническая поддержка</p>
+          </div>
+        </div>
+      </div>
+      <div class="content-box">
+        <h3>Адрес</h3>
+        <p class="text-zinc-300">{Helpers.company.location}</p>
+        <a
+          class="text-zinc-500 hover:text-primary-400 hover:underline"
+          href="https://yandex.ru/maps/-/CHasZZJC">
+          Показать на карте
+        </a>
+      </div>
+      <div class="content-box">
+        <h3>Реквизиты</h3>
+        <p class="text-zinc-300 leading-[1.8]">
+          ООО «АВАДС СОФТ»<br />
+          ИНН 7734441587 КПП 773401001<br />
+          ПАО «Сбербанк России» г. Москва<br />
+          р/с 40702810638000270788<br />
+          БИК 044525225 к/с 30101810400000000225<br />
+          ОГРН 1217700146960
+        </p>
+        <hr class="separator silver" />
+        <p class="text-zinc-300 leading-[1.8]">
+          <span class="font-semibold text-lg"
+            >Почтовый и юридический адрес:</span
+          >
+          <br />
+          {Helpers.company.location}
+        </p>
+      </div>
+    </div>
+
+    <!-- Область с формой -->
+    <div class="form-wrapper">
+      <h3>Мы рады Вашему сообщению</h3>
+      <p class="text-zinc-400">
+        Отправьте сообщение через форму обратной связи, <br /> чтобы мы могли связаться
+        с Вами.
+      </p>
+      <FeedbackForm />
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .content-wrapper {
+    @apply gap-4 grid grid-cols-1 lg:grid-cols-2 mx-auto my-8 w-[95dvw];
+  }
+
+  .contacts-wrapper,
+  .form-wrapper {
+    @apply flex flex-col gap-4;
+  }
+
+  .form-wrapper {
+    @apply bg-zinc-900 p-8 rounded-lg;
+    & h3 {
+      @apply text-silver;
+    }
+  }
+
+  .content-box {
+    @apply flex flex-col gap-4 bg-zinc-900/70 p-8 rounded-lg;
+    & h3 {
+      @apply mb-2 text-silver;
+    }
+  }
+
+  .contact-card {
+    @apply flex flex-col justify-center items-center gap-2 border-2 border-zinc-800 hover:border-zinc-600 p-6 rounded-md w-full transition-all duration-300;
+    & a {
+      @apply font-semibold text-primary-300 hover:text-primary-400 hover:underline;
+    }
+  }
+</style>

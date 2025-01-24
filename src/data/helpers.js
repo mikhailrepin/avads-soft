@@ -6,10 +6,10 @@ export const Helpers = {
     slogan: "Серебро и золото отечественной автоматизации",
     phone: "+7 (495) 023 54 45",
     mail: {
-      sails: "sales@avads.ru",
+      sales: "sales@avads.ru",
       info: "info@avads.ru",
       support: "support@avads.ru",
     },
-    location: "Company address",
+    location: "127018, г. Москва, Полковая ул., дом № 3",
   },
 };
