@@ -1,5 +1,7 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
 ---
 
 <form
@@ -10,23 +12,29 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
     type="text"
     placeholder="Контактное лицо"
     class="form-input"
+    name="from_name"
     required
   />
   <input
     type="email"
     placeholder="Email"
     class="form-input"
+    name="from_email"
     required
   />
   <input
-    type="text"
+    type="tel"
     placeholder="Телефон"
     class="form-input"
+    name="phone"
+    pattern="\+7 \d{3} \d{3} \d{2} \d{2}"
+    title="+7 XXX XXX XX XX"
     required
   />
   <textarea
     placeholder="Сообщение"
     class="form-input min-h-[100px] max-h-[300px]"
+    name="message"
     required
   ></textarea>
 
@@ -95,13 +103,13 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
       IconVisible: false,
     }}
     type="submit"
-    ButtonLabel="ОТПРАВИТЬ СООБЩЕНИЕ"
+    ButtonLabel={buttonText}
   />
 
   <!-- Сообщение об успешной отправке -->
   <span
     id="successMessage"
-    class="bg-lime-500/10 border-lime-500/20 text-lime-400 send-message">
+    class="hidden bg-lime-500/10 border-lime-500/20 text-lime-400 send-message">
     Сообщение успешно отправлено
     <svg
       id="closeSuccess"
@@ -112,7 +120,7 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
   <!-- Сообщение об ошибке отправки -->
   <span
     id="errorMessage"
-    class="bg-red-500/10 border-red-500/20 text-red-400 send-message">
+    class="hidden bg-red-500/10 border-red-500/20 text-red-400 send-message">
     Ошибка отправки сообщения. Повторите попытку
     <svg
       id="closeError"
@@ -135,9 +143,11 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
   }
 
   .send-message {
-    @apply flex justify-between items-center gap-2 px-4 py-2 border rounded-md;
+    @apply flex justify-between items-center gap-2 px-4 py-2 border rounded-md transition-opacity duration-300;
+    display: none;
+    opacity: 0;
     & .icon {
-      @apply opacity-50 hover:opacity-100 w-[16px] h-[16px] cursor-pointer;
+      @apply opacity-50 hover:opacity-100 w-[16px] h-[16px] transition-opacity cursor-pointer;
     }
   }
 </style>
@@ -242,13 +252,96 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
     });
   }
 
-  // Обновляем обработчик отправки формы
+  // Обработчик отправки формы
   const form = document.getElementById("feedbackForm") as HTMLFormElement;
+  const successMessage = document.getElementById("successMessage");
+  const errorMessage = document.getElementById("errorMessage");
+  const closeSuccess = document.getElementById("closeSuccess");
+  const closeError = document.getElementById("closeError");
+
+  // Скрыть сообщения при загрузке
+  successMessage?.classList.add("hidden");
+  errorMessage?.classList.add("hidden");
+
+  // Функция для показа сообщения с автоматическим скрытием
+  function showMessage(messageElement: HTMLElement | null, duration = 5000) {
+    if (!messageElement) return;
+
+    requestAnimationFrame(() => {
+      messageElement.style.display = "flex";
+      messageElement.style.opacity = "1";
+
+      setTimeout(() => {
+        messageElement.style.opacity = "0";
+        setTimeout(() => {
+          messageElement.style.display = "none";
+        }, 300); // Время анимации
+      }, duration);
+    });
+  }
+
+  // Обработчики закрытия сообщений
+  closeSuccess?.addEventListener("click", () => {
+    if (successMessage) {
+      successMessage.style.opacity = "0";
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 300);
+    }
+  });
+
+  closeError?.addEventListener("click", () => {
+    if (errorMessage) {
+      errorMessage.style.opacity = "0";
+      setTimeout(() => {
+        errorMessage.style.display = "none";
+      }, 300);
+    }
+  });
+
+  // Добавляем функции для управления состоянием формы
+  const submitButton = form?.querySelector('button[type="submit"]');
+  let isLoading = false;
+
+  function setFormLoading(loading: boolean) {
+    isLoading = loading;
+
+    // Управляем прозрачностью всей формы
+    if (form) {
+      form.style.opacity = loading ? "0.5" : "1";
+      form.style.transition = "opacity 0.3s";
+    }
+
+    // Блокируем/разблокируем все поля ввода
+    const inputs = form?.querySelectorAll("input, textarea, button");
+    const fileLabel = form?.querySelector(".file-upload-button");
+
+    inputs?.forEach((input) => {
+      (input as HTMLElement).style.pointerEvents = loading ? "none" : "auto";
+      (input as HTMLElement).style.opacity = loading ? "0.5" : "1";
+    });
+
+    // Блокируем/разблокируем кнопку загрузки файла
+    if (fileLabel) {
+      (fileLabel as HTMLElement).style.pointerEvents = loading
+        ? "none"
+        : "auto";
+      (fileLabel as HTMLElement).style.opacity = loading ? "0.5" : "1";
+      (fileLabel as HTMLElement).style.cursor = loading ? "default" : "pointer";
+    }
+
+    // Обновляем текст кнопки через button-label
+    if (submitButton) {
+      submitButton.querySelector(".button-label")!.textContent = loading
+        ? "ОТПРАВЛЯЕТСЯ..."
+        : "ОТПРАВИТЬ СООБЩЕНИЕ";
+    }
+  }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Проверяем, нет ли ошибок при загрузке файла
+    // Проверка файла
     const hasFileError = fileNameDisplay?.className.includes("text-red-500");
     const hasFile = fileInput?.files && fileInput.files.length > 0;
 
@@ -258,7 +351,88 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
       return;
     }
 
-    // Здесь будет логика отправки формы
-    console.log("Форма готова к отправке");
+    // Устанавливаем состояние загрузки
+    setFormLoading(true);
+
+    try {
+      // Собираем данные формы
+      const templateParams = {
+        from_name: form.querySelector('[name="from_name"]')?.value,
+        from_email: form.querySelector('[name="from_email"]')?.value,
+        phone: form.querySelector('[name="phone"]')?.value,
+        message: form.querySelector('[name="message"]')?.value,
+        attachment: fileInput?.files?.[0]?.name || "No file attached",
+      };
+
+      await emailjs.send(
+        "service_vse68sp",
+        "template_na7c9pn",
+        templateParams,
+        "LSMwzsQT9Ntj5AtDK"
+      );
+
+      showMessage(successMessage);
+      form.reset();
+      clearFile(true);
+    } catch (error) {
+      console.error(error);
+      showMessage(errorMessage);
+    } finally {
+      // Возвращаем форму в исходное состояние
+      setFormLoading(false);
+    }
   });
+
+  // Маска для телефона
+  const phoneInput = form?.querySelector('input[name="phone"]');
+
+  function formatPhone(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, ""); // Оставляем только цифры
+
+    // Ограничиваем длину до 11 цифр
+    if (value.length > 11) {
+      value = value.slice(0, 11);
+    }
+
+    // Форматируем номер
+    let formattedValue = "";
+    if (value.length > 0) {
+      formattedValue = "+7 ";
+      if (value.length > 1) {
+        formattedValue += value.slice(1, 4);
+      }
+      if (value.length > 4) {
+        formattedValue += " " + value.slice(4, 7);
+      }
+      if (value.length > 7) {
+        formattedValue += " " + value.slice(7, 9);
+      }
+      if (value.length > 9) {
+        formattedValue += " " + value.slice(9, 11);
+      }
+    }
+
+    input.value = formattedValue || "+7 ";
+  }
+
+  // Обработчики для телефона
+  phoneInput?.addEventListener("input", formatPhone);
+  phoneInput?.addEventListener("focus", (e) => {
+    const input = e.target as HTMLInputElement;
+    if (!input.value || input.value === "+7") {
+      input.value = "+7 ";
+    }
+  });
+  phoneInput?.addEventListener("blur", (e) => {
+    const input = e.target as HTMLInputElement;
+    if (input.value === "+7 ") {
+      input.value = "";
+    }
+  });
+
+  // Инициализация поля телефона
+  if (phoneInput) {
+    phoneInput.value = "";
+  }
 </script>

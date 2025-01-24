@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form Message</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .message-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+
+      .message-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .message-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .label {
+        font-weight: 600;
+        width: 30%;
+        color: #555;
+      }
+
+      .footer {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #777;
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Новое сообщение с сайта</h2>
+
+      <table class="message-table">
+        <tr>
+          <td class="label">Имя</td>
+          <td>{{from_name}}</td>
+        </tr>
+        <tr>
+          <td class="label">Почта</td>
+          <td>{{from_email}}</td>
+        </tr>
+        <tr>
+          <td class="label">Телефон</td>
+          <td>{{phone}}</td>
+        </tr>
+        <tr>
+          <td class="label">Сообщение</td>
+          <td>{{message}}</td>
+        </tr>
+        <tr>
+          <td class="label">Файл</td>
+          <td>{{attachment}}</td>
+        </tr>
+      </table>
+
+      <div class="footer">
+        <p>Сообщение отправлено через контактную форму</p>
+      </div>
+    </div>
+  </body>
+
+</html>

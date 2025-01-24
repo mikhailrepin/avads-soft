@@ -47,6 +47,17 @@ const serviceItems = [
     />
     <!-- <ClientRouter /> -->
     <title>{Helpers.company.name} | {pageTitle}</title>
+
+    <!-- EmailJS SDK -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("LSMwzsQT9Ntj5AtDK");
+      })();
+    </script>
   </head>
   <body
     class="flex flex-col items-center bg-zinc-950 m-0 p-0 w-[100%] h-[100%] text-zinc-200 subpixel-antialiased">
