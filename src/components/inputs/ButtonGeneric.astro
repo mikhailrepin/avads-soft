@@ -6,6 +6,8 @@ interface Props extends BaseButton {
   ButtonLink?: string;
   CustomClass?: string;
   LabelClass?: string;
+  class?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 const {
@@ -24,6 +26,8 @@ const {
   CustomClass = "",
   Onclick,
   Target = "action" as Elem["Target"],
+  class: className,
+  type = "button",
 } = Astro.props as BaseButton;
 
 const BaseClasses = "base-classes";
@@ -76,6 +80,7 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
       </a>
     ) : (
       <button
+        type={type}
         class={ButtonClasses}
         onclick={Onclick}
         title={Tooltip}>
@@ -101,7 +106,7 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
     @apply flex items-center w-[16px] h-[16px];
   }
   .button-label {
-    @apply block max-w-[200px] truncate;
+    @apply block max-w-[400px] truncate;
   }
   .only-desktop > .button-label {
     @apply lg:block hidden;
