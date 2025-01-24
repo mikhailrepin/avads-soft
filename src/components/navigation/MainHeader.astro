@@ -11,15 +11,12 @@ const { menuItems } = Astro.props as MainHeaderProps;
 const currentPath = Astro.url.pathname;
 ---
 
-<header
-  id="main-header"
-  class="z-[999] fixed border-zinc-900 backdrop-blur-sm w-[100%] transition">
-  <div
-    class="flex justify-between items-center mx-auto lg:py-0 min-h-[48px] lg:min-h-[64px] main-max-width">
+<header id="main-header">
+  <div class="main-max-width nav-wrapper">
     <!-- Логотип -->
     <a
       href="/"
-      class="lg:hover:opacity-80 mr-[8px] lg:mr-0 w-[100px] lg:w-[132px]">
+      class="logo-link">
       <Image
         src={logoDark}
         alt="Логотип компании"
@@ -29,7 +26,8 @@ const currentPath = Astro.url.pathname;
 
     <!-- Меню навигации -->
     <nav
-      class="lg:relative top-[48px] lg:top-0 left-0 absolute flex lg:flex lg:flex-row flex-col justify-end lg:items-center gap-[12px] lg:gap-[24px] border-y border-zinc-900 hidden bg-zinc-950 lg:bg-transparent shadow-2xl shadow-zinc-950/90 lg:shadow-none px-[16px] lg:px-0 py-[24px] lg:py-0 lg:border-transparent w-[100%] navigation-menu">
+      class="header-nav"
+      data-visible="false">
       {
         menuItems.map((item) => (
           <a href={item.href}>
@@ -74,6 +72,41 @@ const currentPath = Astro.url.pathname;
   </div>
 </header>
 
+<style>
+  header {
+    @apply fixed border-zinc-900 backdrop-blur-sm w-[100%] transition;
+    z-index: 999;
+  }
+
+  .nav-wrapper {
+    @apply flex justify-between items-center mx-auto lg:py-0 min-h-[48px] lg:min-h-[64px];
+  }
+
+  .logo-link {
+    @apply lg:hover:opacity-80 mr-[8px] lg:mr-0 w-[100px] lg:w-[132px];
+  }
+
+  .header-nav {
+    @apply lg:relative top-[48px] lg:top-0 left-0 absolute flex lg:flex lg:flex-row flex-col 
+           justify-end lg:items-center gap-[12px] lg:gap-[24px] border-y border-zinc-900 
+           bg-zinc-950 lg:bg-transparent shadow-2xl shadow-zinc-950/90 lg:shadow-none 
+           px-[16px] lg:px-0 py-[24px] lg:py-0 lg:border-transparent w-[100%];
+    display: none;
+
+    @screen lg {
+      display: flex;
+    }
+  }
+
+  .header-nav[data-visible="true"] {
+    display: flex;
+  }
+
+  /* Добавляем класс для JavaScript */
+  .navigation-menu {
+  }
+</style>
+
 <script>
   let isMenuOpen: boolean = false; // Явно указываем тип для isMenuOpen
 
@@ -91,9 +124,9 @@ const currentPath = Astro.url.pathname;
 
   // Функция для закрытия меню
   const closeMenu = (): void => {
-    const menu = document.querySelector(".navigation-menu");
+    const menu = document.querySelector(".header-nav");
     if (menu) {
-      menu.classList.add("hidden"); // Скрываем меню
+      menu.setAttribute("data-visible", "false");
     }
     changeIcon("hamburger-menu"); // Меняем иконку на бургер
     isMenuOpen = false; // Обновляем состояние
@@ -107,31 +140,16 @@ const currentPath = Astro.url.pathname;
   // Функция для переключения меню
   const toggleMenu = (): void => {
     isMenuOpen = !isMenuOpen;
-    const menu = document.querySelector(".navigation-menu");
+    const menu = document.querySelector(".header-nav");
 
     if (menu) {
       if (isMenuOpen) {
-        menu.classList.remove("hidden");
+        menu.setAttribute("data-visible", "true");
         changeIcon("cross-big"); // Меняем иконку на "X"
         addHeaderClasses(); // Добавляем классы к header при открытии меню
       } else {
         closeMenu(); // Закрываем меню и меняем иконку
       }
-    }
-  };
-
-  // Функция для закрытия меню при клике вне header
-  const closeMenuOnOutsideClick = (event: Event): void => {
-    const header = document.getElementById("main-header");
-
-    // Проверяем, что event.target является элементом Node
-    if (
-      event.target instanceof Node &&
-      header &&
-      !header.contains(event.target) &&
-      isMenuOpen
-    ) {
-      closeMenu(); // Закрываем меню и меняем иконку
     }
   };
 
@@ -167,13 +185,29 @@ const currentPath = Astro.url.pathname;
   document.addEventListener("DOMContentLoaded", () => {
     const burgerButton = document.getElementById("mobile-menu-button");
     if (burgerButton) {
-      burgerButton.addEventListener("click", toggleMenu);
-      burgerButton.addEventListener("touchstart", toggleMenu); // Добавляем поддержку touchstart
+      // Заменяем два обработчика на один с preventDefault
+      burgerButton.addEventListener("click", (e) => {
+        e.preventDefault(); // Предотвращаем двойное срабатывание
+        toggleMenu();
+      });
     }
 
-    // Добавляем обработчик клика/касания на весь документ
-    document.addEventListener("click", closeMenuOnOutsideClick);
-    document.addEventListener("touchstart", closeMenuOnOutsideClick); // Добавляем поддержку touchstart
+    // Используем только click для закрытия меню
+    document.addEventListener("click", (e) => {
+      const header = document.getElementById("main-header");
+      // Проверяем, что клик был не по кнопке меню
+      const burgerButton = document.getElementById("mobile-menu-button");
+
+      if (
+        e.target instanceof Node &&
+        header &&
+        !header.contains(e.target) &&
+        isMenuOpen &&
+        (!burgerButton || !burgerButton.contains(e.target))
+      ) {
+        closeMenu();
+      }
+    });
 
     // Проверяем текущую прокрутку при загрузке страницы
     if (window.scrollY > 64) {
