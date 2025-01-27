@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import logoDark from "@/assets/logo/logo_dark.svg";
-import { Helpers } from "@/data/helpers.js";
+import helpers from "@/data/helpers.json";
 
 interface MainFooterProps {
   menuItems: { label: string; href: string }[];
@@ -23,7 +23,7 @@ const { menuItems, serviceItems } = Astro.props as MainFooterProps;
         alt="Логотип компании"
         height={32}
       />
-      <span>{Helpers.company.slogan}</span>
+      <span>{helpers.company.slogan}</span>
     </a>
 
     <!-- Меню навигации -->
@@ -39,9 +39,9 @@ const { menuItems, serviceItems } = Astro.props as MainFooterProps;
 
     <!-- Телефон -->
     <a
-      href={`tel:${Helpers.company.phone}`}
+      href={`tel:${helpers.company.phone}`}
       class="phone-link">
-      {Helpers.company.phone}
+      {helpers.company.phone}
     </a>
   </div>
 
@@ -50,7 +50,7 @@ const { menuItems, serviceItems } = Astro.props as MainFooterProps;
     <ul>
       <li>
         © 2022 – {new Date().getFullYear()}
-        {Helpers.company.name}. Все права защищены
+        {helpers.company.name}. Все права защищены
       </li>
       {
         serviceItems.map((item) => (

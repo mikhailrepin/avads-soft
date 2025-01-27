@@ -2,6 +2,7 @@
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import BgBlurSpot from "@/components/decorations/BgBlurSpot.astro";
 import type { CallToAction } from "@/types/interfaces";
+import helpers from "@/data/helpers.json";
 
 const { Title, Description, ButtonProps } = Astro.props as CallToAction;
 ---
@@ -31,7 +32,7 @@ const { Title, Description, ButtonProps } = Astro.props as CallToAction;
 
 <style>
   .cta {
-    @apply relative flex flex-col items-center gap-[16px] border-zinc-800 px-[16px] py-[40px] border rounded-md w-full overflow-hidden;
+    @apply relative flex flex-col items-center gap-[16px] border-zinc-900 hover:border-primary-200/30 px-[16px] py-[40px] border rounded-md w-full overflow-hidden;
     & h2 {
       @apply my-0 text-center;
     }

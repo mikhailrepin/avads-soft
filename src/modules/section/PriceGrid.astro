@@ -1,11 +1,10 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
+import PriceTable from "@/modules/price/PriceTable.astro";
 
 // Фильтруем продукты с ценами прямо в компоненте
-const productsWithPrices = prodSoft.products.filter(
-  (product) => product.prices
-);
+const productsWithPrices = prodSoft.products;
 ---
 
 <section class="wrapper">
@@ -49,29 +48,9 @@ const productsWithPrices = prodSoft.products.filter(
           </div>
 
           <div class="card-body">
-            <table>
-              <thead>
-                <tr>
-                  <th>Число тэгов</th>
-                  {product.prices.headers.map((header) => (
-                    <th>
-                      <h2>{header.clients}</h2>
-                      <span>{header.label}</span>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {product.prices.rows.map((row) => (
-                  <tr>
-                    <td>{row.tags}</td>
-                    {row.prices.map((price) => (
-                      <td>{price.toLocaleString()} ₽</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {product.prices?.type === "table" && (
+              <PriceTable prices={product.prices} />
+            )}
 
             <div class="card-footer">
               {product.buttons.buy && (
@@ -105,10 +84,11 @@ const productsWithPrices = prodSoft.products.filter(
                 />
               )}
               <p>
-                Все цены в таблице указаны без учёта НДС. Не является публичной
-                офертой, итоговая стоимость может быть скорректирована. Для
-                получения подробной информации обратитесь в службу по работе с
-                клиентами.
+                {product.prices &&
+                  "Все цены в таблице указаны без учёта НДС. Не является публичной " +
+                    "офертой, итоговая стоимость может быть скорректирована. Для " +
+                    "получения подробной информации обратитесь в службу по работе с " +
+                    "клиентами."}
               </p>
             </div>
           </div>
@@ -118,16 +98,59 @@ const productsWithPrices = prodSoft.products.filter(
   </div>
 </section>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll(".nav-bar a");
+
+    // Обработка эффекта прозрачности
+    navLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        navLinks.forEach((otherLink) => {
+          if (otherLink !== link) {
+            otherLink.style.opacity = "0.6";
+          }
+        });
+      });
+
+      link.addEventListener("mouseleave", () => {
+        navLinks.forEach((otherLink) => {
+          otherLink.style.opacity = "1";
+        });
+      });
+    });
+
+    // Обработка плавной прокрутки
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href")?.replace("#", "");
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const offset = 80;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  });
+</script>
+
 <style>
   .wrapper {
-    @apply flex gap-[16px] mx-auto my-20 w-[100%] main-max-width;
+    @apply flex lg:flex-row flex-col gap-[16px] mx-auto my-20 w-[100%] main-max-width;
   }
   .nav-bar {
-    @apply top-0 sticky border-zinc-900 bg-zinc-900/30 py-[32px] px-[16px] border rounded-[8px] w-[400px] min-w-[200px] h-fit max-h-[20dvh] overflow-y-auto;
+    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[999];
     & ul {
-      @apply flex flex-col gap-[8px];
+      @apply flex lg:flex-col flex-nowrap gap-[32px] lg:gap-[8px] overflow-x-auto overflow-y-hidden lg:overflow-y-auto;
       & li > a {
-        @apply flex gap-[12px] hover:bg-zinc-900 p-2 rounded-[8px] w-full text-zinc-400 hover:text-zinc-100 cursor-pointer;
+        @apply flex flex-shrink-0 items-center gap-[12px] hover:bg-zinc-900 p-2 rounded-[8px] text-zinc-400 hover:text-zinc-100 whitespace-nowrap transition-all duration-200 cursor-pointer;
         & img {
           @apply w-[24px] h-fit;
         }
@@ -135,15 +158,15 @@ const productsWithPrices = prodSoft.products.filter(
     }
   }
   .price-cards-col {
-    @apply flex flex-col gap-[24px] w-full;
+    @apply flex flex-col gap-[16px] w-full;
   }
   .price-card {
-    @apply border-zinc-900 p-[32px] border rounded-[8px] w-full;
+    @apply border-zinc-900 p-[32px] border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
   }
   .card-head {
-    @apply flex gap-[24px];
+    @apply flex lg:flex-row flex-col gap-[24px];
     & img {
-      @apply bg-zinc-900 p-4 rounded-[8px] min-w-[48px] h-fit;
+      @apply bg-zinc-900 p-3 rounded-[8px] w-[60px] h-[60px];
     }
     & .card-info {
       @apply flex flex-col gap-2;
@@ -157,38 +180,9 @@ const productsWithPrices = prodSoft.products.filter(
   }
   .card-body {
     @apply flex flex-col gap-2;
-    & table {
-      @apply mt-[32px] w-full;
-      & thead {
-        @apply border-zinc-800 border-b-2 uppercase;
-        & tr th:first-child {
-          @apply text-left text-primary-300;
-        }
-        & tr th {
-          @apply pb-4 text-center;
-          & h2 {
-            @apply m-0 font-semibold text-silver text-xl;
-          }
-          & span {
-            @apply text-silver text-sm;
-          }
-        }
-      }
-      & tbody {
-        & tr {
-          @apply border-zinc-900 border-b last:border-none hover:bg-zinc-900/30;
-          & td {
-            @apply py-4 text-center;
-            &:first-child {
-              @apply text-left text-primary-300;
-            }
-          }
-        }
-      }
-    }
   }
   .card-footer {
-    @apply flex gap-3 pt-[24px];
+    @apply flex lg:flex-row flex-col gap-3 pt-[24px];
     & p {
       @apply m-0 px-4 w-full text-sm text-zinc-600;
     }

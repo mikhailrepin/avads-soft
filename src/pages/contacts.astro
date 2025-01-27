@@ -1,9 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import FeedbackForm from "@/modules/forms/FeedbackForm.astro";
-import { Helpers } from "@/data/helpers.js";
-
-const heroBbackground = "/hero/gradient.avif";
+import helpers from "@/data/helpers.json";
 ---
 
 <Layout pageTitle="Контакты">
@@ -15,13 +13,13 @@ const heroBbackground = "/hero/gradient.avif";
         <div class="contact-card">
           <a
             class="text-2xl"
-            href={`tel:${Helpers.company.phone}`}>
-            {Helpers.company.phone}
+            href={`tel:${helpers.company.phone}`}>
+            {helpers.company.phone}
           </a>
           <a
             class="text-xl"
-            href={`mailto:${Helpers.company.mail.sales}`}>
-            {Helpers.company.mail.sales}
+            href={`mailto:${helpers.company.mail.sales}`}>
+            {helpers.company.mail.sales}
           </a>
           <p class="text-zinc-300">По вопросам закупок</p>
         </div>
@@ -29,16 +27,16 @@ const heroBbackground = "/hero/gradient.avif";
           <div class="contact-card">
             <a
               class="text-xl"
-              href={`mailto:${Helpers.company.mail.info}`}>
-              {Helpers.company.mail.info}
+              href={`mailto:${helpers.company.mail.info}`}>
+              {helpers.company.mail.info}
             </a>
             <p class="text-zinc-300">По общим вопросам</p>
           </div>
           <div class="contact-card">
             <a
               class="text-xl"
-              href={`mailto:${Helpers.company.mail.support}`}>
-              {Helpers.company.mail.support}
+              href={`mailto:${helpers.company.mail.support}`}>
+              {helpers.company.mail.support}
             </a>
             <p class="text-zinc-300">Техническая поддержка</p>
           </div>
@@ -46,30 +44,26 @@ const heroBbackground = "/hero/gradient.avif";
       </div>
       <div class="content-box">
         <h3>Адрес</h3>
-        <p class="text-zinc-300">{Helpers.company.location}</p>
+        <p class="text-zinc-300">{helpers.company.location.address}</p>
         <a
           class="text-zinc-500 hover:text-primary-400 hover:underline"
-          href="https://yandex.ru/maps/-/CHasZZJC">
+          href={helpers.company.location.map}>
           Показать на карте
         </a>
       </div>
       <div class="content-box">
         <h3>Реквизиты</h3>
-        <p class="text-zinc-300 leading-[1.8]">
-          ООО «АВАДС СОФТ»<br />
-          ИНН 7734441587 КПП 773401001<br />
-          ПАО «Сбербанк России» г. Москва<br />
-          р/с 40702810638000270788<br />
-          БИК 044525225 к/с 30101810400000000225<br />
-          ОГРН 1217700146960
-        </p>
+        <p
+          class="text-zinc-300 leading-[1.8]"
+          set:html={helpers.company.requisites}
+        />
         <hr class="separator silver" />
         <p class="text-zinc-300 leading-[1.8]">
           <span class="font-semibold text-lg"
             >Почтовый и юридический адрес:</span
           >
           <br />
-          {Helpers.company.location}
+          {helpers.company.location.address}
         </p>
       </div>
     </div>

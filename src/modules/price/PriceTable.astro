@@ -1,0 +1,96 @@
+---
+interface Props {
+  prices: {
+    meta: {
+      rowLabel: string;
+      currency: string;
+    };
+    headers: {
+      clients: number | string;
+      label: string;
+    }[];
+    rows: {
+      tags: number | string;
+      prices: number[];
+    }[];
+  };
+}
+
+const { prices } = Astro.props;
+---
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th class="fixed-column">{prices.meta.rowLabel}</th>
+        {
+          prices.headers.map((header) => (
+            <th>
+              <h2>{header.clients}</h2>
+              <span>{header.label}</span>
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        prices.rows.map((row) => (
+          <tr>
+            <td class="fixed-column">
+              {row.tags.toLocaleString("ru-RU").replace(",", " ")}
+            </td>
+            {row.prices.map((price) => (
+              <td>
+                {price.toLocaleString("ru-RU").replace(",", " ")}{" "}
+                {prices.meta.currency}
+              </td>
+            ))}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-wrapper {
+    @apply w-full overflow-x-auto lg:overflow-x-visible;
+    @apply relative;
+  }
+
+  table {
+    @apply mt-[32px] w-full min-w-[800px] lg:min-w-0;
+  }
+
+  .fixed-column {
+    @apply lg:relative left-0 z-10 sticky bg-zinc-950 lg:bg-zinc-950/0;
+    @apply after:top-0 after:right-0 after:absolute after:bg-zinc-800 lg:after:w-[0px] after:w-[1px] after:h-full;
+  }
+
+  thead {
+    @apply border-zinc-800 border-b-2 uppercase;
+  }
+  thead tr th:first-child {
+    @apply text-left text-primary-300;
+  }
+  thead tr th {
+    @apply pb-4 text-center;
+  }
+  thead tr th h2 {
+    @apply m-0 font-semibold text-silver text-xl;
+  }
+  thead tr th span {
+    @apply text-silver text-sm;
+  }
+  tbody tr {
+    @apply border-zinc-900 border-b last:border-none;
+  }
+  tbody tr td {
+    @apply px-4 py-4 text-center;
+  }
+  tbody tr td:first-child {
+    @apply pr-2 pl-0 text-left text-primary-300;
+  }
+</style>

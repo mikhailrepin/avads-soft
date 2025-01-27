@@ -1,6 +1,6 @@
 ---
 import "@/base.css";
-import { Helpers } from "@/data/helpers.js";
+import helpers from "@/data/helpers.json";
 import { ClientRouter, fade, slide } from "astro:transitions";
 import MainHeader from "@/components/navigation/MainHeader.astro";
 import MainFooter from "@/components/navigation/MainFooter.astro";
@@ -46,7 +46,7 @@ const serviceItems = [
       content={Astro.generator}
     />
     <!-- <ClientRouter /> -->
-    <title>{Helpers.company.name} | {pageTitle}</title>
+    <title>{helpers.company.name} | {pageTitle}</title>
 
     <!-- EmailJS SDK -->
     <script

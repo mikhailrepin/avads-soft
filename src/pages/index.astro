@@ -48,7 +48,7 @@ const latestPosts = posts
       customClass="w-[40vw] h-[40vw] top-[-15%] left-[-10%] opacity-20"
     />
     <h2>Продукты</h2>
-    <div class="gap-6 grid grid-cols-1 lg:grid-cols-2 my-[48px]">
+    <div class="gap-6 grid grid-cols-1 lg:grid-cols-2">
       <p>
         Компания АВАДС СОФТ является разработчиком программных решений <br />для
         автоматизации, диспетчеризации и учёта на промышленных объектах, <br />в
@@ -65,21 +65,24 @@ const latestPosts = posts
       </p>
     </div>
 
-    <ProductGrid Collapsed={true} />
-
-    <CallToAction
-      Title="Свяжитесь с нами"
-      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
-      ButtonProps={{
-        ButtonLabel: "Оставить заявку",
-        ButtonLink: "/contacts",
-      }}
-    />
-    <hr class="my-[52px] separator silver" />
-    <h2 class="mb-[48px]">Новости компании</h2>
-    <PostsGrid
-      posts={latestPosts}
-      showAllNewsButton={true}
-    />
+    <div class="flex flex-col gap-[52px] my-[52px]">
+      <ProductGrid Collapsed={true} />
+      <CallToAction
+        Title="Свяжитесь с нами"
+        Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+        ButtonProps={{
+          ButtonLabel: "Оставить заявку",
+          ButtonLink: "/contacts",
+        }}
+      />
+      <hr class="separator silver" />
+      <div class="flex flex-col gap-[24px]">
+        <h2>Новости компании</h2>
+        <PostsGrid
+          posts={latestPosts}
+          showAllNewsButton={true}
+        />
+      </div>
+    </div>
   </section>
 </Layout>
