@@ -17,7 +17,7 @@ const { Title, Description, ButtonProps } = Astro.props as CallToAction;
       <ButtonGeneric
         Variant="primary"
         Size="big"
-        Style="outlined"
+        Style="filled"
         Visible={true}
         IconLeft={ButtonProps.IconLeft}
         IconRight={ButtonProps.IconRight}
@@ -31,7 +31,7 @@ const { Title, Description, ButtonProps } = Astro.props as CallToAction;
 
 <style>
   .cta {
-    @apply relative flex flex-col items-center gap-[16px] border-zinc-500 px-[16px] py-[40px] rounded-md w-full overflow-hidden;
+    @apply relative flex flex-col items-center gap-[16px] border-zinc-800 px-[16px] py-[40px] border rounded-md w-full overflow-hidden;
     & h2 {
       @apply my-0 text-center;
     }

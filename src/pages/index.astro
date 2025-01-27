@@ -4,8 +4,7 @@ import MainHero from "@/modules/section/MainHero.astro";
 import ProductCard from "@/modules/card/home-page/ProductCard.astro";
 import BgBlurSpot from "@/components/decorations/BgBlurSpot.astro";
 import CallToAction from "@/modules/section/CallToAction.astro";
-import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-import prodSoft from "@/data/prodSoft.json";
+import ProductGrid from "@/modules/section/ProductGrid.astro";
 import PostsGrid from "@/modules/section/PostsGrid.astro";
 
 const heroBbackground = "/hero/main-page.png";
@@ -65,58 +64,8 @@ const latestPosts = posts
         безопасности данных.
       </p>
     </div>
-    <div class="gap-6 grid grid-cols-1 lg:grid-cols-2 my-[52px]">
-      {
-        prodSoft.products.slice(0, 4).map((product) => (
-          <ProductCard
-            Image={product.app.image}
-            Title={product.app.name}
-            Status={product.app.status}
-            Description={product.app.description}
-            FirstButton={{
-              Visible: !!product.button.first,
-              ButtonLabel: product.button.first?.label || "",
-              ButtonLink: product.button.first?.link || "#",
-              IconLeft: {
-                IconSprite: "download-bold",
-                IconVisible: true,
-              },
-              IconRight: {
-                IconSprite: "",
-                IconVisible: false,
-              },
-            }}
-            SecondButton={{
-              Visible: !!product.button.second,
-              ButtonLabel: product.button.second?.label || "",
-              ButtonLink: product.button.second?.link || "#",
-              IconLeft: {
-                IconSprite: "",
-                IconVisible: false,
-              },
-              IconRight: {
-                IconSprite: "",
-                IconVisible: false,
-              },
-            }}
-          />
-        ))
-      }
-    </div>
 
-    <ButtonGeneric
-      Variant="primary"
-      Size="default"
-      Style="ghosted"
-      IconRight={{
-        IconSprite: "chevron-right-big-outline",
-        IconVisible: true,
-      }}
-      CustomClass="w-fit mx-auto mt-[-16px] mb-[40px]"
-      ButtonLabel="Все продукты"
-      Target="link"
-      ButtonLink="/all-products"
-    />
+    <ProductGrid Collapsed={true} />
 
     <CallToAction
       Title="Свяжитесь с нами"

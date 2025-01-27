@@ -1,6 +1,11 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-import { priceSoft } from "@/data/priceSoft.js";
+import prodSoft from "@/data/prodSoft.json";
+
+// Фильтруем продукты с ценами прямо в компоненте
+const productsWithPrices = prodSoft.products.filter(
+  (product) => product.prices
+);
 ---
 
 <section class="wrapper">
@@ -8,7 +13,7 @@ import { priceSoft } from "@/data/priceSoft.js";
   <aside class="nav-bar">
     <ul>
       {
-        priceSoft.products.map((product) => (
+        productsWithPrices.map((product) => (
           <li>
             <a href={`#${product.id}`}>
               <img
@@ -16,7 +21,7 @@ import { priceSoft } from "@/data/priceSoft.js";
                 alt={product.id}
                 loading="lazy"
               />
-              {product.anchorName}
+              {product.app.name}
             </a>
           </li>
         ))
@@ -27,7 +32,7 @@ import { priceSoft } from "@/data/priceSoft.js";
   <!-- Правая колонка с карточками продуктов -->
   <div class="price-cards-col">
     {
-      priceSoft.products.map((product) => (
+      productsWithPrices.map((product) => (
         <div
           class="price-card"
           id={product.id}>

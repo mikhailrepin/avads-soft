@@ -1,0 +1,67 @@
+---
+import prodSoft from "@/data/prodSoft.json";
+import ProductCard from "@/modules/card/home-page/ProductCard.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+interface Props {
+  Collapsed?: boolean;
+}
+
+const { Collapsed = false } = Astro.props;
+const products = Collapsed ? prodSoft.products.slice(0, 4) : prodSoft.products;
+---
+
+<section class="flex flex-col gap-[52px] w-[100%]">
+  <div class="gap-6 grid grid-cols-1 lg:grid-cols-2">
+    {
+      products.map((product) => (
+        <ProductCard
+          Image={product.app.image}
+          Title={product.app.name}
+          Status={product.app.status}
+          Description={product.app.description}
+          FirstButton={{
+            Visible: !!product.buttons.demo,
+            ButtonLabel: product.buttons.demo?.label || "",
+            ButtonLink: product.buttons.demo?.link || "#",
+            IconLeft: {
+              IconSprite: "download-bold",
+              IconVisible: true,
+            },
+            IconRight: {
+              IconSprite: "",
+              IconVisible: false,
+            },
+          }}
+          SecondButton={{
+            Visible: !!product.buttons.more,
+            ButtonLabel: product.buttons.more?.label || "",
+            ButtonLink: product.buttons.more?.link || "#",
+            IconLeft: {
+              IconSprite: "",
+              IconVisible: false,
+            },
+            IconRight: {
+              IconSprite: "",
+              IconVisible: false,
+            },
+          }}
+        />
+      ))
+    }
+  </div>
+  {
+    Collapsed && (
+      <div class="flex justify-center">
+        <ButtonGeneric
+          Variant="primary"
+          Size="default"
+          Style="outlined"
+          Target="link"
+          ButtonLabel="Все продукты"
+          ButtonLink="/all-products"
+        />
+      </div>
+    )
+  }
+</section>

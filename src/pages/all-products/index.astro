@@ -1,0 +1,41 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/modules/section/MainHero.astro";
+import CallToAction from "@/modules/section/CallToAction.astro";
+import FAQ from "@/modules/section/FAQ.astro";
+import ProductGrid from "@/modules/section/ProductGrid.astro";
+import { FAQ as faqData } from "@/data/faq-main";
+
+const heroBbackground =
+  "https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+---
+
+<Layout pageTitle="Все продукты">
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex flex-col justify-center gap-4 mx-auto w-[100%] min-h-[50dvh] main-max-width">
+      <h1 class="uppercase tracking-[0.10rem]">
+        <span class="text-silver">Программное <br />обеспечение</span><br />
+        <span class="text-gold">АВАДС СОФТ</span><br />
+      </h1>
+      <h3 class="pt-3">
+        Наши продукты составляют надёжную опору <br /> современной автоматизации
+      </h3>
+    </div>
+  </MainHero>
+
+  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+    <ProductGrid Collapsed={false} />
+
+    <CallToAction
+      Title="Свяжитесь с нами"
+      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+      ButtonProps={{
+        ButtonLabel: "Оставить заявку",
+        ButtonLink: "/contacts",
+      }}
+    />
+
+    <FAQ faqData={faqData} />
+  </div>
+</Layout>
