@@ -1,0 +1,38 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+---
+
+<Layout pageTitle="Страница не найдена">
+  <section class="wrapper">
+    <h1>404</h1>
+    <h2>Страница не найдена</h2>
+    <p>Возможно, такой страницы не существует или её адрес был изменён.</p>
+    <ButtonGeneric
+      Variant="secondary"
+      Visible={true}
+      Size="default"
+      Style="outlined"
+      IconLeft={{ IconSprite: "home-outline", IconVisible: false }}
+      CustomClass="mt-[40px]"
+      ButtonLabel="На главную"
+      ButtonLink="/"
+      Target="link"
+    />
+  </section>
+</Layout>
+
+<style>
+  .wrapper {
+    @apply flex flex-col justify-center items-center mx-auto min-h-[75dvh] main-max-width;
+    & h1 {
+      @apply text-primary-300;
+    }
+    & h2 {
+      @apply text-2xl lg:text-4xl;
+    }
+    & p {
+      @apply text-zinc-400;
+    }
+  }
+</style>
