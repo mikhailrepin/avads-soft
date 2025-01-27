@@ -1,0 +1,125 @@
+---
+import { FAQ as defaultFAQ } from "@/data/faq-main";
+
+interface Props {
+  faqData?: typeof defaultFAQ;
+}
+
+const { faqData = defaultFAQ } = Astro.props;
+---
+
+<section class="wrapper">
+  <div class="faq-container">
+    {
+      faqData.tabs.map((tab, index) => (
+        <div class="faq-item">
+          <button
+            class="faq-button"
+            aria-expanded="false"
+            aria-controls={`content-${index}`}>
+            <span class="faq-title">{tab.title}</span>
+            <svg
+              class="faq-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none">
+              <path
+                d="M12 4L12 20M20 12L4 12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+          <div
+            class="faq-content"
+            id={`content-${index}`}
+            aria-hidden="true"
+            set:html={tab.items}
+          />
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .wrapper {
+    @apply flex flex-col gap-8 mx-auto py-14 main-max-width;
+    & h2 {
+      @apply font-bold text-2xl lg:text-4xl;
+    }
+  }
+  .faq-container {
+    @apply flex flex-col border-zinc-900 border rounded-lg overflow-hidden;
+  }
+  .faq-item {
+    @apply border-zinc-900 border-b last:border-none;
+  }
+  .faq-button {
+    @apply flex justify-between items-center bg-zinc-950 hover:bg-zinc-900/30 px-[24px] py-[14px] w-full text-left text-zinc-400 hover:text-primary-300 transition-colors;
+    &[aria-expanded="true"] {
+      @apply text-primary-300;
+      & .faq-icon {
+        @apply rotate-45;
+      }
+      & + .faq-content {
+        @apply bg-zinc-900/50 opacity-100 py-[16px] max-h-[1000px];
+      }
+    }
+  }
+  .faq-title {
+    @apply pr-8 font-medium text-base lg:text-lg leading-none;
+  }
+  .faq-icon {
+    @apply w-5 h-5 transition-transform translate-y-[1px] shrink-0;
+  }
+  .faq-content {
+    @apply opacity-0 px-[24px] max-h-0 transition-all duration-300 overflow-hidden;
+    & > * {
+      @apply py-4;
+    }
+    & :global(ul) {
+      @apply mb-4 pl-6 list-disc;
+    }
+    & :global(ul ul) {
+      @apply mt-2;
+    }
+    & :global(li) {
+      @apply mb-2 text-zinc-400;
+    }
+  }
+</style>
+
+<script>
+  function setupFAQ() {
+    const buttons = document.querySelectorAll(".faq-button");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const isExpanded = button.getAttribute("aria-expanded") === "true";
+        const content = button.nextElementSibling as HTMLElement;
+
+        // Закрываем все остальные элементы
+        buttons.forEach((otherButton) => {
+          if (otherButton !== button) {
+            otherButton.setAttribute("aria-expanded", "false");
+            const otherContent = otherButton.nextElementSibling as HTMLElement;
+            otherContent.setAttribute("aria-hidden", "true");
+          }
+        });
+
+        // Открываем/закрываем текущий элемент
+        button.setAttribute("aria-expanded", (!isExpanded).toString());
+        content.setAttribute("aria-hidden", isExpanded.toString());
+      });
+    });
+  }
+
+  // Инициализация при загрузке страницы
+  setupFAQ();
+
+  // Инициализация при переходах между страницами (для View Transitions)
+  document.addEventListener("astro:page-load", setupFAQ);
+</script>
