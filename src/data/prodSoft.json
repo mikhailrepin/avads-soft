@@ -15,7 +15,7 @@
         },
         "second": {
           "label": "Подробнее",
-          "link": "/tsdb"
+          "link": "/all-products/tsdb"
         }
       }
     },
@@ -34,7 +34,7 @@
         },
         "second": {
           "label": "Подробнее",
-          "link": "/sar-expert"
+          "link": "/all-products/sar-expert"
         }
       }
     },
@@ -53,7 +53,7 @@
         },
         "second": {
           "label": "Подробнее",
-          "link": "/opc-db"
+          "link": "/all-products/opc-db"
         }
       }
     },
@@ -68,7 +68,7 @@
       "button": {
         "second": {
           "label": "Подробнее",
-          "link": "/modbus-opc"
+          "link": "/all-products/modbus-opc"
         }
       }
     }

@@ -1,0 +1,191 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import { priceSoft } from "@/data/priceSoft.js";
+---
+
+<section class="wrapper">
+  <!-- Левая колонка с навигацией -->
+  <aside class="nav-bar">
+    <ul>
+      {
+        priceSoft.products.map((product) => (
+          <li>
+            <a href={`#${product.id}`}>
+              <img
+                src={product.app.image}
+                alt={product.id}
+                loading="lazy"
+              />
+              {product.anchorName}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </aside>
+
+  <!-- Правая колонка с карточками продуктов -->
+  <div class="price-cards-col">
+    {
+      priceSoft.products.map((product) => (
+        <div
+          class="price-card"
+          id={product.id}>
+          <div class="card-head">
+            <img
+              src={product.app.image}
+              alt={product.id}
+              loading="lazy"
+            />
+            <div class="card-info">
+              <span class="title">{product.app.name}</span>
+              <span class="description">{product.app.description}</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <table>
+              <thead>
+                <tr>
+                  <th>Число тэгов</th>
+                  {product.prices.headers.map((header) => (
+                    <th>
+                      <h2>{header.clients}</h2>
+                      <span>{header.label}</span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {product.prices.rows.map((row) => (
+                  <tr>
+                    <td>{row.tags}</td>
+                    {row.prices.map((price) => (
+                      <td>{price.toLocaleString()} ₽</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div class="card-footer">
+              {product.buttons.buy && (
+                <ButtonGeneric
+                  Variant="primary"
+                  Size="default"
+                  Style="filled"
+                  Target="link"
+                  ButtonLabel={product.buttons.buy.label}
+                  ButtonLink={product.buttons.buy.link}
+                />
+              )}
+              {product.buttons.demo && (
+                <ButtonGeneric
+                  Variant="primary"
+                  Size="default"
+                  Style="outlined"
+                  Target="link"
+                  ButtonLabel={product.buttons.demo.label}
+                  ButtonLink={product.buttons.demo.link}
+                />
+              )}
+              {product.buttons.more && (
+                <ButtonGeneric
+                  Variant="secondary"
+                  Size="default"
+                  Style="outlined"
+                  Target="link"
+                  ButtonLabel={product.buttons.more.label}
+                  ButtonLink={product.buttons.more.link}
+                />
+              )}
+              <p>
+                Все цены в таблице указаны без учёта НДС. Не является публичной
+                офертой, итоговая стоимость может быть скорректирована. Для
+                получения подробной информации обратитесь в службу по работе с
+                клиентами.
+              </p>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .wrapper {
+    @apply flex gap-[16px] mx-auto my-20 w-[100%] main-max-width;
+  }
+  .nav-bar {
+    @apply top-0 sticky border-zinc-900 bg-zinc-900/30 py-[32px] px-[16px] border rounded-[8px] w-[400px] min-w-[200px] h-fit max-h-[20dvh] overflow-y-auto;
+    & ul {
+      @apply flex flex-col gap-[8px];
+      & li > a {
+        @apply flex gap-[12px] hover:bg-zinc-900 p-2 rounded-[8px] w-full text-zinc-400 hover:text-zinc-100 cursor-pointer;
+        & img {
+          @apply w-[24px] h-fit;
+        }
+      }
+    }
+  }
+  .price-cards-col {
+    @apply flex flex-col gap-[24px] w-full;
+  }
+  .price-card {
+    @apply border-zinc-900 p-[32px] border rounded-[8px] w-full;
+  }
+  .card-head {
+    @apply flex gap-[24px];
+    & img {
+      @apply bg-zinc-900 p-4 rounded-[8px] min-w-[48px] h-fit;
+    }
+    & .card-info {
+      @apply flex flex-col gap-2;
+      & .title {
+        @apply mb-[-4px] font-medium text-2xl;
+      }
+      & .description {
+        @apply m-0 text-lg text-zinc-500;
+      }
+    }
+  }
+  .card-body {
+    @apply flex flex-col gap-2;
+    & table {
+      @apply mt-[32px] w-full;
+      & thead {
+        @apply border-zinc-800 border-b-2 uppercase;
+        & tr th:first-child {
+          @apply text-left text-primary-300;
+        }
+        & tr th {
+          @apply pb-4 text-center;
+          & h2 {
+            @apply m-0 font-semibold text-silver text-xl;
+          }
+          & span {
+            @apply text-silver text-sm;
+          }
+        }
+      }
+      & tbody {
+        & tr {
+          @apply border-zinc-900 border-b last:border-none hover:bg-zinc-900/30;
+          & td {
+            @apply py-4 text-center;
+            &:first-child {
+              @apply text-left text-primary-300;
+            }
+          }
+        }
+      }
+    }
+  }
+  .card-footer {
+    @apply flex gap-3 pt-[24px];
+    & p {
+      @apply m-0 px-4 w-full text-sm text-zinc-600;
+    }
+  }
+</style>
