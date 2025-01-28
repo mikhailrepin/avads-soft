@@ -1687,7 +1687,7 @@
     </symbol>
     <symbol id="edit-shutdown-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M7 1c-3.392.485-6 3.474-6 7a7 7 0 1 0 14 0c0-3.526-2.608-6.515-6-7v7H7V1Z"/>
+        <path d="M7 1c-3.392.485-6 3.473-6 7a7 7 0 1 0 14 0c0-3.527-2.608-6.515-6-7v7H7V1Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -5531,6 +5531,106 @@
       <g clip-path="url(#a)">
         <path fill-rule="evenodd" d="M14 6.515 8 2.229 2 6.515V14h12V6.515ZM15 6 8 1 1 6v9h14V6Z" clip-rule="evenodd"/>
         <path d="M4 10h8v2H4v-2Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M7 1h7L9.5 7H13L3 15l3-6H3l4-8Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="m10 7 4-6H6L3 9h2.5L3 15l10-8h-3Zm2.132-5H6.693l-2.25 6H7l-1.575 3.78L10.15 8H8.131l4-6Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-add-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M7 1h7L9.5 7h2a4.5 4.5 0 0 0-4.49 4.793L3 15l3-6H3l4-8Zm4 11v3l1-.009V12h3v-1h-3V8h-1v3H8v1h3Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-add-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="m3 9 3-8h8l-4 6h1.5a4.481 4.481 0 0 0-2.829 1h-.54l4-6H6.694l-2.25 6H7l-1.575 3.78 1.707-1.366a4.51 4.51 0 0 0-.123 1.379L3 15l2.5-6H3Zm5 3h3v3l1-.009V12h3v-1h-3V8h-1v3H8v1Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-delete-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M7 1h7L9.5 7h2a4.5 4.5 0 0 0-4.49 4.793L3 15l3-6H3l4-8Zm1 10v1h7v-1H8Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-delete-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="m3 9 3-8h8l-4 6h1.5a4.481 4.481 0 0 0-2.829 1h-.54l4-6H6.694l-2.25 6H7l-1.575 3.78 1.707-1.366a4.51 4.51 0 0 0-.123 1.379L3 15l2.5-6H3Zm5 2v1h7v-1H8Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-up-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M7 1h7L9.5 7h2a4.5 4.5 0 0 0-4.49 4.793L3 15l3-6H3l4-8Zm4 14v-4H9l2.5-3 2.5 3h-2v4h-1Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-up-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="m3 9 3-8h8l-4 6h1.5a4.481 4.481 0 0 0-2.829 1h-.54l4-6H6.694l-2.25 6H7l-1.575 3.78 1.707-1.366a4.51 4.51 0 0 0-.123 1.379L3 15l2.5-6H3Zm8 6v-4H9l2.5-3 2.5 3h-2v4h-1Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-down-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M7 1h7L9.5 7h2a4.5 4.5 0 0 0-4.49 4.793L3 15l3-6H3l4-8Zm4 7v4H9l2.5 3 2.5-3h-2V8h-1Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="bolt-down-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="m3 9 3-8h8l-4 6h1.5a4.481 4.481 0 0 0-2.829 1h-.54l4-6H6.694l-2.25 6H7l-1.575 3.78 1.707-1.366a4.51 4.51 0 0 0-.123 1.379L3 15l2.5-6H3Zm8-1v4H9l2.5 3 2.5-3h-2V8h-1Z"/>
       </g>
       <defs>
         <clipPath id="a">

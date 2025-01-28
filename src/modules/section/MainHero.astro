@@ -22,6 +22,12 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
       @apply top-0 left-0 z-10 absolute bg-zinc-950 opacity-75 w-full h-full;
       content: "";
     }
+    & :global(h1) {
+      @apply lg:text-5xl uppercase tracking-[0.10rem];
+    }
+    & :global(h3) {
+      @apply pt-3 w-fit max-w-[100%] font-medium text-lg text-zinc-400 lg:text-xl;
+    }
   }
   .content-area {
     @apply relative z-20 flex flex-col gap-4 w-[100%];

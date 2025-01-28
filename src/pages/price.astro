@@ -2,19 +2,18 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/modules/section/MainHero.astro";
 import PriceGrid from "@/modules/section/PriceGrid.astro";
-const heroBbackground =
-  "https://images.unsplash.com/photo-1622737133809-d95047b9e673?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+const heroBbackground = "/hero/price-page.avif";
 ---
 
 <Layout pageTitle="Цены">
   <MainHero backgroundUrl={heroBbackground}>
     <div
       class="flex flex-col justify-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
-      <h1 class="lg:text-5xl uppercase tracking-[0.10rem]">
+      <h1>
         <span class="text-silver">Стоимость программного<br />обеспечения</span>
         <span class="text-gold">АВАДС СОФТ</span><br />
       </h1>
-      <h3 class="pt-3 text-lg lg:text-xl">
+      <h3>
         Мы удерживаем конкурентную стоимость на всю линейку продуктов. <br />
         Комфортно масштабируйтесь без опасения крупных растрат на лишние ресурсы
       </h3>

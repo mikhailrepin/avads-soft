@@ -1,0 +1,226 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/modules/section/MainHero.astro";
+import CallToAction from "@/modules/section/CallToAction.astro";
+import Advantage from "@/modules/card/products/advantage.astro";
+
+/* Images */
+import { Image } from "astro:assets";
+import sarInfrastructure from "@/assets/products/sar-expert/sar-infra.png";
+import sarDesktop from "@/assets/products/sar-expert/sar-desktop.png";
+/* Data */
+import prodSoft from "@/data/prodSoft.json";
+
+/* Variables */
+const heroBbackground =
+  "https://images.unsplash.com/photo-1617791160530-fb48acfc1658?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
+const sarExpert = prodSoft.products.find(
+  (product) => product.id === "sar-expert"
+);
+
+if (!sarExpert) throw new Error("Product not found");
+
+const advantages = [
+  {
+    title: "Повышение стабильности процессов",
+    description:
+      "Автоматическая настройка ПИД-регуляторов обеспечивает стабильную работу технологических процессов и минимизирует отклонения от заданных параметров.",
+    icon: "trend-switch-to-new",
+  },
+  {
+    title: "Улучшение качества продукции",
+    description:
+      "Точное поддержание технологических параметров позволяет получать продукцию стабильно высокого качества и снижает процент брака.",
+    icon: "scales-up-outline",
+  },
+  {
+    title: "Снижение риска нештатных ситуаций",
+    description:
+      "Своевременная корректировка параметров регулирования предотвращает аварийные ситуации и защищает оборудование от критических режимов работы.",
+    icon: "time-activity-outline",
+  },
+  {
+    title: "Увеличение производительности",
+    description:
+      "Оптимальные настройки регуляторов повышают кпд технологического оборудования.",
+    icon: "trend-static",
+  },
+  {
+    title: "Сокращение энергозатрат",
+    description:
+      "Эффективное управление параметрами снижает затраты энергии на регулирование и уменьшает износ оборудования.",
+    icon: "bolt-down-outline",
+  },
+  {
+    title: "Контроль расхода ресурсов",
+    description:
+      "Оптимизация работы регуляторов помогает экономить сырье и энергоресурсы за счет снижения перерегулирования и колебательности.",
+    icon: "charts-square-outline",
+  },
+];
+---
+
+<Layout pageTitle="SAR Expert">
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
+      <div class="w-full min-w-[50%]">
+        <h1 class="hero-heading">
+          <span class="text-silver">{sarExpert.app.name}</span><br />
+        </h1>
+        <h3 class="hero-description">
+          <span
+            set:html={sarExpert.app.description.replace(
+              "контроль",
+              "контроль<br />"
+            )}
+          />
+        </h3>
+      </div>
+      <div class="flex justify-center items-center w-[100%] h-[100%]">
+        <img
+          src={sarExpert.app.image}
+          alt={sarExpert.app.name}
+          class=""
+          style="transform: scale(6)"
+        />
+      </div>
+    </div>
+  </MainHero>
+  <h2 class="mx-auto mt-[52px] text-3xl main-max-width">
+    Преимущества эффективной работы САР
+  </h2>
+  <!-- Преимущества -->
+  <div
+    class="gap-[16px] grid grid-cols-1 lg:grid-cols-3 mx-auto my-[52px] main-max-width">
+    {advantages.map((advantage) => <Advantage {...advantage} />)}
+  </div>
+
+  <h2 class="mx-auto mt-[80px] mb-[40px] text-3xl main-max-width">
+    Технологии {sarExpert.app.name}
+  </h2>
+  <!-- Инфраструктура -->
+  <div
+    class="relative flex flex-col gap-[16px] mx-auto pb-[40px] main-max-width">
+    <div class="animated-circles">
+      <div class="circle">1</div>
+      <div class="circle">2</div>
+      <div class="circle">3</div>
+      <div class="circle">4</div>
+      <div class="circle">5</div>
+    </div>
+
+    <div class="lg:max-w-[500px] text-card">
+      <p class="title">Инфраструктура</p>
+      <p class="description">
+        Для получения переменных процесса, АВАДС САР-Эксперт подключается к
+        действующей<br /> системе управления по OPC (UA)
+      </p>
+    </div>
+
+    <Image
+      src={sarInfrastructure}
+      alt="Инфраструктура"
+      class="relative z-[2] mx-auto lg:mt-[-150px] lg:mb-[-110px] w-[100%] lg:w-[80%]"
+    />
+
+    <div class="lg:max-w-[380px] text-card">
+      <p class="description">
+        САР-Эксперт устанавливается как на действующей инженерной<br /> станции АСУ
+        ТП, так и на специально выделенном ПК
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="gap-[16px] grid grid-cols-1 lg:grid-cols-2 mx-auto main-max-width">
+    <div class="text-card">
+      <p class="title">Расчёты</p>
+      <p class="description">
+        Для рассчёта настроек нужен лишь один переходный процесс, являющийся
+        реакцией на возмущение (проявляющее отклик системы)
+      </p>
+    </div>
+    <div class="text-card">
+      <p class="title">Математический аппарат</p>
+      <p class="description">
+        Уникальная технология идентификации объекта в замкнутом контуре, в
+        основе которой использованы наработки советских и российских учёных
+      </p>
+    </div>
+    <Image
+      src={sarDesktop}
+      alt="Инфраструктура"
+      class="w-[100%] h-[80%] object-contain"
+    />
+    <div class="text-card">
+      <p class="title">Собственные архивы технологических переменных</p>
+      <p class="description">
+        Встроенная система архивирования на базе <a
+          class="hover:text-primary-300 underline"
+          href={prodSoft.products.find((product) => product.id === "tsdb")
+            ?.buttons?.more?.link || "#"}
+          >{
+            prodSoft.products.find((product) => product.id === "tsdb")?.app
+              ?.name
+          }</a
+        >.
+      </p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .text-card {
+    @apply relative z-[20] flex flex-col gap-[8px] py-[24px] rounded-lg w-full;
+    & .title {
+      @apply text-2xl text-primary-300;
+    }
+
+    & .description {
+      @apply text-lg text-zinc-400;
+    }
+  }
+
+  .animated-circles {
+    @apply lg:block top-0 left-0 absolute hidden w-[1400px] h-[1400px] pointer-events-none;
+    z-index: 0;
+    transform: perspective(8000px) rotateX(45deg) translateY(-35rem)
+      translateX(-25rem);
+  }
+
+  .circle {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-500 text-zinc-100/0;
+    animation: ripple 15s linear infinite;
+  }
+
+  .circle:nth-child(2) {
+    animation-delay: -3s;
+  }
+
+  .circle:nth-child(3) {
+    animation-delay: -6s;
+  }
+
+  .circle:nth-child(4) {
+    animation-delay: -9s;
+  }
+
+  .circle:nth-child(5) {
+    animation-delay: -12s;
+  }
+
+  @keyframes ripple {
+    0% {
+      width: 1px;
+      height: 1px;
+      opacity: 1;
+    }
+    100% {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+  }
+</style>

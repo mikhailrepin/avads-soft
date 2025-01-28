@@ -1,0 +1,28 @@
+---
+interface AdvantageProps {
+  title: string;
+  description: string;
+  icon: string;
+  size?: string;
+}
+
+const {
+  title,
+  description,
+  icon,
+  size = "48px",
+} = Astro.props as AdvantageProps;
+---
+
+<div
+  class="flex flex-col gap-[16px] border-zinc-900 p-[32px] border rounded-[8px] w-full">
+  <svg
+    class="mb-[16px] text-primary-100"
+    viewBox="0 0 16 16"
+    preserveAspectRatio="xMidYMid meet"
+    style={`width: ${size}; height: ${size};`}>
+    <use xlink:href={`/sprites.svg#${icon}`}></use>
+  </svg>
+  <h3 class="font-semibold text-2xl text-zinc-300">{title}</h3>
+  <p class="text-lg text-zinc-400">{description}</p>
+</div>
