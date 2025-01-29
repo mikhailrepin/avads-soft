@@ -23,21 +23,24 @@ const formattedDate = new Date(
 });
 
 // Получаем все посты и сортируем их по дате
-const posts = await Astro.glob("../pages/posts/*.md");
-const sortedPosts = posts
+const posts = await import.meta.glob("../pages/news/*.md", { eager: true });
+const postsArray = Object.values(posts);
+const sortedPosts = postsArray
   .filter((post) => {
-    // Проверяем что файл не пустой и имеет все необходимые поля
     if (!post || !post.frontmatter) return false;
-
-    const date = new Date(post.frontmatter.date);
-    return (
-      post.frontmatter.title &&
-      post.frontmatter.description &&
-      post.frontmatter.date &&
-      post.frontmatter.image &&
-      post.frontmatter.image.startsWith("http") &&
-      !isNaN(date.getTime())
-    );
+    try {
+      const date = new Date(post.frontmatter.date);
+      return (
+        Boolean(post.frontmatter.title) &&
+        Boolean(post.frontmatter.description) &&
+        Boolean(post.frontmatter.date) &&
+        Boolean(post.frontmatter.image) &&
+        post.frontmatter.image.startsWith("http") &&
+        !isNaN(date.getTime())
+      );
+    } catch {
+      return false;
+    }
   })
   .sort(
     (a, b) =>
@@ -113,7 +116,7 @@ const validNextPost =
                 IconVisible: true,
               }}
               ButtonLabel={prevPost.frontmatter.title}
-              ButtonLink={`/posts/${prevPost.file.split("/").pop()?.replace(".md", "")}`}
+              ButtonLink={`/news/${prevPost.file.split("/").pop()?.replace(".md", "")}`}
               Target="link"
               CustomClass="w-fit uppercase only-desktop"
             />
@@ -147,7 +150,7 @@ const validNextPost =
                 IconVisible: true,
               }}
               ButtonLabel={nextPost.frontmatter.title}
-              ButtonLink={`/posts/${nextPost.file.split("/").pop()?.replace(".md", "")}`}
+              ButtonLink={`/news/${nextPost.file.split("/").pop()?.replace(".md", "")}`}
               Target="link"
               CustomClass="w-fit uppercase only-desktop"
             />

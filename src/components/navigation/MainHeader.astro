@@ -2,13 +2,14 @@
 import { Image } from "astro:assets";
 import logoDark from "@/assets/logo/logo_dark.svg";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-import helpers from "@/data/helpers.json";
 
 interface MainHeaderProps {
   menuItems: { label: string; href: string }[];
+  downloadLink?: string;
 }
 
-const { menuItems } = Astro.props as MainHeaderProps;
+const { menuItems, downloadLink = "/download" } =
+  Astro.props as MainHeaderProps;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -55,7 +56,7 @@ const currentPath = Astro.url.pathname;
         IconLeft={{ IconSprite: "download-light", IconVisible: false }}
         CustomClass="my-[16px] lg:m-0"
         ButtonLabel="Скачать"
-        ButtonLink="/download"
+        ButtonLink={downloadLink}
         Target="link"
       />
     </nav>

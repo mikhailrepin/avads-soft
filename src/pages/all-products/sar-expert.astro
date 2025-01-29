@@ -21,6 +21,9 @@ const sarExpert = prodSoft.products.find(
 
 if (!sarExpert) throw new Error("Product not found");
 
+// Добавляем ссылку на скачивание
+const downloadLink = sarExpert.buttons?.demo?.link || "/download";
+
 const advantages = [
   {
     title: "Повышение стабильности процессов",
@@ -61,7 +64,9 @@ const advantages = [
 ];
 ---
 
-<Layout pageTitle="SAR Expert">
+<Layout
+  pageTitle={sarExpert.app.name}
+  downloadLink={downloadLink}>
   <MainHero backgroundUrl={heroBbackground}>
     <div
       class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">

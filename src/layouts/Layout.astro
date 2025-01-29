@@ -8,9 +8,10 @@ import BreadCrumbs from "@/components/navigation/BreadCrumbs.astro";
 
 interface Props {
   pageTitle: string;
+  downloadLink?: string;
 }
 
-const { pageTitle } = Astro.props;
+const { pageTitle, downloadLink } = Astro.props;
 
 const menuItems = [
   { label: "Продукты", href: "/all-products" },
@@ -18,7 +19,6 @@ const menuItems = [
   { label: "О компании", href: "/about-us" },
   { label: "Техподдержка", href: "/support" },
   { label: "Контакты", href: "/contacts" },
-  { label: "❖ Tmp", href: "/templates" },
 ];
 
 const serviceItems = [
@@ -61,7 +61,10 @@ const serviceItems = [
   </head>
   <body
     class="flex flex-col items-center bg-zinc-950 m-0 p-0 w-[100%] h-[100%] text-zinc-200 subpixel-antialiased">
-    <MainHeader menuItems={menuItems} />
+    <MainHeader
+      menuItems={menuItems}
+      downloadLink={downloadLink}
+    />
     <main
       class="mt-[48px] lg:mt-[64px] w-full"
       transition:animate={fade({ duration: "0.3s" })}>

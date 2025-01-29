@@ -13,21 +13,28 @@ interface AstroPost {
 }
 
 export async function getStaticPaths() {
-  const posts: AstroPost[] = await Astro.glob("../posts/*.md");
+  const posts = await import.meta.glob("../../pages/news/*.md", {
+    eager: true,
+  });
+  const postsArray: AstroPost[] = Object.values(posts);
   const postsPerPage = 6;
 
-  const sortedPosts = posts
+  const sortedPosts = postsArray
     .filter((post): post is AstroPost => {
       if (!post || !post.frontmatter) return false;
-      const date = new Date(post.frontmatter.date);
-      return (
-        post.frontmatter.title &&
-        post.frontmatter.description &&
-        post.frontmatter.date &&
-        post.frontmatter.image &&
-        post.frontmatter.image.startsWith("http") &&
-        !isNaN(date.getTime())
-      );
+      try {
+        const date = new Date(post.frontmatter.date);
+        return (
+          Boolean(post.frontmatter.title) &&
+          Boolean(post.frontmatter.description) &&
+          Boolean(post.frontmatter.date) &&
+          Boolean(post.frontmatter.image) &&
+          post.frontmatter.image.startsWith("http") &&
+          !isNaN(date.getTime())
+        );
+      } catch {
+        return false;
+      }
     })
     .sort(
       (a, b) =>
@@ -50,7 +57,7 @@ export async function getStaticPaths() {
           description: post.frontmatter.description,
           date: post.frontmatter.date,
           image: post.frontmatter.image,
-          url: `/posts/${post.file.split("/").pop()?.replace(".md", "")}`,
+          url: `/news/${post.file.split("/").pop()?.replace(".md", "")}`,
         })),
         currentPage: pageNum,
         totalPages,
