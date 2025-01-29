@@ -3,17 +3,22 @@ import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/modules/section/MainHero.astro";
 import CallToAction from "@/modules/section/CallToAction.astro";
 import Advantage from "@/modules/card/products/advantage.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 
 /* Images */
 import { Image } from "astro:assets";
 import sarInfrastructure from "@/assets/products/sar-expert/sar-infra.png";
 import sarDesktop from "@/assets/products/sar-expert/sar-desktop.png";
+import trendAcceleration from "@/assets/products/sar-expert/trend-acceleration-curve.png";
+import trendImpulseTask from "@/assets/products/sar-expert/trend-impulse-task.png";
+import trendImpulseValve from "@/assets/products/sar-expert/trend-impulse-valve.png";
+import trendStepwise from "@/assets/products/sar-expert/trend-stepwise-change.png";
+
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
 
 /* Variables */
-const heroBbackground =
-  "https://images.unsplash.com/photo-1617791160530-fb48acfc1658?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+const heroBbackground = "/hero/sar-expert.avif";
 
 const sarExpert = prodSoft.products.find(
   (product) => product.id === "sar-expert"
@@ -77,13 +82,26 @@ const advantages = [
             )}
           />
         </h3>
+        <ButtonGeneric
+          Variant="primary"
+          Size="big"
+          Style="filled"
+          CustomClass="mt-[32px] lg:w-fit"
+          Visible={true}
+          IconLeft={{
+            IconSprite: "download-bold",
+            IconVisible: true,
+          }}
+          Target="link"
+          ButtonLink={sarExpert.buttons?.demo?.link || "#"}
+          ButtonLabel="Скачать демо"
+        />
       </div>
       <div class="flex justify-center items-center w-[100%] h-[100%]">
         <img
           src={sarExpert.app.image}
           alt={sarExpert.app.name}
-          class=""
-          style="transform: scale(6)"
+          class="lg:block hidden scale-[7]"
         />
       </div>
     </div>
@@ -101,8 +119,7 @@ const advantages = [
     Технологии {sarExpert.app.name}
   </h2>
   <!-- Инфраструктура -->
-  <div
-    class="relative flex flex-col gap-[16px] mx-auto pb-[40px] main-max-width">
+  <div class="relative flex flex-col gap-[16px] mx-auto main-max-width">
     <div class="animated-circles">
       <div class="circle">1</div>
       <div class="circle">2</div>
@@ -122,7 +139,7 @@ const advantages = [
     <Image
       src={sarInfrastructure}
       alt="Инфраструктура"
-      class="relative z-[2] mx-auto lg:mt-[-150px] lg:mb-[-110px] w-[100%] lg:w-[80%]"
+      class="relative z-[2] mx-auto lg:mt-[-160px] lg:mb-[-110px] w-[100%] lg:w-[90%]"
     />
 
     <div class="lg:max-w-[380px] text-card">
@@ -134,7 +151,7 @@ const advantages = [
   </div>
 
   <div
-    class="gap-[16px] grid grid-cols-1 lg:grid-cols-2 mx-auto main-max-width">
+    class="gap-[16px] grid grid-cols-1 lg:grid-cols-2 mx-auto pb-[24px] main-max-width">
     <div class="text-card">
       <p class="title">Расчёты</p>
       <p class="description">
@@ -152,7 +169,7 @@ const advantages = [
     <Image
       src={sarDesktop}
       alt="Инфраструктура"
-      class="w-[100%] h-[80%] object-contain"
+      class="lg:block hidden my-[12px] w-[80%] object-contain"
     />
     <div class="text-card">
       <p class="title">Собственные архивы технологических переменных</p>
@@ -167,60 +184,143 @@ const advantages = [
           }</a
         >.
       </p>
+      <p class="mt-[52px] title">Кроссплатформенное решение</p>
+      <p class="description">
+        Поддерживается большинством Операционных систем в том числе
+        и отечественными.
+      </p>
     </div>
   </div>
+
+  <div class="bg-gradient-to-b from-zinc-900/50 to-zinc-950 py-[64px] w-full">
+    <!-- Сетка с трендами -->
+    <div
+      class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mx-auto main-max-width">
+      <!-- Кривая разгона -->
+      <div class="text-card">
+        <Image
+          src={trendAcceleration}
+          alt="Кривая разгона"
+          class="mx-auto w-[70%]"
+        />
+        <p class="mt-[8px] text-center text-xl">Кривая разгона</p>
+      </div>
+
+      <!-- Импульсное изменение задания -->
+      <div class="text-card">
+        <Image
+          src={trendImpulseTask}
+          alt="Импульсное изменение задания"
+          class="mx-auto w-[70%]"
+        />
+        <p class="mt-[8px] text-center text-xl">Импульсное изменение задания</p>
+      </div>
+
+      <!-- Ступенчатое изменение задания -->
+      <div class="text-card">
+        <Image
+          src={trendStepwise}
+          alt="Ступенчатое изменение задания"
+          class="mx-auto w-[70%]"
+        />
+        <p class="mt-[8px] text-center text-xl">
+          Ступенчатое изменение задания
+        </p>
+      </div>
+
+      <!-- Импульсное изменение положения клапана -->
+      <div class="text-card">
+        <Image
+          src={trendImpulseValve}
+          alt="Импульсное изменение положения клапана"
+          class="mx-auto w-[70%]"
+        />
+        <p class="mt-[8px] text-center text-xl">
+          Импульсное изменение положения клапана
+        </p>
+      </div>
+
+      <div class="items-center text-card">
+        <div class="flex flex-col gap-[8px] lg:max-w-[70%]">
+          <p class="title">Идентификация объектов регулирования</p>
+          <p class="description">
+            Идентификация — расчёт параметров модели объекта — производится
+            как в разомкнутом, так и в замкнутом контуре. Для этого достаточно
+            ступенчатого или импульсного возмущения (специально внесённого
+            или естественно, случившегося в ходе эксплуатации)
+          </p>
+        </div>
+      </div>
+
+      <div class="items-center text-card">
+        <div class="flex flex-col gap-[8px] lg:max-w-[70%]">
+          <p class="title">Расчёт настроек регуляторов</p>
+          <p class="description">
+            На основании идентификации по одному или нескольким процессам.
+          </p>
+          <p class="mt-[24px] title">
+            Инструменты автоматизированной корректировки настроек
+          </p>
+          <p class="description">
+            Ослабление или усиление, расчёт фильтра, перерасчёт настроек
+            с учётом этого фильтра и другие.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .text-card {
+      @apply relative z-[20] flex flex-col gap-[8px] py-[24px] rounded-lg w-full;
+      & .title {
+        @apply text-2xl text-primary-300;
+      }
+
+      & .description {
+        @apply text-lg text-zinc-400;
+      }
+    }
+
+    .animated-circles {
+      @apply lg:block top-0 left-0 absolute hidden w-[1400px] h-[1400px] pointer-events-none;
+      z-index: 0;
+      transform: perspective(8000px) rotateX(45deg) translateY(-32rem)
+        translateX(-28rem);
+    }
+
+    .circle {
+      @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-500 text-zinc-100/0;
+      animation: ripple 15s linear infinite;
+    }
+
+    .circle:nth-child(2) {
+      animation-delay: -3s;
+    }
+
+    .circle:nth-child(3) {
+      animation-delay: -6s;
+    }
+
+    .circle:nth-child(4) {
+      animation-delay: -9s;
+    }
+
+    .circle:nth-child(5) {
+      animation-delay: -12s;
+    }
+
+    @keyframes ripple {
+      0% {
+        width: 1px;
+        height: 1px;
+        opacity: 1;
+      }
+      100% {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+      }
+    }
+  </style>
 </Layout>
-
-<style>
-  .text-card {
-    @apply relative z-[20] flex flex-col gap-[8px] py-[24px] rounded-lg w-full;
-    & .title {
-      @apply text-2xl text-primary-300;
-    }
-
-    & .description {
-      @apply text-lg text-zinc-400;
-    }
-  }
-
-  .animated-circles {
-    @apply lg:block top-0 left-0 absolute hidden w-[1400px] h-[1400px] pointer-events-none;
-    z-index: 0;
-    transform: perspective(8000px) rotateX(45deg) translateY(-35rem)
-      translateX(-25rem);
-  }
-
-  .circle {
-    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-500 text-zinc-100/0;
-    animation: ripple 15s linear infinite;
-  }
-
-  .circle:nth-child(2) {
-    animation-delay: -3s;
-  }
-
-  .circle:nth-child(3) {
-    animation-delay: -6s;
-  }
-
-  .circle:nth-child(4) {
-    animation-delay: -9s;
-  }
-
-  .circle:nth-child(5) {
-    animation-delay: -12s;
-  }
-
-  @keyframes ripple {
-    0% {
-      width: 1px;
-      height: 1px;
-      opacity: 1;
-    }
-    100% {
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-    }
-  }
-</style>
