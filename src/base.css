@@ -25,7 +25,7 @@
   }
 
   h1 {
-    @apply font-bold text-3xl lg:text-6xl !important;
+    @apply font-bold text-3xl lg:text-5xl !important;
   }
 
   h2 {
