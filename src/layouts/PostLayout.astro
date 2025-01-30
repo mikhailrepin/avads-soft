@@ -83,8 +83,7 @@ const validNextPost =
 
       <!-- Контент поверх изображения -->
       <div class="relative z-10">
-        <h1
-          class="mb-4 w-full md:max-w-[75%] font-bold text-3xl lg:text-4xl break-words">
+        <h1 class="post-title">
           {truncatedTitle}
         </h1>
         <div class="flex items-center gap-2 w-fit font-medium text-zinc-400">
@@ -98,10 +97,10 @@ const validNextPost =
 
     <!-- Описание и контент -->
     <div class="py-4">
-      <h2
-        class="m-0 mb-8 w-full md:max-w-[75%] text-xl text-zinc-200 lg:text-2xl">
+      <h4
+        class="m-0 mb-8 w-full md:max-w-[75%] font-semibold text-xl text-zinc-200 lg:text-2xl">
         {description}
-      </h2>
+      </h4>
       <div class="max-w-full prose prose-lg">
         <slot />
       </div>

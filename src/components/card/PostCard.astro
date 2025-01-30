@@ -47,7 +47,7 @@ const formattedDate = new Date(
     </div>
     <!-- Заголовок -->
     <div class="relative overflow-hidden title-wrapper">
-      <h2 class="group-hover:text-primary-300 invisible title">{title}</h2>
+      <span class="group-hover:text-primary-300 invisible title">{title}</span>
       <div class="top-[8px] h-[16px] animate-pulse skeleton-layer"></div>
       <div class="bottom-[6px] h-[16px] animate-pulse skeleton-layer"></div>
     </div>
@@ -89,7 +89,7 @@ const formattedDate = new Date(
       overflow: hidden;
     }
     & .description {
-      @apply m-0 text-zinc-300;
+      @apply m-0 text-zinc-400;
       overflow-wrap: break-word;
       -webkit-line-clamp: 3;
       display: -webkit-box;
