@@ -4,6 +4,7 @@ import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
 import Advantage from "@/components/card/Advantage.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import FAQ from "@/components/section/FAQ.astro";
 
 /* Images */
 import { Image } from "astro:assets";
@@ -13,9 +14,13 @@ import trendAcceleration from "@/assets/products/sar-expert/trend-acceleration-c
 import trendImpulseTask from "@/assets/products/sar-expert/trend-impulse-task.png";
 import trendImpulseValve from "@/assets/products/sar-expert/trend-impulse-valve.png";
 import trendStepwise from "@/assets/products/sar-expert/trend-stepwise-change.png";
+import trendBeforeAfterDesktop from "@/assets/products/sar-expert/trends-before-after-desktop.png";
+import trendBeforeAfterMobile from "@/assets/products/sar-expert/trends-before-after-mobile.png";
+import trendAfterSarInstall from "@/assets/products/sar-expert/trends-after-sar-install.png";
 
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
+import faqData from "@/data/faqMain.json";
 
 /* Variables */
 const heroBbackground = "/hero/sar-expert.avif";
@@ -180,7 +185,7 @@ const advantages = [
       <p class="title">Собственные архивы технологических переменных</p>
       <p class="description">
         Встроенная система архивирования на базе <a
-          class="hover:text-primary-300 underline"
+          class="text-primary-300 hover:text-primary-400 underline"
           href={prodSoft.products.find((product) => product.id === "tsdb")
             ?.buttons?.more?.link || "#"}
           >{
@@ -197,12 +202,12 @@ const advantages = [
     </div>
   </div>
 
-  <div class="bg-gradient-to-b from-zinc-900/50 to-zinc-950 py-[64px] w-full">
+  <div class="bg-gradient-to-b from-zinc-950 to-zinc-900/50 py-[48px] w-full">
     <!-- Сетка с трендами -->
     <div
       class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mx-auto main-max-width">
       <!-- Кривая разгона -->
-      <div class="text-card">
+      <div class="bordered text-card">
         <Image
           src={trendAcceleration}
           alt="Кривая разгона"
@@ -212,7 +217,7 @@ const advantages = [
       </div>
 
       <!-- Импульсное изменение задания -->
-      <div class="text-card">
+      <div class="bordered text-card">
         <Image
           src={trendImpulseTask}
           alt="Импульсное изменение задания"
@@ -222,7 +227,7 @@ const advantages = [
       </div>
 
       <!-- Ступенчатое изменение задания -->
-      <div class="text-card">
+      <div class="bordered text-card">
         <Image
           src={trendStepwise}
           alt="Ступенчатое изменение задания"
@@ -234,7 +239,7 @@ const advantages = [
       </div>
 
       <!-- Импульсное изменение положения клапана -->
-      <div class="text-card">
+      <div class="bordered text-card">
         <Image
           src={trendImpulseValve}
           alt="Импульсное изменение положения клапана"
@@ -246,7 +251,7 @@ const advantages = [
       </div>
 
       <div class="items-center text-card">
-        <div class="flex flex-col gap-[8px] lg:max-w-[70%]">
+        <div class="flex flex-col gap-[8px] lg:pr-[32px]">
           <p class="title">Идентификация объектов регулирования</p>
           <p class="description">
             Идентификация — расчёт параметров модели объекта — производится
@@ -269,7 +274,7 @@ const advantages = [
       </div>
 
       <div class="items-center text-card">
-        <div class="flex flex-col gap-[8px] lg:max-w-[70%]">
+        <div class="flex flex-col gap-[8px] lg:pl-[32px]">
           <p class="title">Расчёт настроек регуляторов</p>
           <p class="description">
             На основании идентификации по одному или нескольким процессам
@@ -294,9 +299,75 @@ const advantages = [
     </div>
   </div>
 
+  <hr class="opacity-20 separator silver" />
+
+  <div class="mx-auto my-[64px] main-max-width">
+    <div class="flex flex-col gap-[16px] mx-auto w-[80%]">
+      <h2 class="my-0 text-3xl text-primary-300">Статистический анализ</h2>
+      <p class="text-lg text-zinc-400">
+        Предназначен для оценки качества работы системы автоматического
+        регулирования. Сравнительный статистический анализ показывает, каких
+        изменений удалось достичь благодаря настройке, сравнить работу контура
+        «До» и «После»
+      </p>
+      <Image
+        src={trendBeforeAfterDesktop}
+        alt="До и после применения настроек"
+        class="lg:block hidden my-8 w-[100%]"
+      />
+      <Image
+        src={trendBeforeAfterMobile}
+        alt="До и после применения настроек"
+        class="block lg:hidden my-8 w-[100%]"
+      />
+    </div>
+  </div>
+
+  <div class="mx-auto my-[64px] main-max-width">
+    <div class="flex flex-col gap-[16px] mx-auto w-[80%]">
+      <h2 class="my-0 text-3xl text-primary-300">После внедрения</h2>
+      <p class="text-lg text-zinc-400">
+        Уменьшение девиации регулируемой переменной позволяет изменить задание
+        и вести процесс ближе к границам спецификации — уменьшить так называемый
+        запас по качеству. Это обеспечивает снижение затрат и (или) увеличение
+        производительности
+      </p>
+      <Image
+        src={trendAfterSarInstall}
+        alt="После внедрения"
+        class="my-6 w-[100%]"
+      />
+      <p class="text-lg text-zinc-400">
+        За счёт оптимизации работы систем регулирования зачастую удаётся
+        получить экономию на энергоресурсах на 0,5–2% или повысить
+        производительность на 1–10%. Пример результата оптимизации работы
+        САР на Сургутском ЗСК — удалось увеличить выход высоколиквидной фракции
+        на 6%. Подробнее в статье <a
+          class="text-primary-300 hover:text-primary-400 underline"
+          href="https://insat.ru/upload/iblock/1c3/PID-Expert-AA.pdf"
+          target="_blank"
+          >Control Engineering</a
+        >
+      </p>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+    <CallToAction
+      Title="Свяжитесь с нами"
+      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+      ButtonProps={{
+        ButtonLabel: "Оставить заявку",
+        ButtonLink: "/contacts",
+      }}
+    />
+
+    <FAQ faqData={faqData} />
+  </div>
+
   <style>
     .text-card {
-      @apply relative z-[20] flex flex-col gap-[8px] py-[24px] rounded-lg w-full;
+      @apply relative z-[20] flex flex-col gap-[8px] py-[24px] w-full;
       & .title {
         @apply text-2xl text-primary-300;
       }
@@ -304,6 +375,10 @@ const advantages = [
       & .description {
         @apply text-lg text-zinc-400;
       }
+    }
+
+    .bordered {
+      @apply border-zinc-900 lg:border;
     }
 
     .animated-circles {

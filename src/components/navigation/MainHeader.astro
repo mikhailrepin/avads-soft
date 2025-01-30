@@ -8,7 +8,7 @@ interface MainHeaderProps {
   downloadLink?: string;
 }
 
-const { menuItems, downloadLink = "/download" } =
+const { menuItems, downloadLink = "/downloads" } =
   Astro.props as MainHeaderProps;
 const currentPath = Astro.url.pathname;
 ---
