@@ -1,1 +1,438 @@
-import helpers from "@/data/helpers.json";
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
+---
+
+<form
+  class="flex flex-col gap-4"
+  id="feedbackForm">
+  <!-- Поля ввода -->
+  <input
+    type="text"
+    placeholder="Контактное лицо"
+    class="form-input"
+    name="from_name"
+    required
+  />
+  <input
+    type="email"
+    placeholder="Email"
+    class="form-input"
+    name="from_email"
+    required
+  />
+  <input
+    type="tel"
+    placeholder="Телефон"
+    class="form-input"
+    name="phone"
+    pattern="\+7 \d{3} \d{3} \d{2} \d{2}"
+    title="+7 XXX XXX XX XX"
+    required
+  />
+  <textarea
+    placeholder="Сообщение"
+    class="form-input min-h-[100px] max-h-[300px]"
+    name="message"
+    required
+  ></textarea>
+
+  <!-- Прикрепление файла -->
+  <div class="flex flex-col gap-2">
+    <div class="flex lg:flex-row flex-col items-center gap-2 w-fit">
+      <label class="file-upload-button">
+        <input
+          type="file"
+          class="hidden-input"
+          id="fileInput"
+          accept=".pdf,.doc,.docx"
+        />
+        <svg class="w-[16px] h-[16px]">
+          <use xlink:href="/sprites.svg#attachment-symbol"></use>
+        </svg>
+        <span class="button-label">Прикрепить файл</span>
+      </label>
+      <div class="flex items-center gap-2">
+        <span
+          id="fileName"
+          class="max-w-[300px] text-sm truncate"
+          >Допустимый тип: .pdf, .doc</span
+        >
+        <button
+          type="button"
+          id="removeFile"
+          class="hidden w-4 h-4 hover:text-zinc-500 transition-colors">
+          <svg class="w-[16px] h-[16px]">
+            <use xlink:href="/sprites.svg#cross-big"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex lg:items-center gap-3 lg:gap-2 mt-4">
+    <input
+      type="checkbox"
+      checked
+      id="privacy"
+      class="w-4 h-4 cursor-pointer accent-primary-300"
+      required
+    />
+    <label
+      for=""
+      class="text-sm text-zinc-400">
+      Принимаю условия <a
+        href="/legal-information"
+        class="text-primary-300 hover:text-primary-400 hover:underline"
+        >обработки персональных данных</a
+      >
+    </label>
+  </div>
+
+  <!-- Кнопка отправки -->
+  <ButtonGeneric
+    Variant="primary"
+    Size="big"
+    Style="outlined"
+    CustomClass="my-4"
+    Disabled={false}
+    Visible={true}
+    IconLeft={{
+      IconSprite: "alarm-success-fill",
+      IconVisible: false,
+    }}
+    type="submit"
+    ButtonLabel={buttonText}
+  />
+
+  <!-- Сообщение об успешной отправке -->
+  <span
+    id="successMessage"
+    class="hidden bg-lime-500/10 border-lime-500/20 text-lime-400 send-message">
+    Сообщение успешно отправлено
+    <svg
+      id="closeSuccess"
+      class="icon">
+      <use xlink:href="/sprites.svg#cross-big"></use>
+    </svg>
+  </span>
+  <!-- Сообщение об ошибке отправки -->
+  <span
+    id="errorMessage"
+    class="hidden bg-red-500/10 border-red-500/20 text-red-400 send-message">
+    Ошибка отправки сообщения. Повторите попытку
+    <svg
+      id="closeError"
+      class="icon">
+      <use xlink:href="/sprites.svg#cross-big"></use>
+    </svg>
+  </span>
+</form>
+
+<style>
+  .file-upload-button {
+    @apply inline-flex justify-center items-center gap-2 border-zinc-500 hover:bg-zinc-800 px-2 py-1 pr-4 border rounded-[4px] w-fit hover:text-white cursor-pointer;
+  }
+
+  .hidden-input {
+    display: none;
+  }
+  .form-input {
+    @apply border-zinc-700 focus:border-primary-300/50 bg-transparent py-2 border-b-2 transition-colors outline-none placeholder:text-zinc-500;
+  }
+
+  .send-message {
+    @apply flex justify-between items-center gap-2 px-4 py-2 border rounded-md transition-opacity duration-300;
+    display: none;
+    opacity: 0;
+    & .icon {
+      @apply opacity-50 hover:opacity-100 w-[16px] h-[16px] transition-opacity cursor-pointer;
+    }
+  }
+</style>
+
+<script>
+  const fileInput = document.getElementById("fileInput");
+  const fileNameDisplay = document.getElementById("fileName");
+  const removeFileBtn = document.getElementById("removeFile");
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB в байтах
+  const ALLOWED_TYPES = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+
+  function truncateFileName(fileName: string, maxLength: number = 30): string {
+    if (fileName.length <= maxLength) return fileName;
+
+    const extension = fileName.split(".").pop();
+    const nameWithoutExt = fileName.slice(0, fileName.lastIndexOf("."));
+    const truncatedName = nameWithoutExt.slice(0, maxLength - 3) + "...";
+
+    return `${truncatedName}.${extension}`;
+  }
+
+  // Функция очистки файла
+  function clearFile(clearError = true) {
+    if (fileInput) fileInput.value = "";
+    if (fileNameDisplay && clearError) {
+      fileNameDisplay.textContent = "Допустимый тип: .pdf, .doc";
+      fileNameDisplay.className =
+        "max-w-[300px] text-sm truncate text-zinc-400";
+    }
+    if (removeFileBtn) removeFileBtn.classList.add("hidden");
+  }
+
+  // Инициализация начального состояния
+  clearFile(true);
+
+  // Обработчик клика по кнопке удаления должен полностью очищать форму
+  removeFileBtn?.addEventListener("click", () => clearFile(true));
+
+  fileInput?.addEventListener("change", async (e) => {
+    const input = e.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      fileNameDisplay!.textContent = truncateFileName(file.name);
+
+      // Проверка размера файла
+      if (file.size > MAX_FILE_SIZE) {
+        fileNameDisplay!.textContent = "Ошибка: размер файла превышает 5МБ";
+        fileNameDisplay!.className = "text-sm text-red-500 max-w-[300px]";
+        clearFile();
+        return;
+      }
+
+      // Проверка типа файла
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        fileNameDisplay!.textContent =
+          "Ошибка: допустимы только PDF и DOC файлы";
+        fileNameDisplay!.className = "text-sm text-red-500 max-w-[300px]";
+        clearFile();
+        return;
+      }
+
+      // Показываем состояние загрузки
+      fileNameDisplay!.textContent = "Загрузка...";
+      fileNameDisplay!.className =
+        "text-sm text-zinc-400 max-w-[300px] truncate";
+      removeFileBtn!.classList.add("hidden");
+
+      try {
+        await simulateFileUpload(file);
+        fileNameDisplay!.textContent = truncateFileName(file.name);
+        fileNameDisplay!.className =
+          "text-sm text-lime-500 max-w-[300px] truncate";
+        removeFileBtn!.classList.remove("hidden");
+      } catch (error) {
+        fileNameDisplay!.textContent = "Ошибка: не удалось загрузить файл";
+        fileNameDisplay!.className =
+          "text-sm text-red-500 max-w-[300px] truncate";
+        input.value = ""; // Очищаем только input, оставляем сообщение об ошибке
+        removeFileBtn!.classList.add("hidden");
+      }
+    } else {
+      clearFile();
+    }
+  });
+
+  // Функция для имитации загрузки файла
+  function simulateFileUpload(file: File): Promise<void> {
+    return new Promise((resolve, reject) => {
+      // Здесь должна быть реальная логика загрузки файла
+      // Пока просто имитируем процесс с 50% шансом успеха
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          resolve();
+        } else {
+          reject(new Error("Ошибка загрузки файла"));
+        }
+      }, 1000);
+    });
+  }
+
+  // Обработчик отправки формы
+  const form = document.getElementById("feedbackForm") as HTMLFormElement;
+  const successMessage = document.getElementById("successMessage");
+  const errorMessage = document.getElementById("errorMessage");
+  const closeSuccess = document.getElementById("closeSuccess");
+  const closeError = document.getElementById("closeError");
+
+  // Скрыть сообщения при загрузке
+  successMessage?.classList.add("hidden");
+  errorMessage?.classList.add("hidden");
+
+  // Функция для показа сообщения с автоматическим скрытием
+  function showMessage(messageElement: HTMLElement | null, duration = 5000) {
+    if (!messageElement) return;
+
+    requestAnimationFrame(() => {
+      messageElement.style.display = "flex";
+      messageElement.style.opacity = "1";
+
+      setTimeout(() => {
+        messageElement.style.opacity = "0";
+        setTimeout(() => {
+          messageElement.style.display = "none";
+        }, 300); // Время анимации
+      }, duration);
+    });
+  }
+
+  // Обработчики закрытия сообщений
+  closeSuccess?.addEventListener("click", () => {
+    if (successMessage) {
+      successMessage.style.opacity = "0";
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 300);
+    }
+  });
+
+  closeError?.addEventListener("click", () => {
+    if (errorMessage) {
+      errorMessage.style.opacity = "0";
+      setTimeout(() => {
+        errorMessage.style.display = "none";
+      }, 300);
+    }
+  });
+
+  // Добавляем функции для управления состоянием формы
+  const submitButton = form?.querySelector('button[type="submit"]');
+  let isLoading = false;
+
+  function setFormLoading(loading: boolean) {
+    isLoading = loading;
+
+    // Управляем прозрачностью всей формы
+    if (form) {
+      form.style.opacity = loading ? "0.5" : "1";
+      form.style.transition = "opacity 0.3s";
+    }
+
+    // Блокируем/разблокируем все поля ввода
+    const inputs = form?.querySelectorAll("input, textarea, button");
+    const fileLabel = form?.querySelector(".file-upload-button");
+
+    inputs?.forEach((input) => {
+      (input as HTMLElement).style.pointerEvents = loading ? "none" : "auto";
+      (input as HTMLElement).style.opacity = loading ? "0.5" : "1";
+    });
+
+    // Блокируем/разблокируем кнопку загрузки файла
+    if (fileLabel) {
+      (fileLabel as HTMLElement).style.pointerEvents = loading
+        ? "none"
+        : "auto";
+      (fileLabel as HTMLElement).style.opacity = loading ? "0.5" : "1";
+      (fileLabel as HTMLElement).style.cursor = loading ? "default" : "pointer";
+    }
+
+    // Обновляем текст кнопки через button-label
+    if (submitButton) {
+      submitButton.querySelector(".button-label")!.textContent = loading
+        ? "ОТПРАВЛЯЕТСЯ..."
+        : "ОТПРАВИТЬ СООБЩЕНИЕ";
+    }
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Проверка файла
+    const hasFileError = fileNameDisplay?.className.includes("text-red-500");
+    const hasFile = fileInput?.files && fileInput.files.length > 0;
+
+    if (hasFile && hasFileError) {
+      fileNameDisplay!.textContent = "Пожалуйста, загрузите файл корректно";
+      fileNameDisplay!.className = "text-sm text-red-500 max-w-[300px]";
+      return;
+    }
+
+    // Устанавливаем состояние загрузки
+    setFormLoading(true);
+
+    try {
+      // Собираем данные формы
+      const templateParams = {
+        from_name: form.querySelector('[name="from_name"]')?.value,
+        from_email: form.querySelector('[name="from_email"]')?.value,
+        phone: form.querySelector('[name="phone"]')?.value,
+        message: form.querySelector('[name="message"]')?.value,
+        attachment: fileInput?.files?.[0]?.name || "No file attached",
+      };
+
+      await emailjs.send(
+        "service_vse68sp",
+        "template_na7c9pn",
+        templateParams,
+        "LSMwzsQT9Ntj5AtDK"
+      );
+
+      showMessage(successMessage);
+      form.reset();
+      clearFile(true);
+    } catch (error) {
+      console.error(error);
+      showMessage(errorMessage);
+    } finally {
+      // Возвращаем форму в исходное состояние
+      setFormLoading(false);
+    }
+  });
+
+  // Маска для телефона
+  const phoneInput = form?.querySelector('input[name="phone"]');
+
+  function formatPhone(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, ""); // Оставляем только цифры
+
+    // Ограничиваем длину до 11 цифр
+    if (value.length > 11) {
+      value = value.slice(0, 11);
+    }
+
+    // Форматируем номер
+    let formattedValue = "";
+    if (value.length > 0) {
+      formattedValue = "+7 ";
+      if (value.length > 1) {
+        formattedValue += value.slice(1, 4);
+      }
+      if (value.length > 4) {
+        formattedValue += " " + value.slice(4, 7);
+      }
+      if (value.length > 7) {
+        formattedValue += " " + value.slice(7, 9);
+      }
+      if (value.length > 9) {
+        formattedValue += " " + value.slice(9, 11);
+      }
+    }
+
+    input.value = formattedValue || "+7 ";
+  }
+
+  // Обработчики для телефона
+  phoneInput?.addEventListener("input", formatPhone);
+  phoneInput?.addEventListener("focus", (e) => {
+    const input = e.target as HTMLInputElement;
+    if (!input.value || input.value === "+7") {
+      input.value = "+7 ";
+    }
+  });
+  phoneInput?.addEventListener("blur", (e) => {
+    const input = e.target as HTMLInputElement;
+    if (input.value === "+7 ") {
+      input.value = "";
+    }
+  });
+
+  // Инициализация поля телефона
+  if (phoneInput) {
+    phoneInput.value = "";
+  }
+</script>
