@@ -4,7 +4,7 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 ---
 
 <Layout pageTitle="Страница не найдена">
-  <section class="wrapper">
+  <section class="main-max-width wrapper">
     <h1>404</h1>
     <h2>Страница не найдена</h2>
     <p>Возможно, такой страницы не существует или её адрес был изменён.</p>
@@ -24,7 +24,7 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 
 <style>
   .wrapper {
-    @apply flex flex-col justify-center items-center mx-auto min-h-[75dvh] main-max-width;
+    @apply flex flex-col justify-center items-center mx-auto min-h-[75dvh];
     & h1 {
       @apply text-primary-300;
     }

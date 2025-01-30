@@ -2,13 +2,39 @@
 import { Fragment } from "astro/components";
 
 interface Props {
-  pageTitle?: string;
+  pageTitle: string;
 }
 
 const { pageTitle } = Astro.props;
 
-// Проверяем, является ли текущий путь главной страницей
+// Получаем все страницы и их метаданные
+const pages = await Astro.glob("/src/pages/**/index.{astro,md}");
+
+// Проверяем, является ли текущий путь главной страницей или страницей 404
 const isHomePage = Astro.url.pathname === "/";
+const is404Page = Astro.url.pathname === "/404";
+
+if (isHomePage || is404Page) {
+  // Если это главная страница или страница 404, не отображаем хлебные крошки
+  return null;
+}
+
+// Функция для получения заголовка страницы по сегменту пути
+function getPageTitle(segment: string, isLast: boolean): string {
+  if (isLast) return pageTitle;
+
+  try {
+    // Ищем только индексные файлы разделов
+    const page = pages.find((page) => {
+      const url = page.url || page.file;
+      return url.includes(`/${segment}/index`);
+    });
+
+    return page?.frontmatter?.title ?? segment;
+  } catch {
+    return segment;
+  }
+}
 
 // Функция для получения корректного пути
 function getPath(segment: string, index: number, array: string[]) {
@@ -38,19 +64,10 @@ function renderBreadcrumbs(segments: string[]) {
     // Если сегментов <= 3, показываем все
     return segments.map((segment, index, array) => {
       const isLast = index === array.length - 1;
-      // Специальная обработка для страниц новостей
-      if (segment === "posts" || segment === "news") {
-        return {
-          type: "link",
-          href: "/news",
-          text: "Все новости",
-          isLast: false,
-        };
-      }
       return {
         type: "link",
         href: getPath(segment, index, array),
-        text: isLast ? pageTitle : "←",
+        text: getPageTitle(segment, isLast),
         isLast,
       };
     });
@@ -81,44 +98,42 @@ function renderBreadcrumbs(segments: string[]) {
 }
 ---
 
-{
-  !isHomePage && (
-    <div class="pt-[4px] pb-[16px] w-full">
-      <ul class="breadcrumbs main-max-width">
+<div class="pt-[4px] pb-[16px] w-full">
+  <ul class="breadcrumbs main-max-width">
+    <li>
+      <a
+        href="/"
+        class="text-zinc-500 hover:text-primary-300">
+        <svg class="w-[16px] h-[16px]">
+          <use xlink:href="/sprites.svg#home-outline"></use>
+        </svg>
+      </a>
+    </li>
+    {
+      renderBreadcrumbs(
+        filterSegments(
+          Astro.url.pathname.split("/").filter((segment) => segment)
+        )
+      ).map((item) => (
         <li>
-          <a
-            href="/"
-            class="text-zinc-500 hover:text-primary-300">
-            <svg class="w-[16px] h-[16px]">
-              <use xlink:href="/sprites.svg#home-outline" />
-            </svg>
-          </a>
+          {item.type === "dots" ? (
+            <span class="text-zinc-600">{item.text}</span>
+          ) : (
+            <a
+              href={item.href}
+              class={
+                item.isLast
+                  ? "text-zinc-100 pointer-events-none"
+                  : "text-zinc-500 hover:text-primary-300"
+              }>
+              <span>{item.text}</span>
+            </a>
+          )}
         </li>
-        {renderBreadcrumbs(
-          filterSegments(
-            Astro.url.pathname.split("/").filter((segment) => segment)
-          )
-        ).map((item) => (
-          <li>
-            {item.type === "dots" ? (
-              <span class="text-zinc-600">{item.text}</span>
-            ) : (
-              <a
-                href={item.href}
-                class={
-                  item.isLast
-                    ? "text-zinc-100 pointer-events-none"
-                    : "text-zinc-500 hover:text-primary-300"
-                }>
-                <span>{item.text}</span>
-              </a>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+      ))
+    }
+  </ul>
+</div>
 
 <style>
   .breadcrumbs {

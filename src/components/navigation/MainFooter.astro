@@ -13,7 +13,7 @@ const { menuItems, serviceItems } = Astro.props as MainFooterProps;
 
 <footer>
   <!-- Верхняя часть -->
-  <div class="footer-top">
+  <div class="footer-top main-max-width">
     <!-- Логотип и описание компании -->
     <a
       href="/"
@@ -40,14 +40,14 @@ const { menuItems, serviceItems } = Astro.props as MainFooterProps;
     <!-- Телефон -->
     <a
       href={`tel:${helpers.company.phone}`}
-      class="phone-link">
+      class="text-gold phone-link">
       {helpers.company.phone}
     </a>
   </div>
 
   <!-- Нижняя часть -->
   <div class="footer-bottom">
-    <ul>
+    <ul class="main-max-width">
       <li>
         © 2022 – {new Date().getFullYear()}
         {helpers.company.name}. Все права защищены
@@ -67,7 +67,7 @@ const { menuItems, serviceItems } = Astro.props as MainFooterProps;
   footer {
     @apply flex flex-col border-zinc-900 bg-zinc-950 border-t w-full;
     & .footer-top {
-      @apply flex lg:flex-row flex-col lg:justify-between gap-[16px] mx-auto py-[24px] lg:py-[32px] w-full main-max-width;
+      @apply flex lg:flex-row flex-col lg:justify-between gap-[16px] mx-auto py-[24px] lg:py-[32px] w-full;
       & .logo-link {
         @apply flex lg:flex-col items-center lg:items-start min-w-[230px];
         filter: grayscale(1);
@@ -86,13 +86,13 @@ const { menuItems, serviceItems } = Astro.props as MainFooterProps;
         }
       }
       & .phone-link {
-        @apply lg:text-right min-w-[230px] font-bold text-gold text-xl;
+        @apply lg:text-right min-w-[230px] font-bold text-xl;
       }
     }
     & .footer-bottom {
       @apply bg-zinc-900 w-full;
       & ul {
-        @apply flex flex-wrap gap-4 mx-auto py-[8px] text-xs main-max-width;
+        @apply flex flex-wrap gap-4 mx-auto py-[8px] text-xs;
         & li {
           @apply border-zinc-700 pr-[12px] border-r text-zinc-400 hover:text-zinc-100;
         }

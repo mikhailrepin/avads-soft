@@ -7,7 +7,7 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
 ---
 
 <section
-  class="wrapper"
+  class="hero-wrapper"
   style={`background-image: url(${backgroundUrl});`}>
   <!-- Область контента -->
   <div class="content-area">
@@ -16,20 +16,14 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
 </section>
 
 <style>
-  .wrapper {
+  .hero-wrapper {
     @apply relative flex justify-center items-center bg-cover bg-no-repeat bg-center mx-auto py-[40px] w-[100dvw] min-h-[10dvh] overflow-hidden;
     &::before {
       @apply top-0 left-0 z-10 absolute bg-zinc-950 opacity-75 w-full h-full;
       content: "";
     }
-    & :global(h1) {
-      @apply lg:text-5xl uppercase tracking-[0.10rem];
+    & .content-area {
+      @apply relative z-20 flex flex-col gap-4 w-[100%];
     }
-    & :global(h3) {
-      @apply pt-3 w-fit max-w-[100%] font-medium text-lg text-zinc-400 lg:text-xl;
-    }
-  }
-  .content-area {
-    @apply relative z-20 flex flex-col gap-4 w-[100%];
   }
 </style>
