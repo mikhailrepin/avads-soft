@@ -7,6 +7,11 @@ interface Props {
   frontmatter: Post;
 }
 
+interface PostFile {
+  frontmatter: Post;
+  file: string;
+}
+
 const { frontmatter } = Astro.props;
 const { title, description, date, image } = frontmatter;
 
@@ -23,10 +28,12 @@ const formattedDate = new Date(
 });
 
 // Получаем все посты и сортируем их по дате
-const posts = await import.meta.glob("../pages/news/*.md", { eager: true });
+const posts = await import.meta.glob<PostFile>("../pages/news/*.md", {
+  eager: true,
+});
 const postsArray = Object.values(posts);
 const sortedPosts = postsArray
-  .filter((post) => {
+  .filter((post): post is PostFile => {
     if (!post || !post.frontmatter) return false;
     try {
       const date = new Date(post.frontmatter.date);

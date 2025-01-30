@@ -26,10 +26,12 @@
 
   .hero-title {
     @apply lg:text-5xl uppercase tracking-[0.10rem];
+    line-height: 1.2;
   }
 
   .hero-description {
     @apply pt-3 w-fit max-w-[100%] font-medium text-lg text-zinc-400 lg:text-xl;
+    line-height: 1.3;
   }
 
   .separator {
@@ -58,15 +60,15 @@
 }
 
 h1 {
-  @apply font-bold text-3xl lg:text-6xl !important;
+  @apply font-bold text-3xl lg:text-6xl;
 }
 
 h2 {
-  @apply my-[12px] lg:my-[24px] font-semibold text-2xl lg:text-4xl !important;
+  @apply my-[12px] lg:my-[24px] font-semibold text-xl lg:text-4xl;
 }
 
 h3 {
-  @apply font-semibold text-xl lg:text-2xl !important;
+  @apply font-semibold text-xl lg:text-2xl;
 }
 
 html,

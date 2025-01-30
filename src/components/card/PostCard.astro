@@ -28,7 +28,7 @@ const formattedDate = new Date(
     aria-label={`Читать статью: ${title}`}
   ></a>
   <!-- Изображение поста -->
-  <div class="image-container">
+  <div class="animate-pulse [&:has(img.loaded)]:animate-none image-container">
     <Image
       src={image}
       alt={title}
@@ -43,20 +43,20 @@ const formattedDate = new Date(
     <!-- Дата -->
     <div class="relative w-fit date-wrapper">
       <span class="invisible date">{formattedDate}</span>
-      <div class="top-0 h-[12px] skeleton-layer"></div>
+      <div class="top-0 h-[12px] animate-pulse skeleton-layer"></div>
     </div>
     <!-- Заголовок -->
     <div class="relative overflow-hidden title-wrapper">
       <h2 class="group-hover:text-primary-300 invisible title">{title}</h2>
-      <div class="top-[8px] h-[16px] skeleton-layer"></div>
-      <div class="bottom-[6px] h-[16px] skeleton-layer"></div>
+      <div class="top-[8px] h-[16px] animate-pulse skeleton-layer"></div>
+      <div class="bottom-[6px] h-[16px] animate-pulse skeleton-layer"></div>
     </div>
     <!-- Описание -->
     <div class="relative overflow-hidden description-wrapper">
       <p class="invisible description">{description}</p>
-      <div class="top-[6px] h-[12px] skeleton-layer"></div>
-      <div class="top-[30px] h-[12px] skeleton-layer"></div>
-      <div class="bottom-[6px] h-[12px] skeleton-layer"></div>
+      <div class="top-[6px] h-[12px] animate-pulse skeleton-layer"></div>
+      <div class="top-[30px] h-[12px] animate-pulse skeleton-layer"></div>
+      <div class="bottom-[6px] h-[12px] animate-pulse skeleton-layer"></div>
     </div>
   </div>
 </article>
@@ -72,7 +72,7 @@ const formattedDate = new Date(
     @apply relative rounded-t-lg w-full min-w-[200px] h-[200px] overflow-hidden aspect-video;
     &::before {
       content: "";
-      @apply top-0 left-0 z-0 absolute bg-zinc-800 w-full h-full animate-pulse;
+      @apply top-0 left-0 z-0 absolute bg-zinc-800 w-full h-full;
     }
   }
   .content-container {
@@ -81,7 +81,7 @@ const formattedDate = new Date(
       @apply relative w-fit text-zinc-500;
     }
     & .title {
-      @apply m-0 h-fit font-bold text-xl;
+      @apply m-0 h-fit font-medium text-xl;
       overflow-wrap: break-word;
       -webkit-line-clamp: 2;
       display: -webkit-box;
@@ -112,14 +112,22 @@ const formattedDate = new Date(
         el.classList.remove("invisible");
         el.classList.add("visible");
       });
+      // Удаляем animate-pulse у контейнера изображения
+      card.querySelector(".image-container")?.classList.remove("animate-pulse");
     }, 100);
   }
 
   // Инициализация для каждой карточки
   document.querySelectorAll(".post-card").forEach((card) => {
     const img = card.querySelector("img");
-    if (img?.complete) {
-      showContent(card as HTMLElement);
+    if (img) {
+      if (img.complete) {
+        showContent(card as HTMLElement);
+      } else {
+        img.addEventListener("load", () => {
+          showContent(card as HTMLElement);
+        });
+      }
     }
   });
 </script>

@@ -1,5 +1,10 @@
 ---
-import { Fragment } from "astro/components";
+// Словарь заголовков страниц
+const PAGE_TITLES: Record<string, string> = {
+  news: "Новости",
+  products: "Продукты",
+  "all-products": "Все продукты",
+};
 
 interface Props {
   pageTitle: string;
@@ -7,8 +12,20 @@ interface Props {
 
 const { pageTitle } = Astro.props;
 
+interface PageFile {
+  url?: string;
+  file?: string;
+  frontmatter?: {
+    title?: string;
+  };
+}
+
 // Получаем все страницы и их метаданные
-const pages = await Astro.glob("/src/pages/**/index.{astro,md}");
+const pages = await Promise.all(
+  Object.values(
+    import.meta.glob<PageFile>("/src/pages/**/index.{astro,md}")
+  ).map((page) => page())
+);
 
 // Проверяем, является ли текущий путь главной страницей или страницей 404
 const isHomePage = Astro.url.pathname === "/";
@@ -23,14 +40,19 @@ if (isHomePage || is404Page) {
 function getPageTitle(segment: string, isLast: boolean): string {
   if (isLast) return pageTitle;
 
+  // Проверяем наличие перевода в словаре
+  if (segment in PAGE_TITLES) {
+    return PAGE_TITLES[segment];
+  }
+
   try {
     // Ищем только индексные файлы разделов
-    const page = pages.find((page) => {
-      const url = page.url || page.file;
+    const matchedPage = pages.find((page: PageFile) => {
+      const url = page.url || page.file || "";
       return url.includes(`/${segment}/index`);
     });
 
-    return page?.frontmatter?.title ?? segment;
+    return matchedPage?.frontmatter?.title ?? segment;
   } catch {
     return segment;
   }
