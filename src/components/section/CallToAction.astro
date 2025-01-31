@@ -4,40 +4,66 @@ import BgBlurSpot from "@/components/decorations/BgBlurSpot.astro";
 import type { CallToAction } from "@/types/interfaces";
 import helpers from "@/data/helpers.json";
 
-const { Title, Description, ButtonProps } = Astro.props as CallToAction;
+type AlignType = "center" | "left" | "right";
+
+const {
+  Title,
+  Description,
+  ButtonProps,
+  CustomClass,
+  AlignItems = "center",
+  BackgroundImage,
+  Hovered = true,
+} = Astro.props as CallToAction;
+
+const AlignStyle: Record<AlignType, string> = {
+  center: "items-center",
+  left: "items-start",
+  right: "items-end",
+} as const;
 ---
 
-<div class="relative cta group">
-  <BgBlurSpot
-    customClass="blur-bg w-[100%] h-[100%] top-[0] left-[0] opacity-0 transition-opacity duration-300 group-hover:opacity-10"
-  />
-  <h2 class="text-silver">{Title}</h2>
-  <p>{Description}</p>
+<div
+  class={`border rounded-md border-zinc-900 hover:border-primary-200/30 cta group ${CustomClass}`}>
   {
-    ButtonProps && (
-      <ButtonGeneric
-        Variant="primary"
-        Size="big"
-        Style="filled"
-        Visible={true}
-        IconLeft={ButtonProps.IconLeft}
-        IconRight={ButtonProps.IconRight}
-        ButtonLink={ButtonProps.ButtonLink}
-        Target={ButtonProps.Target || "link"}
-        ButtonLabel={ButtonProps.ButtonLabel}
-      />
+    Hovered && (
+      <BgBlurSpot customClass="blur-bg w-[100%] h-[100%] top-[0] left-[0] opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
     )
   }
+  <div
+    class={`flex py-[64px] flex-col ${AlignStyle[AlignItems]} main-max-width w-full mx-auto bg-contain bg-no-repeat lg:bg-[image:var(--bg-image)] bg-none`}
+    style={BackgroundImage
+      ? `--bg-image: url(${BackgroundImage}); background-position: ${AlignItems === "left" ? "right" : AlignItems === "right" ? "left" : "center"}`
+      : ""}>
+    <h2 class={`text-silver text-${AlignItems}`}>{Title}</h2>
+    <p class={`text-${AlignItems}`}>{Description}</p>
+    {
+      ButtonProps && (
+        <ButtonGeneric
+          Variant="primary"
+          Size="big"
+          Style="filled"
+          CustomClass="w-full lg:w-fit mb-[24px]"
+          Visible={true}
+          IconLeft={ButtonProps.IconLeft}
+          IconRight={ButtonProps.IconRight}
+          ButtonLink={ButtonProps.ButtonLink}
+          Target={ButtonProps.Target || "link"}
+          ButtonLabel={ButtonProps.ButtonLabel}
+        />
+      )
+    }
+  </div>
 </div>
 
 <style>
   .cta {
-    @apply relative flex flex-col items-center gap-[16px] border-zinc-900 hover:border-primary-200/30 px-[16px] py-[40px] border rounded-md w-full overflow-hidden;
+    @apply relative flex flex-col items-center w-full overflow-hidden;
     & h2 {
-      @apply my-0 text-center;
+      @apply my-0;
     }
     & p {
-      @apply my-0 mb-[12px] max-w-[612px] text-center text-lg text-zinc-400;
+      @apply my-0 mt-[-12px] mb-[24px] max-w-[612px] text-lg text-zinc-400;
     }
   }
 </style>

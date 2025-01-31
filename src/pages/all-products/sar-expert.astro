@@ -302,7 +302,7 @@ const advantages = [
   <hr class="opacity-20 separator silver" />
 
   <div class="mx-auto my-[64px] main-max-width">
-    <div class="flex flex-col gap-[16px] mx-auto w-[80%]">
+    <div class="flex flex-col gap-[16px]">
       <h2 class="my-0 text-3xl text-primary-300">Статистический анализ</h2>
       <p class="text-lg text-zinc-400">
         Предназначен для оценки качества работы системы автоматического
@@ -313,18 +313,18 @@ const advantages = [
       <Image
         src={trendBeforeAfterDesktop}
         alt="До и после применения настроек"
-        class="lg:block hidden my-8 w-[100%]"
+        class="lg:block hidden mx-auto my-[52px] w-[100%] lg:w-[80%]"
       />
       <Image
         src={trendBeforeAfterMobile}
         alt="До и после применения настроек"
-        class="block lg:hidden my-8 w-[100%]"
+        class="block lg:hidden mx-auto my-[52px] w-[100%] lg:w-[80%]"
       />
     </div>
   </div>
 
   <div class="mx-auto my-[64px] main-max-width">
-    <div class="flex flex-col gap-[16px] mx-auto w-[80%]">
+    <div class="flex flex-col gap-[16px]">
       <h2 class="my-0 text-3xl text-primary-300">После внедрения</h2>
       <p class="text-lg text-zinc-400">
         Уменьшение девиации регулируемой переменной позволяет изменить задание
@@ -335,7 +335,7 @@ const advantages = [
       <Image
         src={trendAfterSarInstall}
         alt="После внедрения"
-        class="my-6 w-[100%]"
+        class="mx-auto my-[52px] w-[100%] lg:w-[80%]"
       />
       <p class="text-lg text-zinc-400">
         За счёт оптимизации работы систем регулирования зачастую удаётся
@@ -352,16 +352,20 @@ const advantages = [
     </div>
   </div>
 
-  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
-    <CallToAction
-      Title="Свяжитесь с нами"
-      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
-      ButtonProps={{
-        ButtonLabel: "Оставить заявку",
-        ButtonLink: "/contacts",
-      }}
-    />
+  <CallToAction
+    AlignItems="left"
+    BackgroundImage={"/hero/cta-call-manager.png"}
+    Hovered={false}
+    Title="Свяжитесь с нами"
+    Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+    ButtonProps={{
+      ButtonLabel: "Оставить заявку",
+      ButtonLink: "/contacts",
+    }}
+    CustomClass="bg-[#101010] rounded-none border-none"
+  />
 
+  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
     <FAQ faqData={faqData} />
   </div>
 

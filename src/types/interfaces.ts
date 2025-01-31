@@ -52,6 +52,9 @@ export interface BaseCard extends BaseText {
 // Интерфейс для Call to Action
 export interface CallToAction extends BaseText {
   ButtonProps?: BaseButton;
+  AlignItems?: "center" | "left" | "right";
+  BackgroundImage?: string;
+  Hovered?: boolean;
 }
 
 // Интерфейс для карточек новостей

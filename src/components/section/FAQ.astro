@@ -52,20 +52,20 @@ const { faqData = defaultFAQ } = Astro.props;
     }
   }
   .faq-container {
-    @apply flex flex-col border-zinc-900 border rounded-lg overflow-hidden;
+    @apply flex flex-col gap-[12px] overflow-hidden;
   }
   .faq-item {
-    @apply border-zinc-900 border-b last:border-none;
+    @apply border-zinc-800/80 border rounded-[6px] overflow-hidden;
   }
   .faq-button {
-    @apply flex justify-between items-center bg-zinc-950 hover:bg-zinc-900/30 px-[24px] py-[14px] w-full text-left text-zinc-400 hover:text-primary-300 transition-colors;
+    @apply flex justify-between items-center bg-zinc-900 hover:bg-zinc-800/60 px-[24px] py-[14px] w-full text-left text-zinc-400 hover:text-primary-300 transition-colors;
     &[aria-expanded="true"] {
       @apply text-primary-300;
       & .faq-icon {
         @apply rotate-45;
       }
       & + .faq-content {
-        @apply bg-zinc-900/50 opacity-100 py-[16px] max-h-[1000px];
+        @apply bg-zinc-900 opacity-100 py-[16px] max-h-[1000px];
       }
     }
   }
