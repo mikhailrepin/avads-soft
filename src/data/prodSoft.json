@@ -59,7 +59,7 @@
       "buttons": {
         "buy": {
           "label": "Купить",
-          "link": "/all-products/tsdb#buy"
+          "link": "https://insat.ru/products/?category=2737"
         },
         "demo": {
           "label": "Скачать демо",
@@ -68,6 +68,10 @@
         "more": {
           "label": "Подробнее",
           "link": "/all-products/tsdb"
+        },
+        "price": {
+          "label": "Цены",
+          "link": "/price/#tsdb"
         }
       }
     },
@@ -87,6 +91,10 @@
         "more": {
           "label": "Подробнее",
           "link": "/all-products/sar-expert"
+        },
+        "price": {
+          "label": "Цены",
+          "link": "/price/#sar-expert"
         }
       }
     },
@@ -154,6 +162,10 @@
         "more": {
           "label": "Подробнее",
           "link": "/all-products/opc-db"
+        },
+        "price": {
+          "label": "Цены",
+          "link": "/price/#opc-db"
         }
       }
     },
@@ -169,6 +181,10 @@
         "more": {
           "label": "Подробнее",
           "link": "/all-products/modbus-opc"
+        },
+        "price": {
+          "label": "Цены",
+          "link": "/price/#modbus-opc"
         }
       }
     }

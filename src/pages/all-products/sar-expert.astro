@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
+import Platforms from "@/components/section/Platforms.astro";
 import Advantage from "@/components/card/Advantage.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import FAQ from "@/components/section/FAQ.astro";
@@ -21,6 +22,7 @@ import trendAfterSarInstall from "@/assets/products/sar-expert/trends-after-sar-
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
 import faqData from "@/data/faqMain.json";
+import PlatformsData from "@/assets/products/sar-expert/platforms.json";
 
 /* Variables */
 const heroBbackground = "/hero/sar-expert.avif";
@@ -125,7 +127,18 @@ const advantages = [
     {advantages.map((advantage) => <Advantage {...advantage} />)}
   </div>
 
-  <h2 class="mx-auto mt-[80px] mb-[40px] text-3xl main-max-width">
+  <Platforms
+    data={PlatformsData.data}
+    appIcon={sarExpert.app.image}>
+    <div class="flex flex-col gap-[16px]">
+      <p>
+        {sarExpert.app.name} — кроссплатформенный продукт. Работает на актуальных
+        версиях Windows и Linux.
+      </p>
+    </div>
+  </Platforms>
+
+  <h2 class="mx-auto pt-[52px] pb-[16px] text-3xl main-max-width">
     Технологии {sarExpert.app.name}
   </h2>
   <!-- Инфраструктура -->

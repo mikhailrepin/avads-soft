@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "image": "/platforms/logo-windows.png",
+      "title": "Windows",
+      "description": "На платформах X86, AMD64, ARM, ARM64"
+    },
+    {
+      "image": "/platforms/logo-linux.png",
+      "title": "Linux",
+      "description": "На платформах X86, AMD64, ARM, ARM64, PPC64, PPC64le, MIPS, MIPCle, MIPS64, RISCV64, S390X"
+    }
+  ]
+}

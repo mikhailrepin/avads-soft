@@ -1,0 +1,74 @@
+{
+  "data": [
+    {
+      "image": "/platforms/logo-windows.png",
+      "title": "Windows",
+      "description": "На платформах X86, AMD64, ARM, ARM64"
+    },
+    {
+      "image": "/platforms/logo-linux.png",
+      "title": "Linux",
+      "description": "На платформах X86, AMD64, ARM, ARM64, PPC64, PPC64le, MIPS, MIPCle, MIPS64, RISCV64, S390X"
+    },
+    {
+      "image": "/platforms/logo-android.png",
+      "title": "Android",
+      "description": "На платформах X86, ARM, ARM64"
+    },
+    {
+      "image": "/platforms/logo-darwin.png",
+      "title": "Darwin",
+      "description": "Компьютеров Apple на платформах Intel, ARM64"
+    },
+    {
+      "image": "/platforms/logo-ios.png",
+      "title": "IOS",
+      "description": "Мобильных устройств Apple на платформе ARM64"
+    },
+    {
+      "image": "/platforms/logo-netbsd.png",
+      "title": "NetBSD",
+      "description": "На платформах X86, AMD64, ARM"
+    },
+    {
+      "image": "/platforms/logo-freebsd.png",
+      "title": "FreeBSD",
+      "description": "На платформах X86, AMD64, ARM, ARM64"
+    },
+    {
+      "image": "/platforms/logo-plan9.png",
+      "title": "Plan9",
+      "description": "На платформах X86, AMD64, ARM"
+    },
+    {
+      "image": "/platforms/logo-openbsd.png",
+      "title": "OpenBSD",
+      "description": "На платформах X86, AMD64, ARM, ARM64"
+    },
+    {
+      "image": "/platforms/logo-aix.png",
+      "title": "AIX",
+      "description": "На платформе PPC64"
+    },
+    {
+      "image": "/platforms/logo-dragonfly.png",
+      "title": "Dragonfly",
+      "description": "На платформе AMD64"
+    },
+    {
+      "image": "/platforms/logo-illumos.png",
+      "title": "Illumos",
+      "description": "На платформе AMD64"
+    },
+    {
+      "image": "/platforms/logo-solaris.png",
+      "title": "Solaris",
+      "description": "На платформе AMD64"
+    },
+    {
+      "image": "/platforms/logo-elbrus.png",
+      "title": "Эльбрус",
+      "description": "На платформе VLIW (2С+, 4С, 8С, 8СВ, 2С3, 16С)"
+    }
+  ]
+}

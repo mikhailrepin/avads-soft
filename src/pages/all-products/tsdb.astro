@@ -1,0 +1,234 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/components/section/MainHero.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
+import Platforms from "@/components/section/Platforms.astro";
+import Advantage from "@/components/card/Advantage.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import FAQ from "@/components/section/FAQ.astro";
+
+/* Images */
+import { Image } from "astro:assets";
+
+/* Data */
+import prodSoft from "@/data/prodSoft.json";
+import faqData from "@/data/faqMain.json";
+import PlatformsData from "@/assets/products/tsdb/platforms.json";
+
+/* Variables */
+const heroBbackground = "/hero/tsdb-page.avif";
+
+const tsdb = prodSoft.products.find((product) => product.id === "tsdb");
+
+if (!tsdb) throw new Error("Product not found");
+
+// Добавляем ссылку на скачивание
+const downloadLink = tsdb.buttons?.demo?.link || "/download";
+
+const advantages = [
+  {
+    title: "Надежность хранения данных",
+    description:
+      "Хранение архивов технологических показателей для промышленных объектов и систем учета высокой важности.",
+    icon: "database-protection-outline",
+  },
+  {
+    title: "Скорость сохранения и доступ к данным",
+    description:
+      "Высокая скорость записи и чтения данных обеспечивает эффективную работу с большими объемами технологической информации в режиме реального времени.",
+    icon: "database-thunderbolt-outline",
+  },
+  {
+    title: "Глубина хранения данных",
+    description:
+      "Длительное хранение архивов технологических и коммерческих показателей для последующего анализа и использования.",
+    icon: "database-depth-outline",
+  },
+];
+---
+
+<Layout
+  pageTitle={tsdb.app.name}
+  downloadLink={downloadLink}>
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
+      <div class="w-full min-w-[50%]">
+        <h1 class="hero-title">
+          <span class="text-silver">{tsdb.app.name}</span><br />
+        </h1>
+        <h3 class="hero-description">
+          <span
+            set:html={tsdb.app.description.replace(
+              "контроль",
+              "контроль<br />"
+            )}
+          />
+        </h3>
+        <div class="flex gap-3 mt-[32px]">
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="filled"
+            CustomClass="w-fit min-w-[150px]"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: false,
+            }}
+            Target="link"
+            ButtonLink={tsdb.buttons?.buy?.link || "#"}
+            ButtonLabel="Купить"
+            Blank={true}
+          />
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="outlined"
+            CustomClass="w-fit"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: true,
+            }}
+            Target="link"
+            ButtonLink={tsdb.buttons?.demo?.link || "#"}
+            ButtonLabel="Скачать демо"
+          />
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="outlined"
+            CustomClass="w-fit min-w-[150px]"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: false,
+            }}
+            Target="link"
+            ButtonLink={tsdb.buttons?.price?.link || "#"}
+            ButtonLabel="Цены"
+          />
+        </div>
+      </div>
+      <div class="flex justify-center items-center w-[100%] h-[100%]">
+        <img
+          src={tsdb.app.image}
+          alt={tsdb.app.name}
+          class="lg:block hidden scale-[7]"
+        />
+      </div>
+    </div>
+  </MainHero>
+
+  <!-- Функции -->
+  <div class="flex flex-col mx-auto pt-[32px] main-max-width">
+    <h2 class="text-3xl">Функция архивирования</h2>
+    <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+      Эта функция является одной из главных в системах управления и учёта. К ней
+      предъявляются очень жёсткие требования. По надёжности хранения данных,
+      скорости сохранения и доступа к данным, глубине хранения данных.
+    </p>
+    <p class="mt-[16px] lg:max-w-[60vw] text-lg text-zinc-400">
+      Сервер Архивирования позволяет вести архивы технологических и коммерческих
+      показателей в АСУТП, диспетчеризации объектов промышленности и ЖКХ,
+      системах коммерческого и технического учёта.
+    </p>
+  </div>
+  <div
+    class="gap-[16px] grid grid-cols-1 lg:grid-cols-3 mx-auto my-[52px] main-max-width">
+    {advantages.map((advantage) => <Advantage {...advantage} />)}
+  </div>
+
+  <!-- Инновационность -->
+  <div class="flex flex-col gap-[16px] bg-zinc-900 pt-10 pb-16">
+    <h2 class="mx-auto w-full text-3xl main-max-width">Инновационность</h2>
+    <div class="gap-6 grid grid-cols-1 lg:grid-cols-2 mx-auto main-max-width">
+      <div class="flex flex-col gap-[16px]">
+        <p>
+          Сервер Архивирования зарегистрирован в реестре российского
+          программного обеспечения Минкомсвязи России под номером № 17156 и
+          отнесён к классу 02.07 (средства управления базами данных).
+        </p>
+        <p>
+          Разработан на базе инновационной технологии SSDS (Solid Segment Data
+          Storage). Эта технология обеспечивает высочайшую скорость записи и
+          извлечения данных.
+        </p>
+        <ul class="text-primary-300 list-disc list-inside">
+          <li>оригинальная организация данных</li>
+          <li>уникальная и очень компактная система индексации</li>
+          <li>мощная система кеширования</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-[16px]">
+        <p>
+          Эти решения позволяют не только получать мгновенный доступ к нужным
+          данным, но и быстро восстановить целостность базы при частичном
+          повреждении носителя или индекса. Технология SSDS является продуктом
+          разработки компании АВАДС СОФТ и полностью принадлежит ей (<span
+            class="text-gold">Патент РФ № 2793082</span
+          > «Способ хранения и извлечения данных»).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <Platforms
+    data={PlatformsData.data}
+    appIcon={tsdb.app.image}>
+    <div class="flex flex-col gap-[16px]">
+      <p>
+        {tsdb.app.name} — кроссплатформенный продукт. Его код не содержит решений,
+        зависящих от ОС и аппаратной платформы.
+      </p>
+      <p>
+        Работает на большинстве современных платформ и под управлением почти
+        всех операционных систем.
+      </p>
+      <p>
+        Для облегчения интеграции с другими программными продуктами имеются
+        примеры исходного кода драйверов. Примеры приведены для следующих языков
+        программирования: C#, Go, JavaScript, Python. <a
+          class="text-primary-300 hover:text-primary-400 underline"
+          href={tsdb.buttons?.demo?.link || "#"}
+          >Скачать</a
+        > примеры исходных текстов драйверов.
+      </p>
+    </div>
+  </Platforms>
+
+  <CallToAction
+    AlignItems="left"
+    BackgroundImage={"/hero/cta-call-manager.png"}
+    Hovered={false}
+    Title="Свяжитесь с нами"
+    Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+    ButtonProps={{
+      ButtonLabel: "Оставить заявку",
+      ButtonLink: "/contacts",
+    }}
+    CustomClass="bg-[#101010] rounded-none border-none"
+  />
+
+  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+    <FAQ faqData={faqData} />
+  </div>
+
+  <style>
+    .text-card {
+      @apply relative z-[20] flex flex-col gap-[8px] py-[24px] w-full;
+      & .title {
+        @apply text-2xl text-primary-300;
+      }
+
+      & .description {
+        @apply text-lg text-zinc-400;
+      }
+    }
+
+    .bordered {
+      @apply border-zinc-900 lg:border;
+    }
+  </style>
+</Layout>

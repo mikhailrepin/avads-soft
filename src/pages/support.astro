@@ -1,7 +1,40 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/components/section/MainHero.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
+import FAQ from "@/components/section/FAQ.astro";
+
+/* Data */
+import faqData from "@/data/faqMain.json";
+
+/* Variables */
+const heroBbackground = "/hero/support-page.avif";
 ---
 
 <Layout pageTitle="Техподдержка">
-  <section></section>
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
+      <div class="w-full min-w-[50%]">
+        <h1 class="hero-title">
+          <span class="text-silver">Нужна помощь<br />с продуктами АВАДС?</span
+          ><br />
+        </h1>
+        <h3 class="hero-description">
+          Выберите необходимый продукт<br /> для перехода к его документации
+        </h3>
+      </div>
+    </div>
+  </MainHero>
+  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+    <FAQ faqData={faqData} />
+    <CallToAction
+      Title="Не нашли ответ на вопрос?"
+      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+      ButtonProps={{
+        ButtonLabel: "Оставить заявку",
+        ButtonLink: "/contacts",
+      }}
+    />
+  </div>
 </Layout>

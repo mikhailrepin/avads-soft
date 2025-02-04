@@ -23,10 +23,10 @@ const {
   IconRight = { IconSprite: "", IconVisible: false } as IconProps,
   ButtonLabel,
   ButtonLink = "",
+  Blank = false,
   CustomClass = "",
   Onclick,
   Target = "action" as Elem["Target"],
-  class: className,
   type = "button",
 } = Astro.props as BaseButton;
 
@@ -63,7 +63,8 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
       <a
         class={ButtonClasses}
         href={ButtonLink}
-        title={Tooltip}>
+        title={Tooltip}
+        target={Blank ? "_blank" : "_self"}>
         {IconLeft.IconVisible && (
           <svg class="icon">
             <use xlink:href={`/sprites.svg#${IconLeft.IconSprite}`} />

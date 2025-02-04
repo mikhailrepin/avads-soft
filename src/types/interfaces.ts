@@ -35,9 +35,11 @@ export interface BaseButton {
   IconRight?: IconProps;
   ButtonLabel?: string;
   ButtonLink?: string;
+  Blank?: boolean;
   CustomClass?: string;
   Onclick?: () => void;
   Target?: Elem["Target"];
+  type?: "button" | "submit" | "reset";
 }
 
 // Интерфейс для карточек
