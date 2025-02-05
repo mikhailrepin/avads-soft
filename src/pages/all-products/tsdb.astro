@@ -15,6 +15,9 @@ import prodSoft from "@/data/prodSoft.json";
 import faqData from "@/data/faqMain.json";
 import PlatformsData from "@/assets/products/tsdb/platforms.json";
 
+/* Animations */
+import dotAnim from "@/assets/media/dots-anim.json";
+
 /* Variables */
 const heroBbackground = "/hero/tsdb-page.avif";
 
@@ -174,6 +177,7 @@ const advantages = [
     </div>
   </div>
 
+  <!-- Платформы -->
   <Platforms
     data={PlatformsData.data}
     appIcon={tsdb.app.image}>
@@ -198,6 +202,70 @@ const advantages = [
     </div>
   </Platforms>
 
+  <!-- Архитектура -->
+  <div class="flex flex-col mx-auto pt-[52px] pb-[60px] main-max-width">
+    <h2 class="mx-auto w-full text-3xl">Архитектура</h2>
+
+    <!-- Блоки -->
+    <div
+      class="gap-[24px] lg:gap-[48px] lg:gap-y-[60px] grid grid-cols-1 lg:grid-cols-2">
+      <p>
+        {tsdb.app.name} — включает в себя Сервер БД (сервер баз данных) и Клиент
+        администрирования.
+        <br /><br />
+        Не имеет ограничений по числу баз и клиентов кроме лицензионных, а также
+        накладываемых возможностями вычислительных средств, на которых он установлен.
+      </p>
+
+      <!-- Правый -->
+      <div class="left pulsar-card">
+        <span class="text-gold title">Сервер БД</span>
+        <span class="description">
+          Обслуживает запросы клиентов, сохраняет полученные данные и
+          предоставляет их по запросу, выполняет бекапирование и математическую
+          обработку.
+        </span>
+        <div class="card-bg"></div>
+        <div
+          id="dots-animation-1"
+          class="right animated-lines">
+        </div>
+      </div>
+
+      <!-- Левый -->
+      <div class="right lg:translate-x-[40%] pulsar-card">
+        <span class="text-gold title">Клиент администрирования</span>
+        <span class="description">
+          Обслуживает запросы клиентов, сохраняет полученные данные и
+          предоставляет их по запросу, выполняет бекапирование и математическую
+          обработку.
+        </span>
+        <div class="card-bg"></div>
+        <div
+          id="dots-animation-2"
+          class="left animated-lines">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Типы хранимых данных -->
+  <div class="flex flex-col mx-auto mt-[24px] main-max-width">
+    <hr class="separator silver" />
+    <h2 class="pt-[16px] text-3xl">Типы хранимых данных</h2>
+    <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-2 py-8">
+      <div class="flex flex-col gap-[16px]">
+        <h4 class="font-medium text-2xl text-primary-300">Атомарные данные</h4>
+        <hr class="gold separator" />
+        <p class="text-zinc-400">
+          Данные любых типов, размер которых не превышает 8 байт. К таким
+          относятся, например: bool, int, long, dlong, float, dfloat...
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Свяжитесь с нами -->
   <CallToAction
     AlignItems="left"
     BackgroundImage={"/hero/cta-call-manager.png"}
@@ -211,24 +279,88 @@ const advantages = [
     CustomClass="bg-[#101010] rounded-none border-none"
   />
 
-  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+  <!-- FAQ -->
+  <div class="flex flex-col lg:gap-[52px] mx-auto my-[52px] main-max-width">
     <FAQ faqData={faqData} />
   </div>
 
-  <style>
-    .text-card {
-      @apply relative z-[20] flex flex-col gap-[8px] py-[24px] w-full;
-      & .title {
-        @apply text-2xl text-primary-300;
-      }
+  <script>
+    import lottie from "lottie-web";
+    import dotsAnimation from "@/assets/media/dots-anim.json";
 
+    document.addEventListener("DOMContentLoaded", () => {
+      // Находим все контейнеры для анимации
+      const containers = document.querySelectorAll("[id^='dots-animation-']");
+
+      // Создаем анимацию для каждого контейнера
+      containers.forEach((container) => {
+        lottie.loadAnimation({
+          container: container,
+          renderer: "svg",
+          loop: true,
+          autoplay: true,
+          animationData: dotsAnimation,
+        });
+      });
+    });
+  </script>
+
+  <style>
+    .pulsar-card {
+      @apply relative flex flex-col gap-[8px] border-primary-300 px-[32px] py-[24px] border lg:border rounded-lg w-full;
+      z-index: 20;
+      &::before {
+        z-index: 18;
+        content: "";
+        @apply absolute bg-primary-300/30 blur-[1px] rounded-lg w-full h-full lg:opacity-100 opacity-0;
+      }
+      &::after {
+        z-index: 17;
+        content: "";
+        @apply absolute bg-primary-300/20 blur-[5px] rounded-lg w-full h-full lg:opacity-100 opacity-0;
+      }
+      &.right::before {
+        @apply top-[12px] right-[-12px];
+      }
+      &.right::after {
+        @apply top-[24px] right-[-24px];
+      }
+      &.left::before {
+        @apply top-[12px] left-[-12px];
+      }
+      &.left::after {
+        @apply top-[24px] left-[-24px];
+      }
+      & .title {
+        z-index: 25;
+        @apply relative font-medium text-2xl;
+      }
       & .description {
-        @apply text-lg text-zinc-400;
+        z-index: 25;
+        @apply relative text-lg text-zinc-300;
+      }
+      & .card-bg {
+        z-index: 19;
+        @apply top-0 left-0 absolute rounded-lg w-full h-full text-zinc-900/0 bg-zinc-950/50 backdrop-blur-[5px];
       }
     }
 
-    .bordered {
-      @apply border-zinc-900 lg:border;
+    .animated-lines {
+      @apply lg:block hidden;
+      transform: scale(0.6);
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+
+      pointer-events: none;
+      &.left {
+        left: -85%;
+      }
+      &.right {
+        right: -85%;
+      }
     }
   </style>
 </Layout>

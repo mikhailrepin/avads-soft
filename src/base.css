@@ -36,6 +36,12 @@
     @apply font-semibold text-xl lg:text-2xl !important;
   }
 
+  p,
+  ul,
+  li {
+    @apply text-lg;
+  }
+
   .hero-title {
     @apply lg:text-5xl uppercase tracking-[0.10rem] !important;
   }
