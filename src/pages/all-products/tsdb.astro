@@ -6,9 +6,18 @@ import Platforms from "@/components/section/Platforms.astro";
 import Advantage from "@/components/card/Advantage.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import FAQ from "@/components/section/FAQ.astro";
+import PerformanceTSDB from "@/components/section/PerformanceTSDB.astro";
 
 /* Images */
 import { Image } from "astro:assets";
+import Datatype from "@/assets/products/tsdb/datatype.png";
+import BackupRestore from "@/assets/products/tsdb/backup-restore.png";
+import Looping from "@/assets/products/tsdb/looping.png";
+import MultiCore from "@/assets/products/tsdb/multi-core.png";
+import Reserve from "@/assets/products/tsdb/reserve.png";
+import Server from "@/assets/products/tsdb/server.png";
+import Trend from "@/assets/products/tsdb/trend.png";
+import UsersRole from "@/assets/products/tsdb/users-role.png";
 
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
@@ -73,7 +82,7 @@ const advantages = [
             Variant="primary"
             Size="default"
             Style="filled"
-            CustomClass="w-fit min-w-[150px]"
+            CustomClass="w-fit lg:min-w-[150px]"
             Visible={true}
             IconLeft={{
               IconSprite: "download-bold",
@@ -102,7 +111,7 @@ const advantages = [
             Variant="primary"
             Size="default"
             Style="outlined"
-            CustomClass="w-fit min-w-[150px]"
+            CustomClass="w-fit lg:min-w-[150px]"
             Visible={true}
             IconLeft={{
               IconSprite: "download-bold",
@@ -252,8 +261,12 @@ const advantages = [
   <!-- Типы хранимых данных -->
   <div class="flex flex-col mx-auto mt-[24px] main-max-width">
     <hr class="separator silver" />
+
+    <!-- Типы хранимых данных -->
     <h2 class="pt-[16px] text-3xl">Типы хранимых данных</h2>
-    <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-2 py-8">
+
+    <!-- Атомарные данные -->
+    <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
       <div class="flex flex-col gap-[16px]">
         <h4 class="font-medium text-2xl text-primary-300">Атомарные данные</h4>
         <hr class="gold separator" />
@@ -261,8 +274,286 @@ const advantages = [
           Данные любых типов, размер которых не превышает 8 байт. К таким
           относятся, например: bool, int, long, dlong, float, dfloat...
         </p>
+        <br />
+        <h4 class="font-medium text-2xl text-primary-300">Данные типа blob</h4>
+        <hr class="gold separator" />
+        <p class="text-zinc-400">
+          Данные произвольного размера. Это могут быть, например, структуры,
+          массивы, тексты, изображения и пр. Назначение и структуру записанного
+          в blob массива байтов определяет приложение, которое его записывает.
+          <br /><br />
+          Механизмы хранения и доступа к данным обоих типов одинаковые. Отличие состоит
+          в логике их обработки. Такой унифицированный подход позволяет обеспечить
+          одинаково высокую скорость сохранения и доступа к данным независимо от
+          их типа.
+        </p>
+      </div>
+      <Image
+        src={Datatype}
+        alt="Типы хранимых данных"
+        class="w-[90%] object-cover"
+      />
+    </div>
+  </div>
+
+  <!-- Взаимодействие с внешними приложениями -->
+  <div class="flex flex-col mx-auto mt-[24px] main-max-width">
+    <hr class="separator silver" />
+
+    <h2 class="pt-[16px] text-3xl">Взаимодействие с внешними приложениями</h2>
+
+    <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
+      <div class="flex flex-col gap-[16px]">
+        <h4 class="font-medium text-2xl text-primary-300">API</h4>
+        <hr class="gold separator" />
+        <p class="text-zinc-400">
+          Обеспечивает высокоскоростные методы передачи и доступа к данным, а
+          также методы управления сервером, реализованные в рамках TCP/IP стека.
+        </p>
+        <br />
+
+        <h4 class="font-medium text-2xl text-primary-300">OPC UA</h4>
+        <hr class="gold separator" />
+        <p class="text-zinc-400">
+          Для взаимодействия Сервера архивирования с клиентами по протоколу OPC
+          UA разработана специальная программа – OPC–DB шлюз. Она
+          взаимодействует по протоколу OPC UA с клиентами и транслирует запросы
+          этого протокола в протокол AVADS TCP.
+        </p>
+        <br />
+
+        <h4 class="font-medium text-2xl text-primary-300">WEB SOCKET</h4>
+        <hr class="gold separator" />
+        <p class="text-zinc-400">
+          Это WEB-API, реализованное через WEB-soсket. Используется для
+          взаимодействия сервера с Клиентом администрирования. JSON проще в
+          реализации, но медленнее в работе. Поэтому его не следует использовать
+          если требуется максимальное быстродействие.
+          <br /><br />
+          <span class="text-zinc-100"
+            >{tsdb.app.name} может взаимодействовать с клиентами как в рамках одного
+            компьютера так и по сети используя одновременно оба механизма. Число
+            клиентов, которые могут одновременно взаимодействовать с Сервером Архивирования
+            ограничивается лицензией.</span
+          >
+        </p>
+      </div>
+      <Image
+        src={Server}
+        alt="Взаимодействие с внешними приложениями"
+        class="w-[90%] object-cover"
+      />
+    </div>
+  </div>
+
+  <!-- Зацикливание баз данных -->
+  <div class="flex flex-col mx-auto mt-[24px] main-max-width">
+    <hr class="separator silver" />
+
+    <h2 class="pt-[16px] text-3xl">Типы хранимых данных</h2>
+
+    <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mt-[-24px] py-8">
+      <div class="flex flex-col gap-[16px] text-zinc-400">
+        <p>
+          Сервер Архивирования обеспечивает непрерывное сохранение данных, даже
+          при исчерпании свободного пространства на диске. Это достигается за
+          счёт функции зацикливания.
+        </p>
+        <p>Зацикливание баз данных может выполняться в нескольких режимах:</p>
+        <ul class="text-primary-300 list-disc list-inside">
+          <li>По заданной глубине хранения данных</li>
+          <li>По заданному размеру базы</li>
+          <li>По исчерпанию свободного места на диске</li>
+        </ul>
+        <p>
+          Глубина хранения может устанавливаться для базы целиком, для группы
+          тегов или индивидуально для каждого тега. Приоритетной будет
+          индивидуальная настройка тега.
+        </p>
+        <p>
+          При достижении заданного ограничения все новые записи будут
+          записываться поверх самых старых.
+        </p>
+        <p>
+          Зацикливание архива слабо влияет на скорость Сервера архивирования по
+          записи и выборке данных.
+        </p>
+      </div>
+      <Image
+        src={Looping}
+        alt="Зацикливание баз данных"
+        class="w-[90%] object-cover"
+      />
+    </div>
+  </div>
+
+  <!-- Создание и восстановление бэкапов -->
+  <div class="flex flex-col mx-auto mt-[24px] main-max-width">
+    <hr class="separator silver" />
+
+    <h2 class="pt-[16px] text-3xl">Создание и восстановление бэкапов</h2>
+
+    <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mt-[-24px] py-8">
+      <div class="flex flex-col gap-[16px] text-zinc-400">
+        <p>
+          {tsdb.app.name} позволяет сохранять в файл бэкапа значения произвольного
+          набора параметров за заданный интервал времени. Затем данные из бэкапа
+          можно восстановить в ту же или другую базу данных.
+        </p>
+        <p>
+          Можно, например, все теги сохранять в бэкап раз в заданный период
+          времени на сменный носитель. Это обеспечит защиту от потери данных.
+        </p>
+        <p>
+          Возможность сохранить бэкап позволяет вести аналитику на отдельном
+          компьютере не нагружая дополнительными запросами сервер,
+          обеспечивающий сохранение данных.
+        </p>
+        <p>
+          {tsdb.app.name} может восстанавливать бэкап одновременно с записью новых
+          данных в базу. Причем процесс восстановления почти не влияет на производительность
+          сервера.
+        </p>
+      </div>
+      <Image
+        src={BackupRestore}
+        alt="Создание и восстановление бэкапов"
+        class="w-[90%] object-cover"
+      />
+    </div>
+  </div>
+
+  <!-- Встроенная математическая обработка и резервирование-->
+  <div class="bg-zinc-100 w-full text-zinc-900">
+    <div class="flex flex-col mx-auto py-[32px] main-max-width">
+      <h2 class="pt-[16px] text-3xl">Встроенная математическая обработка</h2>
+
+      <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mt-[-24px] py-8">
+        <div class="flex flex-col gap-[16px] text-zinc-600">
+          <p>
+            {tsdb.app.name} может выполнять математическую обработку сохраненных
+            данных. Для этого в API предусмотрены специальные команды.
+          </p>
+          <p class="font-semibold">
+            Запросы на обработку позволяют выполнять следующие действия:
+          </p>
+          <h3 class="mt-2 font-semibold text-zinc-900 uppercase">
+            Прореживание
+          </h3>
+          <p>
+            Используется, например, для вывода на тренд данных за большой
+            интервал времени – точек много больше чем пикселей в рабочем поле
+            тренда. Прореживание сокращает объем передаваемых данных и повышает
+            скорость отрисовки их на тренде.
+          </p>
+          <h3 class="mt-2 font-semibold text-zinc-900 uppercase">
+            Вычисление за заданный интервал
+          </h3>
+          <ul class="text-primary-300 list-disc list-inside">
+            <li>Минимум / Максимум</li>
+            <li>Среднее значение</li>
+            <li>Интеграл</li>
+            <li>Наработка / простой в часах и процентах</li>
+          </ul>
+        </div>
+        <Image
+          src={Trend}
+          alt="Встроенная математическая обработка"
+          class="w-[90%] object-cover"
+        />
+      </div>
+
+      <h2 class="pt-[16px] text-3xl">Резервирование</h2>
+
+      <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mt-[-24px] py-8">
+        <div class="flex flex-col gap-[16px] text-zinc-600">
+          <p>
+            {tsdb.app.name} позволяет создавать высоконадежные резервированные системы
+            непрерывного хранения данных. Это важно для ответственных систем и коммерческого
+            учета.
+          </p>
+          <p class="font-semibold">
+            {tsdb.app.name} реализует горячее резервирование:
+          </p>
+          <h3 class="mt-2 font-semibold text-zinc-900 uppercase">Серверов</h3>
+          <p>
+            Два и более Серверов Архивирования могут работать на разных
+            компьютерах в горячем резерве. Один имеет статус Мастер, остальные —
+            Резерв. С клиентами взаимодействует Мастер. Он пересылает получаемые
+            данные Резервным серверам, которые синхронизируют свои базы с ним.
+            При отказе Мастера один из Резервных серверов становится Мастером.
+          </p>
+          <h3 class="mt-2 font-semibold text-zinc-900 uppercase">
+            Носителей данных (дисков)
+          </h3>
+          <p>
+            {tsdb.app.name} ведёт две одинаковые базы на двух разных дисках. Он контролирует
+            идентичность баз и синхронизирует их. Это позволяет при обеспечении горячей
+            замены дисков не останавливая работы сервера заменить вышедший из строя
+            диск.
+          </p>
+        </div>
+        <Image
+          src={Reserve}
+          alt="Резервирование"
+          class="w-[90%] object-cover"
+        />
       </div>
     </div>
+  </div>
+
+  <!-- Разграничение прав пользователя -->
+  <div class="flex flex-col mx-auto pt-[24px] pb-[32px] main-max-width">
+    <h2 class="pt-[16px] text-3xl">Разграничение прав пользователя</h2>
+
+    <div
+      class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mt-[-24px] mb-[48px] py-8">
+      <div class="flex flex-col gap-[16px] text-zinc-400">
+        <p>
+          {tsdb.app.name} имеет систему разграничения прав пользователей. Данные
+          о пользователях хранятся в зашифрованном виде.
+        </p>
+        <p class="font-semibold">Для каждого пользователя можно задать:</p>
+        <ul class="text-primary-300 list-disc list-inside">
+          <li>Логин</li>
+          <li>Пароль</li>
+          <li class="relative">
+            Права
+            <ul class="mt-2 ml-6">
+              <li>на удаление баз</li>
+              <li>на создание и редактирование тегов</li>
+              <li>на удаление тегов</li>
+              <li>на создание новых пользователей</li>
+              <li>на удаление пользователей</li>
+              <li>на получение данных через URL с помощью токена</li>
+              <li>на изменение данных через URL с помощью токена</li>
+              <li>на создание и настройку баз</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <Image
+        src={UsersRole}
+        alt="Разграничение прав пользователя"
+        class="w-[90%] object-cover"
+      />
+    </div>
+
+    <hr class="separator silver" />
+  </div>
+
+  <!-- Примеры производительности -->
+  <div class="flex flex-col mx-auto pb-[32px] main-max-width">
+    <h2 class="pt-[16px] text-3xl">Примеры производительности</h2>
+
+    <p class="lg:max-w-[50vw]">
+      {tsdb.app.name} позволяет создавать высоконадежные резервированные системы
+      непрерывного хранения данных. Эта особенность очень важна при автоматизации
+      ответственных и опасных технологических объектов, а также для систем хранения
+      коммерческой информации.
+    </p>
+
+    <PerformanceTSDB />
   </div>
 
   <!-- Свяжитесь с нами -->
@@ -283,84 +574,88 @@ const advantages = [
   <div class="flex flex-col lg:gap-[52px] mx-auto my-[52px] main-max-width">
     <FAQ faqData={faqData} />
   </div>
+</Layout>
 
-  <script>
-    import lottie from "lottie-web";
-    import dotsAnimation from "@/assets/media/dots-anim.json";
+<script>
+  import lottie from "lottie-web";
+  import dotsAnimation from "@/assets/media/dots-anim.json";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // Находим все контейнеры для анимации
-      const containers = document.querySelectorAll("[id^='dots-animation-']");
+  document.addEventListener("DOMContentLoaded", () => {
+    // Находим все контейнеры для анимации
+    const containers = document.querySelectorAll("[id^='dots-animation-']");
 
-      // Создаем анимацию для каждого контейнера
-      containers.forEach((container) => {
-        lottie.loadAnimation({
-          container: container,
-          renderer: "svg",
-          loop: true,
-          autoplay: true,
-          animationData: dotsAnimation,
-        });
+    // Создаем анимацию для каждого контейнера
+    containers.forEach((container) => {
+      lottie.loadAnimation({
+        container: container,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        animationData: dotsAnimation,
       });
     });
-  </script>
+  });
+</script>
 
-  <style>
-    .pulsar-card {
-      @apply relative flex flex-col gap-[8px] border-primary-300 px-[32px] py-[24px] border lg:border rounded-lg w-full;
-      z-index: 20;
-      &::before {
-        z-index: 18;
-        content: "";
-        @apply absolute bg-primary-300/30 blur-[1px] rounded-lg w-full h-full lg:opacity-100 opacity-0;
-      }
-      &::after {
-        z-index: 17;
-        content: "";
-        @apply absolute bg-primary-300/20 blur-[5px] rounded-lg w-full h-full lg:opacity-100 opacity-0;
-      }
-      &.right::before {
-        @apply top-[12px] right-[-12px];
-      }
-      &.right::after {
-        @apply top-[24px] right-[-24px];
-      }
-      &.left::before {
-        @apply top-[12px] left-[-12px];
-      }
-      &.left::after {
-        @apply top-[24px] left-[-24px];
-      }
-      & .title {
-        z-index: 25;
-        @apply relative font-medium text-2xl;
-      }
-      & .description {
-        z-index: 25;
-        @apply relative text-lg text-zinc-300;
-      }
-      & .card-bg {
-        z-index: 19;
-        @apply top-0 left-0 absolute rounded-lg w-full h-full text-zinc-900/0 bg-zinc-950/50 backdrop-blur-[5px];
-      }
+<style>
+  .pulsar-card {
+    @apply relative flex flex-col gap-[8px] border-primary-300 px-[32px] py-[24px] border lg:border rounded-lg w-full;
+    z-index: 20;
+    &::before {
+      z-index: 18;
+      content: "";
+      @apply absolute bg-primary-300/30 blur-[1px] rounded-lg w-full h-full lg:opacity-100 opacity-0;
     }
-
-    .animated-lines {
-      @apply lg:block hidden;
-      transform: scale(0.6);
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-
-      pointer-events: none;
-      &.left {
-        left: -85%;
-      }
-      &.right {
-        right: -85%;
-      }
+    &::after {
+      z-index: 17;
+      content: "";
+      @apply absolute bg-primary-300/20 blur-[5px] rounded-lg w-full h-full lg:opacity-100 opacity-0;
     }
-  </style>
-</Layout>
+    &.right::before {
+      @apply top-[12px] right-[-12px];
+    }
+    &.right::after {
+      @apply top-[24px] right-[-24px];
+    }
+    &.left::before {
+      @apply top-[12px] left-[-12px];
+    }
+    &.left::after {
+      @apply top-[24px] left-[-24px];
+    }
+    & .title {
+      z-index: 25;
+      @apply relative font-medium text-2xl;
+    }
+    & .description {
+      z-index: 25;
+      @apply relative text-lg text-zinc-300;
+    }
+    & .card-bg {
+      z-index: 19;
+      @apply top-0 left-0 absolute rounded-lg w-full h-full text-zinc-900/0 bg-zinc-950/50 backdrop-blur-[5px];
+    }
+  }
+
+  .animated-lines {
+    @apply lg:block hidden;
+    transform: scale(0.6);
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+
+    pointer-events: none;
+    &.left {
+      left: -85%;
+    }
+    &.right {
+      right: -85%;
+    }
+  }
+
+  ul li ul {
+    @apply list-[circle];
+  }
+</style>

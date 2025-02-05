@@ -1,0 +1,87 @@
+---
+/* Data */
+import prodSoft from "@/data/prodSoft.json";
+
+const tsdb = prodSoft.products.find((product) => product.id === "tsdb");
+
+if (!tsdb) throw new Error("Product not found");
+---
+
+<div class="relative wrapper">
+  <nav class="relative z-20 tabs">
+    <button id="tab-1">Пример 1</button>
+    <button id="tab-2">Пример 2</button>
+    <button id="tab-3">Пример 3</button>
+    <button id="tab-4">Пример 4</button>
+    <button id="tab-5">Скорость чтения</button>
+  </nav>
+  <hr class="relative z-10 mt-[-4px] gold separator" />
+  <div class="tab-container">
+    <div class="tab-content">
+      <h2>Пример 1</h2>
+    </div>
+    <div class="tab-content">
+      <h2>Пример 2</h2>
+    </div>
+    <div class="tab-content">
+      <h2>Пример 3</h2>
+    </div>
+    <div class="tab-content">
+      <h2>Пример 4</h2>
+    </div>
+    <div class="tab-content">
+      <h2>Скорость чтения</h2>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wrapper {
+    @apply flex flex-col w-full;
+  }
+  .tabs {
+    z-index: 10;
+    @apply flex gap-6 mt-6 overflow-x-auto;
+    & button {
+      @apply border-primary-300/0 px-0 py-2 border-b-[6px] font-semibold text-zinc-500 uppercase text-nowrap;
+      &:hover {
+        @apply text-zinc-100;
+      }
+      &.active {
+        @apply border-primary-300 text-primary-300;
+      }
+    }
+  }
+
+  .tab-content {
+    @apply hidden mt-8;
+    &.active {
+      @apply block;
+    }
+  }
+</style>
+
+<script>
+  // Получаем все кнопки табов и контент
+  const tabButtons = document.querySelectorAll(".tabs button");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  // Функция для переключения табов
+  function switchTab(tabIndex: number) {
+    // Убираем класс active со всех кнопок и скрываем весь контент
+    tabButtons.forEach((button) => button.classList.remove("active"));
+    tabContents.forEach((content) => content.classList.remove("active"));
+
+    // Добавляем класс active к выбранной кнопке и показываем соответствующий контент
+    tabButtons[tabIndex].classList.add("active");
+    tabContents[tabIndex].classList.add("active");
+  }
+
+  // Добавляем обработчики событий для кнопок
+  tabButtons.forEach((button, index) => {
+    button.addEventListener("click", () => switchTab(index));
+  });
+
+  // Активируем первый таб по умолчанию
+  switchTab(0);
+</script>

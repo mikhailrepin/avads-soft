@@ -73,6 +73,52 @@
   .text-silver {
     @apply bg-clip-text bg-gradient-to-b from-zinc-400 via-zinc-100 to-zinc-500 text-transparent;
   }
+
+  .table-wrapper {
+    @apply w-full overflow-x-auto lg:overflow-x-visible;
+    @apply relative;
+  }
+
+  table {
+    @apply mt-[32px] w-full min-w-[800px] lg:min-w-0;
+  }
+
+  .fixed-column {
+    @apply lg:relative left-0 z-10 sticky bg-zinc-950 lg:bg-zinc-950/0;
+    @apply after:top-0 after:right-0 after:absolute after:bg-zinc-800 lg:after:w-[0px] after:w-[1px] after:h-full;
+  }
+
+  thead {
+    @apply border-zinc-800 border-b-2 uppercase;
+  }
+
+  thead tr th:first-child {
+    @apply text-left text-primary-300;
+  }
+
+  thead tr th {
+    @apply pb-4 text-center;
+  }
+
+  thead tr th h2 {
+    @apply m-0 font-semibold text-xl text-zinc-300;
+  }
+
+  thead tr th span {
+    @apply text-sm text-zinc-300;
+  }
+
+  tbody tr {
+    @apply border-zinc-900 border-b last:border-none;
+  }
+
+  tbody tr td {
+    @apply px-4 py-4 text-center;
+  }
+
+  tbody tr td:first-child {
+    @apply pr-2 pl-0 text-left text-primary-300;
+  }
 }
 
 * {
@@ -84,4 +130,5 @@ body {
   min-height: 100dvh;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
