@@ -29,7 +29,7 @@
   }
 
   h2 {
-    @apply my-[12px] lg:my-[24px] font-semibold text-xl lg:text-4xl !important;
+    @apply my-[12px] lg:my-[24px] font-semibold text-2xl lg:text-4xl !important;
   }
 
   h3 {

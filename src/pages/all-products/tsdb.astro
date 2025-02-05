@@ -18,6 +18,7 @@ import Reserve from "@/assets/products/tsdb/reserve.png";
 import Server from "@/assets/products/tsdb/server.png";
 import Trend from "@/assets/products/tsdb/trend.png";
 import UsersRole from "@/assets/products/tsdb/users-role.png";
+import TSDBBox from "@/assets/products/tsdb/tsdb-box.png";
 
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
@@ -25,7 +26,7 @@ import faqData from "@/data/faqMain.json";
 import PlatformsData from "@/assets/products/tsdb/platforms.json";
 
 /* Animations */
-import dotAnim from "@/assets/media/dots-anim.json";
+//import dotAnim from "@/assets/media/dots-anim.json";
 
 /* Variables */
 const heroBbackground = "/hero/tsdb-page.avif";
@@ -39,22 +40,38 @@ const downloadLink = tsdb.buttons?.demo?.link || "/download";
 
 const advantages = [
   {
-    title: "Надежность хранения данных",
+    title: "Высочайшая производительность",
     description:
-      "Хранение архивов технологических показателей для промышленных объектов и систем учета высокой важности.",
-    icon: "database-protection-outline",
-  },
-  {
-    title: "Скорость сохранения и доступ к данным",
-    description:
-      "Высокая скорость записи и чтения данных обеспечивает эффективную работу с большими объемами технологической информации в режиме реального времени.",
+      "На обычном компьютере скорость сохранения до 2 млн. записей в секунду и скорость выборки до 3 млн. записей в секунду (параллельно с записью).",
     icon: "database-thunderbolt-outline",
   },
   {
-    title: "Глубина хранения данных",
+    title: "Инновационность",
+    description: `${tsdb.app.name} построен на базе уникальной инновационной технологии SSDS и не имеет аналогов по производительности для своих задач.`,
+    icon: "rocket-outline",
+  },
+  {
+    title: "Широчайшая кросс-платформенность",
     description:
-      "Длительное хранение архивов технологических и коммерческих показателей для последующего анализа и использования.",
-    icon: "database-depth-outline",
+      "Работает в операционных системах Windows, Linux, Android, IOS, Darwin, Эльбрус, NetBSD, FreeBSD, OpenBSD, Plan9, AIX, Dragonfly, Illumos, Solaris на различных аппаратных платформах.",
+    icon: "branch-down-outline",
+  },
+  {
+    title: "Высочайшая надежность",
+    description: `${tsdb.app.name} позволяет создавать высоконадежные системы хранения данных благодаря встроенным механизмам резервирования серверов и носителей.`,
+    icon: "database-protection-outline",
+  },
+  {
+    title: "Мощная система бэкапов",
+    description:
+      "Можно сохранить в файл бэкапа историю изменения произвольного набора тегов за заданный интервал времени и восстановить эти данные в любую базу на том же или другом компьютере.",
+    icon: "database-backup-outline",
+  },
+  {
+    title: "Автоматическое зацикливание",
+    description:
+      "База может зацикливаться либо по времени хранения данных, либо по доступному дисковому пространству. При исчерпании свободного места на диске производится автоматическое зацикливание по второму типу. Для каждого тега можно задать индивидуальную глубину хранения.",
+    icon: "loop-outline",
   },
 ];
 ---
@@ -134,7 +151,7 @@ const advantages = [
   </MainHero>
 
   <!-- Функции -->
-  <div class="flex flex-col mx-auto pt-[32px] main-max-width">
+  <div class="flex flex-col mx-auto pt-14 pb-16 main-max-width">
     <h2 class="text-3xl">Функция архивирования</h2>
     <p class="lg:max-w-[60vw] text-lg text-zinc-400">
       Эта функция является одной из главных в системах управления и учёта. К ней
@@ -146,10 +163,11 @@ const advantages = [
       показателей в АСУТП, диспетчеризации объектов промышленности и ЖКХ,
       системах коммерческого и технического учёта.
     </p>
-  </div>
-  <div
-    class="gap-[16px] grid grid-cols-1 lg:grid-cols-3 mx-auto my-[52px] main-max-width">
-    {advantages.map((advantage) => <Advantage {...advantage} />)}
+    <h2 class="pt-[40px] pb-[24px] text-3xl">Преимущества</h2>
+
+    <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-3">
+      {advantages.map((advantage) => <Advantage {...advantage} />)}
+    </div>
   </div>
 
   <!-- Инновационность -->
@@ -543,7 +561,7 @@ const advantages = [
   </div>
 
   <!-- Примеры производительности -->
-  <div class="flex flex-col mx-auto pb-[32px] main-max-width">
+  <div class="flex flex-col mx-auto pb-[52px] main-max-width">
     <h2 class="pt-[16px] text-3xl">Примеры производительности</h2>
 
     <p class="lg:max-w-[50vw]">
@@ -554,6 +572,87 @@ const advantages = [
     </p>
 
     <PerformanceTSDB />
+  </div>
+
+  <!-- Многоядерность -->
+  <div class="flex flex-col mx-auto mt-[24px] main-max-width">
+    <hr class="separator silver" />
+
+    <h2 class="pt-[16px] text-3xl">Многоядерность</h2>
+
+    <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
+      <div class="flex flex-col gap-[16px] text-zinc-400">
+        <p>
+          По умолчанию {tsdb.app.name} запускается на 1 ядре.
+        </p>
+        <p>
+          Для использования нескольких ядер предназначен специальный параметр в
+          настройках сервера. В нем указывается число ядер, которые могут
+          использоваться Сервером Архивирования.
+        </p>
+
+        <h4 class="font-medium text-2xl text-primary-300">
+          Если несколько баз и несколько клиентов
+        </h4>
+        <hr class="gold separator" />
+        <p>
+          Использование многоядерного режима эффективно только при ведении
+          нескольких баз и взаимодействии с несколькими клиентами.
+        </p>
+
+        <h4 class="font-medium text-2xl text-primary-300">
+          Если только одна база и один клиент
+        </h4>
+
+        <hr class="gold separator" />
+
+        <p>
+          При работе только с одной базой и взаимодействии только с одним
+          клиентом многоядерность снижает производительность сервера.
+        </p>
+      </div>
+      <Image
+        src={MultiCore}
+        alt="Многоядерность"
+        class="w-[90%] object-cover"
+      />
+    </div>
+  </div>
+
+  <!-- Лицензирование -->
+  <div class="flex flex-col mx-auto mt-[24px] mb-[40px] main-max-width">
+    <hr class="separator silver" />
+
+    <h2 class="pt-[16px] text-3xl">Лицензирование</h2>
+
+    <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
+      <div class="flex flex-col gap-[16px] text-zinc-400">
+        <p>
+          {tsdb.app.name} лицензируется по количеству тегов и по числу подключаемых
+          клиентов. Для лицензионной защиты сервера используется программный ключ.
+        </p>
+        <p>
+          Имеется бесплатная версия на 16 тегов с поддержкой взаимодействия с
+          одним клиентом.
+        </p>
+        <p>
+          Для полноценного тестирования на сайте можно <a
+            href={tsdb.buttons?.demo?.link || "#"}
+            class="text-primary-300 hover:text-primary-400 underline"
+            >скачать</a
+          > ДЕМО-версию {tsdb.app.name}. У нее нет ограничений на число тегов и
+          клиентов, но присутствует пробный период 2 месяца с момента установки.
+        </p>
+      </div>
+      <div
+        class="flex flex-col justify-center items-center gap-[16px] order-first lg:order-last rounded-lg">
+        <Image
+          src={TSDBBox}
+          alt="Лицензирование"
+          class="w-[60%] lg:w-[70%] object-cover"
+        />
+      </div>
+    </div>
   </div>
 
   <!-- Свяжитесь с нами -->
@@ -571,7 +670,7 @@ const advantages = [
   />
 
   <!-- FAQ -->
-  <div class="flex flex-col lg:gap-[52px] mx-auto my-[52px] main-max-width">
+  <div class="mx-auto my-[52px] main-max-width">
     <FAQ faqData={faqData} />
   </div>
 </Layout>

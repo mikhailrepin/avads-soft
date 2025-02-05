@@ -17,20 +17,265 @@ if (!tsdb) throw new Error("Product not found");
   </nav>
   <hr class="relative z-10 mt-[-4px] gold separator" />
   <div class="tab-container">
+    <!-- Пример 1 -->
     <div class="tab-content">
-      <h2>Пример 1</h2>
+      <!-- Описание -->
+      <div class="description">
+        <p>
+          На компьютере запущен {tsdb.app.name} и имитатор значений тегов. Второй
+          имитатор – на удаленном компьютере. Оба имитатора 10 раз в секунду по TCP/IP
+          передают серверу значения 80 000 тегов с каждого. Данные каждого имитатора
+          сохраняются в отдельную базу. Обе базы работают в режиме зацикливания.
+        </p>
+        <p>
+          Таким образом по каждой базе сохраняется 800 000 записей в секунду.
+        </p>
+        <p>
+          Суммарно {tsdb.app.name} сохраняет 1 600 000 записей в секунду.
+        </p>
+        <p>
+          Все теги имеют формат DFLOAT (8 байт), время изменения фиксируется с
+          точностью до 100 ns (8 байт).
+        </p>
+      </div>
+      <!-- Таблица -->
+      <div class="table-wrapper">
+        <p class="heading">
+          Компьютер, где запущен Сервер архивирования имеет следующие
+          характеристики:
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Материнская плата</td>
+              <td>ASUSTeK H97-PLUS</td>
+            </tr>
+            <tr>
+              <td>Процессор</td>
+              <td>Core i7-4790 с частотой 3.60GHz</td>
+            </tr>
+            <tr>
+              <td>Память</td>
+              <td>16 Гб DDR3-1600</td>
+            </tr>
+            <tr>
+              <td>Диск</td>
+              <td>HDD WDC WD1003FZEX-00MK2A0</td>
+            </tr>
+            <tr>
+              <td>Операционная система</td>
+              <td>Linux Mint 20.2</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="conclusion">
+          <span class="heading"> В процессе работы</span>
+          <span>
+            {tsdb.app.name} потребляет оперативной памяти 1,3 Гб, при максимальной
+            загрузке процессора 11%.
+          </span>
+        </div>
+      </div>
     </div>
+
+    <!-- Пример 2 -->
     <div class="tab-content">
-      <h2>Пример 2</h2>
+      <!-- Описание -->
+      <div class="description">
+        <p>
+          На ноутбуке запущен {tsdb.app.name} и имитатор значений тегов, который
+          10 раз в секунду по TCP/IP передают серверу значения 100 000 тегов с каждого.
+          База, в которую пишутся данные, работает в режиме зацикливания.
+        </p>
+        <p>
+          Суммарно {tsdb.app.name} сохраняет 1 000 000 записей в секунду.
+        </p>
+        <p>
+          Все теги имеют формат DFLOAT (8 байт), время изменения фиксируется с
+          точностью до 100 ns (8 байт).
+        </p>
+      </div>
+      <!-- Таблица -->
+      <div class="table-wrapper">
+        <p class="heading">
+          Ноутбук, где запущен {tsdb.app.name} имеет следующие характеристики:
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Модель</td>
+              <td>ASUS</td>
+            </tr>
+            <tr>
+              <td>Материнская плата</td>
+              <td>HUAWEI HLYL-WXX9-PCB</td>
+            </tr>
+            <tr>
+              <td>Процессор</td>
+              <td>AMD Ryzen 5 Mobile с частотой 4.60GHz</td>
+            </tr>
+            <tr>
+              <td>Память</td>
+              <td>16 Гб DDR4-3200</td>
+            </tr>
+            <tr>
+              <td>Диск</td>
+              <td>Внешний HDD, подключенный через USB 3.0</td>
+            </tr>
+            <tr>
+              <td>Операционная система</td>
+              <td>Windows 11</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="conclusion">
+          <span class="heading"> В процессе работы</span>
+          <span>
+            {tsdb.app.name} потребляет оперативной памяти 1,3 Гб, при максимальной
+            загрузке процессора 11%.
+          </span>
+        </div>
+      </div>
     </div>
+
+    <!-- Пример 3 -->
     <div class="tab-content">
-      <h2>Пример 3</h2>
+      <!-- Описание -->
+      <div class="description">
+        <p>
+          На встраиваемом безвентиляторном компьютере запущен {tsdb.app.name}.
+          На удаленном компьютере запущен имитатор значений тегов, который 10
+          раз в секунду по TCP/IP передают серверу значения 30 000 тегов. База,
+          в которую пишутся данные, работает в режиме зацикливания.
+        </p>
+        <p>
+          Суммарно {tsdb.app.name} сохраняет 300 000 записей в секунду.
+        </p>
+        <p>
+          Все теги имеют формат DFLOAT (8 байт), время изменения фиксируется с
+          точностью до 100 ns (8 байт).
+        </p>
+      </div>
+      <!-- Таблица -->
+      <div class="table-wrapper">
+        <p class="heading">
+          Компьютер, где запущен {tsdb.app.name} имеет следующие характеристики:
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Материнская плата</td>
+              <td>Raspberry PI 4</td>
+            </tr>
+            <tr>
+              <td>Процессор</td>
+              <td>4 ядра Cortex A-72 с частотой 1,5 ГГц</td>
+            </tr>
+            <tr>
+              <td>Память</td>
+              <td>4 Гб LPDDR4-3200</td>
+            </tr>
+            <tr>
+              <td>Диск</td>
+              <td>SSD, подключенный через USB 2.0</td>
+            </tr>
+            <tr>
+              <td>Операционная система</td>
+              <td>Linux Ubuntu</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="conclusion">
+          <span class="heading"> В процессе работы</span>
+          <span>
+            {tsdb.app.name} потребляет оперативной памяти 1,3 Гб, при максимальной
+            загрузке процессора 11%.
+          </span>
+        </div>
+      </div>
     </div>
+
+    <!-- Пример 4 -->
     <div class="tab-content">
-      <h2>Пример 4</h2>
+      <!-- Описание -->
+      <div class="description">
+        <p>
+          На компьютере запущен {tsdb.app.name} и имитатор значений тегов, который
+          10 раз в секунду по TCP/IP передают серверу значения 250 000 тегов. База
+          работает в режиме зацикливания.
+        </p>
+        <p>
+          Суммарно {tsdb.app.name} сохраняет 2 500 000 записей в секунду.
+        </p>
+        <p>
+          Все теги имеют формат DFLOAT (8 байт), время изменения фиксируется с
+          точностью до 100 ns (8 байт).
+        </p>
+      </div>
+      <!-- Таблица -->
+      <div class="table-wrapper">
+        <p class="heading">
+          Компьютер, где запущен {tsdb.app.name} имеет следующие характеристики:
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Материнская плата</td>
+              <td>ASUSTeK PRIME B460M-K</td>
+            </tr>
+            <tr>
+              <td>Процессор</td>
+              <td>Core i9-10900K с частотой 3.70 GHz</td>
+            </tr>
+            <tr>
+              <td>Память</td>
+              <td>64 Гб DDR4-3200</td>
+            </tr>
+            <tr>
+              <td>Диск</td>
+              <td>HDD 1 ТБ WDC WD10SPSX-00A6WT0</td>
+            </tr>
+            <tr>
+              <td>Операционная система</td>
+              <td>Linux Mint 20.2</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="conclusion">
+          <span class="heading"> В процессе работы</span>
+          <span>
+            {tsdb.app.name} потребляет оперативной памяти 1,3 Гб, при максимальной
+            загрузке процессора 11%.
+          </span>
+        </div>
+      </div>
     </div>
+
+    <!-- Скорость чтения -->
     <div class="tab-content">
-      <h2>Скорость чтения</h2>
+      <!-- Описание -->
+      <div class="description">
+        <p>Скорость чтения сильно зависит от накопителя.</p>
+        <p>
+          При испытаниях на производительность чтения Серверу архивирования
+          посылались запросы на выборку для 100 случайно выбранных тегов по 10
+          000 записей.
+        </p>
+        <p>
+          Современный HDD (1,5 ms время доступа) позволяет получить 350 000
+          записей в секунду.
+        </p>
+        <p>
+          Старый HDD (12 ms время доступа) позволяет получить 100 000 записей в
+          секунду.
+        </p>
+        <p>
+          SSD (NVME 1.3.0 - быстрый диск на PCIe) позволяет выбирать 2 500 000
+          записей в секунду.
+        </p>
+        <p>Выборка из кэша 5 000 000 записей в секунду.</p>
+      </div>
+      <!-- Таблицы нет -->
     </div>
   </div>
 </div>
@@ -56,7 +301,31 @@ if (!tsdb) throw new Error("Product not found");
   .tab-content {
     @apply hidden mt-8;
     &.active {
-      @apply block;
+      @apply gap-[16px] lg:gap-[40px] grid grid-cols-1 lg:grid-cols-2;
+    }
+  }
+  .description {
+    @apply flex flex-col gap-[16px] text-zinc-400;
+  }
+  .table-wrapper {
+    @apply flex flex-col gap-[24px] text-zinc-300;
+    & .heading {
+      @apply font-semibold text-zinc-100;
+    }
+    & table {
+      @apply mt-0;
+      & td {
+        @apply py-[8px] text-left;
+      }
+    }
+  }
+  .conclusion {
+    @apply flex flex-col gap-[8px] border-primary-300 bg-zinc-900/80 p-6 border rounded-md;
+    & .heading {
+      @apply font-semibold text-zinc-100 uppercase;
+    }
+    & span {
+      @apply text-zinc-400;
     }
   }
 </style>
