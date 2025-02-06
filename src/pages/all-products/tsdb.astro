@@ -230,47 +230,50 @@ const advantages = [
   </Platforms>
 
   <!-- Архитектура -->
-  <div class="flex flex-col mx-auto pt-[52px] pb-[60px] main-max-width">
-    <h2 class="mx-auto w-full text-3xl">Архитектура</h2>
-
-    <!-- Блоки -->
+  <div class="w-full overflow-hidden">
     <div
-      class="gap-[24px] lg:gap-[48px] lg:gap-y-[60px] grid grid-cols-1 lg:grid-cols-2">
-      <p>
-        {tsdb.app.name} — включает в себя Сервер БД (сервер баз данных) и Клиент
-        администрирования.
-        <br /><br />
-        Не имеет ограничений по числу баз и клиентов кроме лицензионных, а также
-        накладываемых возможностями вычислительных средств, на которых он установлен.
-      </p>
+      class="relative flex flex-col mx-auto pt-[52px] pb-[60px] main-max-width">
+      <h2 class="mx-auto w-full text-3xl">Архитектура</h2>
 
-      <!-- Правый -->
-      <div class="left pulsar-card">
-        <span class="text-gold title">Сервер БД</span>
-        <span class="description">
-          Обслуживает запросы клиентов, сохраняет полученные данные и
-          предоставляет их по запросу, выполняет бекапирование и математическую
-          обработку.
-        </span>
-        <div class="card-bg"></div>
-        <div
-          id="dots-animation-1"
-          class="right animated-lines">
+      <!-- Блоки -->
+      <div
+        class="relative gap-[24px] lg:gap-[48px] lg:gap-y-[60px] grid grid-cols-1 lg:grid-cols-2">
+        <p>
+          {tsdb.app.name} — включает в себя Сервер БД (сервер баз данных) и Клиент
+          администрирования.
+          <br /><br />
+          Не имеет ограничений по числу баз и клиентов кроме лицензионных, а также
+          накладываемых возможностями вычислительных средств, на которых он установлен.
+        </p>
+
+        <!-- Правый -->
+        <div class="left pulsar-card">
+          <span class="text-gold title">Сервер БД</span>
+          <span class="description">
+            Обслуживает запросы клиентов, сохраняет полученные данные и
+            предоставляет их по запросу, выполняет бекапирование и
+            математическую обработку.
+          </span>
+          <div class="card-bg"></div>
+          <div
+            id="dots-animation-1"
+            class="right animated-lines">
+          </div>
         </div>
-      </div>
 
-      <!-- Левый -->
-      <div class="right lg:translate-x-[40%] pulsar-card">
-        <span class="text-gold title">Клиент администрирования</span>
-        <span class="description">
-          Обслуживает запросы клиентов, сохраняет полученные данные и
-          предоставляет их по запросу, выполняет бекапирование и математическую
-          обработку.
-        </span>
-        <div class="card-bg"></div>
-        <div
-          id="dots-animation-2"
-          class="left animated-lines">
+        <!-- Левый -->
+        <div class="right lg:translate-x-[40%] pulsar-card">
+          <span class="text-gold title">Клиент администрирования</span>
+          <span class="description">
+            Обслуживает запросы клиентов, сохраняет полученные данные и
+            предоставляет их по запросу, выполняет бекапирование и
+            математическую обработку.
+          </span>
+          <div class="card-bg"></div>
+          <div
+            id="dots-animation-2"
+            class="left animated-lines">
+          </div>
         </div>
       </div>
     </div>
@@ -699,7 +702,7 @@ const advantages = [
 <style>
   .pulsar-card {
     @apply relative flex flex-col gap-[8px] border-primary-300 px-[32px] py-[24px] border lg:border rounded-lg w-full;
-    z-index: 20;
+    z-index: 2;
     &::before {
       z-index: 18;
       content: "";
@@ -744,7 +747,6 @@ const advantages = [
     height: 100%;
     position: absolute;
     top: 0;
-
     pointer-events: none;
     &.left {
       left: -85%;

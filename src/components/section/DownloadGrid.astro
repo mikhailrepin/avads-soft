@@ -1,7 +1,6 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
-import PriceTable from "@/components/price/PriceTable.astro";
 
 // Фильтруем продукты с ценами прямо в компоненте
 const productsWithPrices = prodSoft.products;
@@ -30,71 +29,23 @@ const productsWithPrices = prodSoft.products;
 
   <!-- Правая колонка с карточками продуктов -->
   <div class="price-cards-col">
-    {
-      productsWithPrices.map((product) => (
-        <div
-          class="price-card"
-          id={product.id}>
-          <div class="card-head">
-            <img
-              src={product.app.image}
-              alt={product.id}
-              loading="lazy"
-            />
-            <div class="card-info">
-              <span class="title">{product.app.name}</span>
-              <span class="description">{product.app.description}</span>
-            </div>
-          </div>
-
-          <div class="card-body">
-            {product.prices?.type === "table" && (
-              <PriceTable prices={product.prices} />
-            )}
-
-            <div class="card-footer">
-              {product.buttons.buy && (
-                <ButtonGeneric
-                  Variant="primary"
-                  Size="default"
-                  Style="filled"
-                  Target="link"
-                  ButtonLabel={product.buttons.buy.label}
-                  ButtonLink={product.buttons.buy.link}
-                />
-              )}
-              {product.buttons.demo && (
-                <ButtonGeneric
-                  Variant="primary"
-                  Size="default"
-                  Style="outlined"
-                  Target="link"
-                  ButtonLabel={product.buttons.demo.label}
-                  ButtonLink={product.buttons.demo.link}
-                />
-              )}
-              {product.buttons.more && (
-                <ButtonGeneric
-                  Variant="secondary"
-                  Size="default"
-                  Style="outlined"
-                  Target="link"
-                  ButtonLabel={product.buttons.more.label}
-                  ButtonLink={product.buttons.more.link}
-                />
-              )}
-              <p>
-                {product.prices &&
-                  "Все цены в таблице указаны без учёта НДС. Не является публичной " +
-                    "офертой, итоговая стоимость может быть скорректирована. Для " +
-                    "получения подробной информации обратитесь в службу по работе с " +
-                    "клиентами."}
-              </p>
-            </div>
-          </div>
+    <div
+      class="price-card"
+      id="sar-expert">
+      <div class="card-head">
+        <img
+          src="/products/sar-expert.png"
+          alt="sar-expert"
+          loading="lazy"
+        />
+        <div class="card-info">
+          <span class="title">Название продукта</span>
+          <span class="description">Описание продукта</span>
         </div>
-      ))
-    }
+      </div>
+
+      <div class="card-body"></div>
+    </div>
   </div>
 </section>
 

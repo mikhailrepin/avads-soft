@@ -1,7 +1,26 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/components/section/MainHero.astro";
+import DownloadGrid from "@/components/section/DownloadGrid.astro";
+
+/* Images */
+const heroBbackground = "/hero/abstract-4.avif";
 ---
 
 <Layout pageTitle="Скачать">
-  <section></section>
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex flex-col justify-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
+      <h1 class="hero-title">
+        <span class="text-silver">Программное<br />обеспечение</span>
+        <span class="text-gold">АВАДС</span><br />
+      </h1>
+      <h3 class="hero-description">
+        Установочные файлы, а также актуальная<br /> справочная документация на всю
+        линейку продуктов
+      </h3>
+    </div>
+  </MainHero>
+
+  <DownloadGrid />
 </Layout>

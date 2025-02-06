@@ -8,6 +8,7 @@ interface Props extends BaseButton {
   LabelClass?: string;
   class?: string;
   type?: "button" | "submit" | "reset";
+  onclick?: string;
 }
 
 const {
@@ -25,10 +26,10 @@ const {
   ButtonLink = "",
   Blank = false,
   CustomClass = "",
-  Onclick,
+  onclick,
   Target = "action" as Elem["Target"],
   type = "button",
-} = Astro.props as BaseButton;
+} = Astro.props as Props;
 
 const BaseClasses = "base-classes";
 
@@ -83,7 +84,7 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
       <button
         type={type}
         class={ButtonClasses}
-        onclick={Onclick}
+        onclick={onclick}
         title={Tooltip}>
         {IconLeft.IconVisible && (
           <svg class="icon">

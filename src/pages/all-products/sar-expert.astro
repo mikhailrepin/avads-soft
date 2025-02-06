@@ -94,20 +94,51 @@ const advantages = [
             )}
           />
         </h3>
-        <ButtonGeneric
-          Variant="primary"
-          Size="default"
-          Style="filled"
-          CustomClass="mt-[32px] lg:w-fit"
-          Visible={true}
-          IconLeft={{
-            IconSprite: "download-bold",
-            IconVisible: true,
-          }}
-          Target="link"
-          ButtonLink={sarExpert.buttons?.demo?.link || "#"}
-          ButtonLabel="Скачать демо"
-        />
+        <div class="flex gap-3 mt-[32px]">
+          <!-- <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="filled"
+            CustomClass="w-fit lg:min-w-[150px]"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: false,
+            }}
+            Target="link"
+            ButtonLink={sarExpert.buttons?.buy?.link || "#"}
+            ButtonLabel="Купить"
+            Blank={true}
+          /> -->
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="filled"
+            CustomClass="w-fit"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: true,
+            }}
+            Target="link"
+            ButtonLink={sarExpert.buttons?.demo?.link || "#"}
+            ButtonLabel="Скачать демо"
+          />
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="outlined"
+            CustomClass="w-fit lg:min-w-[150px]"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: false,
+            }}
+            Target="link"
+            ButtonLink={sarExpert.buttons?.price?.link || "#"}
+            ButtonLabel="Цены"
+          />
+        </div>
       </div>
       <div class="flex justify-center items-center w-[100%] h-[100%]">
         <img
