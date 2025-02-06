@@ -49,111 +49,32 @@ const productsWithPrices = prodSoft.products;
             {product.supports && (
               <>
                 <div class="tabs-panel">
-                  {product.supports.windows && (
+                  {Object.entries(product.supports).map(([os, data], index) => (
                     <button
-                      data-os="windows"
-                      class="active">
-                      Windows
+                      data-os={os}
+                      class={index === 0 ? "active" : ""}>
+                      {os.charAt(0).toUpperCase() + os.slice(1)}
                     </button>
-                  )}
-                  {product.supports.linux && (
-                    <button data-os="linux">Linux</button>
-                  )}
+                  ))}
                 </div>
 
-                <div
-                  class="tab-content"
-                  data-os="windows">
-                  <div class="description">
-                    <div
-                      class="title"
-                      set:html={product.supports.windows?.description?.title}
-                    />
-                    <div
-                      class="subtitle"
-                      set:html={product.supports.windows?.description?.subtitle}
-                    />
-                  </div>
-
-                  {/* Основные кнопки */}
-                  <div class="flex gap-2 py-[16px]">
-                    {product.buttons?.demo && (
-                      <ButtonGeneric
-                        Variant="primary"
-                        Size="default"
-                        Style="filled"
-                        Visible={true}
-                        IconLeft={{
-                          IconSprite: "download-bold",
-                          IconVisible: true,
-                        }}
-                        CustomClass="w-fit"
-                        Target="link"
-                        ButtonLabel={product.buttons.demo.label}
-                        ButtonLink={product.buttons.demo.link}
-                      />
-                    )}
-
-                    {product.supports.windows?.drivers?.git && (
-                      <ButtonGeneric
-                        Variant="primary"
-                        Size="default"
-                        Style="outlined"
-                        Visible={true}
-                        IconLeft={{
-                          IconSprite: product.supports.windows.drivers.git.icon,
-                          IconVisible: true,
-                        }}
-                        CustomClass="w-fit"
-                        Target="link"
-                        ButtonLabel={product.supports.windows.drivers.git.label}
-                        ButtonLink={product.supports.windows.drivers.git.link}
-                      />
-                    )}
-                  </div>
-
-                  {/* Дополнительные кнопки */}
-                  {product.supports.windows?.guides && (
-                    <div class="flex flex-wrap gap-3">
-                      {Object.entries(product.supports.windows.guides).map(
-                        ([key, guide]) => (
-                          <ButtonGeneric
-                            Variant="primary"
-                            Size="small"
-                            Style="ghosted"
-                            Visible={true}
-                            IconLeft={{
-                              IconSprite: guide.icon,
-                              IconVisible: true,
-                            }}
-                            CustomClass="w-fit"
-                            Target="link"
-                            ButtonLabel={guide.label}
-                            ButtonLink={guide.link}
-                          />
-                        )
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {product.supports.linux && (
+                {Object.entries(product.supports).map(([os, data], index) => (
                   <div
                     class="tab-content"
-                    data-os="linux"
-                    style="display: none;">
+                    data-os={os}
+                    style={index === 0 ? "" : "display: none;"}>
                     <div class="description">
                       <div
                         class="title"
-                        set:html={product.supports.linux?.description?.title}
+                        set:html={data.description?.title}
                       />
                       <div
                         class="subtitle"
-                        set:html={product.supports.linux?.description?.subtitle}
+                        set:html={data.description?.subtitle}
                       />
                     </div>
 
-                    {/* Linux buttons */}
+                    {/* Основные кнопки */}
                     <div class="flex gap-2 py-[16px]">
                       {product.buttons?.demo && (
                         <ButtonGeneric
@@ -172,49 +93,47 @@ const productsWithPrices = prodSoft.products;
                         />
                       )}
 
-                      {product.supports.linux?.drivers?.git && (
+                      {data.drivers?.git && (
                         <ButtonGeneric
                           Variant="primary"
                           Size="default"
                           Style="outlined"
                           Visible={true}
                           IconLeft={{
-                            IconSprite: product.supports.linux.drivers.git.icon,
+                            IconSprite: data.drivers.git.icon,
                             IconVisible: true,
                           }}
                           CustomClass="w-fit"
                           Target="link"
-                          ButtonLabel={product.supports.linux.drivers.git.label}
-                          ButtonLink={product.supports.linux.drivers.git.link}
+                          ButtonLabel={data.drivers.git.label}
+                          ButtonLink={data.drivers.git.link}
                         />
                       )}
                     </div>
 
-                    {/* Linux guides */}
-                    {product.supports.linux?.guides && (
-                      <div class="flex flex-wrap gap-3">
-                        {Object.entries(product.supports.linux.guides).map(
-                          ([key, guide]) => (
-                            <ButtonGeneric
-                              Variant="primary"
-                              Size="small"
-                              Style="ghosted"
-                              Visible={true}
-                              IconLeft={{
-                                IconSprite: guide.icon,
-                                IconVisible: true,
-                              }}
-                              CustomClass="w-fit"
-                              Target="link"
-                              ButtonLabel={guide.label}
-                              ButtonLink={guide.link}
-                            />
-                          )
-                        )}
+                    {/* Дополнительные кнопки */}
+                    {data.guides && (
+                      <div class="flex flex-wrap gap-3 pt-2">
+                        {Object.entries(data.guides).map(([key, guide]) => (
+                          <ButtonGeneric
+                            Variant="primary"
+                            Size="small"
+                            Style="ghosted"
+                            Visible={true}
+                            IconLeft={{
+                              IconSprite: guide.icon,
+                              IconVisible: true,
+                            }}
+                            CustomClass="w-fit"
+                            Target="link"
+                            ButtonLabel={guide.label}
+                            ButtonLink={guide.link}
+                          />
+                        ))}
                       </div>
                     )}
                   </div>
-                )}
+                ))}
               </>
             )}
           </div>
@@ -335,19 +254,19 @@ const productsWithPrices = prodSoft.products;
         @apply mb-[-4px] font-medium text-2xl;
       }
       & .description {
-        @apply m-0 text-lg text-zinc-500;
+        @apply m-0 text-lg text-zinc-400;
       }
     }
   }
   .card-body {
-    @apply flex flex-col gap-4 py-[16px] pl-[84px];
+    @apply flex flex-col gap-[16px] py-[16px] pl-[84px];
   }
   .tab-content {
-    @apply flex flex-col gap-4;
+    @apply flex flex-col;
     & .description {
-      @apply flex flex-col gap-2;
+      @apply flex flex-col gap-2 pb-[16px];
       & .title {
-        @apply font-medium;
+        @apply pb-[4px] font-medium;
       }
       & .subtitle {
         @apply font-light text-zinc-400;
@@ -372,10 +291,10 @@ const productsWithPrices = prodSoft.products;
 
   /* Добавляем глобальные стили отдельно */
   :global(.description .title ul) {
-    @apply mt-2 ml-4 list-disc;
+    @apply ml-4 pt-[16px] list-disc;
   }
 
   :global(.description .title li) {
-    @apply mb-1 text-zinc-400;
+    @apply mb-1 font-normal text-sm text-zinc-300;
   }
 </style>
