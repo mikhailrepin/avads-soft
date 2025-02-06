@@ -73,6 +73,78 @@
           "label": "Цены",
           "link": "/price/#tsdb"
         }
+      },
+      "supports": {
+        "windows": {
+          "description": {
+            "title": "Для версии OS Windows 10 и старше (обязательно 64-разрядная).",
+            "subtitle": "Бесплатная пробная версия не ограничена по функциональности, но имеет ограничение по времени работы, а именно 24 часа с момента запуска сервера, при наступлении ограничения сервер потребуется перезапустить."
+          },
+          "drivers": {
+            "git": {
+              "icon": "github-symbol",
+              "label": "Скачать драйверы",
+              "link": "https://github.com/AVADS-Soft"
+            }
+          },
+          "guides": {
+            "install": {
+              "icon": "file-blank-outline",
+              "label": "Руководство по установке",
+              "link": "/guides/tsdb/install"
+            },
+            "user": {
+              "icon": "file-blank-outline",
+              "label": "Пользовательский",
+              "link": "/guides/tsdb/user"
+            },
+            "functions": {
+              "icon": "file-blank-outline",
+              "label": "Функциональное описание",
+              "link": "/guides/tsdb/user"
+            },
+            "license": {
+              "icon": "file-blank-outline",
+              "label": "Лицензия",
+              "link": "/guides/tsdb/license"
+            }
+          }
+        },
+        "linux": {
+          "description": {
+            "title": "Для версии OS Linux X86 (обязательно 64-разрядная): <br /> <ul> <li>Astra Linux 1.6 и старше</li> <li>Alt Linux (Альт Рабочая станция 9 и старше)</li> <li>Ubuntu 20.04 и старше</li> <li>Debian 10 и старше</li> </ul>",
+            "subtitle": "Бесплатная пробная версия не ограничена по функциональности, но имеет ограничение по времени работы, а именно 24 часа с момента запуска сервера, при наступлении ограничения сервер потребуется перезапустить."
+          },
+          "drivers": {
+            "git": {
+              "icon": "github-symbol",
+              "label": "Скачать драйверы",
+              "link": "https://github.com/AVADS-Soft"
+            }
+          },
+          "guides": {
+            "install": {
+              "icon": "file-blank-outline",
+              "label": "Руководство по установке",
+              "link": "/guides/tsdb/install"
+            },
+            "user": {
+              "icon": "file-blank-outline",
+              "label": "Пользовательский",
+              "link": "/guides/tsdb/user"
+            },
+            "functions": {
+              "icon": "file-blank-outline",
+              "label": "Функциональное описание",
+              "link": "/guides/tsdb/user"
+            },
+            "license": {
+              "icon": "file-blank-outline",
+              "label": "Лицензия",
+              "link": "/guides/tsdb/license"
+            }
+          }
+        }
       }
     },
     {
@@ -95,6 +167,70 @@
         "price": {
           "label": "Цены",
           "link": "/price/#sar-expert"
+        }
+      },
+      "supports": {
+        "windows": {
+          "drivers": {
+            "git": {
+              "icon": "github-symbol",
+              "label": "Скачать драйверы",
+              "link": "https://github.com/AVADS-Soft"
+            }
+          },
+          "guides": {
+            "install": {
+              "icon": "file-blank-outline",
+              "label": "Руководство по установке",
+              "link": "/guides/tsdb/install"
+            },
+            "user": {
+              "icon": "file-blank-outline",
+              "label": "Пользовательский",
+              "link": "/guides/tsdb/user"
+            },
+            "functions": {
+              "icon": "file-blank-outline",
+              "label": "Функциональное описание",
+              "link": "/guides/tsdb/user"
+            },
+            "license": {
+              "icon": "file-blank-outline",
+              "label": "Лицензия",
+              "link": "/guides/tsdb/license"
+            }
+          }
+        },
+        "linux": {
+          "drivers": {
+            "git": {
+              "icon": "github-symbol",
+              "label": "Скачать драйверы",
+              "link": "https://github.com/AVADS-Soft"
+            }
+          },
+          "guides": {
+            "install": {
+              "icon": "file-blank-outline",
+              "label": "Руководство по установке",
+              "link": "/guides/tsdb/install"
+            },
+            "user": {
+              "icon": "file-blank-outline",
+              "label": "Пользовательский",
+              "link": "/guides/tsdb/user"
+            },
+            "functions": {
+              "icon": "file-blank-outline",
+              "label": "Функциональное описание",
+              "link": "/guides/tsdb/user"
+            },
+            "license": {
+              "icon": "file-blank-outline",
+              "label": "Лицензия",
+              "link": "/guides/tsdb/license"
+            }
+          }
         }
       }
     },
@@ -166,6 +302,36 @@
         "price": {
           "label": "Цены",
           "link": "/price/#opc-db"
+        }
+      },
+      "supports": {
+        "windows": {
+          "guides": {
+            "user": {
+              "icon": "file-blank-outline",
+              "label": "Пользовательский",
+              "link": "/guides/tsdb/user"
+            },
+            "license": {
+              "icon": "file-blank-outline",
+              "label": "Лицензия",
+              "link": "/guides/tsdb/license"
+            }
+          }
+        },
+        "linux": {
+          "guides": {
+            "user": {
+              "icon": "file-blank-outline",
+              "label": "Пользовательский",
+              "link": "/guides/tsdb/user"
+            },
+            "license": {
+              "icon": "file-blank-outline",
+              "label": "Лицензия",
+              "link": "/guides/tsdb/license"
+            }
+          }
         }
       }
     },

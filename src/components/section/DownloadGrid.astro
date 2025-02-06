@@ -2,7 +2,6 @@
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
 
-// Фильтруем продукты с ценами прямо в компоненте
 const productsWithPrices = prodSoft.products;
 ---
 
@@ -27,15 +26,16 @@ const productsWithPrices = prodSoft.products;
     </ul>
   </aside>
 
-  <!-- Правая колонка с карточками продуктов -->
-  <div class="price-cards-col">
+  <!-- Правая колонка с карточками -->
+  <div class="cards-col">
     <div
-      class="price-card"
-      id="sar-expert">
+      class="card"
+      id="tsdb">
+      <!-- Шапка карточки -->
       <div class="card-head">
         <img
-          src="/products/sar-expert.png"
-          alt="sar-expert"
+          src=""
+          alt=""
           loading="lazy"
         />
         <div class="card-info">
@@ -43,8 +43,76 @@ const productsWithPrices = prodSoft.products;
           <span class="description">Описание продукта</span>
         </div>
       </div>
-
-      <div class="card-body"></div>
+      <!-- Тело карточки -->
+      <div class="card-body">
+        <!-- Панель табов -->
+        <div class="tabs-panel">
+          <button>Windows</button>
+          <button>Linux</button>
+        </div>
+        <!-- Содержимое табов -->
+        <div class="tab-content">
+          <div class="description">
+            <div class="title">
+              Для версии OS Windows 10 и старше (обязательно 64-разрядная).
+            </div>
+            <div class="subtitle">
+              Бесплатная пробная версия не ограничена по функциональности, но
+              имеет ограничение по времени работы, а именно 24 часа с момента
+              запуска сервера, при наступлении ограничения сервер потребуется
+              перезапустить.
+            </div>
+          </div>
+          <!-- Основные кнопки -->
+          <div class="flex gap-2">
+            <ButtonGeneric
+              Variant="primary"
+              Size="default"
+              Style="filled"
+              Visible={true}
+              IconLeft={{
+                IconSprite: "download-bold",
+                IconVisible: true,
+              }}
+              CustomClass="w-fit"
+              Target="link"
+              ButtonLabel="Скачать"
+              ButtonLink="/"
+            />
+            <ButtonGeneric
+              Variant="primary"
+              Size="default"
+              Style="outlined"
+              Visible={true}
+              IconLeft={{
+                IconSprite: "github-symbol",
+                IconVisible: true,
+              }}
+              CustomClass="w-fit"
+              Target="link"
+              ButtonLabel="Скачать драйверы"
+              ButtonLink="/"
+            />
+          </div>
+          <!-- Дополнительные кнопки -->
+          <div class="flex gap-2">
+            <ButtonGeneric
+              Variant="primary"
+              Size="small"
+              Style="ghosted"
+              Visible={true}
+              IconLeft={{
+                IconSprite: "file-blank-outline",
+                IconVisible: true,
+              }}
+              CustomClass="w-fit"
+              Target="link"
+              ButtonLabel="Руководство по установке"
+              ButtonLink="/"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -108,10 +176,10 @@ const productsWithPrices = prodSoft.products;
       }
     }
   }
-  .price-cards-col {
+  .cards-col {
     @apply flex flex-col gap-[16px] w-full;
   }
-  .price-card {
+  .card {
     @apply border-zinc-900 p-[32px] border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
     scroll-margin-top: 80px;
   }
@@ -131,12 +199,30 @@ const productsWithPrices = prodSoft.products;
     }
   }
   .card-body {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col gap-4 py-[16px] pl-[84px];
   }
-  .card-footer {
-    @apply flex lg:flex-row flex-col gap-3 pt-[24px];
-    & p {
-      @apply m-0 px-4 w-full text-sm text-zinc-600;
+  .tab-content {
+    @apply flex flex-col gap-4;
+    & .description {
+      @apply flex flex-col gap-2;
+      & .title {
+        @apply font-medium;
+      }
+      & .subtitle {
+        @apply font-light text-zinc-400;
+      }
+    }
+  }
+  .tabs-panel {
+    @apply flex gap-3 py-[16px];
+    & button {
+      @apply border-zinc-500 pb-1 border-b text-lg text-zinc-400;
+      &:hover {
+        @apply text-zinc-100;
+      }
+      &:active {
+        @apply border-primary-400 text-primary-300;
+      }
     }
   }
 </style>
