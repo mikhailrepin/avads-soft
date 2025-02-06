@@ -1,7 +1,10 @@
 ---
+/* Download page */
+
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import DownloadGrid from "@/components/section/DownloadGrid.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
 
 /* Images */
 const heroBbackground = "/hero/abstract-4.avif";
@@ -23,4 +26,15 @@ const heroBbackground = "/hero/abstract-4.avif";
   </MainHero>
 
   <DownloadGrid />
+
+  <div class="flex flex-col gap-[52px] mx-auto main-max-width">
+    <CallToAction
+      Title="Свяжитесь с нами"
+      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+      ButtonProps={{
+        ButtonLabel: "Оставить заявку",
+        ButtonLink: "/contacts",
+      }}
+    />
+  </div>
 </Layout>

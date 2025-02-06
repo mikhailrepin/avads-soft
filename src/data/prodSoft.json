@@ -95,7 +95,7 @@
             },
             "user": {
               "icon": "file-blank-outline",
-              "label": "Пользовательский",
+              "label": "Руководство пользователя",
               "link": "/guides/tsdb/user"
             },
             "functions": {
@@ -130,7 +130,7 @@
             },
             "user": {
               "icon": "file-blank-outline",
-              "label": "Пользовательский",
+              "label": "Руководство пользователя",
               "link": "/guides/tsdb/user"
             },
             "functions": {
@@ -186,7 +186,7 @@
             },
             "user": {
               "icon": "file-blank-outline",
-              "label": "Пользовательский",
+              "label": "Руководство пользователя",
               "link": "/guides/tsdb/user"
             },
             "functions": {
@@ -217,7 +217,7 @@
             },
             "user": {
               "icon": "file-blank-outline",
-              "label": "Пользовательский",
+              "label": "Руководство пользователя",
               "link": "/guides/tsdb/user"
             },
             "functions": {
@@ -313,7 +313,7 @@
           "guides": {
             "user": {
               "icon": "file-blank-outline",
-              "label": "Пользовательский",
+              "label": "Руководство пользователя",
               "link": "/guides/tsdb/user"
             },
             "license": {
@@ -331,7 +331,7 @@
           "guides": {
             "user": {
               "icon": "file-blank-outline",
-              "label": "Пользовательский",
+              "label": "Руководство пользователя",
               "link": "/guides/tsdb/user"
             },
             "license": {
@@ -350,16 +350,6 @@
         "description": "Сервер протокола MODBUS RTU/TCP/ASCII",
         "image": "/products/modbus-opc/modbus-opc.svg",
         "status": ""
-      },
-      "buttons": {
-        "more": {
-          "label": "Подробнее",
-          "link": "/all-products/modbus-opc"
-        },
-        "price": {
-          "label": "Цены",
-          "link": "/price/#modbus-opc"
-        }
       }
     }
   ]

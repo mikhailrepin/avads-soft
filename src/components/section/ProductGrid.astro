@@ -21,9 +21,9 @@ const products = Collapsed ? prodSoft.products.slice(0, 4) : prodSoft.products;
           Status={product.app.status}
           Description={product.app.description}
           FirstButton={{
-            Visible: !!product.buttons.demo,
-            ButtonLabel: product.buttons.demo?.label || "",
-            ButtonLink: product.buttons.demo?.link || "#",
+            Visible: !!product.buttons?.demo,
+            ButtonLabel: product.buttons?.demo?.label || "",
+            ButtonLink: product.buttons?.demo?.link || "#",
             IconLeft: {
               IconSprite: "download-bold",
               IconVisible: true,
@@ -34,9 +34,9 @@ const products = Collapsed ? prodSoft.products.slice(0, 4) : prodSoft.products;
             },
           }}
           SecondButton={{
-            Visible: !!product.buttons.more,
-            ButtonLabel: product.buttons.more?.label || "",
-            ButtonLink: product.buttons.more?.link || "#",
+            Visible: !!product.buttons?.more,
+            ButtonLabel: product.buttons?.more?.label || "",
+            ButtonLink: product.buttons?.more?.link || "#",
             IconLeft: {
               IconSprite: "",
               IconVisible: false,

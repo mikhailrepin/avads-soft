@@ -75,24 +75,28 @@ const productsWithPrices = prodSoft.products;
                     </div>
 
                     {/* Основные кнопки */}
-                    <div class="flex gap-2 py-[16px]">
-                      {product.buttons?.demo && (
-                        <ButtonGeneric
-                          Variant="primary"
-                          Size="default"
-                          Style="filled"
-                          Visible={true}
-                          IconLeft={{
-                            IconSprite: "download-bold",
-                            IconVisible: true,
-                          }}
-                          CustomClass="w-fit"
-                          Target="link"
-                          ButtonLabel={product.buttons.demo.label}
-                          ButtonLink={product.buttons.demo.link}
-                        />
-                      )}
+                    <div class="flex lg:flex-row flex-col gap-3 py-[16px]">
+                      {/* Только кнопки buy и demo */}
+                      {Object.entries(product.buttons)
+                        .filter(([key]) => key === "buy" || key === "demo")
+                        .map(([key, button]) => (
+                          <ButtonGeneric
+                            Variant="primary"
+                            Size="default"
+                            Style={key === "demo" ? "outlined" : "filled"}
+                            Visible={true}
+                            IconLeft={{
+                              IconSprite: "download-bold",
+                              IconVisible: key === "demo" ? true : false,
+                            }}
+                            CustomClass={key === "demo" ? "w-fit" : "w-[150px]"}
+                            Target="link"
+                            ButtonLabel={button.label}
+                            ButtonLink={button.link}
+                          />
+                        ))}
 
+                      {/* Кнопка drivers, если есть */}
                       {data.drivers?.git && (
                         <ButtonGeneric
                           Variant="primary"
@@ -225,7 +229,7 @@ const productsWithPrices = prodSoft.products;
     @apply flex lg:flex-row flex-col gap-[16px] mx-auto my-20 w-[100%];
   }
   .nav-bar {
-    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[999];
+    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];
     & ul {
       @apply flex lg:flex-col flex-nowrap gap-[32px] lg:gap-[8px] overflow-x-auto overflow-y-hidden lg:overflow-y-auto;
       & li > a {
@@ -259,7 +263,7 @@ const productsWithPrices = prodSoft.products;
     }
   }
   .card-body {
-    @apply flex flex-col gap-[16px] py-[16px] pl-[84px];
+    @apply flex flex-col gap-[16px] py-[16px] lg:pl-[84px];
   }
   .tab-content {
     @apply flex flex-col;

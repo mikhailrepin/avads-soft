@@ -29,11 +29,11 @@ const productsWithPrices = prodSoft.products;
   </aside>
 
   <!-- Правая колонка с карточками продуктов -->
-  <div class="price-cards-col">
+  <div class="cards-col">
     {
       productsWithPrices.map((product) => (
         <div
-          class="price-card"
+          class="card"
           id={product.id}>
           <div class="card-head">
             <img
@@ -47,13 +47,14 @@ const productsWithPrices = prodSoft.products;
             </div>
           </div>
 
-          <div class="card-body">
+          <div
+            class={`card-body ${!product.prices?.type ? "lg:pl-[84px]" : ""}`}>
             {product.prices?.type === "table" && (
               <PriceTable prices={product.prices} />
             )}
 
             <div class="card-footer">
-              {product.buttons.buy && (
+              {product.buttons?.buy && (
                 <ButtonGeneric
                   Variant="primary"
                   Size="default"
@@ -63,7 +64,7 @@ const productsWithPrices = prodSoft.products;
                   ButtonLink={product.buttons.buy.link}
                 />
               )}
-              {product.buttons.demo && (
+              {product.buttons?.demo && (
                 <ButtonGeneric
                   Variant="primary"
                   Size="default"
@@ -73,7 +74,7 @@ const productsWithPrices = prodSoft.products;
                   ButtonLink={product.buttons.demo.link}
                 />
               )}
-              {product.buttons.more && (
+              {product.buttons?.more && (
                 <ButtonGeneric
                   Variant="secondary"
                   Size="default"
@@ -83,14 +84,14 @@ const productsWithPrices = prodSoft.products;
                   ButtonLink={product.buttons.more.link}
                 />
               )}
-              <p>
-                {product.prices &&
-                  "Все цены в таблице указаны без учёта НДС. Не является публичной " +
-                    "офертой, итоговая стоимость может быть скорректирована. Для " +
-                    "получения подробной информации обратитесь в службу по работе с " +
-                    "клиентами."}
-              </p>
             </div>
+            <p class="mt-[12px] text-sm text-zinc-600">
+              {product.prices &&
+                "Все цены в таблице указаны без учёта НДС. Не является публичной " +
+                  "офертой, итоговая стоимость может быть скорректирована. Для " +
+                  "получения подробной информации обратитесь в службу по работе с " +
+                  "клиентами."}
+            </p>
           </div>
         </div>
       ))
@@ -146,7 +147,7 @@ const productsWithPrices = prodSoft.products;
     @apply flex lg:flex-row flex-col gap-[16px] mx-auto my-20 w-[100%];
   }
   .nav-bar {
-    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[999];
+    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];
     & ul {
       @apply flex lg:flex-col flex-nowrap gap-[32px] lg:gap-[8px] overflow-x-auto overflow-y-hidden lg:overflow-y-auto;
       & li > a {
@@ -157,10 +158,10 @@ const productsWithPrices = prodSoft.products;
       }
     }
   }
-  .price-cards-col {
+  .cards-col {
     @apply flex flex-col gap-[16px] w-full;
   }
-  .price-card {
+  .card {
     @apply border-zinc-900 p-[32px] border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
     scroll-margin-top: 80px;
   }
@@ -185,7 +186,7 @@ const productsWithPrices = prodSoft.products;
   .card-footer {
     @apply flex lg:flex-row flex-col gap-3 pt-[24px];
     & p {
-      @apply m-0 px-4 w-full text-sm text-zinc-600;
+      @apply m-0 w-full text-sm text-zinc-600;
     }
   }
 </style>
