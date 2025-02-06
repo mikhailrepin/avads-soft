@@ -3,6 +3,16 @@ import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
 
 const productsWithPrices = prodSoft.products;
+
+type Guide = {
+  icon: string;
+  label: string;
+  link: string;
+};
+
+type GuideData = {
+  guides: Record<string, Guide>;
+};
 ---
 
 <section class="main-max-width wrapper">
@@ -118,22 +128,24 @@ const productsWithPrices = prodSoft.products;
                     {/* Дополнительные кнопки */}
                     {data.guides && (
                       <div class="flex flex-wrap gap-3 pt-2">
-                        {Object.entries(data.guides).map(([key, guide]) => (
-                          <ButtonGeneric
-                            Variant="primary"
-                            Size="small"
-                            Style="ghosted"
-                            Visible={true}
-                            IconLeft={{
-                              IconSprite: guide.icon,
-                              IconVisible: true,
-                            }}
-                            CustomClass="w-fit"
-                            Target="link"
-                            ButtonLabel={guide.label}
-                            ButtonLink={guide.link}
-                          />
-                        ))}
+                        {Object.entries((data as GuideData).guides).map(
+                          ([key, guide]) => (
+                            <ButtonGeneric
+                              Variant="primary"
+                              Size="small"
+                              Style="ghosted"
+                              Visible={true}
+                              IconLeft={{
+                                IconSprite: guide.icon,
+                                IconVisible: true,
+                              }}
+                              CustomClass="w-fit"
+                              Target="link"
+                              ButtonLabel={guide.label}
+                              ButtonLink={guide.link}
+                            />
+                          )
+                        )}
                       </div>
                     )}
                   </div>
