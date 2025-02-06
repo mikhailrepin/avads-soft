@@ -80,7 +80,17 @@
             "title": "Для версии OS Windows 10 и старше (обязательно 64-разрядная).",
             "subtitle": "Бесплатная пробная версия не ограничена по функциональности, но имеет ограничение по времени работы, а именно 24 часа с момента запуска сервера, при наступлении ограничения сервер потребуется перезапустить."
           },
-          "drivers": {
+          "downloads": {
+            "full": {
+              "icon": "",
+              "label": "Купить",
+              "link": "https://insat.ru/products/?category=2737"
+            },
+            "demo": {
+              "icon": "download-bold",
+              "label": "Скачать демо",
+              "link": "/downloads/#tsdb"
+            },
             "git": {
               "icon": "github-symbol",
               "label": "Скачать драйверы",
@@ -115,7 +125,17 @@
             "title": "Для версии OS Linux X86 (обязательно 64-разрядная): <br /> <ul> <li>Astra Linux 1.6 и старше</li> <li>Alt Linux (Альт Рабочая станция 9 и старше)</li> <li>Ubuntu 20.04 и старше</li> <li>Debian 10 и старше</li> </ul>",
             "subtitle": "Бесплатная пробная версия не ограничена по функциональности, но имеет ограничение по времени работы, а именно 24 часа с момента запуска сервера, при наступлении ограничения сервер потребуется перезапустить."
           },
-          "drivers": {
+          "downloads": {
+            "full": {
+              "icon": "",
+              "label": "Купить",
+              "link": "https://insat.ru/products/?category=2737"
+            },
+            "demo": {
+              "icon": "download-bold",
+              "label": "Скачать демо",
+              "link": "/downloads/#tsdb"
+            },
             "git": {
               "icon": "github-symbol",
               "label": "Скачать драйверы",
@@ -171,7 +191,17 @@
       },
       "supports": {
         "windows": {
-          "drivers": {
+          "downloads": {
+            "full": {
+              "icon": "",
+              "label": "Купить",
+              "link": "https://insat.ru/products/?category=2737"
+            },
+            "demo": {
+              "icon": "download-bold",
+              "label": "Скачать демо",
+              "link": "/downloads/#sar-expert"
+            },
             "git": {
               "icon": "github-symbol",
               "label": "Скачать драйверы",
@@ -202,7 +232,17 @@
           }
         },
         "linux": {
-          "drivers": {
+          "downloads": {
+            "full": {
+              "icon": "",
+              "label": "Купить",
+              "link": "https://insat.ru/products/?category=2737"
+            },
+            "demo": {
+              "icon": "download-bold",
+              "label": "Скачать демо",
+              "link": "/downloads/#sar-expert"
+            },
             "git": {
               "icon": "github-symbol",
               "label": "Скачать драйверы",
@@ -292,7 +332,7 @@
       },
       "buttons": {
         "demo": {
-          "label": "Скачать демо",
+          "label": "Скачать",
           "link": "/downloads/#opc-db"
         },
         "more": {
@@ -309,6 +349,18 @@
           "description": {
             "title": "Для версии OS Windows 10 и старше (обязательно 64-разрядная).",
             "subtitle": "Бесплатная пробная версия не ограничена по функциональности, но имеет ограничение по времени работы, а именно 24 часа с момента запуска сервера, при наступлении ограничения сервер потребуется перезапустить."
+          },
+          "downloads": {
+            "full": {
+              "icon": "",
+              "label": "Купить",
+              "link": "https://insat.ru/products/?category=2737"
+            },
+            "demo": {
+              "icon": "download-bold",
+              "label": "Скачать демо",
+              "link": "/downloads/#opc-db"
+            }
           },
           "guides": {
             "user": {
@@ -327,6 +379,18 @@
           "description": {
             "title": "Для версии OS Linux X86 (обязательно 64-разрядная): <br /> <ul> <li>Astra Linux 1.6 и старше</li> <li>Alt Linux (Альт Рабочая станция 9 и старше)</li> <li>Ubuntu 20.04 и старше</li> <li>Debian 10 и старше</li> </ul>",
             "subtitle": "Бесплатная пробная версия не ограничена по функциональности, но имеет ограничение по времени работы, а именно 24 часа с момента запуска сервера, при наступлении ограничения сервер потребуется перезапустить."
+          },
+          "downloads": {
+            "full": {
+              "icon": "",
+              "label": "Купить",
+              "link": "https://insat.ru/products/?category=2737"
+            },
+            "demo": {
+              "icon": "download-bold",
+              "label": "Скачать демо",
+              "link": "/downloads/#opc-db"
+            }
           },
           "guides": {
             "user": {

@@ -13,7 +13,7 @@ const productsWithPrices = prodSoft.products;
     <ul>
       {
         productsWithPrices.map((product) => (
-          <li>
+          <li class={`${!product.prices ? "hidden" : ""}`}>
             <a href={`#${product.id}`}>
               <img
                 src={product.app.image}
@@ -33,7 +33,7 @@ const productsWithPrices = prodSoft.products;
     {
       productsWithPrices.map((product) => (
         <div
-          class="card"
+          class={`card ${!product.prices ? "hidden" : ""}`}
           id={product.id}>
           <div class="card-head">
             <img
@@ -85,12 +85,12 @@ const productsWithPrices = prodSoft.products;
                 />
               )}
             </div>
-            <p class="mt-[12px] text-sm text-zinc-600">
-              {product.prices &&
-                "Все цены в таблице указаны без учёта НДС. Не является публичной " +
-                  "офертой, итоговая стоимость может быть скорректирована. Для " +
-                  "получения подробной информации обратитесь в службу по работе с " +
-                  "клиентами."}
+            <p
+              class={`mt-[12px] text-sm text-zinc-600 ${!product.prices ? "hidden" : ""}`}>
+              Все цены в таблице указаны без учёта НДС. Не является публичной
+              офертой, итоговая стоимость может быть скорректирована. Для
+              получения подробной информации обратитесь в службу по работе с
+              клиентами.
             </p>
           </div>
         </div>

@@ -21,7 +21,7 @@ type GuideData = {
     <ul>
       {
         productsWithPrices.map((product) => (
-          <li>
+          <li class={`${!product.supports ? "hidden" : ""}`}>
             <a href={`#${product.id}`}>
               <img
                 src={product.app.image}
@@ -41,7 +41,7 @@ type GuideData = {
     {
       productsWithPrices.map((product) => (
         <div
-          class="card"
+          class={`card ${!product.supports ? "hidden" : ""}`}
           id={product.id}>
           <div class="card-head">
             <img
@@ -86,9 +86,8 @@ type GuideData = {
 
                     {/* Основные кнопки */}
                     <div class="flex lg:flex-row flex-col gap-3 py-[16px]">
-                      {/* Только кнопки buy и demo */}
-                      {Object.entries(product.buttons)
-                        .filter(([key]) => key === "buy" || key === "demo")
+                      {Object.entries(data.downloads || {})
+                        .filter(([key]) => key === "demo" || key === "full")
                         .map(([key, button]) => (
                           <ButtonGeneric
                             Variant="primary"
@@ -96,7 +95,7 @@ type GuideData = {
                             Style={key === "demo" ? "outlined" : "filled"}
                             Visible={true}
                             IconLeft={{
-                              IconSprite: "download-bold",
+                              IconSprite: button.icon || "download-bold",
                               IconVisible: key === "demo" ? true : false,
                             }}
                             CustomClass={key === "demo" ? "w-fit" : "w-[150px]"}
@@ -106,21 +105,21 @@ type GuideData = {
                           />
                         ))}
 
-                      {/* Кнопка drivers, если есть */}
-                      {data.drivers?.git && (
+                      {/* Кнопка git, если есть */}
+                      {data.downloads?.git && (
                         <ButtonGeneric
                           Variant="primary"
                           Size="default"
                           Style="outlined"
                           Visible={true}
                           IconLeft={{
-                            IconSprite: data.drivers.git.icon,
+                            IconSprite: data.downloads.git.icon,
                             IconVisible: true,
                           }}
                           CustomClass="w-fit"
                           Target="link"
-                          ButtonLabel={data.drivers.git.label}
-                          ButtonLink={data.drivers.git.link}
+                          ButtonLabel={data.downloads.git.label}
+                          ButtonLink={data.downloads.git.link}
                         />
                       )}
                     </div>

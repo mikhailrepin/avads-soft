@@ -128,10 +128,10 @@ const advantages = [
             Variant="primary"
             Size="default"
             Style="outlined"
-            CustomClass="w-fit lg:min-w-[150px]"
+            CustomClass={`w-fit lg:min-w-[150px] ${!tsdb.prices ? "hidden" : ""}`}
             Visible={true}
             IconLeft={{
-              IconSprite: "download-bold",
+              IconSprite: "",
               IconVisible: false,
             }}
             Target="link"
