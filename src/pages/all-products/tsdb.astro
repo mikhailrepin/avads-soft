@@ -29,7 +29,7 @@ import PlatformsData from "@/assets/products/tsdb/platforms.json";
 //import dotAnim from "@/assets/media/dots-anim.json";
 
 /* Variables */
-const heroBbackground = "/hero/tsdb-page.avif";
+const heroBbackground = "/hero/geometry-4.webp";
 
 const tsdb = prodSoft.products.find((product) => product.id === "tsdb");
 
@@ -83,17 +83,14 @@ const advantages = [
     <div
       class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
       <div class="w-full min-w-[50%]">
-        <h1 class="hero-title">
-          <span class="text-silver">{tsdb.app.name}</span><br />
-        </h1>
-        <h3 class="hero-description">
-          <span
-            set:html={tsdb.app.description.replace(
-              "контроль",
-              "контроль<br />"
-            )}
-          />
-        </h3>
+        <h1
+          class="hero-title"
+          set:html={tsdb.app.name}
+        />
+        <h3
+          class="hero-description"
+          set:html={tsdb.app.description}
+        />
         <div class="flex gap-3 mt-[32px]">
           <ButtonGeneric
             Variant="primary"

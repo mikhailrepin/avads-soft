@@ -1,0 +1,138 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/components/section/MainHero.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
+import Platforms from "@/components/section/Platforms.astro";
+import Advantage from "@/components/card/Advantage.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import FAQ from "@/components/section/FAQ.astro";
+
+/* Images */
+import { Image } from "astro:assets";
+
+/* Data */
+import prodSoft from "@/data/prodSoft.json";
+import faqData from "@/data/faqMain.json";
+import PlatformsData from "@/assets/products/sar-expert/platforms.json";
+
+/* Variables */
+const heroBbackground = "/hero/geometry-5.webp";
+
+const opcDb = prodSoft.products.find((product) => product.id === "opc-db");
+
+if (!opcDb) throw new Error("Product not found");
+
+// Добавляем ссылку на скачивание
+const downloadLink = opcDb.buttons?.demo?.link || "/download";
+
+const advantages = [
+  {
+    title: "Повышение стабильности процессов",
+    description:
+      "Автоматическая настройка ПИД-регуляторов обеспечивает стабильную работу технологических процессов и минимизирует отклонения от заданных параметров.",
+    icon: "trend-switch-to-new",
+  },
+  {
+    title: "Улучшение качества продукции",
+    description:
+      "Точное поддержание технологических параметров позволяет получать продукцию стабильно высокого качества и снижает процент брака.",
+    icon: "scales-up-outline",
+  },
+  {
+    title: "Снижение риска нештатных ситуаций",
+    description:
+      "Своевременная корректировка параметров регулирования предотвращает аварийные ситуации и защищает оборудование от критических режимов работы.",
+    icon: "time-activity-outline",
+  },
+  {
+    title: "Увеличение производительности",
+    description:
+      "Оптимальные настройки регуляторов повышают кпд технологического оборудования.",
+    icon: "trend-static",
+  },
+  {
+    title: "Сокращение энергозатрат",
+    description:
+      "Эффективное управление параметрами снижает затраты энергии на регулирование и уменьшает износ оборудования.",
+    icon: "bolt-down-outline",
+  },
+  {
+    title: "Контроль расхода ресурсов",
+    description:
+      "Оптимизация работы регуляторов помогает экономить сырье и энергоресурсы за счет снижения перерегулирования и колебательности.",
+    icon: "charts-square-outline",
+  },
+];
+---
+
+<Layout
+  pageTitle={opcDb.app.name}
+  downloadLink={downloadLink}>
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
+      <div class="w-full min-w-[50%]">
+        <h1
+          class="hero-title"
+          set:html={opcDb.app.name}
+        />
+        <h3
+          class="hero-description"
+          set:html={opcDb.app.description}
+        />
+        <div class="flex gap-3 mt-[32px]">
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="filled"
+            CustomClass="w-fit lg:min-w-[150px]"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: false,
+            }}
+            Target="link"
+            ButtonLink={opcDb.buttons?.buy?.link || "#"}
+            ButtonLabel="Купить"
+            Blank={true}
+          />
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="outlined"
+            CustomClass="w-fit"
+            Visible={true}
+            IconLeft={{
+              IconSprite: "download-bold",
+              IconVisible: true,
+            }}
+            Target="link"
+            ButtonLink={opcDb.buttons?.demo?.link || "#"}
+            ButtonLabel="Скачать демо"
+          />
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="outlined"
+            CustomClass="w-fit lg:min-w-[150px]"
+            Visible={!!opcDb.prices}
+            IconLeft={{
+              IconSprite: "",
+              IconVisible: false,
+            }}
+            Target="link"
+            ButtonLink={opcDb.buttons?.price?.link || "#"}
+            ButtonLabel="Цены"
+          />
+        </div>
+      </div>
+      <div class="flex justify-center items-center w-[100%] h-[100%]">
+        <img
+          src={opcDb.app.image}
+          alt={opcDb.app.name}
+          class="lg:block hidden scale-[7]"
+        />
+      </div>
+    </div>
+  </MainHero>
+</Layout>
