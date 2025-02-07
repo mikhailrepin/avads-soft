@@ -2,7 +2,7 @@
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
 
-const productsWithPrices = prodSoft.products;
+const productsWithDownloads = prodSoft.products;
 
 type Guide = {
   icon: string;
@@ -13,6 +13,12 @@ type Guide = {
 type GuideData = {
   guides: Record<string, Guide>;
 };
+
+type DownloadButton = {
+  icon: string;
+  label: string;
+  link: string;
+};
 ---
 
 <section class="main-max-width wrapper">
@@ -20,7 +26,7 @@ type GuideData = {
   <aside class="nav-bar">
     <ul>
       {
-        productsWithPrices.map((product) => (
+        productsWithDownloads.map((product) => (
           <li class={`${!product.supports ? "hidden" : ""}`}>
             <a href={`#${product.id}`}>
               <img
@@ -39,7 +45,7 @@ type GuideData = {
   <!-- Правая колонка с карточками -->
   <div class="cards-col">
     {
-      productsWithPrices.map((product) => (
+      productsWithDownloads.map((product) => (
         <div
           class={`card ${!product.supports ? "hidden" : ""}`}
           id={product.id}>
@@ -86,42 +92,36 @@ type GuideData = {
 
                     {/* Основные кнопки */}
                     <div class="flex lg:flex-row flex-col gap-3 py-[16px]">
-                      {Object.entries(data.downloads || {})
-                        .filter(([key]) => key === "demo" || key === "full")
+                      {(
+                        Object.entries(data.downloads || {}) as [
+                          string,
+                          DownloadButton,
+                        ][]
+                      )
+                        .filter(([key]) =>
+                          ["full", "demo", "git"].includes(key)
+                        )
                         .map(([key, button]) => (
                           <ButtonGeneric
                             Variant="primary"
+                            Blank={key === "full" || key === "git"}
                             Size="default"
-                            Style={key === "demo" ? "outlined" : "filled"}
+                            Style={key === "full" ? "filled" : "outlined"}
                             Visible={true}
                             IconLeft={{
                               IconSprite: button.icon || "download-bold",
-                              IconVisible: key === "demo" ? true : false,
+                              IconVisible: key === "demo" || key === "git",
                             }}
-                            CustomClass={key === "demo" ? "w-fit" : "w-[150px]"}
+                            CustomClass={
+                              key === "demo" || key === "git"
+                                ? "w-fit"
+                                : "w-[150px]"
+                            }
                             Target="link"
                             ButtonLabel={button.label}
                             ButtonLink={button.link}
                           />
                         ))}
-
-                      {/* Кнопка git, если есть */}
-                      {data.downloads?.git && (
-                        <ButtonGeneric
-                          Variant="primary"
-                          Size="default"
-                          Style="outlined"
-                          Visible={true}
-                          IconLeft={{
-                            IconSprite: data.downloads.git.icon,
-                            IconVisible: true,
-                          }}
-                          CustomClass="w-fit"
-                          Target="link"
-                          ButtonLabel={data.downloads.git.label}
-                          ButtonLink={data.downloads.git.link}
-                        />
-                      )}
                     </div>
 
                     {/* Дополнительные кнопки */}
