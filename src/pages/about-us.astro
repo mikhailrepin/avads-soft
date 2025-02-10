@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
 
 /* Images */
 import { Image } from "astro:assets";
@@ -132,17 +133,22 @@ const historyItems = [
         группе компаний IEK и пожелавшими разрабатывать свои программные
         продукты.
       </p>
-      {
-        historyItems.map((item, index) => (
-          <img
-            src={item.image}
-            alt={`История компании - ${item.month} ${item.year}`}
-            loading="lazy"
-            class={`history-image ${index === 0 ? "active" : ""}`}
-            data-image-id={index}
-          />
-        ))
-      }
+      <div class="images-container">
+        {
+          historyItems.map(
+            (item, index) =>
+              item.image && (
+                <img
+                  src={item.image}
+                  alt={`История компании - ${item.month} ${item.year}`}
+                  loading="lazy"
+                  class="history-image"
+                  data-image-id={index}
+                />
+              )
+          )
+        }
+      </div>
     </div>
     <!-- Scrollable -->
     <div class="flex flex-col gap-[16px] pt-8">
@@ -161,30 +167,50 @@ const historyItems = [
       }
     </div>
   </div>
+
+  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+    <CallToAction
+      Title="Свяжитесь с нами"
+      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+      ButtonProps={{
+        ButtonLabel: "Оставить заявку",
+        ButtonLink: "/contacts",
+      }}
+    />
+  </div>
 </Layout>
 
 <style>
   .sticky-block {
-    @apply flex flex-col;
-    position: sticky;
+    @apply lg:sticky flex flex-col;
     top: 60px;
     height: fit-content;
+    width: 100%;
+  }
+
+  .images-container {
+    @apply relative my-7 border-zinc-900 bg-zinc-900/30 border rounded-lg hidden lg:block;
+    height: 300px;
+    width: 100%;
   }
 
   .history-image {
-    @apply my-7 rounded-lg w-[100%] object-contain;
+    @apply rounded-lg object-cover;
+    width: 100%;
     opacity: 0;
     visibility: hidden;
     transition:
       opacity 0.3s ease-in-out,
       visibility 0.3s ease-in-out;
     position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
   }
 
   .history-image.active {
     opacity: 1;
     visibility: visible;
-    position: relative;
   }
 
   .history-item {
@@ -192,8 +218,7 @@ const historyItems = [
   }
 
   .history-item:hover {
-    @apply border-primary-300;
-    transform: translateX(10px);
+    @apply lg:border-primary-300 lg:translate-x-[-5px];
   }
 </style>
 
@@ -201,11 +226,20 @@ const historyItems = [
   const historyItems = document.querySelectorAll(".history-item");
   const historyImages = document.querySelectorAll(".history-image");
 
-  function updateActiveImage(index: number) {
+  function updateActiveImage(index: number | null) {
     historyImages.forEach((image) => {
       image.classList.remove("active");
     });
-    historyImages[index]?.classList.add("active");
+
+    if (index !== null) {
+      const targetImage = Array.from(historyImages).find(
+        (img) => img.getAttribute("data-image-id") === index.toString()
+      );
+
+      if (targetImage) {
+        targetImage.classList.add("active");
+      }
+    }
   }
 
   historyItems.forEach((item) => {
@@ -215,8 +249,9 @@ const historyItems = [
         updateActiveImage(parseInt(itemId));
       }
     });
-  });
 
-  // Установка первого изображения как активного при загрузке
-  updateActiveImage(0);
+    item.addEventListener("mouseleave", () => {
+      updateActiveImage(null);
+    });
+  });
 </script>
