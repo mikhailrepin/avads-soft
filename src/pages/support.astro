@@ -6,9 +6,26 @@ import FAQ from "@/components/section/FAQ.astro";
 
 /* Data */
 import faqData from "@/data/faqMain.json";
+import prodSoftData from "@/data/prodSoft.json";
+import helpers from "@/data/helpers.json";
 
 /* Variables */
 const heroBbackground = "/hero/geometry-9.webp";
+
+interface Product {
+  id: string;
+  app: {
+    name: string;
+    description: string;
+    image: string;
+    status: string;
+  };
+  buttons?: {
+    demo: {
+      link: string;
+    };
+  };
+}
 ---
 
 <Layout pageTitle="Техподдержка">
@@ -17,7 +34,8 @@ const heroBbackground = "/hero/geometry-9.webp";
       class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
       <div class="w-full min-w-[50%]">
         <h1 class="hero-title">
-          <span class="text-silver">Нужна помощь<br />с продуктами АВАДС?</span
+          <span class="text-silver"
+            >Нужна помощь<br />с продуктами {helpers.company.name}?</span
           ><br />
         </h1>
         <h3 class="hero-description">
@@ -26,7 +44,38 @@ const heroBbackground = "/hero/geometry-9.webp";
       </div>
     </div>
   </MainHero>
+
+  <!-- Продукты -->
+  <div class="flex flex-col mx-auto mt-[24px] main-max-width">
+    <h2 class="pt-[16px] text-3xl">Продукты</h2>
+    <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-3 py-[48px]">
+      {
+        prodSoftData.products
+          .filter((product: Product) => product.buttons?.demo?.link)
+          .map((product: Product) => (
+            <a
+              href={product.buttons?.demo?.link || `/downloads/#${product.id}`}
+              class="flex gap-[16px] border-zinc-900 hover:border-zinc-700 hover:bg-zinc-900/40 p-[24px] border rounded-lg transition-all duration-300 cursor-pointer">
+              <img
+                src={product.app.image}
+                alt={product.app.name}
+                class="rounded-lg w-[40px] h-[40px]"
+              />
+              <div class="flex flex-col gap-[8px]">
+                <span class="font-semibold text-xl">{product.app.name}</span>
+                <span class="line-clamp-2 text-sm text-zinc-400">
+                  {product.app.description}
+                </span>
+              </div>
+            </a>
+          ))
+      }
+    </div>
+    <hr class="separator silver" />
+  </div>
+
   <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+    <h2 class="text-3xl">Часто задаваемые вопросы</h2>
     <FAQ faqData={faqData} />
     <CallToAction
       Title="Не нашли ответ на вопрос?"
