@@ -18,6 +18,7 @@ import trendStepwise from "@/assets/products/sar-expert/trend-stepwise-change.pn
 import trendBeforeAfterDesktop from "@/assets/products/sar-expert/trends-before-after-desktop.png";
 import trendBeforeAfterMobile from "@/assets/products/sar-expert/trends-before-after-mobile.png";
 import trendAfterSarInstall from "@/assets/products/sar-expert/trends-after-sar-install.png";
+import SARExpertBox from "@/assets/products/sar-expert/install-box.png";
 
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
@@ -367,7 +368,7 @@ const advantages = [
     </div>
   </div>
 
-  <div class="mx-auto my-[64px] main-max-width">
+  <div class="mx-auto mt-[64px] main-max-width">
     <div class="flex flex-col gap-[16px]">
       <h2 class="my-0 text-3xl text-primary-300">После внедрения</h2>
       <p class="text-lg text-zinc-400">
@@ -393,6 +394,43 @@ const advantages = [
           >Control Engineering</a
         >.
       </p>
+    </div>
+
+    <!-- Лицензирование -->
+    <div class="flex flex-col mx-auto mt-[52px]">
+      <hr class="separator silver" />
+
+      <h2 class="pt-[16px] text-3xl">Лицензирование</h2>
+
+      <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
+        <div class="flex flex-col gap-[16px] text-zinc-400">
+          <p>
+            {sarExpert.app.name} лицензируется по количеству тегов и по числу подключаемых
+            клиентов. Для лицензионной защиты сервера используется программный ключ.
+          </p>
+          <p>
+            Имеется бесплатная версия на 16 тегов с поддержкой взаимодействия с
+            одним клиентом.
+          </p>
+          <p>
+            Для полноценного тестирования на сайте можно <a
+              href={sarExpert.buttons?.demo?.link || "#"}
+              class="text-primary-300 hover:text-primary-400 underline"
+              >скачать</a
+            > ДЕМО-версию {sarExpert.app.name}. У нее нет ограничений на число
+            тегов и клиентов, но присутствует пробный период 2 месяца с момента
+            установки.
+          </p>
+        </div>
+        <div
+          class="flex flex-col justify-center items-center gap-[16px] order-first lg:order-last rounded-lg">
+          <Image
+            src={SARExpertBox}
+            alt="Лицензирование"
+            class="w-[60%] lg:w-[70%] object-cover"
+          />
+        </div>
+      </div>
     </div>
   </div>
 

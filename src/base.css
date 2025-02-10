@@ -10,6 +10,10 @@
     @apply text-pretty;
   }
 
+  a:hover {
+    cursor: pointer !important;
+  }
+
   /* Глобальный ограничитель ширины контейнера */
   .main-max-width {
     @apply px-[24px];
