@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import logoDark from "@/assets/logo/logo_dark.svg";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+// Импортируем данные о продуктах
+import prodSoft from "@/data/prodSoft.json";
 
 interface MainHeaderProps {
   menuItems: { label: string; href: string }[];
@@ -11,6 +13,11 @@ interface MainHeaderProps {
 const { menuItems, downloadLink = "/downloads" } =
   Astro.props as MainHeaderProps;
 const currentPath = Astro.url.pathname;
+
+// Получаем только активные продукты (те, у которых есть status)
+const activeProducts = prodSoft.products.filter(
+  (product) => product.app.status
+);
 ---
 
 <header id="main-header">
@@ -32,19 +39,46 @@ const currentPath = Astro.url.pathname;
       data-visible="false">
       {
         menuItems.map((item) => (
-          <a href={item.href}>
-            <span
+          <div class="nav-item-wrapper">
+            <a
+              href={item.href}
               class:list={[
-                "font-light lg:font-medium text-lg lg:text-base transition-colors",
-                { "text-primary-300": currentPath === item.href },
-                {
-                  "text-zinc-300 hover:text-primary-300":
-                    currentPath !== item.href,
-                },
+                "nav-item",
+                { "has-dropdown": item.label === "Продукты" },
               ]}>
-              {item.label}
-            </span>
-          </a>
+              <span
+                class:list={[
+                  "font-light lg:font-medium text-lg lg:text-base transition-colors",
+                  { "text-primary-300": currentPath === item.href },
+                  {
+                    "text-zinc-300 hover:text-primary-300":
+                      currentPath !== item.href,
+                  },
+                ]}>
+                {item.label}
+              </span>
+            </a>
+
+            {/* Выпадающий список только для пункта "Продукты" */}
+            {item.label === "Продукты" && (
+              <div class="lg:block hidden dropdown-menu">
+                <div class="dropdown-content">
+                  {activeProducts.map((product) => (
+                    <a
+                      href={`/all-products/${product.id}`}
+                      class="dropdown-item">
+                      <img
+                        src={product.app.image}
+                        alt={product.app.name}
+                        class="w-6 h-6"
+                      />
+                      <span>{product.app.name}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         ))
       }
       <!-- Кнопка скачать -->
@@ -106,6 +140,46 @@ const currentPath = Astro.url.pathname;
 
   /* Добавляем класс для JavaScript */
   .navigation-menu {
+  }
+
+  .nav-item-wrapper {
+    @apply relative;
+  }
+
+  .dropdown-menu {
+    @apply invisible opacity-0 absolute top-full left-1/2 -translate-x-1/2 
+           min-w-[320px] transition-all duration-200 ease-in-out mt-[0px] pt-[16px];
+    pointer-events: none;
+  }
+
+  .nav-item-wrapper:hover .dropdown-menu {
+    @apply opacity-100 visible;
+    pointer-events: auto;
+  }
+
+  .dropdown-content {
+    @apply flex flex-col border-zinc-900 bg-zinc-950 shadow-2xl shadow-zinc-950 p-[16px] border rounded-[8px];
+  }
+
+  .dropdown-item {
+    @apply flex items-center gap-3 px-[16px] py-[12px] text-zinc-300 
+           hover:bg-primary-300/10 hover:text-primary-300 whitespace-nowrap rounded-[4px];
+  }
+
+  /* Добавляем стрелочку для пункта с дропдауном */
+  .has-dropdown::after {
+    content: "";
+    @apply hidden lg:inline-block w-2 h-2 ml-[8px] border-r border-b border-current 
+           transform rotate-45 translate-y-[-2px] transition-transform;
+  }
+
+  .nav-item-wrapper:hover .has-dropdown::after {
+    @apply translate-y-[2px] rotate-[225deg];
+  }
+
+  /* Стили для активного состояния */
+  .nav-item-wrapper:hover .nav-item {
+    @apply text-primary-300;
   }
 </style>
 
@@ -218,5 +292,23 @@ const currentPath = Astro.url.pathname;
 
     // Добавляем обработчик прокрутки
     window.addEventListener("scroll", handleScroll);
+
+    // Добавляем обработчик для закрытия дропдауна по клику вне
+    document.addEventListener("click", (e) => {
+      const dropdowns = document.querySelectorAll(".dropdown-menu");
+      const navItems = document.querySelectorAll(".nav-item-wrapper");
+
+      navItems.forEach((item) => {
+        if (!item.contains(e.target as Node)) {
+          const dropdown = item.querySelector(".dropdown-menu");
+          if (dropdown) {
+            dropdown.classList.add("invisible", "opacity-0");
+            setTimeout(() => {
+              dropdown.classList.remove("invisible", "opacity-0");
+            }, 200);
+          }
+        }
+      });
+    });
   });
 </script>
