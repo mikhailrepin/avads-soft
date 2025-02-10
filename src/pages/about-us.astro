@@ -66,7 +66,7 @@ const historyItems = [
   <!-- О нас -->
   <div class="flex flex-col mx-auto pt-14 main-max-width">
     <h2 class="text-3xl">О нас</h2>
-    <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+    <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
       {helpers.company.name} обладает высочайшими компетенциями в области разработки
       систем реального времени, программ для обработки больших данных, разработки
       кроссплатформенных приложений для промышленных систем управления и для управления
@@ -76,9 +76,9 @@ const historyItems = [
     <div
       class="gap-[16px] lg:gap-[52px] grid grid-cols-1 lg:grid-cols-2 pt-[40px]">
       <div
-        class="flex flex-col gap-[16px] border-primary-300 px-[24px] py-[16px] border">
-        <h3 class="text-2xl text-gold">Наши компетенции</h3>
-        <p class="text-sm text-zinc-300">
+        class="flex flex-col gap-[16px] px-[24px] py-[16px] border border-primary-300">
+        <h3 class="text-gold text-2xl">Наши компетенции</h3>
+        <p class="text-zinc-300 text-sm">
           Компания обладает высочайшими компетенциями в области разработки
           систем реального времени, программ для обработки больших данных,
           разработки кроссплатформенных приложений для промышленных систем
@@ -127,7 +127,7 @@ const historyItems = [
     <!-- Sticky -->
     <div class="sticky-block">
       <h2 class="text-3xl">Наша история</h2>
-      <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+      <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
         Компания создана бывшими сотрудниками компаний "ИнСАТ" и "МПС СОФТ",
         покинувшими эти компании после продажи продуктов MasterSCADA и MasterOPC
         группе компаний IEK и пожелавшими разрабатывать свои программные
@@ -155,13 +155,13 @@ const historyItems = [
       {
         historyItems.map((item, index) => (
           <div
-            class="flex flex-col border-zinc-800 bg-zinc-900/30 px-8 pb-8 border rounded-lg transition-all duration-300 history-item"
+            class="flex flex-col bg-zinc-900/30 px-8 pb-8 border border-zinc-800 rounded-lg transition-all duration-300 history-item"
             data-item-id={index}>
-            <h2 class="font-bold text-2xl text-gold">{item.year}</h2>
-            <span class="mt-[-16px] mb-4 font-semibold text-xl text-zinc-400">
+            <h2 class="font-bold text-gold text-2xl">{item.year}</h2>
+            <span class="mt-[-16px] mb-4 font-semibold text-zinc-400 text-xl">
               {item.month}
             </span>
-            <p class="text-lg text-zinc-200">{item.description}</p>
+            <p class="text-zinc-200 text-lg">{item.description}</p>
           </div>
         ))
       }
@@ -189,7 +189,7 @@ const historyItems = [
   }
 
   .images-container {
-    @apply relative my-7 border-zinc-900 bg-zinc-900/30 border rounded-lg hidden lg:block;
+    @apply relative mt-7 border-zinc-900 bg-zinc-900/30 border rounded-lg hidden lg:block;
     height: 300px;
     width: 100%;
   }
