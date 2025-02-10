@@ -9,6 +9,7 @@ import FAQ from "@/components/section/FAQ.astro";
 
 /* Images */
 import { Image } from "astro:assets";
+import TSDBBox from "@/assets/products/tsdb/tsdb-box.png";
 
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
@@ -18,7 +19,29 @@ import PlatformsData from "@/assets/products/sar-expert/platforms.json";
 /* Variables */
 const heroBbackground = "/hero/geometry-5.webp";
 
-const opcDb = prodSoft.products.find((product) => product.id === "opc-db");
+type Product = {
+  id: string;
+  app: {
+    name: string;
+    description: string;
+    image: string;
+    status: string;
+  };
+  buttons?: {
+    buy?: { label: string; link: string };
+    demo?: { label: string; link: string };
+    more?: { label: string; link: string };
+    price?: { label: string; link: string };
+  };
+  prices?: any;
+};
+
+const opcDb = prodSoft.products.find(
+  (product) => product.id === "opc-db"
+) as Product;
+const tsdb = prodSoft.products.find(
+  (product) => product.id === "tsdb"
+) as Product;
 
 if (!opcDb) throw new Error("Product not found");
 
@@ -27,40 +50,19 @@ const downloadLink = opcDb.buttons?.demo?.link || "/download";
 
 const advantages = [
   {
-    title: "Повышение стабильности процессов",
-    description:
-      "Автоматическая настройка ПИД-регуляторов обеспечивает стабильную работу технологических процессов и минимизирует отклонения от заданных параметров.",
-    icon: "trend-switch-to-new",
+    title: "Многоядерность",
+    description: `${opcDb.app.name} позволяет решать крупные задачи по ведению и анализу технологических архивов используя OPC UA протокол. По умолчанию он запускается на одном ядре процессора. Однако если одного ядра не достаточно, то можно указать с помощью специального параметра число доступных для использования ядер. Многоядерный режим полезен только при использовании нескольких баз и взаимодействии с несколькими клиентами`,
+    icon: "table-add-outline",
   },
   {
-    title: "Улучшение качества продукции",
-    description:
-      "Точное поддержание технологических параметров позволяет получать продукцию стабильно высокого качества и снижает процент брака.",
-    icon: "scales-up-outline",
+    title: "Коммуникации",
+    description: `${opcDb.app.name} может быть установлен как на том же компьютере, что и ${tsdb.app.name}, так и на удаленном компьютере, связанным с первым по сети. ${opcDb.app.name} не имеет ограничений на число Серверов архивирования, с которыми он может взаимодействовать. Кроме того, к нему можно подключить множество OPC-клиентов. Число подключений OPC-клиентов ограничивается купленной лицензией`,
+    icon: "connect-outline",
   },
   {
-    title: "Снижение риска нештатных ситуаций",
-    description:
-      "Своевременная корректировка параметров регулирования предотвращает аварийные ситуации и защищает оборудование от критических режимов работы.",
+    title: "Кросплатформенность",
+    description: `${opcDb.app.name} является кроссплатформенным продуктом и может работать на самых разных платформах, под управлением большого набора операционных систем: Windows, Linux, Darwin, IOS, Эльбрус, Android NetBSD, FreeBSD OpenBSD, Plan9, AIX, Dragonfly, Illumos, Solaris и др. С полным списком поддерживаемых платформ можно ознакомиться на сайте avads.ru`,
     icon: "time-activity-outline",
-  },
-  {
-    title: "Увеличение производительности",
-    description:
-      "Оптимальные настройки регуляторов повышают кпд технологического оборудования.",
-    icon: "trend-static",
-  },
-  {
-    title: "Сокращение энергозатрат",
-    description:
-      "Эффективное управление параметрами снижает затраты энергии на регулирование и уменьшает износ оборудования.",
-    icon: "bolt-down-outline",
-  },
-  {
-    title: "Контроль расхода ресурсов",
-    description:
-      "Оптимизация работы регуляторов помогает экономить сырье и энергоресурсы за счет снижения перерегулирования и колебательности.",
-    icon: "charts-square-outline",
   },
 ];
 ---
@@ -135,4 +137,101 @@ const advantages = [
       </div>
     </div>
   </MainHero>
+
+  <!-- Функции -->
+  <div class="flex flex-col mx-auto pt-14 pb-16 main-max-width">
+    <h2 class="text-3xl">Особенности OPC сервера</h2>
+    <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+      АВАДС {opcDb.app.name} позволяет сохранять и запрашивать архивные данные у
+      <a
+        href={tsdb?.buttons?.more?.link}
+        class="text-primary-300 hover:text-primary-400 underline"
+        >АВАДС {tsdb?.app.name}
+      </a>
+      по современному стандарту OPC UA (Unified Architecture «унифицированная архитектура»),
+      описывающего передачу данных в промышленных сетях.
+    </p>
+    <p class="mt-[16px] lg:max-w-[60vw] text-lg text-zinc-400">
+      {opcDb.app.name} позволяет подключать OPC UA клиенты к Серверу архивирования,
+      а также конвертировать теги Сервера Архивирования в ОРС UA теги (Client\Server).
+    </p>
+    <h2 class="pt-[40px] pb-[24px] text-3xl">Преимущества</h2>
+
+    <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-3">
+      {advantages.map((advantage) => <Advantage {...advantage} />)}
+    </div>
+  </div>
+
+  <!-- Лицензирование -->
+  <div class="flex flex-col mx-auto mt-[24px] mb-[40px] main-max-width">
+    <hr class="separator silver" />
+
+    <h2 class="pt-[16px] text-3xl">Лицензирование</h2>
+
+    <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
+      <div class="flex flex-col gap-[16px] text-zinc-400">
+        <p>
+          {opcDb.app.name} лицензируется по количеству ОРС тегов, а также по числу
+          подключенных клиентов. Для лицензионной защиты используется программный
+          ключ.
+        </p>
+        <h3 class="text-2xl text-zinc-300">Активация лицензии</h3>
+        <p>
+          При покупке коммерческой версии {opcDb.app.name}, пользователь
+          получает код активации. Для использования продукта в соответствии с
+          купленной лицензией нужно ввести код активации в систему (при
+          активации необходим доступ в Интернет).
+        </p>
+        <h3 class="text-2xl text-zinc-300">Демо версия</h3>
+        <p>
+          Пробная версия {opcDb.app.name} предоставляется без ограничений по количеству
+          OPC тегов и подключаемых клиентов, однако имеет ограничение по времени
+          работы - 24 часа с момента запуска. По истечении этого срока сервер прекращает
+          передачу тегов по OPC протоколу.
+          <br /><br />
+          Для более длительного тестирования доступна
+          <a
+            href={opcDb.buttons?.demo?.link}
+            class="text-primary-300 hover:text-primary-400 underline"
+            >расширенная ДЕМО-версия</a
+          >
+          , для Windows и Linux (x86).
+          <br /><br />Возможность загрзуки ДЕМО-версии для других операционных
+          систем или аппаратных платформ уточняйте у наших специалистов в
+          <a
+            href="/contacts"
+            class="text-primary-300 hover:text-primary-400 underline"
+            >службе технической поддержки</a
+          >.
+        </p>
+      </div>
+      <div
+        class="flex flex-col justify-center items-center gap-[16px] order-first lg:order-last rounded-lg">
+        <Image
+          src={TSDBBox}
+          alt="Лицензирование"
+          class="w-[60%] lg:w-[70%] object-cover"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Свяжитесь с нами -->
+  <CallToAction
+    AlignItems="left"
+    BackgroundImage={"/hero/cta-call-manager.png"}
+    Hovered={false}
+    Title="Свяжитесь с нами"
+    Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+    ButtonProps={{
+      ButtonLabel: "Оставить заявку",
+      ButtonLink: "/contacts",
+    }}
+    CustomClass="bg-[#101010] rounded-none border-none"
+  />
+
+  <!-- FAQ -->
+  <div class="mx-auto my-[52px] main-max-width">
+    <FAQ faqData={faqData} />
+  </div>
 </Layout>
