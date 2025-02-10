@@ -1,7 +1,222 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/components/section/MainHero.astro";
+
+/* Images */
+import { Image } from "astro:assets";
+
+/* Data */
+import helpers from "@/data/helpers.json";
+
+/* Variables */
+const heroBbackground = "/hero/geometry-2.webp";
+
+const historyItems = [
+  {
+    year: "2021",
+    month: "Март",
+    description: "Регистрация компании и получение статуса IT-компании.",
+    image: "/products/about/history-image-1.png",
+  },
+  {
+    year: "2021",
+    month: "Июль",
+    description: "Регистрация товарных знаков компании.",
+    image: "/products/about/history-image-2.png",
+  },
+  {
+    year: "2021",
+    month: "Декабрь",
+    description:
+      "Выпуск прототипа системы управления бизнесом MasterCase для компании ИнСАТ.",
+    image: "",
+  },
+  {
+    year: "2022",
+    month: "Июнь",
+    description: "Запуск сайта avads.ru",
+    image: "/products/about/history-image-3.png",
+  },
+  {
+    year: "2022",
+    month: "Сентябрь",
+    description: "Выпуск АВАДС Сервер архивирования.",
+    image: "/products/about/history-image-4.png",
+  },
+];
 ---
 
 <Layout pageTitle="О компании">
-  <section></section>
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex flex-col justify-center gap-4 mx-auto w-[100%] min-h-[50dvh] main-max-width">
+      <h1 class="hero-title">
+        <span class="text-silver">Разработка</span><br />
+        <span class="text-gold">инновационного</span><br />
+        <span class="text-silver">программного обеспечения</span>
+      </h1>
+      <h3 class="hero-description">
+        Мы разрабатываем лучшее программное обеспечение, <br />чтобы помогать
+        людям решать сложные задачи.
+      </h3>
+    </div>
+  </MainHero>
+
+  <!-- О нас -->
+  <div class="flex flex-col mx-auto pt-14 main-max-width">
+    <h2 class="text-3xl">О нас</h2>
+    <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+      {helpers.company.name} обладает высочайшими компетенциями в области разработки
+      систем реального времени, программ для обработки больших данных, разработки
+      кроссплатформенных приложений для промышленных систем управления и для управления
+      бизнесом, а также в области систем управления базами данных и разработки WEB-приложений.
+    </p>
+    <!-- Наши компетенции -->
+    <div
+      class="gap-[16px] lg:gap-[52px] grid grid-cols-1 lg:grid-cols-2 pt-[40px]">
+      <div
+        class="flex flex-col gap-[16px] border-primary-300 px-[24px] py-[16px] border">
+        <h3 class="text-2xl text-gold">Наши компетенции</h3>
+        <p class="text-sm text-zinc-300">
+          Компания обладает высочайшими компетенциями в области разработки
+          систем реального времени, программ для обработки больших данных,
+          разработки кроссплатформенных приложений для промышленных систем
+          управления и для управления бизнесом, а также в области систем
+          управления базами данных и разработки WEB-приложений.
+        </p>
+      </div>
+      <!-- Перечень компетенций -->
+      <div class="flex flex-col gap-[24px]">
+        <div class="flex flex-row items-center gap-[24px]">
+          <img
+            src="/products/about/icon-time.svg"
+            alt="About us"
+            loading="lazy"
+          />
+          <span class="text-gold text-xl">
+            Разработка систем реального времени
+          </span>
+        </div>
+        <div class="flex flex-row items-center gap-[24px]">
+          <img
+            src="/products/about/icon-server.svg"
+            alt="About us"
+            loading="lazy"
+          />
+          <span class="text-gold text-xl">
+            Разработка систем управления базами данных
+          </span>
+        </div>
+        <div class="flex flex-row items-center gap-[24px]">
+          <img
+            src="/products/about/icon-code.svg"
+            alt="About us"
+            loading="lazy"
+          />
+          <span class="text-gold text-xl"> Разработка WEB-приложений </span>
+        </div>
+      </div>
+    </div>
+    <hr class="mt-14 separator silver" />
+  </div>
+
+  <!-- История компании -->
+  <div
+    class="relative gap-[40px] grid grid-cols-1 lg:grid-cols-2 mx-auto pt-7 pb-14 main-max-width">
+    <!-- Sticky -->
+    <div class="sticky-block">
+      <h2 class="text-3xl">Наша история</h2>
+      <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+        Компания создана бывшими сотрудниками компаний "ИнСАТ" и "МПС СОФТ",
+        покинувшими эти компании после продажи продуктов MasterSCADA и MasterOPC
+        группе компаний IEK и пожелавшими разрабатывать свои программные
+        продукты.
+      </p>
+      {
+        historyItems.map((item, index) => (
+          <img
+            src={item.image}
+            alt={`История компании - ${item.month} ${item.year}`}
+            loading="lazy"
+            class={`history-image ${index === 0 ? "active" : ""}`}
+            data-image-id={index}
+          />
+        ))
+      }
+    </div>
+    <!-- Scrollable -->
+    <div class="flex flex-col gap-[16px] pt-8">
+      {
+        historyItems.map((item, index) => (
+          <div
+            class="flex flex-col border-zinc-800 bg-zinc-900/30 px-8 pb-8 border rounded-lg transition-all duration-300 history-item"
+            data-item-id={index}>
+            <h2 class="font-bold text-2xl text-gold">{item.year}</h2>
+            <span class="mt-[-16px] mb-4 font-semibold text-xl text-zinc-400">
+              {item.month}
+            </span>
+            <p class="text-lg text-zinc-200">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
 </Layout>
+
+<style>
+  .sticky-block {
+    @apply flex flex-col;
+    position: sticky;
+    top: 60px;
+    height: fit-content;
+  }
+
+  .history-image {
+    @apply my-7 rounded-lg w-[100%] object-contain;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
+    position: absolute;
+  }
+
+  .history-image.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+  }
+
+  .history-item {
+    cursor: pointer;
+  }
+
+  .history-item:hover {
+    @apply border-primary-300;
+    transform: translateX(10px);
+  }
+</style>
+
+<script>
+  const historyItems = document.querySelectorAll(".history-item");
+  const historyImages = document.querySelectorAll(".history-image");
+
+  function updateActiveImage(index: number) {
+    historyImages.forEach((image) => {
+      image.classList.remove("active");
+    });
+    historyImages[index]?.classList.add("active");
+  }
+
+  historyItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      const itemId = item.getAttribute("data-item-id");
+      if (itemId !== null) {
+        updateActiveImage(parseInt(itemId));
+      }
+    });
+  });
+
+  // Установка первого изображения как активного при загрузке
+  updateActiveImage(0);
+</script>
