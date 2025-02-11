@@ -1,59 +1,15 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import PostsGrid from "@/components/section/PostsGrid.astro";
+import { getPosts } from "@/utils/posts";
 
-interface AstroPost {
-  frontmatter: {
-    title: string;
-    description: string;
-    date: string;
-    image: string;
-  };
-  file: string;
-}
-
-const posts = await import.meta.glob<AstroPost>("../../pages/news/*.md", {
-  eager: true,
-});
-const postsArray: AstroPost[] = Object.values(posts);
 const postsPerPage = 6;
-
-const sortedPosts = postsArray
-  .filter((post): post is AstroPost => {
-    if (!post || !post.frontmatter) return false;
-    try {
-      const date = new Date(post.frontmatter.date);
-      return (
-        Boolean(post.frontmatter.title) &&
-        Boolean(post.frontmatter.description) &&
-        Boolean(post.frontmatter.date) &&
-        Boolean(post.frontmatter.image) &&
-        post.frontmatter.image.startsWith("http") &&
-        !isNaN(date.getTime())
-      );
-    } catch {
-      return false;
-    }
-  })
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.date).getTime() -
-      new Date(a.frontmatter.date).getTime()
-  );
-
-const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+const { totalPages, formatPosts } = await getPosts(postsPerPage);
 const currentPage = 1;
-
-const posts_to_show = sortedPosts.slice(0, postsPerPage).map((post) => ({
-  title: post.frontmatter.title,
-  description: post.frontmatter.description,
-  date: post.frontmatter.date,
-  image: post.frontmatter.image,
-  url: `/news/${post.file.split("/").pop()?.replace(".md", "")}`,
-}));
+const posts_to_show = formatPosts(0, postsPerPage);
 ---
 
-<Layout pageTitle="Все новости">
+<Layout pageTitle="Новости">
   <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
     <h1 class="mb-8 font-bold text-4xl">Новости и события компании</h1>
     <PostsGrid
