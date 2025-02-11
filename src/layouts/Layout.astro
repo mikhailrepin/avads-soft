@@ -58,6 +58,87 @@ const serviceItems = [
         emailjs.init("LSMwzsQT9Ntj5AtDK");
       })();
     </script>
+
+    <!-- Типографика -->
+    <script type="text/javascript">
+      (function () {
+        const prepositions = [
+          "а",
+          "в",
+          "во",
+          "и",
+          "к",
+          "о",
+          "об",
+          "от",
+          "с",
+          "у",
+          "за",
+          "на",
+          "не",
+          "но",
+          "по",
+          "из",
+          "или",
+          "над",
+          "без",
+          "при",
+          "про",
+          "для",
+          "под",
+          "через",
+        ];
+
+        function formatText(text) {
+          if (!text) return "";
+
+          let stats = {
+            quotes: 0,
+            spaces: 0,
+          };
+
+          // Убираем множественные пробелы
+          let formattedText = text.replace(/\s+/g, " ").trim();
+
+          // Заменяем обычные кавычки на типографские
+          const quotesCount = (text.match(/"/g) || []).length;
+          formattedText = formattedText.replace(/"/g, "«").replace(/"/g, "»");
+          stats.quotes = Math.floor(quotesCount / 2);
+
+          // Добавляем неразрывные пробелы после предлогов
+          prepositions.forEach((prep) => {
+            // Ищем предлог, перед которым пробел или начало строки, и после которого пробел
+            const regex = new RegExp(`(^|\\s)${prep}\\s`, "g");
+            const matches = (text.match(regex) || []).length;
+            stats.spaces += matches;
+            // Сохраняем начальный пробел если он есть, добавляем неразрывный пробел после предлога
+            formattedText = formattedText.replace(
+              regex,
+              "$1" + prep + "\u00A0"
+            );
+          });
+
+          return formattedText;
+        }
+
+        // Находим все текстовые элементы на странице
+        function processTextNodes(node) {
+          if (node.nodeType === 3) {
+            // Текстовый узел
+            if (node.nodeValue.trim()) {
+              node.nodeValue = formatText(node.nodeValue);
+            }
+          } else {
+            node.childNodes.forEach(processTextNodes);
+          }
+        }
+
+        // Запускаем форматирование после загрузки страницы
+        document.addEventListener("DOMContentLoaded", () => {
+          processTextNodes(document.body);
+        });
+      })();
+    </script>
   </head>
   <body
     class="flex flex-col items-center bg-zinc-950 m-0 p-0 w-[100%] h-[100%] text-zinc-200 subpixel-antialiased">

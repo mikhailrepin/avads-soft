@@ -57,6 +57,30 @@ const activeProducts = prodSoft.products.filter(
                 ]}>
                 {item.label}
               </span>
+              {item.label === "Продукты" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="size-5 text-white">
+                  <g clip-path="url(#clip0_2918_4497)">
+                    <path
+                      d="M15.428 10c.486 0 .74.493.447.812l-.043.042-3.429 3a.61.61 0 0 1-.368.145.63.63 0 0 1-.386-.104l-.054-.041-3.429-3-.047-.047-.031-.039-.03-.048-.01-.018-.016-.034-.018-.053-.006-.027-.006-.03L8 10.53v-.06l.003-.029.005-.03.006-.025.018-.054.015-.034.04-.066.038-.045.041-.04.054-.042.044-.027.055-.027.02-.008.039-.014.061-.016.03-.005.035-.005.033-.002 6.89-.001Z"
+                      fill="currentColor"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2918_4497">
+                      <path
+                        fill="#fff"
+                        d="M0 0h24v24H0z"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              )}
             </a>
 
             {/* Выпадающий список только для пункта "Продукты" */}
@@ -148,7 +172,7 @@ const activeProducts = prodSoft.products.filter(
 
   .dropdown-menu {
     @apply invisible opacity-0 absolute top-full left-1/2 -translate-x-1/2 
-           min-w-[320px] transition-all duration-200 ease-in-out mt-[0px] pt-[16px];
+           min-w-[320px] transition-all duration-200 ease-in-out mt-[0px] pt-[24px];
     pointer-events: none;
   }
 
@@ -169,12 +193,16 @@ const activeProducts = prodSoft.products.filter(
   /* Добавляем стрелочку для пункта с дропдауном */
   .has-dropdown::after {
     content: "";
-    @apply hidden lg:inline-block w-2 h-2 ml-[8px] border-r border-b border-current 
-           transform rotate-45 translate-y-[-2px] transition-transform;
+    @apply hidden; /* Скрываем CSS стрелку */
   }
 
-  .nav-item-wrapper:hover .has-dropdown::after {
-    @apply rotate-[225deg] translate-y-[2px];
+  /* Добавляем новый стиль для SVG иконки */
+  .has-dropdown svg {
+    @apply inline-block transition-transform duration-300;
+  }
+
+  .nav-item-wrapper:hover .has-dropdown svg {
+    @apply rotate-180;
   }
 
   /* Стили для активного состояния */

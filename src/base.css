@@ -8,6 +8,7 @@
 @layer utilities {
   * {
     @apply text-pretty;
+    box-sizing: border-box;
   }
 
   a:hover {
@@ -51,7 +52,7 @@
   }
 
   .hero-description {
-    @apply pt-3 w-fit max-w-[100%] font-medium text-lg text-zinc-400 lg:text-xl !important;
+    @apply pt-3 w-fit max-w-[100%] font-medium text-zinc-400 text-lg lg:text-xl !important;
   }
 
   .post-title {
@@ -97,7 +98,7 @@
   }
 
   thead tr th:first-child {
-    @apply text-left text-primary-300;
+    @apply text-primary-300 text-left;
   }
 
   thead tr th {
@@ -105,7 +106,7 @@
   }
 
   thead tr th span {
-    @apply text-sm text-zinc-300;
+    @apply text-zinc-300 text-sm;
   }
 
   tbody tr {
@@ -117,12 +118,21 @@
   }
 
   tbody tr td:first-child {
-    @apply pr-2 pl-0 text-left text-primary-300;
+    @apply pr-2 pl-0 text-primary-300 text-left;
   }
-}
 
-* {
-  box-sizing: border-box;
+  /* Контроль переноса текста для всех текстовых блоков */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  div,
+  span {
+    white-space: normal;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
 }
 
 html,

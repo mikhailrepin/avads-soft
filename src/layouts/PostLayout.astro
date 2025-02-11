@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import type { Post } from "@/types/interfaces";
+import { formatTitle, formatDescription } from "@/utils/grammar";
 
 interface Props {
   frontmatter: Post;
@@ -14,6 +15,15 @@ interface PostFile {
 
 const { frontmatter } = Astro.props;
 const { title, description, date, image } = frontmatter;
+
+// Форматируем заголовок и описание
+const formattedTitle = formatTitle(title);
+const formattedDescription = formatDescription(description);
+
+// Добавим отладочный вывод
+console.log("PostLayout: Форматирование текста");
+console.log("Исходный заголовок:", title);
+console.log("Отформатированный заголовок:", formattedTitle);
 
 // Ограничиваем длину заголовка до 60 символов
 const truncatedTitle = title.length > 60 ? title.slice(0, 60) + "..." : title;
@@ -82,9 +92,9 @@ const validNextPost =
       <div class="absolute inset-0 bg-zinc-900/70"></div>
 
       <!-- Контент поверх изображения -->
-      <div class="relative z-10">
+      <div class="z-10 relative">
         <h1 class="post-title">
-          {truncatedTitle}
+          {formattedTitle}
         </h1>
         <div class="flex items-center gap-2 w-fit font-medium text-zinc-400">
           <svg class="w-[16px] h-[16px]">
@@ -98,8 +108,8 @@ const validNextPost =
     <!-- Описание и контент -->
     <div class="py-4">
       <h4
-        class="m-0 mb-8 w-full md:max-w-[75%] font-semibold text-xl text-zinc-200 lg:text-2xl">
-        {description}
+        class="m-0 mb-8 w-full md:max-w-[75%] font-semibold text-zinc-200 text-xl lg:text-2xl">
+        {formattedDescription}
       </h4>
       <div class="max-w-full prose prose-lg">
         <slot />
