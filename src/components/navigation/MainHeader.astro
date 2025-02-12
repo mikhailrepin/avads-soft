@@ -238,11 +238,14 @@ const activeProducts = prodSoft.products.filter(
   }
 
   .fallback-logo {
-    @apply relative w-full h-full object-contain;
+    @apply block w-full h-full object-contain transition-opacity duration-200;
   }
 
-  .logo-video.video-loaded:not([data-error]) + .fallback-logo {
-    @apply lg:opacity-0;
+  /* Когда видео загружено, делаем картинку прозрачной на десктопе */
+  @media (min-width: 1024px) {
+    .fallback-logo.video-loaded {
+      opacity: 0;
+    }
   }
 </style>
 
@@ -376,26 +379,43 @@ const activeProducts = prodSoft.products.filter(
 
     // Обработчик для видео-логотипа
     const logoVideo = document.querySelector<HTMLVideoElement>(".logo-video");
+    const fallbackLogo = document.querySelector(".fallback-logo");
     const logoLink = document.querySelector(".logo-link");
 
-    if (logoVideo && logoLink) {
+    if (logoVideo && logoLink && fallbackLogo) {
+      let isPlaying = false;
+
+      // Добавляем обработчик успешной загрузки видео
+      logoVideo.addEventListener("loadeddata", () => {
+        fallbackLogo.classList.add("video-loaded");
+      });
+
+      // Обработчик ошибки загрузки видео
+      logoVideo.addEventListener("error", () => {
+        fallbackLogo.classList.remove("video-loaded");
+      });
+
       logoLink.addEventListener("mouseenter", () => {
-        logoVideo.currentTime = 0;
-        logoVideo.play();
+        if (!isPlaying) {
+          logoVideo.currentTime = 0;
+          logoVideo.setAttribute("loop", ""); // Добавляем loop при наведении
+          logoVideo.play();
+          isPlaying = true;
+        }
       });
 
       logoLink.addEventListener("mouseleave", () => {
-        logoVideo.removeAttribute("loop");
-        logoVideo.addEventListener(
-          "ended",
-          function onEnd() {
-            logoVideo.setAttribute("loop", "");
-            logoVideo.currentTime = 0;
-            logoVideo.pause();
-            logoVideo.removeEventListener("ended", onEnd);
-          },
-          { once: true }
-        );
+        logoVideo.removeAttribute("loop"); // Убираем loop при уходе курсора
+
+        // Добавляем одноразовый обработчик для остановки после завершения текущего цикла
+        const stopAfterCycle = () => {
+          logoVideo.pause();
+          logoVideo.currentTime = 0;
+          isPlaying = false;
+          logoVideo.removeEventListener("ended", stopAfterCycle);
+        };
+
+        logoVideo.addEventListener("ended", stopAfterCycle, { once: true });
       });
     }
   });
