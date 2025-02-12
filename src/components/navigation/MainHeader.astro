@@ -212,12 +212,11 @@ const activeProducts = prodSoft.products.filter(
   /* Добавляем стрелочку для пункта с дропдауном */
   .has-dropdown::after {
     content: "";
-    @apply hidden; /* Скрываем CSS стрелку */
   }
 
   /* Добавляем новый стиль для SVG иконки */
   .has-dropdown svg {
-    @apply inline-block transition-transform duration-300;
+    @apply hidden lg:inline-block transition-transform duration-300; /* Скрываем CSS стрелку */
   }
 
   .nav-item-wrapper:hover .has-dropdown svg {
