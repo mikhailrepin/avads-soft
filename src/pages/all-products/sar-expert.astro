@@ -145,7 +145,7 @@ const advantages = [
         <img
           src={sarExpert.app.image}
           alt={sarExpert.app.name}
-          class="lg:block hidden scale-[7]"
+          class="hidden lg:block scale-[7]"
         />
       </div>
     </div>
@@ -194,7 +194,7 @@ const advantages = [
     <Image
       src={sarInfrastructure}
       alt="Инфраструктура"
-      class="relative z-[2] mx-auto lg:mt-[-160px] lg:mb-[-110px] w-[100%] lg:w-[90%]"
+      class="z-[2] relative mx-auto lg:mt-[-160px] lg:mb-[-110px] w-[100%] lg:w-[90%]"
     />
 
     <div class="lg:max-w-[380px] text-card">
@@ -224,7 +224,7 @@ const advantages = [
     <Image
       src={sarDesktop}
       alt="Инфраструктура"
-      class="lg:block hidden my-[12px] w-[80%] object-contain"
+      class="hidden lg:block my-[12px] w-[80%] object-contain"
     />
     <div class="text-card">
       <p class="title">Собственные архивы технологических переменных</p>
@@ -258,7 +258,7 @@ const advantages = [
           alt="Кривая разгона"
           class="mx-auto w-[70%]"
         />
-        <p class="mt-[8px] text-center text-xl">Кривая разгона</p>
+        <p class="mt-[8px] text-xl text-center">Кривая разгона</p>
       </div>
 
       <!-- Импульсное изменение задания -->
@@ -268,7 +268,7 @@ const advantages = [
           alt="Импульсное изменение задания"
           class="mx-auto w-[70%]"
         />
-        <p class="mt-[8px] text-center text-xl">Импульсное изменение задания</p>
+        <p class="mt-[8px] text-xl text-center">Импульсное изменение задания</p>
       </div>
 
       <!-- Ступенчатое изменение задания -->
@@ -278,7 +278,7 @@ const advantages = [
           alt="Ступенчатое изменение задания"
           class="mx-auto w-[70%]"
         />
-        <p class="mt-[8px] text-center text-xl">
+        <p class="mt-[8px] text-xl text-center">
           Ступенчатое изменение задания
         </p>
       </div>
@@ -290,7 +290,7 @@ const advantages = [
           alt="Импульсное изменение положения клапана"
           class="mx-auto w-[70%]"
         />
-        <p class="mt-[8px] text-center text-xl">
+        <p class="mt-[8px] text-xl text-center">
           Импульсное изменение положения клапана
         </p>
       </div>
@@ -348,8 +348,8 @@ const advantages = [
 
   <div class="mx-auto my-[64px] main-max-width">
     <div class="flex flex-col gap-[16px]">
-      <h2 class="my-0 text-3xl text-primary-300">Статистический анализ</h2>
-      <p class="text-lg text-zinc-400">
+      <h2 class="my-0 text-primary-300 text-3xl">Статистический анализ</h2>
+      <p class="text-zinc-400 text-lg">
         Предназначен для оценки качества работы системы автоматического
         регулирования. Сравнительный статистический анализ показывает, каких
         изменений удалось достичь благодаря настройке, сравнить работу контура
@@ -358,20 +358,20 @@ const advantages = [
       <Image
         src={trendBeforeAfterDesktop}
         alt="До и после применения настроек"
-        class="lg:block hidden mx-auto my-[52px] w-[100%] lg:w-[80%]"
+        class="hidden lg:block mx-auto my-[52px] w-[100%] lg:w-[80%]"
       />
       <Image
         src={trendBeforeAfterMobile}
         alt="До и после применения настроек"
-        class="block lg:hidden mx-auto my-[52px] w-[100%] lg:w-[80%]"
+        class="lg:hidden block mx-auto my-[52px] w-[100%] lg:w-[80%]"
       />
     </div>
   </div>
 
   <div class="mx-auto mt-[64px] main-max-width">
     <div class="flex flex-col gap-[16px]">
-      <h2 class="my-0 text-3xl text-primary-300">После внедрения</h2>
-      <p class="text-lg text-zinc-400">
+      <h2 class="my-0 text-primary-300 text-3xl">После внедрения</h2>
+      <p class="text-zinc-400 text-lg">
         Уменьшение девиации регулируемой переменной позволяет изменить задание
         и вести процесс ближе к границам спецификации — уменьшить так называемый
         запас по качеству. Это обеспечивает снижение затрат и (или) увеличение
@@ -382,7 +382,7 @@ const advantages = [
         alt="После внедрения"
         class="mx-auto my-[52px] w-[100%] lg:w-[80%]"
       />
-      <p class="text-lg text-zinc-400">
+      <p class="text-zinc-400 text-lg">
         За счёт оптимизации работы систем регулирования зачастую удаётся
         получить экономию на энергоресурсах на 0,5–2% или повысить
         производительность на 1–10%. Пример результата оптимизации работы
@@ -453,22 +453,22 @@ const advantages = [
 
   <style>
     .text-card {
-      @apply relative z-[20] flex flex-col gap-[8px] py-[24px] w-full;
+      @apply z-[20] relative flex flex-col gap-[8px] py-[24px] w-full;
       & .title {
-        @apply text-2xl text-primary-300;
+        @apply text-primary-300 text-2xl;
       }
 
       & .description {
-        @apply text-lg text-zinc-400;
+        @apply text-zinc-400 text-lg;
       }
     }
 
     .bordered {
-      @apply border-zinc-900 lg:border;
+      @apply lg:border border-zinc-900;
     }
 
     .animated-circles {
-      @apply lg:block top-0 left-0 absolute hidden w-[1400px] h-[1400px] pointer-events-none;
+      @apply hidden lg:block top-[6rem] left-[6rem] absolute w-[1200px] h-[1200px] pointer-events-none;
       z-index: 0;
       transform: perspective(8000px) rotateX(45deg) translateY(-32rem)
         translateX(-28rem);
