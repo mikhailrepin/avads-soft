@@ -8,9 +8,10 @@ const PAGE_TITLES: Record<string, string> = {
 
 interface Props {
   pageTitle: string;
+  is404?: boolean;
 }
 
-const { pageTitle } = Astro.props;
+const { pageTitle, is404 = false } = Astro.props;
 
 interface PageFile {
   url?: string;
@@ -26,15 +27,6 @@ const pages = await Promise.all(
     import.meta.glob<PageFile>("/src/pages/**/index.{astro,md}")
   ).map((page) => page())
 );
-
-// Проверяем, является ли текущий путь главной страницей или страницей 404
-const isHomePage = Astro.url.pathname === "/";
-const is404Page = Astro.url.pathname === "/404";
-
-if (isHomePage || is404Page) {
-  // Если это главная страница или страница 404, не отображаем хлебные крошки
-  return null;
-}
 
 // Функция для получения заголовка страницы по сегменту пути
 function getPageTitle(segment: string, isLast: boolean): string {
@@ -120,12 +112,12 @@ function renderBreadcrumbs(segments: string[]) {
 }
 ---
 
-<div class="pt-[4px] pb-[16px] w-full">
+<div class="pt-[4px] pb-[16px] w-full breadcrumbs-wrapper">
   <ul class="breadcrumbs main-max-width">
     <li>
       <a
         href="/"
-        class="text-zinc-500 hover:text-primary-300">
+        class="ml-[12px] text-zinc-500 hover:text-primary-300">
         <svg class="w-[16px] h-[16px]">
           <use xlink:href="/sprites.svg#home-outline"></use>
         </svg>

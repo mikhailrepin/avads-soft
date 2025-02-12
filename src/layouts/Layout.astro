@@ -9,9 +9,10 @@ import BreadCrumbs from "@/components/navigation/BreadCrumbs.astro";
 interface Props {
   pageTitle: string;
   downloadLink?: string;
+  breadcrumbs?: boolean;
 }
 
-const { pageTitle, downloadLink } = Astro.props;
+const { pageTitle, downloadLink, breadcrumbs = true } = Astro.props;
 
 const menuItems = [
   { label: "Продукты", href: "/all-products" },
@@ -151,7 +152,7 @@ const serviceItems = [
       downloadLink={downloadLink}
     />
     <main class="mt-[48px] lg:mt-[64px] w-full">
-      <BreadCrumbs pageTitle={pageTitle} />
+      {breadcrumbs && <BreadCrumbs pageTitle={pageTitle} />}
       <slot />
     </main>
     <MainFooter

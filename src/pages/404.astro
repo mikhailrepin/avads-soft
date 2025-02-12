@@ -1,9 +1,11 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 ---
 
-<Layout pageTitle="Страница не найдена">
+<Layout
+  pageTitle="Страница не найдена"
+  breadcrumbs={false}>
   <section class="main-max-width wrapper">
     <h1>404</h1>
     <h2>Страница не найдена</h2>
