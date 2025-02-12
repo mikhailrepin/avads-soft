@@ -97,8 +97,12 @@ const serviceItems = [
             spaces: 0,
           };
 
-          // Убираем множественные пробелы
-          let formattedText = text.replace(/\s+/g, " ").trim();
+          let formattedText = text;
+
+          // Убираем множественные пробелы только если это текстовый узел
+          if (text.trim()) {
+            formattedText = text.replace(/\s{2,}/g, " ");
+          }
 
           // Заменяем обычные кавычки на типографские
           const quotesCount = (text.match(/"/g) || []).length;

@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import logoDark from "@/assets/logo/logo_dark.svg";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
 // Импортируем данные о продуктах
 import prodSoft from "@/data/prodSoft.json";
+import helpers from "@/data/helpers.json";
 
 interface MainHeaderProps {
   menuItems: { label: string; href: string }[];
@@ -25,12 +25,31 @@ const activeProducts = prodSoft.products.filter(
     <!-- Логотип -->
     <a
       href="/"
-      class="logo-link">
-      <Image
-        src={logoDark}
-        alt="Логотип компании"
-        loading="eager"
-      />
+      class="flex items-center gap-[8px] logo-link">
+      <div class="logo-container">
+        <img
+          src="/products/avads.png"
+          alt={helpers.company.name}
+          loading="eager"
+          class="block fallback-logo"
+        />
+        <video
+          class="hidden lg:block logo-video"
+          width="100"
+          height="32"
+          muted
+          playsinline
+          loop
+          preload="none">
+          <source
+            src="/products/logo-animate.webm"
+            type="video/webm"
+          />
+        </video>
+      </div>
+      <span class="text-[1.3rem] text-zinc-100 tracking-[0.15rem]"
+        >{helpers.company.name}</span
+      >
     </a>
 
     <!-- Меню навигации -->
@@ -143,7 +162,7 @@ const activeProducts = prodSoft.products.filter(
   }
 
   .logo-link {
-    @apply lg:hover:opacity-80 mr-[8px] lg:mr-0 w-[100px] lg:w-[132px];
+    @apply mr-[8px] lg:mr-0 w-[100px] lg:w-[132px];
   }
 
   .header-nav {
@@ -208,6 +227,22 @@ const activeProducts = prodSoft.products.filter(
   /* Стили для активного состояния */
   .nav-item-wrapper:hover .nav-item {
     @apply text-primary-300;
+  }
+
+  .logo-container {
+    @apply relative w-[100px] lg:w-[132px] h-[32px];
+  }
+
+  .logo-video {
+    @apply top-0 left-0 z-10 absolute w-full h-full object-contain;
+  }
+
+  .fallback-logo {
+    @apply relative w-full h-full object-contain;
+  }
+
+  .logo-video.video-loaded:not([data-error]) + .fallback-logo {
+    @apply lg:opacity-0;
   }
 </style>
 
@@ -338,5 +373,30 @@ const activeProducts = prodSoft.products.filter(
         }
       });
     });
+
+    // Обработчик для видео-логотипа
+    const logoVideo = document.querySelector<HTMLVideoElement>(".logo-video");
+    const logoLink = document.querySelector(".logo-link");
+
+    if (logoVideo && logoLink) {
+      logoLink.addEventListener("mouseenter", () => {
+        logoVideo.currentTime = 0;
+        logoVideo.play();
+      });
+
+      logoLink.addEventListener("mouseleave", () => {
+        logoVideo.removeAttribute("loop");
+        logoVideo.addEventListener(
+          "ended",
+          function onEnd() {
+            logoVideo.setAttribute("loop", "");
+            logoVideo.currentTime = 0;
+            logoVideo.pause();
+            logoVideo.removeEventListener("ended", onEnd);
+          },
+          { once: true }
+        );
+      });
+    }
   });
 </script>
