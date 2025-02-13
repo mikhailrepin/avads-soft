@@ -118,7 +118,7 @@ const validNextPost =
 
     <!-- Навигация между постами -->
     <div
-      class="items-center grid grid-cols-3 bg-zinc-900/30 my-8 p-4 rounded-lg w-full">
+      class="items-center grid grid-cols-3 bg-zinc-900/50 lg:bg-zinc-900/0 my-5 lg:my-8 p-2 lg:px-0 lg:py-5 border border-zinc-600 lg:border-0 lg:border-t rounded-lg lg:rounded-none w-full">
       <!-- Левая кнопка -->
       <div class="justify-self-start">
         {
@@ -134,7 +134,7 @@ const validNextPost =
               ButtonLabel={prevPost.frontmatter.title}
               ButtonLink={`/news/${prevPost.file.split("/").pop()?.replace(".md", "")}`}
               Target="link"
-              CustomClass="w-fit uppercase only-desktop"
+              CustomClass="only-desktop"
             />
           )
         }
@@ -149,7 +149,7 @@ const validNextPost =
           ButtonLabel="Все новости"
           ButtonLink="/news"
           Target="link"
-          CustomClass="w-fit uppercase"
+          CustomClass="w-fit"
         />
       </div>
 
@@ -168,7 +168,7 @@ const validNextPost =
               ButtonLabel={nextPost.frontmatter.title}
               ButtonLink={`/news/${nextPost.file.split("/").pop()?.replace(".md", "")}`}
               Target="link"
-              CustomClass="w-fit uppercase only-desktop"
+              CustomClass="only-desktop"
             />
           )
         }
