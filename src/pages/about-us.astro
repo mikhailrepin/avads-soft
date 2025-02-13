@@ -74,11 +74,10 @@ const historyItems = [
     </p>
     <!-- Наши компетенции -->
     <div
-      class="gap-[16px] lg:gap-[52px] grid grid-cols-1 lg:grid-cols-2 pt-[40px]">
-      <div
-        class="flex flex-col gap-[16px] px-[24px] py-[16px] border border-primary-300">
-        <h3 class="text-gold text-2xl">Наши компетенции</h3>
-        <p class="text-zinc-300 text-sm">
+      class="gap-8 lg:gap-[52px] grid grid-cols-1 lg:grid-cols-2 pt-10 pb-14">
+      <div class="flex flex-col gap-[16px] p-5 border border-primary-300">
+        <h3 class="text-gold lg:text-2xl">Наши компетенции</h3>
+        <p class="text-zinc-300 lg:text-sm">
           Компания обладает высочайшими компетенциями в области разработки
           систем реального времени, программ для обработки больших данных,
           разработки кроссплатформенных приложений для промышленных систем
@@ -87,43 +86,41 @@ const historyItems = [
         </p>
       </div>
       <!-- Перечень компетенций -->
-      <div class="flex flex-col gap-[24px]">
-        <div class="flex flex-row items-center gap-[24px]">
-          <img
-            src="/products/about/icon-time.svg"
-            alt="About us"
-            loading="lazy"
-          />
-          <span class="text-gold text-xl">
-            Разработка систем реального времени
-          </span>
-        </div>
-        <div class="flex flex-row items-center gap-[24px]">
-          <img
-            src="/products/about/icon-server.svg"
-            alt="About us"
-            loading="lazy"
-          />
-          <span class="text-gold text-xl">
-            Разработка систем управления базами данных
-          </span>
-        </div>
-        <div class="flex flex-row items-center gap-[24px]">
-          <img
-            src="/products/about/icon-code.svg"
-            alt="About us"
-            loading="lazy"
-          />
-          <span class="text-gold text-xl"> Разработка WEB-приложений </span>
-        </div>
+      <div class="flex flex-col gap-8">
+        {
+          [
+            {
+              icon: "icon-time",
+              text: "Разработка систем реального времени",
+            },
+            {
+              icon: "icon-server",
+              text: "Разработка систем управления базами данных",
+            },
+            {
+              icon: "icon-code",
+              text: "Разработка WEB-приложений",
+            },
+          ].map((item) => (
+            <div class="flex flex-row items-center gap-4 lg:gap-8">
+              <img
+                src={`/products/about/${item.icon}.svg`}
+                alt="About us"
+                loading="lazy"
+                class="w-10 lg:w-12"
+              />
+              <span class="text-gold text-lg lg:text-xl">{item.text}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
-    <hr class="mt-14 separator silver" />
+    <hr class="separator silver" />
   </div>
 
   <!-- История компании -->
   <div
-    class="relative gap-[40px] grid grid-cols-1 lg:grid-cols-2 mx-auto pt-7 pb-14 main-max-width">
+    class="relative gap-10 grid grid-cols-1 lg:grid-cols-2 mx-auto py-6 main-max-width">
     <!-- Sticky -->
     <div class="sticky-block">
       <h2 class="text-3xl">Наша история</h2>
@@ -168,7 +165,7 @@ const historyItems = [
     </div>
   </div>
 
-  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
+  <div class="flex flex-col mx-auto my-10 main-max-width">
     <CallToAction
       Title="Свяжитесь с нами"
       Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
