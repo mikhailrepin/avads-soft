@@ -70,13 +70,13 @@ const { faqData = defaultFAQ } = Astro.props;
     }
   }
   .faq-title {
-    @apply pr-8 font-medium text-base lg:text-lg leading-none;
+    @apply pr-8 font-normal text-base lg:text-lg leading-5;
   }
   .faq-icon {
     @apply w-5 h-5 transition-transform translate-y-[1px] shrink-0;
   }
   .faq-content {
-    @apply opacity-0 px-[24px] max-h-0 transition-all duration-300 overflow-hidden;
+    @apply opacity-0 px-[24px] max-h-0 overflow-hidden transition-all duration-300;
     & > * {
       @apply py-4;
     }
