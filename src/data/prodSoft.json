@@ -176,6 +176,10 @@
         "status": "демо"
       },
       "buttons": {
+        "buy": {
+          "label": "Купить",
+          "link": "https://insat.ru/about/brands/?ID=153022"
+        },
         "demo": {
           "label": "Скачать демо",
           "link": "/downloads/#sar-expert"
@@ -195,7 +199,7 @@
             "full": {
               "icon": "",
               "label": "Купить",
-              "link": "https://insat.ru/products/?category=2737"
+              "link": "https://insat.ru/about/brands/?ID=153022"
             },
             "demo": {
               "icon": "download-bold",
@@ -236,7 +240,7 @@
             "full": {
               "icon": "",
               "label": "Купить",
-              "link": "https://insat.ru/products/?category=2737"
+              "link": "https://insat.ru/about/brands/?ID=153022"
             },
             "demo": {
               "icon": "download-bold",
@@ -331,6 +335,10 @@
         ]
       },
       "buttons": {
+        "buy": {
+          "label": "Купить",
+          "link": "https://insat.ru/about/brands/?ID=153022"
+        },
         "demo": {
           "label": "Скачать",
           "link": "/downloads/#opc-db"

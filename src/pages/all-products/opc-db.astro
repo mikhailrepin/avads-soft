@@ -78,7 +78,7 @@ const advantages = [
           class="hero-title"
           set:html={opcDb.app.name}
         />
-        <h3
+        <h2
           class="hero-description"
           set:html={opcDb.app.description}
         />
@@ -132,7 +132,7 @@ const advantages = [
         <img
           src={opcDb.app.image}
           alt={opcDb.app.name}
-          class="lg:block hidden scale-[7]"
+          class="hidden lg:block scale-[7]"
         />
       </div>
     </div>
@@ -141,7 +141,7 @@ const advantages = [
   <!-- Функции -->
   <div class="flex flex-col mx-auto pt-14 pb-16 main-max-width">
     <h2 class="text-3xl">Особенности OPC сервера</h2>
-    <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+    <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
       АВАДС {opcDb.app.name} позволяет сохранять и запрашивать архивные данные у
       <a
         href={tsdb?.buttons?.more?.link}
@@ -151,7 +151,7 @@ const advantages = [
       по современному стандарту OPC UA (Unified Architecture «унифицированная архитектура»),
       описывающего передачу данных в промышленных сетях.
     </p>
-    <p class="mt-[16px] lg:max-w-[60vw] text-lg text-zinc-400">
+    <p class="mt-[16px] lg:max-w-[60vw] text-zinc-400 text-lg">
       {opcDb.app.name} позволяет подключать OPC UA клиенты к Серверу архивирования,
       а также конвертировать теги Сервера Архивирования в ОРС UA теги (Client\Server).
     </p>
@@ -175,14 +175,14 @@ const advantages = [
           подключенных клиентов. Для лицензионной защиты используется программный
           ключ.
         </p>
-        <h3 class="text-2xl text-zinc-300">Активация лицензии</h3>
+        <h3 class="text-zinc-300 text-2xl">Активация лицензии</h3>
         <p>
           При покупке коммерческой версии {opcDb.app.name}, пользователь
           получает код активации. Для использования продукта в соответствии с
           купленной лицензией нужно ввести код активации в систему (при
           активации необходим доступ в Интернет).
         </p>
-        <h3 class="text-2xl text-zinc-300">Демо версия</h3>
+        <h3 class="text-zinc-300 text-2xl">Демо версия</h3>
         <p>
           Пробная версия {opcDb.app.name} предоставляется без ограничений по количеству
           OPC тегов и подключаемых клиентов, однако имеет ограничение по времени

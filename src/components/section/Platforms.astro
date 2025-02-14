@@ -27,10 +27,12 @@ const { data, appIcon } = Astro.props;
           src={platformsImage}
           alt="Сервер Архивирования"
           class="z-0 w-[100%]"
+          loading="lazy"
         />
         <img
           src={appIcon}
           alt={appIcon}
+          loading="lazy"
           class="right-[38%] bottom-[-30%] z-10 absolute w-[25%]"
         />
       </div>
@@ -40,7 +42,7 @@ const { data, appIcon } = Astro.props;
     <hr class="mx-auto separator silver" />
   </div>
 
-  <h3 class="mx-auto py-4 w-full text-lg text-zinc-900 main-max-width">
+  <h3 class="mx-auto py-4 w-full text-zinc-900 text-lg main-max-width">
     Платформы и ОС
   </h3>
   <div
@@ -49,9 +51,12 @@ const { data, appIcon } = Astro.props;
       data.map((platform) => (
         <div class="group card">
           <img
-            class="group-hover:grayscale-0 opacity-80 group-hover:opacity-100 transition-all grayscale"
+            class="opacity-80 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all"
             src={platform.image}
             alt={platform.title}
+            loading="lazy"
+            width="100"
+            height="100"
           />
           <span class="title">{platform.title}</span>
           <p class="description">{platform.description}</p>
@@ -70,10 +75,10 @@ const { data, appIcon } = Astro.props;
   }
 
   .title {
-    @apply font-medium text-xl text-zinc-900;
+    @apply font-medium text-zinc-900 text-xl;
   }
 
   .description {
-    @apply text-sm text-zinc-400;
+    @apply text-zinc-400 text-sm;
   }
 </style>

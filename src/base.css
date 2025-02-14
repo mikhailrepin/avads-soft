@@ -7,8 +7,18 @@
 
 @layer utilities {
   * {
-    @apply text-pretty;
+    @apply text-pretty select-none;
     box-sizing: border-box;
+  }
+
+  /* Добавляем стили для фокуса */
+  *:focus-visible {
+    @apply rounded-sm outline-none ring-2 ring-primary-400 ring-offset-2 ring-offset-zinc-950;
+  }
+
+  /* Убираем стандартный браузерный outline */
+  *:focus {
+    outline: none;
   }
 
   a:hover {

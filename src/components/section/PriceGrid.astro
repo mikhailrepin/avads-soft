@@ -2,9 +2,16 @@
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
 import PriceTable from "@/components/price/PriceTable.astro";
+import { Image } from "astro:assets";
 
 // Фильтруем продукты с ценами прямо в компоненте
 const productsWithPrices = prodSoft.products;
+
+// Функция для определения стратегии загрузки
+const getLoadingStrategy = (index: number) => {
+  // Первые два продукта загружаем сразу, остальные - лениво
+  return index < 2 ? "eager" : "lazy";
+};
 ---
 
 <section class="main-max-width wrapper">
@@ -15,10 +22,13 @@ const productsWithPrices = prodSoft.products;
         productsWithPrices.map((product) => (
           <li class={`${!product.prices ? "hidden" : ""}`}>
             <a href={`#${product.id}`}>
-              <img
+              <Image
                 src={product.app.image}
                 alt={product.id}
+                width={40}
+                height={40}
                 loading="lazy"
+                class="product-icon"
               />
               {product.app.name}
             </a>
@@ -36,10 +46,13 @@ const productsWithPrices = prodSoft.products;
           class={`card ${!product.prices ? "hidden" : ""}`}
           id={product.id}>
           <div class="card-head">
-            <img
+            <Image
               src={product.app.image}
               alt={product.id}
+              width={60}
+              height={60}
               loading="lazy"
+              class="product-icon"
             />
             <div class="card-info">
               <span class="title">{product.app.name}</span>
@@ -176,7 +189,7 @@ const productsWithPrices = prodSoft.products;
         @apply mb-[-4px] font-medium text-2xl;
       }
       & .description {
-        @apply m-0 text-lg text-zinc-400;
+        @apply m-0 text-zinc-400 text-lg;
       }
     }
   }
@@ -186,7 +199,7 @@ const productsWithPrices = prodSoft.products;
   .card-footer {
     @apply flex lg:flex-row flex-col gap-3 pt-[24px];
     & p {
-      @apply m-0 w-full text-sm text-zinc-600;
+      @apply m-0 w-full text-zinc-600 text-sm;
     }
   }
 </style>

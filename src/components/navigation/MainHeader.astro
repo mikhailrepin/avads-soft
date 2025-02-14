@@ -1,9 +1,13 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import { Image } from "astro:assets";
 
 // Импортируем данные о продуктах
 import prodSoft from "@/data/prodSoft.json";
 import helpers from "@/data/helpers.json";
+
+// Импортируем статический логотип
+import staticLogo from "@/assets/logo/logo-static.png";
 
 interface MainHeaderProps {
   menuItems: { label: string; href: string }[];
@@ -25,22 +29,26 @@ const activeProducts = prodSoft.products.filter(
     <!-- Логотип -->
     <a
       href="/"
-      class="flex items-center gap-[8px] logo-link">
+      class="flex items-center gap-[8px] logo-link"
+      aria-label="На главную">
       <div class="logo-container">
-        <img
-          src="/products/logo-static.png"
+        <Image
+          src={staticLogo}
           alt={helpers.company.name}
+          width={132}
+          height={32}
           loading="eager"
           class="block min-w-[32px] min-h-[32px] fallback-logo"
         />
         <video
           class="hidden lg:block logo-video"
-          width="100"
+          width="132"
           height="32"
           muted
           playsinline
           loop
-          preload="none">
+          preload="none"
+          aria-hidden="true">
           <source
             src="/products/logo-animated.webm"
             type="video/webm"
@@ -113,6 +121,10 @@ const activeProducts = prodSoft.products.filter(
                       <img
                         src={product.app.image}
                         alt={product.app.name}
+                        width="24"
+                        height="24"
+                        loading="eager"
+                        decoding="async"
                         class="w-6 h-6"
                       />
                       <span>{product.app.name}</span>
@@ -141,10 +153,12 @@ const activeProducts = prodSoft.products.filter(
     <!-- Кнопка бургера для мобильных устройств -->
     <button
       id="mobile-menu-button"
+      aria-label="Открыть меню навигации"
       class="lg:hidden flex justify-center items-center hover:bg-zinc-900 border border-zinc-600 hover:border-zinc-900 rounded w-[32px] h-[32px] font-semibold text-zinc-300">
       <svg
         class="w-[16px] h-[16px] transition-opacity duration-200 ease-in-out"
-        id="burger-icon">
+        id="burger-icon"
+        aria-hidden="true">
         <use xlink:href="/sprites.svg#hamburger-menu"></use>
       </svg>
     </button>
