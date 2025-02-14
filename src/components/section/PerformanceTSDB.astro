@@ -8,14 +8,14 @@ if (!tsdb) throw new Error("Product not found");
 ---
 
 <div class="relative wrapper">
-  <nav class="relative z-20 tabs">
+  <nav class="z-20 relative tabs">
     <button id="tab-1">Пример 1</button>
     <button id="tab-2">Пример 2</button>
     <button id="tab-3">Пример 3</button>
     <button id="tab-4">Пример 4</button>
     <button id="tab-5">Скорость чтения</button>
   </nav>
-  <hr class="relative z-10 mt-[-4px] gold separator" />
+  <hr class="z-10 relative mt-[-4px] gold separator" />
   <div class="tab-container">
     <!-- Пример 1 -->
     <div class="tab-content">
@@ -44,30 +44,32 @@ if (!tsdb) throw new Error("Product not found");
           Компьютер, где запущен Сервер архивирования имеет следующие
           характеристики:
         </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>Материнская плата</td>
-              <td>ASUSTeK H97-PLUS</td>
-            </tr>
-            <tr>
-              <td>Процессор</td>
-              <td>Core i7-4790 с частотой 3.60GHz</td>
-            </tr>
-            <tr>
-              <td>Память</td>
-              <td>16 Гб DDR3-1600</td>
-            </tr>
-            <tr>
-              <td>Диск</td>
-              <td>HDD WDC WD1003FZEX-00MK2A0</td>
-            </tr>
-            <tr>
-              <td>Операционная система</td>
-              <td>Linux Mint 20.2</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-scroll">
+          <table>
+            <tbody>
+              <tr>
+                <td>Материнская плата</td>
+                <td>ASUSTeK H97-PLUS</td>
+              </tr>
+              <tr>
+                <td>Процессор</td>
+                <td>Core i7-4790 с частотой 3.60GHz</td>
+              </tr>
+              <tr>
+                <td>Память</td>
+                <td>16 Гб DDR3-1600</td>
+              </tr>
+              <tr>
+                <td>Диск</td>
+                <td>HDD WDC WD1003FZEX-00MK2A0</td>
+              </tr>
+              <tr>
+                <td>Операционная система</td>
+                <td>Linux Mint 20.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="conclusion">
           <span class="heading"> В процессе работы</span>
           <span>
@@ -100,34 +102,36 @@ if (!tsdb) throw new Error("Product not found");
         <p class="heading">
           Ноутбук, где запущен {tsdb.app.name} имеет следующие характеристики:
         </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>Модель</td>
-              <td>ASUS</td>
-            </tr>
-            <tr>
-              <td>Материнская плата</td>
-              <td>HUAWEI HLYL-WXX9-PCB</td>
-            </tr>
-            <tr>
-              <td>Процессор</td>
-              <td>AMD Ryzen 5 Mobile с частотой 4.60GHz</td>
-            </tr>
-            <tr>
-              <td>Память</td>
-              <td>16 Гб DDR4-3200</td>
-            </tr>
-            <tr>
-              <td>Диск</td>
-              <td>Внешний HDD, подключенный через USB 3.0</td>
-            </tr>
-            <tr>
-              <td>Операционная система</td>
-              <td>Windows 11</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-scroll">
+          <table>
+            <tbody>
+              <tr>
+                <td>Модель</td>
+                <td>ASUS</td>
+              </tr>
+              <tr>
+                <td>Материнская плата</td>
+                <td>HUAWEI HLYL-WXX9-PCB</td>
+              </tr>
+              <tr>
+                <td>Процессор</td>
+                <td>AMD Ryzen 5 Mobile с частотой 4.60GHz</td>
+              </tr>
+              <tr>
+                <td>Память</td>
+                <td>16 Гб DDR4-3200</td>
+              </tr>
+              <tr>
+                <td>Диск</td>
+                <td>Внешний HDD, подключенный через USB 3.0</td>
+              </tr>
+              <tr>
+                <td>Операционная система</td>
+                <td>Windows 11</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="conclusion">
           <span class="heading"> В процессе работы</span>
           <span>
@@ -161,30 +165,32 @@ if (!tsdb) throw new Error("Product not found");
         <p class="heading">
           Компьютер, где запущен {tsdb.app.name} имеет следующие характеристики:
         </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>Материнская плата</td>
-              <td>Raspberry PI 4</td>
-            </tr>
-            <tr>
-              <td>Процессор</td>
-              <td>4 ядра Cortex A-72 с частотой 1,5 ГГц</td>
-            </tr>
-            <tr>
-              <td>Память</td>
-              <td>4 Гб LPDDR4-3200</td>
-            </tr>
-            <tr>
-              <td>Диск</td>
-              <td>SSD, подключенный через USB 2.0</td>
-            </tr>
-            <tr>
-              <td>Операционная система</td>
-              <td>Linux Ubuntu</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-scroll">
+          <table>
+            <tbody>
+              <tr>
+                <td>Материнская плата</td>
+                <td>Raspberry PI 4</td>
+              </tr>
+              <tr>
+                <td>Процессор</td>
+                <td>4 ядра Cortex A-72 с частотой 1,5 ГГц</td>
+              </tr>
+              <tr>
+                <td>Память</td>
+                <td>4 Гб LPDDR4-3200</td>
+              </tr>
+              <tr>
+                <td>Диск</td>
+                <td>SSD, подключенный через USB 2.0</td>
+              </tr>
+              <tr>
+                <td>Операционная система</td>
+                <td>Linux Ubuntu</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="conclusion">
           <span class="heading"> В процессе работы</span>
           <span>
@@ -217,30 +223,32 @@ if (!tsdb) throw new Error("Product not found");
         <p class="heading">
           Компьютер, где запущен {tsdb.app.name} имеет следующие характеристики:
         </p>
-        <table>
-          <tbody>
-            <tr>
-              <td>Материнская плата</td>
-              <td>ASUSTeK PRIME B460M-K</td>
-            </tr>
-            <tr>
-              <td>Процессор</td>
-              <td>Core i9-10900K с частотой 3.70 GHz</td>
-            </tr>
-            <tr>
-              <td>Память</td>
-              <td>64 Гб DDR4-3200</td>
-            </tr>
-            <tr>
-              <td>Диск</td>
-              <td>HDD 1 ТБ WDC WD10SPSX-00A6WT0</td>
-            </tr>
-            <tr>
-              <td>Операционная система</td>
-              <td>Linux Mint 20.2</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-scroll">
+          <table>
+            <tbody>
+              <tr>
+                <td>Материнская плата</td>
+                <td>ASUSTeK PRIME B460M-K</td>
+              </tr>
+              <tr>
+                <td>Процессор</td>
+                <td>Core i9-10900K с частотой 3.70 GHz</td>
+              </tr>
+              <tr>
+                <td>Память</td>
+                <td>64 Гб DDR4-3200</td>
+              </tr>
+              <tr>
+                <td>Диск</td>
+                <td>HDD 1 ТБ WDC WD10SPSX-00A6WT0</td>
+              </tr>
+              <tr>
+                <td>Операционная система</td>
+                <td>Linux Mint 20.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="conclusion">
           <span class="heading"> В процессе работы</span>
           <span>
@@ -312,10 +320,20 @@ if (!tsdb) throw new Error("Product not found");
     & .heading {
       @apply font-semibold text-zinc-100;
     }
+  }
+
+  .table-scroll {
+    @apply relative overflow-x-auto;
     & table {
-      @apply mt-0;
+      @apply w-full;
       & td {
         @apply py-[8px] text-left;
+      }
+      & td:first-child {
+        @apply left-0 z-10 sticky bg-zinc-950 whitespace-nowrap;
+        width: max-content;
+        min-width: 120px;
+        max-width: 180px;
       }
     }
   }

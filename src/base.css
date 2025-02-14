@@ -95,7 +95,7 @@
   }
 
   table {
-    @apply mt-[32px] w-full min-w-[800px] lg:min-w-0;
+    @apply mt-[32px] w-full;
   }
 
   .fixed-column {
@@ -112,7 +112,7 @@
   }
 
   thead tr th {
-    @apply pb-4 text-center;
+    @apply pb-4;
   }
 
   thead tr th span {
@@ -124,11 +124,11 @@
   }
 
   tbody tr td {
-    @apply px-4 py-3 text-center;
+    @apply px-4 py-3;
   }
 
   tbody tr td:first-child {
-    @apply pr-2 pl-0 text-primary-300 text-left;
+    @apply pr-6 pl-0 text-primary-300 text-left;
   }
 
   /* Контроль переноса текста для всех текстовых блоков */

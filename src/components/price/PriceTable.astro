@@ -56,7 +56,13 @@ const { prices } = Astro.props;
 
 <style>
   table tr td {
-    @apply text-[16px];
+    @apply lg:text-[0.9rem] text-nowrap;
+  }
+  tbody tr td {
+    @apply text-center;
+    &:first-child {
+      @apply text-left;
+    }
   }
   thead tr th h2 {
     @apply mt-0 mb-[-8px] font-semibold text-[20px] text-zinc-300 !important;
