@@ -105,18 +105,20 @@ const enVersion = {
               ))}
             </ul>
           </div>
-          <div class="card-footer">
-            <ButtonGeneric
-              Variant="primary"
-              Size="default"
-              Style="outlined"
-              CustomClass="w-full"
-              Target="link"
-              Blank={true}
-              ButtonLabel="Купить"
-              ButtonLink={version.buttonLink}
-            />
-          </div>
+          {!version.inDev && (
+            <div class="card-footer">
+              <ButtonGeneric
+                Variant="primary"
+                Size="default"
+                Style="outlined"
+                CustomClass="w-full"
+                Target="link"
+                Blank={true}
+                ButtonLabel="Купить"
+                ButtonLink={version.buttonLink}
+              />
+            </div>
+          )}
         </div>
       ))
     }
@@ -164,14 +166,18 @@ const enVersion = {
               ))
             }
           </ul>
-          <ButtonGeneric
-            Variant="primary"
-            Size="default"
-            Style="outlined"
-            Target="link"
-            ButtonLabel="Купить"
-            ButtonLink="#"
-          />
+          {
+            !enVersion.inDev && (
+              <ButtonGeneric
+                Variant="primary"
+                Size="default"
+                Style="outlined"
+                Target="link"
+                ButtonLabel="Купить"
+                ButtonLink="#"
+              />
+            )
+          }
         </div>
       </div>
     </div>
