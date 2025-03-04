@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import FAQ from "@/components/section/FAQ.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
 
 /* Data */
 import prodSoftData from "@/data/prodSoft.json";
@@ -22,8 +23,8 @@ type GuideData = {
 ---
 
 <Layout pageTitle={tsdb.app.name}>
-  <section class="min-h-[50dvh]">
-    <div class="bg-gradient-to-r from-red-500 to-orange-500">
+  <section class="mb-12 min-h-[50dvh]">
+    <div class="bg-gradient-to-r from-violet-600 to-indigo-500">
       <div
         class="flex items-center gap-4 mx-auto pb-10 min-h-[40dvh] main-max-width">
         <img
@@ -53,8 +54,11 @@ type GuideData = {
               ([key, guide]) => (
                 <a
                   href={guide.link}
-                  class="flex flex-col gap-3 bg-zinc-900/40 p-4 border border-zinc-800 hover:border-zinc-700 rounded-[8px] transition-all">
-                  <svg class="w-6 h-6 text-primary-300">
+                  class="flex flex-col gap-3 bg-zinc-900/40 hover:bg-violet-400/10 p-4 border border-zinc-800 hover:border-violet-400 rounded-[8px] transition-all">
+                  <svg
+                    class="w-12 h-12 text-violet-400"
+                    viewBox="0 0 24 24"
+                    style="width: 48px; height: 48px;">
                     <use xlink:href={`/sprites.svg#${guide.icon}`} />
                   </svg>
                   <span class="text-zinc-300">{guide.label}</span>
@@ -69,5 +73,18 @@ type GuideData = {
     <div class="bg-zinc-950 mx-auto my-[52px] main-max-width">
       <FAQ faqData={faqData} />
     </div>
+    <!-- Свяжитесь с нами -->
+    <CallToAction
+      AlignItems="left"
+      BackgroundImage={"/hero/cta-call-manager.png"}
+      Hovered={false}
+      Title="Свяжитесь с нами"
+      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+      ButtonProps={{
+        ButtonLabel: "Оставить заявку",
+        ButtonLink: "/contacts",
+      }}
+      CustomClass="bg-[#101010] rounded-none border-none"
+    />
   </section>
 </Layout>
