@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import FAQ from "@/components/section/FAQ.astro";
+
+/* Data */
+import prodSoftData from "@/data/prodSoft.json";
+import faqData from "@/data/faqMain.json";
+
+const tsdb = prodSoftData.products.find((product) => product.id === "tsdb");
+
+if (!tsdb) throw new Error("Product not found");
+---
+
+<Layout pageTitle={tsdb.app.name}>
+  <section class="min-h-[50dvh]">
+    <div class="flex flex-col gap-4 mx-auto mt-12 main-max-width">
+      <h1 class="font-bold text-2xl">{tsdb.app.name}</h1>
+      <p class="text-zinc-500">{tsdb.app.description}</p>
+    </div>
+    <!-- FAQ -->
+    <div class="bg-zinc-950 mx-auto my-[52px] main-max-width">
+      <FAQ faqData={faqData} />
+    </div>
+  </section>
+</Layout>
