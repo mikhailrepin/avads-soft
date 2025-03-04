@@ -9,6 +9,7 @@ const baseVersions = [
     price: "150 000",
     inDev: false,
     description: "Для эпизодической настройки одиночных контуров",
+    buttonLink: "https://insat.ru/products/?category=2737",
     features: [
       "Один контур",
       "Опрос и архивирование только для одного контура",
@@ -23,6 +24,7 @@ const baseVersions = [
     price: "390 000",
     inDev: false,
     description: "Для работы с многоконтурными системами регулирования",
+    buttonLink: "https://insat.ru/about/brands/?ID=153022",
     features: [
       "Неограниченное количество контуров",
       "Одновременный опрос и архивирование всех контуров",
@@ -39,6 +41,7 @@ const baseVersions = [
     price: "850 000",
     description: "В дополнение к версии СТ:",
     inDev: true,
+    buttonLink: "https://insat.ru/about/brands/?ID=153022",
     features: [
       "Поддержка проектной структуры",
       "Клиент-серверная архитектура",
@@ -103,8 +106,9 @@ const enVersion = {
               Style="outlined"
               CustomClass="w-full"
               Target="link"
+              Blank={true}
               ButtonLabel="Купить"
-              ButtonLink="#"
+              ButtonLink={version.buttonLink}
             />
           </div>
         </div>
