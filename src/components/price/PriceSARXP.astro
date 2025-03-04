@@ -1,15 +1,21 @@
 ---
 /* Data */
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import prodSoft from "@/data/prodSoft.json";
+
+const sarExpert = prodSoft.products.find(
+  (product) => product.id === "sar-expert"
+);
+const productName = sarExpert?.app.name || "САР-эксперт";
 
 const baseVersions = [
   {
     id: "lt",
-    name: "САР-эксперт-ЛТ",
+    name: `${productName}-ЛТ`,
     price: "150 000",
     inDev: false,
     description: "Для эпизодической настройки одиночных контуров",
-    buttonLink: "https://insat.ru/products/?category=2737",
+    buttonLink: sarExpert?.buttons?.buy?.link || "#",
     features: [
       "Один контур",
       "Опрос и архивирование только для одного контура",
@@ -20,11 +26,11 @@ const baseVersions = [
   },
   {
     id: "st",
-    name: "САР-эксперт-СТ",
+    name: `${productName}-СТ`,
     price: "390 000",
     inDev: false,
     description: "Для работы с многоконтурными системами регулирования",
-    buttonLink: "https://insat.ru/about/brands/?ID=153022",
+    buttonLink: sarExpert?.buttons?.buy?.link || "#",
     features: [
       "Неограниченное количество контуров",
       "Одновременный опрос и архивирование всех контуров",
@@ -37,11 +43,11 @@ const baseVersions = [
   },
   {
     id: "pr",
-    name: "САР-эксперт-ПР",
+    name: `${productName}-ПР`,
     price: "850 000",
     description: "В дополнение к версии СТ:",
     inDev: true,
-    buttonLink: "https://insat.ru/about/brands/?ID=153022",
+    buttonLink: sarExpert?.buttons?.buy?.link || "#",
     features: [
       "Поддержка проектной структуры",
       "Клиент-серверная архитектура",
@@ -52,7 +58,7 @@ const baseVersions = [
 ];
 
 const enVersion = {
-  name: "САР-эксперт-ЕН",
+  name: `${productName}-ЕН`,
   description: "В дополнение к версии ПР:",
   inDev: true,
   features: [
@@ -119,46 +125,53 @@ const enVersion = {
   <!-- Расширенная версия -->
   <div class="bottom-card">
     <div class="card-header">
-      <div class="title-wrapper">
-        <h3>{enVersion.name}</h3>
-        <span class="badge">в разработке</span>
+      <div class="flex flex-col items-start w-full">
+        <span class={`badge ${!enVersion.inDev ? "prod" : ""}`}>
+          {enVersion.inDev ? "В разработке" : "Доступно"}
+        </span>
+        <span class="px-4 font-medium text-lg">{enVersion.name}</span>
       </div>
-      <div class="card-content">
-        <p class="text-zinc-100">{enVersion.description}</p>
-        <ul>
-          {
-            enVersion.features.map((feature) => (
-              <li>
-                <svg class="feature-icon">
-                  <use xlink:href="/sprites.svg#checkbox-circle-check-outline" />
-                </svg>
-                <span>{feature}</span>
-              </li>
-            ))
-          }
-        </ul>
+      <div
+        class="flex md:flex-row flex-col mt-3 border-zinc-800/50 border-t w-full">
+        <div class="card-content">
+          <p class="text-zinc-300 text-sm">{enVersion.description}</p>
+          <ul>
+            {
+              enVersion.features.map((feature) => (
+                <li>
+                  <svg class="feature-icon">
+                    <use xlink:href="/sprites.svg#checkbox-circle-check-outline" />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="prices-list">
+          <p class="mb-2 text-zinc-300 text-sm">
+            Стоимость зависит от количества контуров:
+          </p>
+          <ul>
+            {
+              enVersion.prices.map((item) => (
+                <li>
+                  <span class="circuits">{item.circuits}:</span>
+                  <span class="price">{item.price} ₽</span>
+                </li>
+              ))
+            }
+          </ul>
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="filled"
+            Target="link"
+            ButtonLabel="Подробнее"
+            ButtonLink="#"
+          />
+        </div>
       </div>
-    </div>
-    <div class="prices-list">
-      <h4>Стоимость в зависимости от количества контуров:</h4>
-      <ul>
-        {
-          enVersion.prices.map((item) => (
-            <li>
-              <span class="circuits">на {item.circuits} контуров</span>
-              <span class="price">{item.price} ₽</span>
-            </li>
-          ))
-        }
-      </ul>
-      <ButtonGeneric
-        Variant="primary"
-        Size="default"
-        Style="filled"
-        Target="link"
-        ButtonLabel="Подробнее"
-        ButtonLink="#"
-      />
     </div>
   </div>
 </div>
@@ -213,7 +226,7 @@ const enVersion = {
   }
 
   .prices-list {
-    @apply mt-6 pt-6 border-zinc-800 border-t;
+    @apply px-4 pb-4 pt-2 border-l border-zinc-800/50 w-full max-w-[50%];
 
     & ul {
       @apply space-y-2 mb-6;
@@ -224,7 +237,7 @@ const enVersion = {
     }
 
     & .circuits {
-      @apply text-zinc-400 text-sm;
+      @apply text-zinc-100 text-sm;
     }
 
     & .price {
