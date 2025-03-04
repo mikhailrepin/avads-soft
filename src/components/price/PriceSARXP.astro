@@ -1,111 +1,166 @@
 ---
 /* Data */
-import prodSoft from "@/data/prodSoft.json";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 
-const enPrices = [
-  { name: "САР-эксперт-ЕН-100", price: "1 900 000", circuits: "100" },
-  { name: "САР-эксперт-ЕН-500", price: "2 900 000", circuits: "500" },
-  { name: "САР-эксперт-ЕН-1000", price: "3 900 000", circuits: "1 000" },
-  { name: "САР-эксперт-ЕН-2500", price: "5 900 000", circuits: "2 500" },
-  { name: "САР-эксперт-ЕН-10000", price: "8 900 000", circuits: "10 000" },
+const baseVersions = [
+  {
+    id: "lt",
+    name: "САР-эксперт-ЛТ",
+    price: "150 000",
+    inDev: false,
+    description: "Для эпизодической настройки одиночных контуров",
+    features: [
+      "Один контур",
+      "Опрос и архивирование только для одного контура",
+      "Идентификация объекта",
+      "Расчет настроек контура",
+      "Моделирование",
+    ],
+  },
+  {
+    id: "st",
+    name: "САР-эксперт-СТ",
+    price: "390 000",
+    inDev: false,
+    description: "Для работы с многоконтурными системами регулирования",
+    features: [
+      "Неограниченное количество контуров",
+      "Одновременный опрос и архивирование всех контуров",
+      "Идентификация объекта",
+      "Расчет настроек регулятора",
+      "Моделирование",
+      "Архив результатов расчетов",
+      "Статистический анализ",
+    ],
+  },
+  {
+    id: "pr",
+    name: "САР-эксперт-ПР",
+    price: "850 000",
+    description: "В дополнение к версии СТ:",
+    inDev: true,
+    features: [
+      "Поддержка проектной структуры",
+      "Клиент-серверная архитектура",
+      "Возможность удаленного доступа из браузера",
+      "Инструменты частотного и корреляционного анализа многоконтурных САР",
+    ],
+  },
 ];
+
+const enVersion = {
+  name: "САР-эксперт-ЕН",
+  description: "В дополнение к версии ПР:",
+  inDev: true,
+  features: [
+    "Оценочные алгоритмы состояния контуров",
+    "Нормирование оценок",
+    "Установки базовых и пороговых значений",
+    "Формирование обобщенных высокоуровневых показателей",
+    "Отчеты по выявленным проблемам",
+    "Дашборды, тревоги и журналы событий",
+  ],
+  prices: [
+    { circuits: "100", price: "1 900 000" },
+    { circuits: "500", price: "2 900 000" },
+    { circuits: "1 000", price: "3 900 000" },
+    { circuits: "2 500", price: "5 900 000" },
+    { circuits: "10 000", price: "8 900 000" },
+  ],
+};
 ---
 
-<div class="price-sarxp">
-  <!-- Верхние карточки -->
+<div class="my-8 price-sarxp">
+  <!-- Базовые версии -->
   <div class="top-cards">
-    <div class="price-card">
-      <div class="card-header">
-        <h3>САР-эксперт-ЛТ</h3>
-        <p class="price">150 000 ₽</p>
-      </div>
-      <div class="card-content">
-        <p>Для эпизодической настройки одиночных контуров</p>
-        <ul>
-          <li>Один контур</li>
-          <li>Опрос и архивирование только для одного контура</li>
-          <li>Идентификация объекта</li>
-          <li>Расчет настроек контура</li>
-          <li>Моделирование</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="price-card">
-      <div class="card-header">
-        <h3>САР-эксперт-СТ</h3>
-        <p class="price">390 000 ₽</p>
-      </div>
-      <div class="card-content">
-        <p>Для работы с многоконтурными системами регулирования</p>
-        <ul>
-          <li>Неограниченное количество контуров</li>
-          <li>Одновременный опрос и архивирование всех контуров</li>
-          <li>Идентификация объекта</li>
-          <li>Расчет настроек регулятора</li>
-          <li>Моделирование</li>
-          <li>Архив результатов расчетов</li>
-          <li>Статистический анализ</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="price-card">
-      <div class="card-header">
-        <h3>САР-эксперт-ПР</h3>
-        <span class="dev-badge">в разработке</span>
-        <p class="price">850 000 ₽</p>
-      </div>
-      <div class="card-content">
-        <p>В дополнение к версии СТ:</p>
-        <ul>
-          <li>Поддержка проектной структуры</li>
-          <li>Клиент-серверная архитектура</li>
-          <li>Возможность удаленного доступа из браузера</li>
-          <li>
-            Инструменты частотного и корреляционного анализа многоконтурных САР
-          </li>
-        </ul>
-      </div>
-    </div>
+    {
+      baseVersions.map((version) => (
+        <div class="price-card">
+          <div class="card-header">
+            <span class={`badge ${!version.inDev ? "prod" : ""}`}>
+              {version.inDev ? "в разработке" : "доступно"}
+            </span>
+            <span class="font-medium text-lg">{version.name}</span>
+            <p class="price">{version.price} ₽</p>
+          </div>
+          <div class="card-content">
+            <p class="text-sm">{version.description}</p>
+            <ul>
+              {version.features.map((feature) => (
+                <li>
+                  <svg class="feature-icon">
+                    <use xlink:href="/sprites.svg#checkbox-circle-check-outline" />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="card-footer">
+            <ButtonGeneric
+              Variant="primary"
+              Size="default"
+              Style="outlined"
+              Target="link"
+              ButtonLabel="Купить"
+              ButtonLink="#"
+            />
+          </div>
+        </div>
+      ))
+    }
   </div>
 
-  <!-- Нижняя карточка -->
+  <!-- Расширенная версия -->
   <div class="bottom-card">
     <div class="card-header">
-      <div>
-        <h3>САР-эксперт-ЕН</h3>
-        <span class="dev-badge">в разработке</span>
+      <div class="title-wrapper">
+        <h3>{enVersion.name}</h3>
+        <span class="badge">в разработке</span>
       </div>
       <div class="card-content">
-        <p>В дополнение к версии ПР:</p>
+        <p>{enVersion.description}</p>
         <ul>
-          <li>Оценочные алгоритмы состояния контуров</li>
-          <li>Нормирование оценок</li>
-          <li>Установки базовых и пороговых значений</li>
-          <li>Формирование обобщенных высокоуровневых показателей</li>
-          <li>Отчеты по выявленным проблемам</li>
-          <li>Дашборды, тревоги и журналы событий</li>
+          {
+            enVersion.features.map((feature) => (
+              <li>
+                <svg class="feature-icon">
+                  <use xlink:href="/sprites.svg#checkbox-circle-check-outline" />
+                </svg>
+                <span>{feature}</span>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
-    <div class="en-prices">
-      {
-        enPrices.map((variant) => (
-          <div class="en-price-variant">
-            <span class="variant-name">{variant.name}</span>
-            <span class="circuits">на {variant.circuits} контуров</span>
-            <span class="price">{variant.price} ₽</span>
-          </div>
-        ))
-      }
+    <div class="prices-list">
+      <h4>Стоимость в зависимости от количества контуров:</h4>
+      <ul>
+        {
+          enVersion.prices.map((item) => (
+            <li>
+              <span class="circuits">на {item.circuits} контуров</span>
+              <span class="price">{item.price} ₽</span>
+            </li>
+          ))
+        }
+      </ul>
+      <ButtonGeneric
+        Variant="primary"
+        Size="default"
+        Style="filled"
+        Target="link"
+        ButtonLabel="Подробнее"
+        ButtonLink="#"
+      />
     </div>
   </div>
 </div>
 
 <style>
   .price-sarxp {
-    @apply flex flex-col gap-8;
+    @apply flex flex-col;
   }
 
   .top-cards {
@@ -114,19 +169,15 @@ const enPrices = [
 
   .price-card,
   .bottom-card {
-    @apply bg-zinc-900/40 rounded-xl p-6 border border-zinc-800 hover:border-zinc-700 transition-all;
+    @apply bg-zinc-900/40 rounded-[8px] p-4 border border-zinc-800 hover:border-zinc-700 transition-all;
   }
 
   .card-header {
-    @apply mb-4;
-  }
-
-  h3 {
-    @apply mb-2 font-medium text-zinc-100 text-xl;
+    @apply flex flex-col items-start gap-2;
   }
 
   .price {
-    @apply font-bold text-purple-400 text-2xl;
+    @apply font-medium text-primary-300 text-base;
   }
 
   .card-content {
@@ -141,35 +192,46 @@ const enPrices = [
     }
 
     & li {
-      @apply text-sm;
+      @apply flex items-start gap-2 text-sm;
     }
   }
 
-  .dev-badge {
-    @apply inline-block bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-full ml-2;
+  .feature-icon {
+    @apply flex-shrink-0 mt-0.5 w-4 h-4 text-primary-300;
+  }
+
+  .badge {
+    @apply inline-block self-end bg-secondary-300 px-2 py-1 rounded-[4px] w-fit text-zinc-400 text-xs;
+    &.prod {
+      @apply bg-primary-300/20 text-primary-300;
+    }
   }
 
   .bottom-card {
     @apply mt-4;
   }
 
-  .en-prices {
-    @apply gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 mt-6;
-  }
+  .prices-list {
+    @apply mt-6 pt-6 border-zinc-800 border-t;
 
-  .en-price-variant {
-    @apply flex flex-col p-4 bg-zinc-900/60 rounded-lg border border-zinc-800;
+    & ul {
+      @apply space-y-2 mb-6;
+    }
 
-    & .variant-name {
-      @apply font-medium text-zinc-300 text-sm;
+    & li {
+      @apply flex justify-between items-center py-2 border-b border-zinc-800/50;
     }
 
     & .circuits {
-      @apply mt-1 text-zinc-500 text-xs;
+      @apply text-zinc-400 text-sm;
     }
 
     & .price {
-      @apply mt-2 text-lg;
+      @apply font-medium text-primary-300;
     }
+  }
+
+  .card-footer {
+    @apply mt-6 pt-6 border-zinc-800 border-t;
   }
 </style>
