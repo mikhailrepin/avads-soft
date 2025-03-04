@@ -79,7 +79,7 @@ const enVersion = {
 };
 ---
 
-<div class="my-8 price-sarxp">
+<div class="mt-8 price-sarxp">
   <!-- Базовые версии -->
   <div class="top-cards">
     {
@@ -132,7 +132,7 @@ const enVersion = {
         <span class="px-4 font-medium text-lg">{enVersion.name}</span>
       </div>
       <div
-        class="flex md:flex-row flex-col mt-3 border-zinc-800/50 border-t w-full">
+        class="flex md:flex-row flex-col mt-3 border-zinc-800 border-t w-full">
         <div class="card-content">
           <p class="text-zinc-300 text-sm">{enVersion.description}</p>
           <ul>
@@ -157,7 +157,9 @@ const enVersion = {
               enVersion.prices.map((item) => (
                 <li>
                   <span class="circuits">{item.circuits}:</span>
-                  <span class="price">{item.price} ₽</span>
+                  <span class="font-medium text-primary-300">
+                    {item.price} ₽
+                  </span>
                 </li>
               ))
             }
@@ -165,9 +167,9 @@ const enVersion = {
           <ButtonGeneric
             Variant="primary"
             Size="default"
-            Style="filled"
+            Style="outlined"
             Target="link"
-            ButtonLabel="Подробнее"
+            ButtonLabel="Купить"
             ButtonLink="#"
           />
         </div>
@@ -226,18 +228,21 @@ const enVersion = {
   }
 
   .prices-list {
-    @apply px-4 pb-4 pt-2 border-l border-zinc-800/50 w-full max-w-[50%];
+    @apply px-4 pt-2 pb-4 border-zinc-800 border-l w-full lg:max-w-[16rem];
 
     & ul {
-      @apply space-y-2 mb-6;
+      @apply space-y-1 mt-4 mb-6;
     }
 
     & li {
-      @apply flex justify-between items-center py-2 border-b border-zinc-800/50;
+      @apply flex justify-between items-center py-1 border-zinc-800 border-b;
+      &:last-child {
+        @apply border-b-0;
+      }
     }
 
     & .circuits {
-      @apply text-zinc-100 text-sm;
+      @apply font-medium text-zinc-300;
     }
 
     & .price {

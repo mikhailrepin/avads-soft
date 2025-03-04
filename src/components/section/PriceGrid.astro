@@ -69,16 +69,17 @@ const getLoadingStrategy = (index: number) => {
             {product.prices?.type === "PriceSARXP" && <PriceSARXP />}
 
             <div class="card-footer">
-              {product.buttons?.buy && (
-                <ButtonGeneric
-                  Variant="primary"
-                  Size="default"
-                  Style="filled"
-                  Target="link"
-                  ButtonLabel={product.buttons.buy.label}
-                  ButtonLink={product.buttons.buy.link}
-                />
-              )}
+              {product.buttons?.buy &&
+                product.prices?.type !== "PriceSARXP" && (
+                  <ButtonGeneric
+                    Variant="primary"
+                    Size="default"
+                    Style="filled"
+                    Target="link"
+                    ButtonLabel={product.buttons.buy.label}
+                    ButtonLink={product.buttons.buy.link}
+                  />
+                )}
               {product.buttons?.demo && (
                 <ButtonGeneric
                   Variant="primary"
