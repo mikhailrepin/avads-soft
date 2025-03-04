@@ -175,6 +175,9 @@
         "image": "/products/sar-expert/sar-expert.svg",
         "status": "демо"
       },
+      "prices": {
+        "type": "PriceSARXP"
+      },
       "buttons": {
         "buy": {
           "label": "Купить",
