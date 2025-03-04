@@ -2,3 +2,33 @@
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
 ---
+
+<div class="price-sarxp">
+  <div class="price-block">
+    <h3>Стоимость лицензии САР-эксперт</h3>
+    <p class="price">29 900 ₽</p>
+    <p class="note">Цена указана без НДС</p>
+  </div>
+</div>
+
+<style>
+  .price-sarxp {
+    @apply py-4;
+  }
+
+  .price-block {
+    @apply flex flex-col gap-2;
+  }
+
+  h3 {
+    @apply font-medium text-zinc-100 text-xl;
+  }
+
+  .price {
+    @apply font-bold text-zinc-100 text-3xl;
+  }
+
+  .note {
+    @apply text-zinc-400 text-sm;
+  }
+</style>

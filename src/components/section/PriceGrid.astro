@@ -2,6 +2,7 @@
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodSoft from "@/data/prodSoft.json";
 import PriceTable from "@/components/price/PriceTable.astro";
+import PriceSARXP from "@/components/price/PriceSARXP.astro";
 import { Image } from "astro:assets";
 
 // Фильтруем продукты с ценами прямо в компоненте
@@ -65,6 +66,7 @@ const getLoadingStrategy = (index: number) => {
             {product.prices?.type === "table" && (
               <PriceTable prices={product.prices} />
             )}
+            {product.prices?.type === "PriceSARXP" && <PriceSARXP />}
 
             <div class="card-footer">
               {product.buttons?.buy && (
