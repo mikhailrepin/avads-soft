@@ -78,13 +78,13 @@ const enVersion = {
         <div class="price-card">
           <div class="card-header">
             <span class={`badge ${!version.inDev ? "prod" : ""}`}>
-              {version.inDev ? "в разработке" : "доступно"}
+              {version.inDev ? "В разработке" : "Доступно"}
             </span>
-            <span class="font-medium text-lg">{version.name}</span>
+            <span class="px-4 font-medium text-lg">{version.name}</span>
             <p class="price">{version.price} ₽</p>
           </div>
           <div class="card-content">
-            <p class="text-sm">{version.description}</p>
+            <p class="text-zinc-300 text-sm">{version.description}</p>
             <ul>
               {version.features.map((feature) => (
                 <li>
@@ -101,6 +101,7 @@ const enVersion = {
               Variant="primary"
               Size="default"
               Style="outlined"
+              CustomClass="w-full lg:w-fit"
               Target="link"
               ButtonLabel="Купить"
               ButtonLink="#"
@@ -119,7 +120,7 @@ const enVersion = {
         <span class="badge">в разработке</span>
       </div>
       <div class="card-content">
-        <p>{enVersion.description}</p>
+        <p class="text-zinc-100">{enVersion.description}</p>
         <ul>
           {
             enVersion.features.map((feature) => (
@@ -169,39 +170,35 @@ const enVersion = {
 
   .price-card,
   .bottom-card {
-    @apply bg-zinc-900/40 rounded-[8px] p-4 border border-zinc-800 hover:border-zinc-700 transition-all;
+    @apply bg-zinc-900/40 rounded-[8px] border border-zinc-800 hover:border-zinc-700 transition-all overflow-hidden;
   }
 
   .card-header {
-    @apply flex flex-col items-start gap-2;
+    @apply flex flex-col items-start;
   }
 
   .price {
-    @apply font-medium text-primary-300 text-base;
+    @apply px-4 font-semibold text-primary-300 text-xl;
   }
 
   .card-content {
-    @apply text-zinc-400;
-
-    & p {
-      @apply mb-4;
-    }
+    @apply px-4 py-2;
 
     & ul {
-      @apply space-y-2;
+      @apply space-y-2 mt-4 text-zinc-400;
     }
 
     & li {
-      @apply flex items-start gap-2 text-sm;
+      @apply flex items-start gap-2 text-[0.8rem] leading-[140%];
     }
   }
 
   .feature-icon {
-    @apply flex-shrink-0 mt-0.5 w-4 h-4 text-primary-300;
+    @apply flex-shrink-0 mt-0.5 w-4 h-4 text-green-400;
   }
 
   .badge {
-    @apply inline-block self-end bg-secondary-300 px-2 py-1 rounded-[4px] w-fit text-zinc-400 text-xs;
+    @apply inline-block self-end bg-secondary-300 mb-2 px-3 py-1 rounded-bl-[4px] w-fit text-zinc-400 text-xs;
     &.prod {
       @apply bg-primary-300/20 text-primary-300;
     }
@@ -232,6 +229,6 @@ const enVersion = {
   }
 
   .card-footer {
-    @apply mt-6 pt-6 border-zinc-800 border-t;
+    @apply flex justify-center self-end mt-2 p-4 border-zinc-800 border-t;
   }
 </style>
