@@ -9,13 +9,61 @@ import faqData from "@/data/faqMain.json";
 const tsdb = prodSoftData.products.find((product) => product.id === "tsdb");
 
 if (!tsdb) throw new Error("Product not found");
+
+type Guide = {
+  icon: string;
+  label: string;
+  link: string;
+};
+
+type GuideData = {
+  guides: Record<string, Guide>;
+};
 ---
 
 <Layout pageTitle={tsdb.app.name}>
   <section class="min-h-[50dvh]">
-    <div class="flex flex-col gap-4 mx-auto mt-12 main-max-width">
-      <h1 class="font-bold text-2xl">{tsdb.app.name}</h1>
-      <p class="text-zinc-500">{tsdb.app.description}</p>
+    <div class="bg-zinc-700">
+      <div
+        class="flex items-center gap-4 mx-auto pb-10 min-h-[40dvh] main-max-width">
+        <img
+          src={tsdb.app.image}
+          alt={tsdb.app.name}
+          class="w-12"
+        />
+        <div class="flex flex-col gap-2 mt-8">
+          <h1 class="medium-heading text-xl">{tsdb.app.name}</h1>
+          <p class="w-fit text-zinc-300">
+            Справочные материалы и поддержка по продукту
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="mx-auto py-12 main-max-width">
+      <p class="max-w-[700px] text-zinc-300">
+        Добро пожаловать в раздел поддержки {tsdb.app.name}. Здесь вы найдете
+        всю необходимую информацию для успешной работы с программой - от
+        пошаговых руководств по установке до ответов на часто задаваемые
+        вопросы. Выберите интересующий вас раздел ниже:
+      </p>
+      {
+        tsdb.supports?.windows?.guides && (
+          <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 pt-8">
+            {Object.entries(tsdb.supports?.windows?.guides).map(
+              ([key, guide]) => (
+                <a
+                  href={guide.link}
+                  class="flex flex-col gap-3 bg-zinc-900/40 p-4 border border-zinc-800 hover:border-zinc-700 rounded-[8px] transition-all">
+                  <svg class="w-6 h-6 text-primary-300">
+                    <use xlink:href={`/sprites.svg#${guide.icon}`} />
+                  </svg>
+                  <span class="text-zinc-300">{guide.label}</span>
+                </a>
+              )
+            )}
+          </div>
+        )
+      }
     </div>
     <!-- FAQ -->
     <div class="bg-zinc-950 mx-auto my-[52px] main-max-width">

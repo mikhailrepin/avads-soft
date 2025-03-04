@@ -61,6 +61,10 @@
     @apply lg:text-5xl uppercase tracking-[0.10rem] !important;
   }
 
+  .medium-heading {
+    @apply font-medium text-4xl !important;
+  }
+
   .hero-description {
     @apply pt-3 w-fit max-w-[100%] font-medium text-zinc-400 text-lg lg:text-xl !important;
   }
