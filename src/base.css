@@ -66,15 +66,11 @@
   }
 
   .medium-heading {
-    @apply font-medium text-4xl !important;
+    @apply font-medium text-2xl lg:text-4xl !important;
   }
 
   .hero-description {
     @apply pt-3 w-fit max-w-[100%] font-medium text-zinc-400 text-lg lg:text-xl !important;
-  }
-
-  .post-title {
-    @apply mb-4 w-full md:max-w-[75%] font-bold text-3xl lg:text-4xl break-words !important;
   }
 
   .separator {

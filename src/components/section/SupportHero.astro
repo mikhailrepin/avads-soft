@@ -20,11 +20,11 @@ const {
       <img
         src={productImage}
         alt={productName}
-        class="mr-4 w-[5rem]"
+        class="mr-2 lg:mr-4 w-[4rem] lg:w-[5rem]"
       />
       <div class="flex flex-col gap-2">
-        <h1 class="medium-heading text-xl">{productName}</h1>
-        <p class="w-fit text-zinc-300">
+        <h1 class="medium-heading">{productName}</h1>
+        <p class="w-fit text-zinc-300 text-sm lg:text-base">
           Справочные материалы и поддержка по продукту
         </p>
       </div>
@@ -38,7 +38,7 @@ const {
     .content-wrapper {
       @apply bg-cover bg-no-repeat bg-center rounded-lg h-full overflow-hidden;
       .content {
-        @apply flex items-center gap-4 p-10 min-h-[40dvh] bg-slate-900/50 backdrop-blur-[8px];
+        @apply flex items-center gap-4 p-5 lg:p-10 min-h-[20dvh] lg:min-h-[40dvh] bg-slate-900/50 backdrop-blur-[8px];
       }
     }
   }
