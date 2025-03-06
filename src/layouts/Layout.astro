@@ -106,9 +106,14 @@ const serviceItems = [
           }
 
           // Заменяем обычные кавычки на типографские
-          const quotesCount = (text.match(/"/g) || []).length;
-          formattedText = formattedText.replace(/"/g, "«").replace(/"/g, "»");
-          stats.quotes = Math.floor(quotesCount / 2);
+          let isOpen = true;
+          formattedText = formattedText.replace(/"/g, () => {
+            const quote = isOpen ? "«" : "»";
+            isOpen = !isOpen;
+            return quote;
+          });
+
+          stats.quotes = Math.floor((text.match(/"/g) || []).length / 2);
 
           // Добавляем неразрывные пробелы после предлогов
           prepositions.forEach((prep) => {
