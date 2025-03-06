@@ -11,9 +11,21 @@
     box-sizing: border-box;
   }
 
-  /* Добавляем стили для фокуса */
+  /* Добавляем стили только для focus-visible (tab-focus) */
   *:focus-visible {
-    @apply rounded-sm outline-none ring-2 ring-primary-400 ring-offset-2 ring-offset-zinc-950;
+    @apply rounded-sm outline-none ring-1 ring-primary-400 ring-offset-2 ring-offset-zinc-950/0;
+  }
+
+  /* Убираем стандартный браузерный outline и ring при обычном фокусе */
+  *:focus:not(:focus-visible) {
+    @apply outline-none ring-0 ring-offset-0;
+  }
+
+  /* Специальные стили для полей ввода формы */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none ring-0 ring-offset-0;
   }
 
   /* Убираем стандартный браузерный outline */

@@ -105,9 +105,19 @@ import helpers from "@/data/helpers.json";
   }
 
   .contact-card {
-    @apply flex flex-col justify-center items-center gap-2 border-2 border-zinc-800 hover:border-zinc-600 p-6 rounded-md w-full transition-all duration-300;
+    @apply flex flex-col justify-center items-center gap-2 p-6 border-2 border-zinc-800 hover:border-zinc-600 rounded-md w-full transition-all duration-300;
     & a {
       @apply font-semibold text-primary-300 hover:text-primary-400 hover:underline;
     }
   }
 </style>
+
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+></script>
+<script type="text/javascript">
+  (function () {
+    emailjs.init("LSMwzsQT9Ntj5AtDK");
+  })();
+</script>
