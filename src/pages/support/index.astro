@@ -55,7 +55,7 @@ interface Product {
           .filter((product: Product) => product.buttons?.demo?.link)
           .map((product: Product) => (
             <a
-              href={product.buttons?.demo?.link || `/downloads/#${product.id}`}
+              href={`/support/${product.id}`}
               class="flex gap-[16px] hover:bg-zinc-900/40 p-[24px] border border-zinc-900 hover:border-zinc-700 rounded-lg transition-all duration-300 cursor-pointer">
               <Image
                 src={product.app.image}

@@ -5,7 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+@layer components {
   * {
     @apply text-pretty select-none;
     box-sizing: border-box;
@@ -29,6 +29,10 @@
   .main-max-width {
     @apply px-[24px];
     max-width: 1240px;
+
+    &.no-padding {
+      @apply px-0 !important;
+    }
   }
 
   h1,
@@ -147,6 +151,14 @@
     white-space: normal;
     overflow-wrap: break-word;
     max-width: 100%;
+  }
+
+  .support-card {
+    @apply flex flex-col gap-3 bg-zinc-900/40 hover:bg-lime-400/10 p-4 border border-zinc-800 hover:border-lime-400 rounded-[8px] transition-all;
+
+    .icon {
+      @apply w-12 h-12 text-lime-400;
+    }
   }
 }
 
