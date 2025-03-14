@@ -141,7 +141,7 @@ const advantages = [
         <img
           src={tsdb.app.image}
           alt={tsdb.app.name}
-          class="lg:block hidden scale-[7]"
+          class="hidden lg:block scale-[7]"
         />
       </div>
     </div>
@@ -150,12 +150,12 @@ const advantages = [
   <!-- Функции -->
   <div class="flex flex-col mx-auto pt-14 pb-16 main-max-width">
     <h2 class="text-3xl">Функция архивирования</h2>
-    <p class="lg:max-w-[60vw] text-lg text-zinc-400">
+    <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
       Эта функция является одной из главных в системах управления и учёта. К ней
       предъявляются очень жёсткие требования. По надёжности хранения данных,
       скорости сохранения и доступа к данным, глубине хранения данных.
     </p>
-    <p class="mt-[16px] lg:max-w-[60vw] text-lg text-zinc-400">
+    <p class="mt-[16px] lg:max-w-[60vw] text-zinc-400 text-lg">
       {tsdb.app.name} позволяет вести архивы технологических и коммерческих показателей
       в АСУТП, диспетчеризации объектов промышленности и ЖКХ, системах коммерческого
       и технического учёта.
@@ -286,14 +286,14 @@ const advantages = [
     <!-- Атомарные данные -->
     <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
       <div class="flex flex-col gap-[16px]">
-        <h4 class="font-medium text-2xl text-primary-300">Атомарные данные</h4>
+        <h4 class="font-medium text-primary-300 text-2xl">Атомарные данные</h4>
         <hr class="gold separator" />
         <p class="text-zinc-400">
           Данные любых типов, размер которых не превышает 8 байт. К таким
           относятся, например: bool, int, long, dlong, float, dfloat...
         </p>
         <br />
-        <h4 class="font-medium text-2xl text-primary-300">Данные типа blob</h4>
+        <h4 class="font-medium text-primary-300 text-2xl">Данные типа blob</h4>
         <hr class="gold separator" />
         <p class="text-zinc-400">
           Данные произвольного размера. Это могут быть, например, структуры,
@@ -322,7 +322,7 @@ const advantages = [
 
     <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 py-8">
       <div class="flex flex-col gap-[16px]">
-        <h4 class="font-medium text-2xl text-primary-300">API</h4>
+        <h4 class="font-medium text-primary-300 text-2xl">API</h4>
         <hr class="gold separator" />
         <p class="text-zinc-400">
           Обеспечивает высокоскоростные методы передачи и доступа к данным, а
@@ -330,7 +330,7 @@ const advantages = [
         </p>
         <br />
 
-        <h4 class="font-medium text-2xl text-primary-300">OPC UA</h4>
+        <h4 class="font-medium text-primary-300 text-2xl">OPC UA</h4>
         <hr class="gold separator" />
         <p class="text-zinc-400">
           Для взаимодействия Сервера архивирования с клиентами по протоколу OPC
@@ -340,7 +340,7 @@ const advantages = [
         </p>
         <br />
 
-        <h4 class="font-medium text-2xl text-primary-300">WEB SOCKET</h4>
+        <h4 class="font-medium text-primary-300 text-2xl">WEB SOCKET</h4>
         <hr class="gold separator" />
         <p class="text-zinc-400">
           Это WEB-API, реализованное через WEB-soсket. Используется для
@@ -368,7 +368,7 @@ const advantages = [
   <div class="flex flex-col mx-auto mt-[24px] main-max-width">
     <hr class="separator silver" />
 
-    <h2 class="pt-[16px] text-3xl">Типы хранимых данных</h2>
+    <h2 class="pt-[16px] text-3xl">Зацикливание</h2>
 
     <div class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mt-[-24px] py-8">
       <div class="flex flex-col gap-[16px] text-zinc-400">
@@ -591,7 +591,7 @@ const advantages = [
           использоваться Сервером Архивирования.
         </p>
 
-        <h4 class="font-medium text-2xl text-primary-300">
+        <h4 class="font-medium text-primary-300 text-2xl">
           Если несколько баз и несколько клиентов
         </h4>
         <hr class="gold separator" />
@@ -600,7 +600,7 @@ const advantages = [
           нескольких баз и взаимодействии с несколькими клиентами.
         </p>
 
-        <h4 class="font-medium text-2xl text-primary-300">
+        <h4 class="font-medium text-primary-300 text-2xl">
           Если только одна база и один клиент
         </h4>
 
@@ -698,7 +698,7 @@ const advantages = [
 
 <style>
   .pulsar-card {
-    @apply relative flex flex-col gap-[8px] border-primary-300 px-[32px] py-[24px] border lg:border rounded-lg w-full;
+    @apply relative flex flex-col gap-[8px] px-[32px] py-[24px] border lg:border border-primary-300 rounded-lg w-full;
     z-index: 2;
     &::before {
       z-index: 18;
@@ -728,7 +728,7 @@ const advantages = [
     }
     & .description {
       z-index: 25;
-      @apply relative text-lg text-zinc-300;
+      @apply relative text-zinc-300 text-lg;
     }
     & .card-bg {
       z-index: 19;
@@ -737,7 +737,7 @@ const advantages = [
   }
 
   .animated-lines {
-    @apply lg:block hidden;
+    @apply hidden lg:block;
     transform: scale(0.6);
     z-index: 1;
     width: 100%;
