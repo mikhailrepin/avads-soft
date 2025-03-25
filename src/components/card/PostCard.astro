@@ -21,7 +21,7 @@ const formattedDate = new Date(
 ---
 
 <!-- Карточка поста -->
-<article class="group post-card">
+<div class="group post-card">
   <a
     href={post.url}
     class="top-0 left-0 z-10 absolute w-full h-full"
@@ -35,7 +35,7 @@ const formattedDate = new Date(
       width={400}
       height={225}
       loading={isFirstRow ? "eager" : "lazy"}
-      class="group-hover:scale-105 top-0 left-0 z-[2] absolute w-full h-full transition-all invisible object-cover"
+      class="invisible top-0 left-0 z-[2] absolute w-full h-full object-cover group-hover:scale-105 transition-all"
     />
   </div>
   <!-- Контент поста -->
@@ -47,7 +47,7 @@ const formattedDate = new Date(
     </div>
     <!-- Заголовок -->
     <div class="relative overflow-hidden title-wrapper">
-      <span class="group-hover:text-primary-300 invisible title">{title}</span>
+      <span class="invisible group-hover:text-primary-300 title">{title}</span>
       <div class="top-[8px] h-[16px] animate-pulse skeleton-layer"></div>
       <div class="bottom-[6px] h-[16px] animate-pulse skeleton-layer"></div>
     </div>
@@ -59,17 +59,17 @@ const formattedDate = new Date(
       <div class="bottom-[6px] h-[12px] animate-pulse skeleton-layer"></div>
     </div>
   </div>
-</article>
+</div>
 
 <style>
   .post-card {
-    @apply relative flex flex-col border-zinc-800 border rounded-lg w-full min-h-[200px] transition-all overflow-hidden;
+    @apply relative flex flex-col border border-zinc-800 rounded-lg w-full min-h-[200px] overflow-hidden transition-all;
     &:hover {
       @apply bg-zinc-900/30;
     }
   }
   .image-container {
-    @apply relative rounded-t-lg w-full min-w-[200px] h-[200px] overflow-hidden aspect-video;
+    @apply relative rounded-t-lg w-full min-w-[200px] h-[200px] aspect-video overflow-hidden;
     &::before {
       content: "";
       @apply top-0 left-0 z-0 absolute bg-zinc-800 w-full h-full;

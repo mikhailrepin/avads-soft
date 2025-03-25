@@ -106,12 +106,12 @@ const validNextPost =
     </div>
 
     <!-- Описание и контент -->
-    <div class="py-4">
+    <div class="bg-zinc-900 px-2 lg:px-4 py-8 lg:py-12 rounded-lg">
       <h4
-        class="m-0 mb-8 w-full md:max-w-[75%] font-semibold text-zinc-200 text-xl lg:text-2xl">
+        class="mx-auto mb-8 font-semibold text-zinc-200 text-xl lg:text-2xl content-wrapper">
         {formattedDescription}
       </h4>
-      <div class="max-w-full prose prose-lg">
+      <div class="content-wrapper prose-container">
         <slot />
       </div>
     </div>
@@ -179,6 +179,19 @@ const validNextPost =
 
 <style>
   .post-title {
-    @apply mb-4 w-full md:max-w-[75%] font-bold text-2xl lg:text-4xl break-words !important;
+    @apply mb-4 font-bold text-2xl lg:text-4xl break-words !important;
+    max-width: 90%;
+  }
+
+  .content-wrapper {
+    @apply mx-auto;
+    max-width: 800px; /* Оптимальная ширина для чтения */
+  }
+
+  /* Адаптация для мобильных устройств */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 0 24px;
+    }
   }
 </style>
