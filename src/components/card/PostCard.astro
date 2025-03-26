@@ -18,6 +18,9 @@ const formattedDate = new Date(
   month: "long",
   year: "numeric",
 });
+
+// Определяем, является ли изображение локальным
+const isLocalImage = !image.startsWith("http");
 ---
 
 <!-- Карточка поста -->
@@ -29,14 +32,27 @@ const formattedDate = new Date(
   ></a>
   <!-- Изображение поста -->
   <div class="animate-pulse [&:has(img.loaded)]:animate-none image-container">
-    <Image
-      src={image}
-      alt={title}
-      width={400}
-      height={225}
-      loading={isFirstRow ? "eager" : "lazy"}
-      class="invisible top-0 left-0 z-[2] absolute w-full h-full object-cover group-hover:scale-105 transition-all"
-    />
+    {
+      isLocalImage ? (
+        <img
+          src={image}
+          alt={title}
+          width={400}
+          height={225}
+          loading={isFirstRow ? "eager" : "lazy"}
+          class="invisible top-0 left-0 z-[2] absolute w-full h-full object-cover group-hover:scale-105 transition-all"
+        />
+      ) : (
+        <Image
+          src={image}
+          alt={title}
+          width={400}
+          height={225}
+          loading={isFirstRow ? "eager" : "lazy"}
+          class="invisible top-0 left-0 z-[2] absolute w-full h-full object-cover group-hover:scale-105 transition-all"
+        />
+      )
+    }
   </div>
   <!-- Контент поста -->
   <div class="content-container">

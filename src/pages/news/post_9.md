@@ -1,9 +1,9 @@
 ---
 layout: "@/layouts/PostLayout.astro"
-title: "Запись вебинара «Мощный HISTORIAN для SCADA»"
+title: "Запись вебинара «Мощный historian для SCADA»"
 description: "Доступна запись прошедшего вебинара о АВАДС Сервере архивирования и его взаимодействии с MasterSCADA 4D"
 date: "2024-10-17"
-image: "https://insat.ru/upload/iblock/4a9/webinar_cover_news-site.png"
+image: "/posts/scada-historian.png"
 ---
 
 Как и обещали, делимся [записью эфира](https://rutube.ru/video/f670e29fc8d75b1dc50df3a4e8b4a557/).

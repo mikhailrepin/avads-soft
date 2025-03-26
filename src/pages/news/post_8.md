@@ -3,7 +3,7 @@ layout: "@/layouts/PostLayout.astro"
 title: "Приглашаем на вебинар «Мощный historian для SCADA»"
 description: "10 октября в 12:00 состоится вебинар, посвященный АВАДС Серверу архивирования и его взаимодействию с MasterSCADA 4D"
 date: "2024-09-11"
-image: "https://insat.ru/upload/iblock/e5b/news_main-historian.jpg"
+image: "/posts/scada-historian.png"
 ---
 
 Приглашаем 10 октября в 12:00 на вебинар  
