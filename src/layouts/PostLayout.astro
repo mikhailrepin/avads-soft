@@ -52,7 +52,6 @@ const sortedPosts = postsArray
         Boolean(post.frontmatter.description) &&
         Boolean(post.frontmatter.date) &&
         Boolean(post.frontmatter.image) &&
-        post.frontmatter.image.startsWith("http") &&
         !isNaN(date.getTime())
       );
     } catch {

@@ -322,10 +322,10 @@
   }
 
   .support-card {
-    @apply flex flex-col gap-3 bg-zinc-900/40 hover:bg-lime-400/10 p-4 border border-zinc-800 hover:border-lime-400 rounded-[8px] transition-all;
+    @apply flex flex-col gap-3 bg-zinc-900/40 hover:bg-primary-300/10 p-4 border border-zinc-800 hover:border-primary-300 rounded-[8px] transition-all;
 
     .icon {
-      @apply w-12 h-12 text-lime-400;
+      @apply w-12 h-12 text-primary-300;
     }
   }
 }

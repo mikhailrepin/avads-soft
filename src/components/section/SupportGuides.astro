@@ -1,0 +1,142 @@
+---
+interface Props {
+  productId: string;
+}
+
+interface Guide {
+  icon: string;
+  label: string;
+  link: string;
+}
+
+interface SupportData {
+  description?: {
+    title: string;
+    subtitle: string;
+  };
+  downloads?: Record<
+    string,
+    {
+      icon: string;
+      label: string;
+      link: string;
+    }
+  >;
+  guides?: Record<string, Guide>;
+}
+
+interface Product {
+  id: string;
+  supports?: Record<string, SupportData>;
+}
+
+const { productId } = Astro.props;
+
+import prodSoftData from "@/data/prodSoft.json";
+
+const product = (prodSoftData.products as Product[]).find(
+  (product) => product.id === productId
+);
+
+if (!product) throw new Error("Product not found");
+---
+
+<section class="support-guides">
+  {
+    product.supports && (
+      <>
+        <div class="tabs-panel">
+          {Object.entries(product.supports).map(([os, data], index) => (
+            <button
+              data-os={os}
+              class={index === 0 ? "active" : ""}>
+              {os.charAt(0).toUpperCase() + os.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {Object.entries(product.supports).map(([os, data], index) => (
+          <div
+            class="tab-content"
+            data-os={os}
+            style={index === 0 ? "" : "display: none;"}>
+            {data.guides && (
+              <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 pt-8">
+                {Object.entries(data.guides).map(([key, guide]) => {
+                  const typedGuide = guide as Guide;
+                  return (
+                    <a
+                      href={typedGuide.link}
+                      class="support-card">
+                      <svg
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        style="width: 48px; height: 48px;">
+                        <use xlink:href={`/sprites.svg#${typedGuide.icon}`} />
+                      </svg>
+                      <span class="text-zinc-300">{typedGuide.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ))}
+      </>
+    )
+  }
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".support-guides");
+
+    cards.forEach((card) => {
+      const tabButtons = card.querySelectorAll(".tabs-panel button");
+      const tabContents = card.querySelectorAll(".tab-content");
+
+      if (tabButtons.length > 0) {
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const os = button.getAttribute("data-os");
+
+            // Убираем активный класс у всех кнопок
+            tabButtons.forEach((btn) => btn.classList.remove("active"));
+
+            // Добавляем активный класс текущей кнопке
+            button.classList.add("active");
+
+            // Показываем соответствующий контент
+            tabContents.forEach((content) => {
+              if (content.getAttribute("data-os") === os) {
+                (content as HTMLElement).style.display = "block";
+              } else {
+                (content as HTMLElement).style.display = "none";
+              }
+            });
+          });
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  .support-guides {
+    @apply w-full;
+  }
+
+  .tabs-panel {
+    @apply flex gap-3 py-[16px];
+    & button {
+      @apply pb-1 border-zinc-500 border-b text-zinc-400 text-lg;
+      &:hover {
+        @apply text-zinc-100;
+      }
+    }
+  }
+
+  .tabs-panel button.active {
+    @apply border-primary-300 text-primary-300;
+  }
+</style>

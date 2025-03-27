@@ -5,7 +5,6 @@ import CallToAction from "@/components/section/CallToAction.astro";
 import Platforms from "@/components/section/Platforms.astro";
 import Advantage from "@/components/card/Advantage.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-import FAQ from "@/components/section/FAQ.astro";
 
 /* Images */
 import { Image } from "astro:assets";
@@ -150,6 +149,20 @@ const advantages = [
       </div>
     </div>
   </MainHero>
+  <h2 class="mx-auto pt-[32px] text-3xl main-max-width">
+    Назначение {sarExpert.app.name}
+  </h2>
+  <div class="mx-auto text-zinc-400 text-lg main-max-width">
+    <p class="max-w-[850px]">
+      Программа АВАДС {sarExpert.app.name} предназначена для настройки ПИД-регуляторов.
+      Она выполняет идентификацию объекта регулирования, определяет его модель, рассчитывает
+      настройки, проводит имитационное моделирование, архивирует результаты и формирует
+      отчеты. Продукт ориентирован на повышение эффективности работы систем автоматического
+      регулирования в производственных процессах. {sarExpert.app.name} является российским
+      продуктом.
+    </p>
+  </div>
+  <!-- Назначение продукта -->
   <h2 class="mx-auto pt-[32px] text-3xl main-max-width">
     Преимущества эффективной работы САР
   </h2>
@@ -442,10 +455,6 @@ const advantages = [
     }}
     CustomClass="bg-[#101010] rounded-none border-none"
   />
-
-  <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
-    <FAQ faqData={faqData} />
-  </div>
 
   <style>
     .text-card {

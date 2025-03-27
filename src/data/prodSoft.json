@@ -98,25 +98,25 @@
             }
           },
           "guides": {
-            "install": {
+            "install-windows": {
               "icon": "file-blank-outline",
-              "label": "Руководство по установке",
-              "link": "/guides/tsdb/install"
+              "label": "Руководство по установке (ОС Windows)",
+              "link": "/docs/tsdb/install"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/tsdb/user"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/tsdb/user"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/guides/tsdb/license"
+              "link": "/docs/tsdb/license"
             }
           }
         },
@@ -145,23 +145,23 @@
           "guides": {
             "install": {
               "icon": "file-blank-outline",
-              "label": "Руководство по установке",
-              "link": "/guides/tsdb/install"
+              "label": "Руководство по установке (ОС Linux)",
+              "link": "/docs/tsdb/install"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/tsdb/user"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/tsdb/user"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/guides/tsdb/license"
+              "link": "/docs/tsdb/license"
             }
           }
         }
@@ -222,23 +222,23 @@
           "guides": {
             "install": {
               "icon": "file-blank-outline",
-              "label": "Руководство по установке",
-              "link": "/guides/tsdb/install"
+              "label": "Руководство по установке (ОС Windows)",
+              "link": "/docs/sar-expert/install"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/sar-expert/user"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/sar-expert/user"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/guides/tsdb/license"
+              "link": "/docs/sar-expert/license"
             }
           }
         },
@@ -267,23 +267,23 @@
           "guides": {
             "install": {
               "icon": "file-blank-outline",
-              "label": "Руководство по установке",
-              "link": "/guides/tsdb/install"
+              "label": "Руководство по установке (ОС Linux)",
+              "link": "/docs/sar-expert/install"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/sar-expert/user"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/guides/tsdb/user"
+              "link": "/docs/sar-expert/user"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/guides/tsdb/license"
+              "link": "/docs/sar-expert/license"
             }
           }
         }
@@ -384,13 +384,13 @@
           "guides": {
             "user": {
               "icon": "file-blank-outline",
-              "label": "Руководство пользователя",
-              "link": "/guides/tsdb/user"
+              "label": "Руководство пользователя (ОС Windows)",
+              "link": "/docs/opc-db/user"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/guides/tsdb/license"
+              "link": "/docs/opc-db/license"
             }
           }
         },
@@ -414,13 +414,13 @@
           "guides": {
             "user": {
               "icon": "file-blank-outline",
-              "label": "Руководство пользователя",
-              "link": "/guides/tsdb/user"
+              "label": "Руководство пользователя (ОС Linux)",
+              "link": "/docs/opc-db/user"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/guides/tsdb/license"
+              "link": "/docs/opc-db/license"
             }
           }
         }
