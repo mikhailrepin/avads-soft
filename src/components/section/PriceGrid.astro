@@ -63,9 +63,18 @@ const getLoadingStrategy = (index: number) => {
 
           <div
             class={`card-body ${!product.prices?.type ? "lg:pl-[84px]" : ""}`}>
-            {product.prices?.type === "table" && (
-              <PriceTable prices={product.prices} />
-            )}
+            {product.prices?.type === "table" &&
+              product.prices.meta &&
+              product.prices.headers &&
+              product.prices.rows && (
+                <PriceTable
+                  prices={{
+                    meta: product.prices.meta,
+                    headers: product.prices.headers,
+                    rows: product.prices.rows,
+                  }}
+                />
+              )}
             {product.prices?.type === "PriceSARXP" && <PriceSARXP />}
 
             <div class="card-footer">
@@ -76,6 +85,7 @@ const getLoadingStrategy = (index: number) => {
                     Size="default"
                     Style="filled"
                     Target="link"
+                    Blank={true}
                     ButtonLabel={product.buttons.buy.label}
                     ButtonLink={product.buttons.buy.link}
                   />

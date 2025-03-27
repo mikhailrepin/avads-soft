@@ -89,7 +89,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/#tsdb"
+              "link": "/downloads/tsdb/avads_sa_win_x64_1.2.6.exe"
             },
             "git": {
               "icon": "github-symbol",
@@ -101,22 +101,22 @@
             "install-windows": {
               "icon": "file-blank-outline",
               "label": "Руководство по установке (ОС Windows)",
-              "link": "/docs/tsdb/install"
+              "link": "/docs/tsdb/Инструкция_по_инсталляции_под_Windows.pdf"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/docs/tsdb/user"
+              "link": "/docs/tsdb/Руководство_пользователя.pdf"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/docs/tsdb/user"
+              "link": "/docs/tsdb/АВАДС_Сервер_архивирования-функциональное_описание.pdf"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/docs/tsdb/license"
+              "link": "/docs/tsdb/Лицензия_на_Сервер_Архивирования.pdf"
             }
           }
         },
@@ -134,7 +134,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/#tsdb"
+              "link": "/downloads/tsdb/avads_sa.tar.gz"
             },
             "git": {
               "icon": "github-symbol",
@@ -146,22 +146,32 @@
             "install": {
               "icon": "file-blank-outline",
               "label": "Руководство по установке (ОС Linux)",
-              "link": "/docs/tsdb/install"
+              "link": "/docs/tsdb/Инструкция_по_инсталляции_под_Linux.pdf"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/docs/tsdb/user"
+              "link": "/docs/tsdb/Руководство_пользователя.pdf"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/docs/tsdb/user"
+              "link": "/docs/tsdb/АВАДС_Сервер_архивирования-функциональное_описание.pdf"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/docs/tsdb/license"
+              "link": "/docs/tsdb/Лицензия_на_Сервер_Архивирования.pdf"
+            },
+            "txt": {
+              "icon": "file-blank-outline",
+              "label": "readme.txt",
+              "link": "/docs/tsdb/readme.txt"
+            },
+            "installation-script": {
+              "icon": "file-blank-outline",
+              "label": "Инсталляционный скрипт",
+              "link": "/docs/tsdb/install.sh"
             }
           }
         }
@@ -181,7 +191,7 @@
       "buttons": {
         "buy": {
           "label": "Купить",
-          "link": "https://insat.ru/about/brands/?ID=153022"
+          "link": "https://insat.ru/products/?category=2771"
         },
         "demo": {
           "label": "Скачать демо",
@@ -206,39 +216,34 @@
             "full": {
               "icon": "",
               "label": "Купить",
-              "link": "https://insat.ru/about/brands/?ID=153022"
+              "link": "https://insat.ru/products/?category=2771"
             },
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
               "link": "/downloads/#sar-expert"
-            },
-            "git": {
-              "icon": "github-symbol",
-              "label": "Скачать драйверы",
-              "link": "https://github.com/AVADS-Soft"
             }
           },
           "guides": {
             "install": {
               "icon": "file-blank-outline",
               "label": "Руководство по установке (ОС Windows)",
-              "link": "/docs/sar-expert/install"
+              "link": "/docs/sar-expert/Инструкция_по_инсталляции_под_Windows.pdf"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/docs/sar-expert/user"
+              "link": "/docs/sar-expert/Руководство_пользователя_АВАДС_САР-эксперт.pdf"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/docs/sar-expert/user"
+              "link": "/docs/sar-expert/Функциональное_описание_АВАДС_САР-эксперт.pdf"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/docs/sar-expert/license"
+              "link": "/docs/sar-expert/Лицензия_на_САР-эксперт.pdf"
             }
           }
         },
@@ -251,39 +256,34 @@
             "full": {
               "icon": "",
               "label": "Купить",
-              "link": "https://insat.ru/about/brands/?ID=153022"
+              "link": "https://insat.ru/products/?category=2771"
             },
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
               "link": "/downloads/#sar-expert"
-            },
-            "git": {
-              "icon": "github-symbol",
-              "label": "Скачать драйверы",
-              "link": "https://github.com/AVADS-Soft"
             }
           },
           "guides": {
             "install": {
               "icon": "file-blank-outline",
               "label": "Руководство по установке (ОС Linux)",
-              "link": "/docs/sar-expert/install"
+              "link": "/docs/sar-expert/Инструкция_по_инсталляции_под_Linux.pdf"
             },
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
-              "link": "/docs/sar-expert/user"
+              "link": "/docs/sar-expert/Руководство_пользователя_АВАДС_САР-эксперт.pdf"
             },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
-              "link": "/docs/sar-expert/user"
+              "link": "/docs/sar-expert/Функциональное_описание_АВАДС_САР-эксперт.pdf"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/docs/sar-expert/license"
+              "link": "/docs/sar-expert/Лицензия_на_САР-эксперт.pdf"
             }
           }
         }
@@ -348,7 +348,7 @@
       "buttons": {
         "buy": {
           "label": "Купить",
-          "link": "https://insat.ru/about/brands/?ID=153022"
+          "link": "https://insat.ru/products/?category=2736"
         },
         "demo": {
           "label": "Скачать",
@@ -373,24 +373,24 @@
             "full": {
               "icon": "",
               "label": "Купить",
-              "link": "https://insat.ru/products/?category=2737"
+              "link": "https://insat.ru/products/?category=2736"
             },
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/#opc-db"
+              "link": "/downloads/opc-db/AVADS_OPC_DB_Gateway_win_x64_v1.0.3.exe"
             }
           },
           "guides": {
             "user": {
               "icon": "file-blank-outline",
               "label": "Руководство пользователя (ОС Windows)",
-              "link": "/docs/opc-db/user"
+              "link": "/docs/opc-db/Руководство_пользователя.pdf"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/docs/opc-db/license"
+              "link": "/docs/opc-db/Лицензия_на_OPC-DB_шлюз.pdf"
             }
           }
         },
@@ -403,24 +403,24 @@
             "full": {
               "icon": "",
               "label": "Купить",
-              "link": "https://insat.ru/products/?category=2737"
+              "link": "https://insat.ru/products/?category=2736"
             },
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/#opc-db"
+              "link": "/downloads/opc-db/AVADS_OPC_DB_Gateway_linux_amd64_v1.0.3.zip"
             }
           },
           "guides": {
             "user": {
               "icon": "file-blank-outline",
-              "label": "Руководство пользователя (ОС Linux)",
-              "link": "/docs/opc-db/user"
+              "label": "Руководство пользователя (ОС Windows)",
+              "link": "/docs/opc-db/Руководство_пользователя.pdf"
             },
             "license": {
               "icon": "file-blank-outline",
               "label": "Лицензия",
-              "link": "/docs/opc-db/license"
+              "link": "/docs/opc-db/Лицензия_на_OPC-DB_шлюз.pdf"
             }
           }
         }
