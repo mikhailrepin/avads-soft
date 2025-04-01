@@ -183,7 +183,7 @@
         "name": "САР-эксперт",
         "description": "Доступная настройка и контроль ПИД-регуляторов за несколько кликов",
         "image": "/products/sar-expert/sar-expert.svg",
-        "status": "демо"
+        "status": "релиз"
       },
       "prices": {
         "type": "PriceSARXP"
@@ -295,7 +295,7 @@
         "name": "OPC-DB ШЛЮЗ",
         "description": "Доступ к TSDB АВАДС Сервер архивирования",
         "image": "/products/opc-db/opc-db.svg",
-        "status": "демо"
+        "status": "релиз"
       },
       "prices": {
         "type": "table",
@@ -414,7 +414,7 @@
           "guides": {
             "user": {
               "icon": "file-blank-outline",
-              "label": "Руководство пользователя (ОС Windows)",
+              "label": "Руководство пользователя (ОС Linux)",
               "link": "/docs/opc-db/Руководство_пользователя.pdf"
             },
             "license": {
