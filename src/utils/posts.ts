@@ -24,7 +24,6 @@ export async function getPosts(postsPerPage: number = 6) {
           Boolean(post.frontmatter.description) &&
           Boolean(post.frontmatter.date) &&
           Boolean(post.frontmatter.image) &&
-          post.frontmatter.image.startsWith("http") &&
           !isNaN(date.getTime())
         );
       } catch {

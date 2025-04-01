@@ -110,13 +110,13 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
   .button-label {
     @apply block mx-[4px] max-w-[400px] truncate;
   }
-  .only-desktop > .button-label {
-    @apply lg:block hidden;
+  .only-desktop .button-label {
+    @apply hidden lg:block;
   }
   .base-classes {
     @apply flex justify-center items-center border rounded;
     &:active {
-      @apply transition-all ease-in-out scale-[90%];
+      @apply scale-[90%] transition-all ease-in-out;
     }
   }
   .hidden {
@@ -127,24 +127,24 @@ const ButtonClasses = `${BaseClasses} ${CustomClass} ${StyleClasses[Variant][Sty
   }
   .primary {
     &.filled {
-      @apply border-primary-300 hover:border-primary-400 bg-primary-300 hover:bg-primary-400 text-primary-500;
+      @apply bg-primary-300 hover:bg-primary-400 border-primary-300 hover:border-primary-400 text-primary-500;
     }
     &.outlined {
-      @apply border-primary-300 hover:border-primary-400 hover:bg-primary-400 text-primary-300 hover:text-primary-500;
+      @apply hover:bg-primary-400 border-primary-300 hover:border-primary-400 text-primary-300 hover:text-primary-500;
     }
     &.ghosted {
-      @apply hover:border-primary-400 hover:bg-primary-400 border-transparent text-primary-300 hover:text-primary-500;
+      @apply hover:bg-primary-400 hover:border-primary-400 border-transparent text-primary-300 hover:text-primary-500;
     }
   }
   .secondary {
     &.filled {
-      @apply border-zinc-800 hover:border-zinc-900 bg-zinc-800 hover:bg-zinc-900 text-zinc-200 hover:text-zinc-400;
+      @apply bg-zinc-800 hover:bg-zinc-900 border-zinc-800 hover:border-zinc-900 text-zinc-200 hover:text-zinc-400;
     }
     &.outlined {
-      @apply border-zinc-600 hover:border-zinc-900 hover:bg-zinc-900 text-zinc-300;
+      @apply hover:bg-zinc-900 border-zinc-600 hover:border-zinc-900 text-zinc-300;
     }
     &.ghosted {
-      @apply hover:border-zinc-900 hover:bg-zinc-900 border-transparent text-zinc-300 hover:text-zinc-400;
+      @apply hover:bg-zinc-900 hover:border-zinc-900 border-transparent text-zinc-300 hover:text-zinc-400;
     }
   }
   .size {

@@ -76,10 +76,15 @@ const activeProducts = prodSoft.products.filter(
               <span
                 class:list={[
                   "font-light lg:font-medium text-lg lg:text-base transition-colors",
-                  { "text-primary-300": currentPath === item.href },
+                  {
+                    "text-primary-300":
+                      currentPath.startsWith(item.href) &&
+                      (item.href !== "/" || currentPath === "/"),
+                  },
                   {
                     "text-zinc-300 hover:text-primary-300":
-                      currentPath !== item.href,
+                      !currentPath.startsWith(item.href) ||
+                      (item.href === "/" && currentPath !== "/"),
                   },
                 ]}>
                 {item.label}
@@ -210,7 +215,7 @@ const activeProducts = prodSoft.products.filter(
   }
 
   .nav-item-wrapper:hover .dropdown-menu {
-    @apply opacity-100 visible;
+    @apply visible opacity-100;
     pointer-events: auto;
   }
 

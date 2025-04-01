@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import FAQ from "@/components/section/FAQ.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
 import SupportHero from "@/components/section/SupportHero.astro";
+import SupportGuides from "@/components/section/SupportGuides.astro";
 /* Data */
 import prodSoftData from "@/data/prodSoft.json";
 import faqData from "@/data/faqMain.json";
@@ -10,12 +11,6 @@ import faqData from "@/data/faqMain.json";
 const opcDb = prodSoftData.products.find((product) => product.id === "opc-db");
 
 if (!opcDb) throw new Error("Product not found");
-
-type Guide = {
-  icon: string;
-  label: string;
-  link: string;
-};
 ---
 
 <Layout pageTitle={opcDb.app.name}>
@@ -23,7 +18,7 @@ type Guide = {
     <SupportHero
       productImage={opcDb.app.image}
       productName={opcDb.app.name}
-      backgroundImage="/hero/abstract-7.webp"
+      backgroundImage="/hero/abstract-11.webp"
     />
     <div class="mx-auto py-12 main-max-width">
       <p class="max-w-[700px] text-zinc-300">
@@ -32,27 +27,7 @@ type Guide = {
         пошаговых руководств по установке до ответов на часто задаваемые
         вопросы. Выберите интересующий вас раздел ниже:
       </p>
-      {
-        opcDb.supports?.windows?.guides && (
-          <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 pt-8">
-            {Object.entries(opcDb.supports?.windows?.guides).map(
-              ([key, guide]) => (
-                <a
-                  href={guide.link}
-                  class="support-card">
-                  <svg
-                    class="icon"
-                    viewBox="0 0 24 24"
-                    style="width: 48px; height: 48px;">
-                    <use xlink:href={`/sprites.svg#${guide.icon}`} />
-                  </svg>
-                  <span class="text-zinc-300">{guide.label}</span>
-                </a>
-              )
-            )}
-          </div>
-        )
-      }
+      <SupportGuides productId="opc-db" />
     </div>
     <!-- FAQ -->
     <div class="bg-zinc-950 mx-auto my-[52px] main-max-width">

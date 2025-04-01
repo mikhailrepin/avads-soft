@@ -3,10 +3,11 @@ import Layout from "@/layouts/Layout.astro";
 import FAQ from "@/components/section/FAQ.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
 import SupportHero from "@/components/section/SupportHero.astro";
+import SupportGuides from "@/components/section/SupportGuides.astro";
 
 /* Data */
 import prodSoftData from "@/data/prodSoft.json";
-import faqData from "@/data/faqMain.json";
+import faqData from "@/data/faqTSDB.json";
 
 const tsdb = prodSoftData.products.find((product) => product.id === "tsdb");
 
@@ -27,27 +28,7 @@ if (!tsdb) throw new Error("Product not found");
         пошаговых руководств по установке до ответов на часто задаваемые
         вопросы. Выберите интересующий вас раздел ниже:
       </p>
-      {
-        tsdb.supports?.windows?.guides && (
-          <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 pt-8">
-            {Object.entries(tsdb.supports?.windows?.guides).map(
-              ([key, guide]) => (
-                <a
-                  href={guide.link}
-                  class="support-card">
-                  <svg
-                    class="icon"
-                    viewBox="0 0 24 24"
-                    style="width: 48px; height: 48px;">
-                    <use xlink:href={`/sprites.svg#${guide.icon}`} />
-                  </svg>
-                  <span class="text-zinc-300">{guide.label}</span>
-                </a>
-              )
-            )}
-          </div>
-        )
-      }
+      <SupportGuides productId="tsdb" />
     </div>
     <!-- FAQ -->
     <div class="bg-zinc-950 mx-auto my-[52px] main-max-width">

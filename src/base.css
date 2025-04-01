@@ -37,6 +37,166 @@
     cursor: pointer !important;
   }
 
+  /* Секция с настройками контейнера для markdown-контента */
+  .prose-container {
+    @apply mx-auto text-zinc-300/90 text-base leading-relaxed text-pretty font-light;
+    letter-spacing: 0.01em;
+
+    /* Стили для ссылок в Markdown-файлах - особый цвет для ссылок */
+    & a {
+      @apply text-primary-300 hover:text-primary-400 underline underline-offset-2 transition-all duration-200;
+    }
+
+    /* Увеличиваем пространство между параграфами для лучшей читаемости */
+    & p {
+      @apply mb-8;
+      max-width: 70ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Стиль для заголовков внутри контента - заголовки должны быть белыми */
+    & h1,
+    & h2,
+    & h3,
+    & h4 {
+      @apply mt-8 mb-4 text-zinc-100;
+    }
+
+    /* Стили для заголовков разных уровней */
+    & h1 {
+      @apply mt-12 mb-6 font-bold text-zinc-100 text-3xl lg:text-5xl;
+      padding-bottom: 0.75rem;
+    }
+
+    & h2 {
+      @apply mt-12 mb-5 font-semibold text-zinc-100 text-2xl lg:text-3xl;
+      position: relative;
+    }
+
+    /* Декоративный элемент для h2 */
+    & h2::before {
+      content: "";
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 4rem;
+      height: 3px;
+      border-radius: 2px;
+    }
+
+    & h3 {
+      @apply mt-10 mb-4 font-medium text-primary-200 text-xl lg:text-2xl;
+      padding-left: 0.5rem;
+    }
+
+    & h4 {
+      @apply mt-8 mb-3 font-medium text-zinc-100 text-lg;
+      letter-spacing: 0.01em;
+    }
+
+    /* Особый стиль для списков */
+    & ul,
+    & ol {
+      @apply space-y-3 mb-8 pl-8;
+    }
+
+    /* Улучшаем стили для списков */
+    & ul {
+      @apply space-y-2 mt-6 mb-10 pl-10 list-disc;
+      list-style-position: outside;
+    }
+
+    & ol {
+      @apply space-y-2 mt-6 mb-10 pl-10 list-decimal;
+      list-style-position: outside;
+    }
+
+    /* Отступы пунктов списка */
+    & li {
+      @apply mb-2 pl-1;
+      display: list-item;
+      max-width: 70ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Отступы для последнего элемента списка */
+    & li:last-child {
+      @apply mb-0;
+    }
+
+    /* Вложенные списки */
+    & ul ul,
+    & ol ol,
+    & ul ol,
+    & ol ul {
+      @apply mt-2 mb-1 ml-2;
+    }
+
+    /* Стиль для параграфа после списка */
+    & ul+p,
+    & ol+p {
+      @apply mt-8;
+    }
+
+    /* Увеличенные отступы для блочных элементов */
+    & blockquote {
+      @apply my-8 py-1 pl-6 border-primary-400 border-l-4 italic;
+    }
+
+    /* Добавим стили для выделения кода */
+    & code {
+      @apply bg-zinc-800 px-1.5 py-0.5 rounded-md font-mono text-sm;
+    }
+
+    /* Улучшенное форматирование для блоков кода */
+    & pre {
+      @apply bg-zinc-900 my-6 p-4 border border-zinc-800 rounded-lg overflow-x-auto;
+    }
+
+    & pre code {
+      @apply bg-transparent p-0;
+    }
+
+    /* Стили для горизонтальных разделителей */
+    & hr {
+      @apply my-12 border-zinc-800;
+    }
+
+    /* Стили для изображений */
+    & img {
+      @apply shadow-lg mx-auto my-8 rounded-lg max-w-full;
+      max-height: 70vh;
+      object-fit: contain;
+    }
+
+    /* Стиль для элементов strong и bold - выделения должны быть белыми */
+    & strong,
+    & b {
+      @apply font-semibold text-zinc-100;
+    }
+
+    /* Более четкое разделение смысловых блоков */
+    & h2+p {
+      @apply mt-6;
+    }
+
+    & h3+p {
+      @apply mt-4;
+    }
+
+    /* Улучшаем визуальное разделение блоков для лучшего понимания структуры */
+    &>p {
+      @apply my-6;
+    }
+
+    &>p+h2,
+    &>p+h3 {
+      @apply mt-12;
+    }
+  }
+
   /* Глобальный ограничитель ширины контейнера */
   .main-max-width {
     @apply px-[24px];
@@ -162,15 +322,21 @@
   }
 
   .support-card {
-    @apply flex flex-col gap-3 bg-zinc-900/40 hover:bg-lime-400/10 p-4 border border-zinc-800 hover:border-lime-400 rounded-[8px] transition-all;
+    @apply flex flex-col gap-3 bg-zinc-900/40 hover:bg-primary-300/10 p-4 border border-zinc-800 hover:border-primary-300 rounded-[8px] transition-all;
 
     .icon {
-      @apply w-12 h-12 text-lime-400;
+      @apply w-12 h-12 text-primary-300;
     }
   }
 }
 
 html,
+body {
+  min-height: 100dvh;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 100dvh;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
