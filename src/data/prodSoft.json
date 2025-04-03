@@ -221,7 +221,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/#sar-expert"
+              "link": "/downloads/sar-expert/sar-expert.1.0.0.234.exe"
             }
           },
           "guides": {
@@ -261,7 +261,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/#sar-expert"
+              "link": "/downloads/sar-expert/sar-expert.1.0.0.234.tar.gz"
             }
           },
           "guides": {
