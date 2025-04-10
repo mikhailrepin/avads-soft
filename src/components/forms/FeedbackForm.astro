@@ -1,12 +1,15 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import helpers from "@/data/helpers.json";
 
 let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
+let companyEmail = helpers.company.mail.info;
 ---
 
 <form
   class="flex flex-col gap-4"
-  id="feedbackForm">
+  id="feedbackForm"
+  data-company-email={companyEmail}>
   <!-- Поля ввода -->
   <input
     type="text"
@@ -33,7 +36,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   />
   <textarea
     placeholder="Сообщение"
-    class="form-input min-h-[100px] max-h-[300px]"
+    class="min-h-[100px] max-h-[300px] form-input"
     name="message"
     required
   ></textarea>
@@ -76,12 +79,12 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
       type="checkbox"
       checked
       id="privacy"
-      class="w-4 h-4 cursor-pointer accent-primary-300"
+      class="w-4 h-4 accent-primary-300 cursor-pointer"
       required
     />
     <label
       for=""
-      class="text-sm text-zinc-400">
+      class="text-zinc-400 text-sm">
       Принимаю условия <a
         href="/legal-information"
         class="text-primary-300 hover:text-primary-400 hover:underline"
@@ -132,7 +135,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
 
 <style>
   .file-upload-button {
-    @apply inline-flex justify-center items-center gap-2 border-zinc-500 hover:bg-zinc-800 px-2 py-1 pr-4 border rounded-[4px] w-fit hover:text-white cursor-pointer;
+    @apply inline-flex justify-center items-center gap-2 hover:bg-zinc-800 px-2 py-1 pr-4 border border-zinc-500 rounded-[4px] w-fit hover:text-white cursor-pointer;
   }
 
   .hidden-input {
@@ -153,6 +156,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
 </style>
 
 <script>
+  // @ts-nocheck
   const fileInput = document.getElementById("fileInput");
   const fileNameDisplay = document.getElementById("fileName");
   const removeFileBtn = document.getElementById("removeFile");
@@ -163,7 +167,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   ];
 
-  function truncateFileName(fileName: string, maxLength: number = 30): string {
+  function truncateFileName(fileName: string, maxLength = 30) {
     if (fileName.length <= maxLength) return fileName;
 
     const extension = fileName.split(".").pop();
@@ -175,7 +179,8 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
 
   // Функция очистки файла
   function clearFile(clearError = true) {
-    if (fileInput) fileInput.value = "";
+    if (fileInput && fileInput instanceof HTMLInputElement)
+      fileInput.value = "";
     if (fileNameDisplay && clearError) {
       fileNameDisplay.textContent = "Допустимый тип: .pdf, .doc";
       fileNameDisplay.className =
@@ -191,46 +196,46 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   removeFileBtn?.addEventListener("click", () => clearFile(true));
 
   fileInput?.addEventListener("change", async (e) => {
-    const input = e.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
+    const input = e.target;
+    if (input.files && input.files.length > 0 && fileNameDisplay) {
       const file = input.files[0];
-      fileNameDisplay!.textContent = truncateFileName(file.name);
+      fileNameDisplay.textContent = truncateFileName(file.name);
 
       // Проверка размера файла
       if (file.size > MAX_FILE_SIZE) {
-        fileNameDisplay!.textContent = "Ошибка: размер файла превышает 5МБ";
-        fileNameDisplay!.className = "text-sm text-red-500 max-w-[300px]";
+        fileNameDisplay.textContent = "Ошибка: размер файла превышает 5МБ";
+        fileNameDisplay.className = "text-sm text-red-500 max-w-[300px]";
         clearFile();
         return;
       }
 
       // Проверка типа файла
       if (!ALLOWED_TYPES.includes(file.type)) {
-        fileNameDisplay!.textContent =
+        fileNameDisplay.textContent =
           "Ошибка: допустимы только PDF и DOC файлы";
-        fileNameDisplay!.className = "text-sm text-red-500 max-w-[300px]";
+        fileNameDisplay.className = "text-sm text-red-500 max-w-[300px]";
         clearFile();
         return;
       }
 
       // Показываем состояние загрузки
-      fileNameDisplay!.textContent = "Загрузка...";
-      fileNameDisplay!.className =
+      fileNameDisplay.textContent = "Загрузка...";
+      fileNameDisplay.className =
         "text-sm text-zinc-400 max-w-[300px] truncate";
-      removeFileBtn!.classList.add("hidden");
+      if (removeFileBtn) removeFileBtn.classList.add("hidden");
 
       try {
         await simulateFileUpload(file);
-        fileNameDisplay!.textContent = truncateFileName(file.name);
-        fileNameDisplay!.className =
+        fileNameDisplay.textContent = truncateFileName(file.name);
+        fileNameDisplay.className =
           "text-sm text-lime-500 max-w-[300px] truncate";
-        removeFileBtn!.classList.remove("hidden");
+        if (removeFileBtn) removeFileBtn.classList.remove("hidden");
       } catch (error) {
-        fileNameDisplay!.textContent = "Ошибка: не удалось загрузить файл";
-        fileNameDisplay!.className =
+        fileNameDisplay.textContent = "Ошибка: не удалось загрузить файл";
+        fileNameDisplay.className =
           "text-sm text-red-500 max-w-[300px] truncate";
         input.value = ""; // Очищаем только input, оставляем сообщение об ошибке
-        removeFileBtn!.classList.add("hidden");
+        if (removeFileBtn) removeFileBtn.classList.add("hidden");
       }
     } else {
       clearFile();
@@ -238,7 +243,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   });
 
   // Функция для имитации загрузки файла
-  function simulateFileUpload(file: File): Promise<void> {
+  function simulateFileUpload(file) {
     return new Promise((resolve, reject) => {
       // Здесь должна быть реальная логика загрузки файла
       // Пока просто имитируем процесс с 50% шансом успеха
@@ -253,7 +258,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   }
 
   // Обработчик отправки формы
-  const form = document.getElementById("feedbackForm") as HTMLFormElement;
+  const form = document.getElementById("feedbackForm");
   const successMessage = document.getElementById("successMessage");
   const errorMessage = document.getElementById("errorMessage");
   const closeSuccess = document.getElementById("closeSuccess");
@@ -264,7 +269,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   errorMessage?.classList.add("hidden");
 
   // Функция для показа сообщения с автоматическим скрытием
-  function showMessage(messageElement: HTMLElement | null, duration = 5000) {
+  function showMessage(messageElement, duration = 5000) {
     if (!messageElement) return;
 
     requestAnimationFrame(() => {
@@ -303,7 +308,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   const submitButton = form?.querySelector('button[type="submit"]');
   let isLoading = false;
 
-  function setFormLoading(loading: boolean) {
+  function setFormLoading(loading) {
     isLoading = loading;
 
     // Управляем прозрачностью всей формы
@@ -317,24 +322,25 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
     const fileLabel = form?.querySelector(".file-upload-button");
 
     inputs?.forEach((input) => {
-      (input as HTMLElement).style.pointerEvents = loading ? "none" : "auto";
-      (input as HTMLElement).style.opacity = loading ? "0.5" : "1";
+      input.style.pointerEvents = loading ? "none" : "auto";
+      input.style.opacity = loading ? "0.5" : "1";
     });
 
     // Блокируем/разблокируем кнопку загрузки файла
     if (fileLabel) {
-      (fileLabel as HTMLElement).style.pointerEvents = loading
-        ? "none"
-        : "auto";
-      (fileLabel as HTMLElement).style.opacity = loading ? "0.5" : "1";
-      (fileLabel as HTMLElement).style.cursor = loading ? "default" : "pointer";
+      fileLabel.style.pointerEvents = loading ? "none" : "auto";
+      fileLabel.style.opacity = loading ? "0.5" : "1";
+      fileLabel.style.cursor = loading ? "default" : "pointer";
     }
 
     // Обновляем текст кнопки через button-label
     if (submitButton) {
-      submitButton.querySelector(".button-label")!.textContent = loading
-        ? "ОТПРАВЛЯЕТСЯ..."
-        : "ОТПРАВИТЬ СООБЩЕНИЕ";
+      const buttonLabel = submitButton.querySelector(".button-label");
+      if (buttonLabel) {
+        buttonLabel.textContent = loading
+          ? "ОТПРАВЛЯЕТСЯ..."
+          : "ОТПРАВИТЬ СООБЩЕНИЕ";
+      }
     }
   }
 
@@ -346,8 +352,10 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
     const hasFile = fileInput?.files && fileInput.files.length > 0;
 
     if (hasFile && hasFileError) {
-      fileNameDisplay!.textContent = "Пожалуйста, загрузите файл корректно";
-      fileNameDisplay!.className = "text-sm text-red-500 max-w-[300px]";
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = "Пожалуйста, загрузите файл корректно";
+        fileNameDisplay.className = "text-sm text-red-500 max-w-[300px]";
+      }
       return;
     }
 
@@ -356,12 +364,14 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
 
     try {
       // Собираем данные формы
+      const companyEmail = form?.getAttribute("data-company-email") || "";
       const templateParams = {
-        from_name: form.querySelector('[name="from_name"]')?.value,
-        from_email: form.querySelector('[name="from_email"]')?.value,
-        phone: form.querySelector('[name="phone"]')?.value,
-        message: form.querySelector('[name="message"]')?.value,
+        from_name: form?.querySelector('[name="from_name"]')?.value || "",
+        from_email: form?.querySelector('[name="from_email"]')?.value || "",
+        phone: form?.querySelector('[name="phone"]')?.value || "",
+        message: form?.querySelector('[name="message"]')?.value || "",
         attachment: fileInput?.files?.[0]?.name || "No file attached",
+        to_email: companyEmail, // Используем email из данных компании
       };
 
       await emailjs.send(
@@ -372,7 +382,7 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
       );
 
       showMessage(successMessage);
-      form.reset();
+      if (form) form.reset();
       clearFile(true);
     } catch (error) {
       console.error(error);
@@ -386,8 +396,8 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   // Маска для телефона
   const phoneInput = form?.querySelector('input[name="phone"]');
 
-  function formatPhone(event: Event) {
-    const input = event.target as HTMLInputElement;
+  function formatPhone(event) {
+    const input = event.target;
     let value = input.value.replace(/\D/g, ""); // Оставляем только цифры
 
     // Ограничиваем длину до 11 цифр
@@ -419,13 +429,13 @@ let buttonText = "ОТПРАВИТЬ СООБЩЕНИЕ";
   // Обработчики для телефона
   phoneInput?.addEventListener("input", formatPhone);
   phoneInput?.addEventListener("focus", (e) => {
-    const input = e.target as HTMLInputElement;
+    const input = e.target;
     if (!input.value || input.value === "+7") {
       input.value = "+7 ";
     }
   });
   phoneInput?.addEventListener("blur", (e) => {
-    const input = e.target as HTMLInputElement;
+    const input = e.target;
     if (input.value === "+7 ") {
       input.value = "";
     }
