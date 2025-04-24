@@ -5,7 +5,6 @@ import CallToAction from "@/components/section/CallToAction.astro";
 import Platforms from "@/components/section/Platforms.astro";
 import Advantage from "@/components/card/Advantage.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-import FAQ from "@/components/section/FAQ.astro";
 import PerformanceTSDB from "@/components/section/PerformanceTSDB.astro";
 
 /* Images */
@@ -22,14 +21,13 @@ import TSDBBox from "@/assets/products/tsdb/install-box.png";
 
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
-import faqData from "@/data/faqTSDB.json";
 import PlatformsData from "@/assets/products/tsdb/platforms.json";
 
 /* Animations */
 //import dotAnim from "@/assets/media/dots-anim.json";
 
 /* Variables */
-const heroBbackground = "/hero/geometry-4.webp";
+const heroBbackground = "/hero/pic_20.webp";
 
 const tsdb = prodSoft.products.find((product) => product.id === "tsdb");
 
@@ -42,35 +40,35 @@ const advantages = [
   {
     title: "Высочайшая производительность",
     description:
-      "На обычном компьютере скорость сохранения до 2 млн. записей в секунду и скорость выборки до 3 млн. записей в секунду (параллельно с записью).",
+      "На&nbsp;обычном компьютере скорость сохранения до&nbsp;2&nbsp;млн. записей в&nbsp;секунду и&nbsp;скорость выборки до&nbsp;3&nbsp;млн. записей в&nbsp;секунду (параллельно с&nbsp;записью).",
     icon: "database-thunderbolt-outline",
   },
   {
     title: "Инновационность",
-    description: `${tsdb.app.name} построен на базе уникальной инновационной технологии SSDS и не имеет аналогов по производительности для своих задач.`,
+    description: `${tsdb.app.name} построен на&nbsp;базе уникальной инновационной технологии SSDS и&nbsp;не&nbsp;имеет аналогов по&nbsp;производительности для&nbsp;своих задач.`,
     icon: "rocket-outline",
   },
   {
     title: "Широчайшая кросс-платформенность",
     description:
-      "Работает в операционных системах Windows, Linux, Android, IOS, Darwin, Эльбрус, NetBSD, FreeBSD, OpenBSD, Plan9, AIX, Dragonfly, Illumos, Solaris на различных аппаратных платформах.",
+      "Работает в&nbsp;операционных системах Windows, Linux, Android, IOS, Darwin, Эльбрус, NetBSD, FreeBSD, OpenBSD, Plan9, AIX, Dragonfly, Illumos, Solaris на&nbsp;различных аппаратных платформах.",
     icon: "branch-down-outline",
   },
   {
     title: "Высочайшая надежность",
-    description: `${tsdb.app.name} позволяет создавать высоконадежные системы хранения данных благодаря встроенным механизмам резервирования серверов и носителей.`,
+    description: `${tsdb.app.name} позволяет создавать высоконадежные системы хранения данных благодаря встроенным механизмам резервирования серверов и&nbsp;носителей.`,
     icon: "database-protection-outline",
   },
   {
     title: "Мощная система бэкапов",
     description:
-      "Можно сохранить в файл бэкапа историю изменения произвольного набора тегов за заданный интервал времени и восстановить эти данные в любую базу на том же или другом компьютере.",
+      "Можно сохранить в&nbsp;файл бэкапа историю изменения произвольного набора тегов за&nbsp;заданный интервал времени и&nbsp;восстановить эти&nbsp;данные в&nbsp;любую базу на&nbsp;том&nbsp;же&nbsp;или&nbsp;другом компьютере.",
     icon: "database-backup-outline",
   },
   {
     title: "Автоматическое зацикливание",
     description:
-      "База может зацикливаться либо по времени хранения данных, либо по доступному дисковому пространству. При исчерпании свободного места на диске производится автоматическое зацикливание по второму типу. Для каждого тега можно задать индивидуальную глубину хранения.",
+      "База может зацикливаться либо&nbsp;по&nbsp;времени хранения данных, либо&nbsp;по&nbsp;доступному дисковому пространству. При&nbsp;исчерпании свободного места на&nbsp;диске производится автоматическое зацикливание по&nbsp;второму типу. Для&nbsp;каждого тега можно задать индивидуальную глубину хранения.",
     icon: "loop-outline",
   },
 ];

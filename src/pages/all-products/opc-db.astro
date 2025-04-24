@@ -2,10 +2,8 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
-import Platforms from "@/components/section/Platforms.astro";
 import Advantage from "@/components/card/Advantage.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-import FAQ from "@/components/section/FAQ.astro";
 
 /* Images */
 import { Image } from "astro:assets";
@@ -13,11 +11,9 @@ import OPCDBBox from "@/assets/products/opc-db/install-box.png";
 
 /* Data */
 import prodSoft from "@/data/prodSoft.json";
-import faqData from "@/data/faqMain.json";
-import PlatformsData from "@/assets/products/sar-expert/platforms.json";
 
 /* Variables */
-const heroBbackground = "/hero/geometry-3.webp";
+const heroBbackground = "/hero/pic_21.webp";
 
 type Product = {
   id: string;

@@ -89,7 +89,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/tsdb/avads_sa_win_x64_1.2.6.exe"
+              "link": "/downloads/tsdb/avads_sa_win_x64_1.2.7.exe"
             },
             "git": {
               "icon": "github-symbol",
@@ -134,7 +134,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/tsdb/avads_sa.tar.gz"
+              "link": "/downloads/tsdb/avads_sa_1.2.7.tar.gz"
             },
             "git": {
               "icon": "github-symbol",
@@ -221,7 +221,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/sar-expert/sar-expert.1.0.0.234.exe"
+              "link": "/downloads/sar-expert/sar-expert.1.0.1.273.exe"
             }
           },
           "guides": {
@@ -261,7 +261,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/sar-expert/sar-expert.1.0.0.234.tar.gz"
+              "link": "/downloads/sar-expert/sar-expert.1.0.1.273.tar.gz"
             }
           },
           "guides": {
