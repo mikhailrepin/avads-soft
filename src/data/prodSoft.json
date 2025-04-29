@@ -235,6 +235,11 @@
               "label": "Руководство пользователя",
               "link": "/docs/sar-expert/Руководство_пользователя_АВАДС_САР-эксперт.pdf"
             },
+            "fast-start": {
+              "icon": "file-blank-outline",
+              "label": "Быстрый старт",
+              "link": "/docs/sar-expert/Быстрый_старт_САР-эксперт.pdf"
+            },
             "functions": {
               "icon": "file-blank-outline",
               "label": "Функциональное описание",
@@ -274,6 +279,11 @@
               "icon": "file-blank-outline",
               "label": "Руководство пользователя",
               "link": "/docs/sar-expert/Руководство_пользователя_АВАДС_САР-эксперт.pdf"
+            },
+            "fast-start": {
+              "icon": "file-blank-outline",
+              "label": "Быстрый старт",
+              "link": "/docs/sar-expert/Быстрый_старт_САР-эксперт.pdf"
             },
             "functions": {
               "icon": "file-blank-outline",
