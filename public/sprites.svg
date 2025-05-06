@@ -182,7 +182,7 @@
     </symbol>
     <symbol id="arrow-down-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M8 15 2 9l1-1 4 4V1h2v11l4-4 1 1-6 6Z"/>
+        <path d="M8 15 2 9h1.5l4 4V1h1v12l4-4H14l-6 6Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -202,7 +202,7 @@
     </symbol>
     <symbol id="arrow-down-small-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="m8 13 4-4-1-1-2 2V3H7v7L5 8 4 9l4 4Z"/>
+        <path d="m8 13 4-4h-1.5l-2 2V3h-1v8l-2-2H4l4 4Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -222,7 +222,7 @@
     </symbol>
     <symbol id="arrow-left-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="m1 8 6-6 1 1-4 4h11v2H4l4 4-1 1-6-6Z"/>
+        <path d="m1 8 6-6v1.5l-4 4h12v1H3l4 4V14L1 8Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -242,7 +242,7 @@
     </symbol>
     <symbol id="arrow-left-small-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="m3 8 4 4 1-1-2-2h7V7H6l2-2-1-1-4 4Z"/>
+        <path d="m3 8 4 4v-1.5l-2-2h8v-1H5l2-2V4L3 8Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -262,7 +262,7 @@
     </symbol>
     <symbol id="arrow-right-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="m15 8-6 6-1-1 4-4H1V7h11L8 3l1-1 6 6Z"/>
+        <path d="m15 8-6 6v-1.5l4-4H1v-1h12l-4-4V2l6 6Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -282,7 +282,7 @@
     </symbol>
     <symbol id="arrow-right-small-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="m13 8-4 4-1-1 2-2H3V7h7L8 5l1-1 4 4Z"/>
+        <path d="m13 8-4 4v-1.5l2-2H3v-1h8l-2-2V4l4 4Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -302,7 +302,7 @@
     </symbol>
     <symbol id="arrow-up-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="m8 1 6 6-1 1-4-4v11H7V4L3 8 2 7l6-6Z"/>
+        <path d="m8 1 6 6h-1.5l-4-4v12h-1V3l-4 4H2l6-6Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -322,7 +322,7 @@
     </symbol>
     <symbol id="arrow-up-small-light" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="m8 3 4 4-1 1-2-2v7H7V6L5 8 4 7l4-4Z"/>
+        <path d="M8 3 4 7h1.5l2-2v8h1V5l2 2H12L8 3Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2370,7 +2370,7 @@
     </symbol>
     <symbol id="move-down-arrow-big-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M15 15H1v-1h14v1Zm-6-5V1H7v9L3 6 2 7l6 6 6-6-1-1-4 4Z"/>
+        <path d="M15 15H1v-1h14v1Zm-6.5-4V1h-1v10l-4-4H2l6 6 6-6h-1.5l-4 4Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2380,7 +2380,7 @@
     </symbol>
     <symbol id="move-down-arrow-small-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M13 13H3v-1h10v1ZM9 8V3H7v5L5 6 4 7l4 4 4-4-1-1-2 2Z"/>
+        <path d="M13 13H3v-1h10v1ZM8.5 9V3h-1v6l-2-2H4l4 4 4-4h-1.5l-2 2Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2390,7 +2390,7 @@
     </symbol>
     <symbol id="move-left-arrow-big-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M1 15V1h1v14H1Zm5-6h9V7H6l4-4-1-1-6 6 6 6 1-1-4-4Z"/>
+        <path d="M1 15V1h1v14H1Zm4-6.5h10v-1H5l4-4V2L3 8l6 6v-1.5l-4-4Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2400,7 +2400,7 @@
     </symbol>
     <symbol id="move-left-arrow-small-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M3 13V3h1v10H3Zm5-4h5V7H8l2-2-1-1-4 4 4 4 1-1-2-2Z"/>
+        <path d="M3 13V3h1v10H3Zm4-4.5h6v-1H7l2-2V4L5 8l4 4v-1.5l-2-2Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2450,7 +2450,7 @@
     </symbol>
     <symbol id="move-right-arrow-big-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M15 15V1h-1v14h1Zm-5-6H1V7h9L6 3l1-1 6 6-6 6-1-1 4-4Z"/>
+        <path d="M15 15V1h-1v14h1Zm-4-6.5H1v-1h10l-4-4V2l6 6-6 6v-1.5l4-4Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2460,7 +2460,7 @@
     </symbol>
     <symbol id="move-right-arrow-small-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M13 13V3h-1v10h1ZM8 9H3V7h5L6 5l1-1 4 4-4 4-1-1 2-2Z"/>
+        <path d="M13 13V3h-1v10h1ZM9 8.5H3v-1h6l-2-2V4l4 4-4 4v-1.5l2-2Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2510,7 +2510,7 @@
     </symbol>
     <symbol id="move-up-arrow-big-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M15 1H1v1h14V1ZM9 6v9H7V6l-4 4-1-1 6-6 6 6-1 1-4-4Z"/>
+        <path d="M15 1H1v1h14V1ZM8.5 5v10h-1V5l-4 4H2l6-6 6 6h-1.5l-4-4Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -2520,7 +2520,7 @@
     </symbol>
     <symbol id="move-up-arrow-small-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M13 3H3v1h10V3ZM9 8v5H7V8l-2 2-1-1 4-4 4 4-1 1-2-2Z"/>
+        <path d="M13 3H3v1h10V3ZM8.5 7v6h-1V7l-2 2H4l4-4 4 4h-1.5l-2-2Z"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -5425,8 +5425,8 @@
     </symbol>
     <symbol id="focus-to-center" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
       <g clip-path="url(#a)">
-        <path d="M10 13h4v-3h1v4h-5v-1Zm0-10h4v3h1V2h-5v1ZM6 3H2v3H1V2h5v1Zm0 10H2v-3H1v4h5v-1ZM1 7h5v2H1V7Zm9 0h5v2h-5V7Z"/>
-        <path fill-rule="evenodd" d="M7 1h2v5H7V1Zm2 6H7v2h2V7Zm-2 8v-5h2v5H7Z" clip-rule="evenodd"/>
+        <path d="M10 13h4v-3h1v4h-5v-1Zm0-10h4v3h1V2h-5v1ZM6 3H2v3H1V2h5v1Zm0 10H2v-3H1v4h5v-1ZM1 7.5h5v1H1v-1Zm9 0h5v1h-5v-1Z"/>
+        <path fill-rule="evenodd" d="M7.5 1h1v5h-1V1Zm1 6.5h-1v1h1v-1Zm-1 7.5v-5h1v5h-1Z" clip-rule="evenodd"/>
       </g>
       <defs>
         <clipPath id="a">
@@ -5698,6 +5698,208 @@
         <path fill-rule="evenodd" d="M11 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm.5-1.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" clip-rule="evenodd"/>
         <path fill-rule="evenodd" d="M2 9s.587 0 1.328.086c.934.11 2.114.356 2.672.914.558.558.804 1.738.914 2.672C7 13.413 7 14 7 14l8-8V1h-5L2 9Zm8.414-7L4.207 8.207c.35.064.714.15 1.062.266.482.16 1.028.41 1.438.82.41.41.66.956.82 1.438.116.348.202.713.266 1.062L14 5.586V2h-3.586ZM12 10v4l-1 1-3-1 4-4Zm-2.149 3.563L11 12.414v1.172l-.27.27-.879-.293ZM2 8 1 5l1-1h4L2 8Zm1.586-3L2.437 6.149l-.293-.879.27-.27h1.172Z" clip-rule="evenodd"/>
         <path fill-rule="evenodd" d="M5.414 13.414c-.502.503-2.186 1.015-3.323 1.317C1.461 14.898 1 15 1 15s.102-.462.27-1.091c.3-1.137.813-2.82 1.316-3.323a2 2 0 0 1 2.828 2.828Zm-.707-.707s-.013.012-.046.035a1.688 1.688 0 0 1-.146.09 4.87 4.87 0 0 1-.5.235 14.9 14.9 0 0 1-1.386.474l-.24.07c.022-.079.046-.16.07-.24.144-.488.307-.98.474-1.386.084-.202.163-.37.234-.5a1.692 1.692 0 0 1 .126-.192 1 1 0 1 1 1.414 1.414Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="sidebar-top-add-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M14 6H2v8h5.758c.253.378.561.715.913 1H1V1h14v7.671a4.526 4.526 0 0 0-1-.913V6Zm0-4H2v3h12V2Z" clip-rule="evenodd"/>
+        <path d="M15 12v-1h-3V8h-1v3H8v1h3v3h1v-3h3Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="cursor-hand" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M6.96 2.105A1.518 1.518 0 0 1 8.425 1c.701 0 1.291.468 1.467 1.105.173-.068.362-.105.56-.105.84 0 1.52.672 1.52 1.5v.585A1.55 1.55 0 0 1 12.479 4c.84 0 1.52.672 1.52 1.5v4.57C14 12.793 11.763 15 9.004 15a5.008 5.008 0 0 1-4.337-2.484l-2.479-4.28a1.392 1.392 0 0 1 .052-1.48 1.438 1.438 0 0 1 2.3-.099l.34.418V3.5c0-.828.68-1.5 1.52-1.5.197 0 .386.037.56.105ZM5.892 8.5v-5c0-.276.227-.5.506-.5.28 0 .507.224.507.5v3c0 .276.227.5.507.5s.507-.224.507-.5v-4c0-.276.226-.5.506-.5s.507.224.507.5v4c0 .276.227.5.507.5s.506-.224.506-.5v-3c0-.276.227-.5.507-.5s.507.224.507.5v3c0 .276.227.5.506.5.28 0 .507-.224.507-.5v-1c0-.276.227-.5.507-.5s.507.224.507.5v4.57c0 2.17-1.783 3.93-3.983 3.93a3.992 3.992 0 0 1-3.457-1.98l-2.48-4.28a.403.403 0 0 1 .016-.43.417.417 0 0 1 .667-.028l1.24 1.53a.51.51 0 0 0 .637.128.499.499 0 0 0 .266-.44Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="grid-visible" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M2 1H1v14h1V1Zm13 0h-1v6.758c.378.253.715.561 1 .913V1ZM7.193 12.807c.147.485.373.935.664 1.336L7 15H5l2.193-2.193Zm3.776-5.776a4.502 4.502 0 0 0-3.938 3.938L3 15v-2L13 3v2l-2.031 2.031ZM3 7V5l4-4h2L3 7Zm2-6H3v2l2-2Zm6 0h2L3 11V9l8-8Z"/>
+      <path fill-rule="evenodd" d="M15 11.5s-1-2-3.5-2-3.5 2-3.5 2 1 2 3.5 2 3.5-2 3.5-2Zm-3.5 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/>
+    </symbol>
+    <symbol id="cursor-default" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="m12 15 3-3-4-4 2-2L1.5 1.5 6 13l2-2 4 4Zm-5.626-3.788L8 9.586l4 4L13.586 12l-4-4 1.626-1.626-7.948-3.11 3.11 7.948Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="var-float-link-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M15 1H1v1h14V1ZM8.535 14H1v1h8.354a4.019 4.019 0 0 1-.819-1ZM12.5 8.031a4.039 4.039 0 0 0-2.084.295V3.5H12.5v4.531Zm-9.103 4.196V3.5h5.957v1.713H5.506v1.79h3.469V8.72H5.506v3.507h-2.11ZM14.185 9.5a2.339 2.339 0 0 0-3.307 0l.661.661a1.403 1.403 0 0 1 1.985 1.985l.66.661a2.338 2.338 0 0 0 0-3.307Z"/>
+        <path d="m13.193 11.154-.662-.662-1.984 1.984.662.662 1.984-1.984Z"/>
+        <path d="M10.216 13.469a1.403 1.403 0 0 1 0-1.985l-.661-.661a2.339 2.339 0 1 0 3.307 3.307l-.661-.661a1.403 1.403 0 0 1-1.985 0Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="var-integer-link-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M15 1H1v14h8.354a3.992 3.992 0 0 1-1.323-2.5H6.685V5.955h1.981v1.201h.073c.304-.841 1.122-1.287 1.99-1.287 1.33 0 2.187 1.02 2.265 2.256A4 4 0 0 1 15 9.355V1ZM5.36 3.773V12.5H3.251V3.773h2.11Z" clip-rule="evenodd"/>
+        <path d="M10.821 8.177c-.153-.383-.486-.599-.953-.599-.646 0-1.09.43-1.1 1.189v.875a4.007 4.007 0 0 1 2.053-1.465ZM14.185 9.5a2.339 2.339 0 0 0-3.307 0l.661.662a1.403 1.403 0 1 1 1.985 1.984l.66.661a2.338 2.338 0 0 0 0-3.307Z"/>
+        <path d="m13.193 11.154-.662-.662-1.984 1.984.661.662 1.985-1.984Z"/>
+        <path d="M10.216 13.469a1.403 1.403 0 0 1 0-1.985l-.661-.661a2.339 2.339 0 1 0 3.307 3.307l-.661-.661a1.403 1.403 0 0 1-1.985 0Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="var-integer-link-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M15 1H1v1h14V1ZM8.535 14H1v1h8.354a4.019 4.019 0 0 1-.819-1Zm-.018-3.969a3.982 3.982 0 0 0-.486 2.469H6.434V5.955h1.981v1.201h.073c.144-.4.392-.714.741-.942.699-.46 1.733-.47 2.446-.034.62.372 1.006 1.03 1.066 1.888a4.023 4.023 0 0 0-2.143.185c-.139-.43-.484-.675-.981-.675-.68 0-1.092.527-1.1 1.189v1.264ZM5.11 3.773V12.5H3V3.773h2.11Z"/>
+        <path d="M14.185 9.5a2.339 2.339 0 0 0-3.307 0l.661.662a1.403 1.403 0 1 1 1.985 1.984l.66.661a2.338 2.338 0 0 0 0-3.307Z"/>
+        <path d="m13.193 11.154-.662-.662-1.984 1.984.661.662 1.985-1.984Z"/>
+        <path d="M10.216 13.469a1.403 1.403 0 0 1 0-1.985l-.661-.661a2.339 2.339 0 1 0 3.307 3.307l-.661-.661a1.403 1.403 0 0 1-1.985 0Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="var-string-link-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M15 1H1v14h8.354a3.99 3.99 0 0 1-1.352-3.113c-.583.372-1.378.57-2.363.57-1.46 0-2.572-.433-3.175-1.325-.3-.446-.455-1.01-.464-1.692h2.02c.017.282.092.516.226.704.268.376.752.57 1.368.57.571 0 .974-.163 1.189-.434.201-.255.23-.636.012-.89-.198-.239-.605-.402-1.244-.55a42.15 42.15 0 0 0-.309-.071c-.85-.192-1.72-.389-2.388-.982-.435-.39-.651-.915-.648-1.577-.006-1.084.68-1.943 1.649-2.37 1.481-.65 3.719-.49 4.692.964.275.412.416.89.422 1.432h-2.02c-.057-.625-.505-.993-1.33-.993-.814 0-1.223.34-1.231.822-.018.396.268.637.741.806.312.111.64.18.965.25.108.022.215.045.322.07 1.304.283 2.146.84 2.493 1.678.056.135.099.276.13.42.422-.458.95-.817 1.545-1.039v-.915h-.865V5.801l.865-.017V4.233h2.084v1.568h1.18v1.534h-1.18v.724A3.994 3.994 0 0 1 15 9.354V1Z"/>
+        <path d="M14.185 9.5a2.339 2.339 0 0 0-3.307 0l.661.662a1.403 1.403 0 1 1 1.985 1.984l.66.661a2.338 2.338 0 0 0 0-3.307Z"/>
+        <path d="m13.193 11.154-.662-.662-1.984 1.984.661.662 1.985-1.984Z"/>
+        <path d="M10.216 13.469a1.403 1.403 0 0 1 0-1.985l-.661-.661a2.339 2.339 0 1 0 3.307 3.307l-.661-.661a1.403 1.403 0 0 1-1.985 0Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="var-string-link-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="M1 1h14v1H1V1Zm4.64 4.243c.824 0 1.272.368 1.329.993h2.02a2.565 2.565 0 0 0-.422-1.432c-.973-1.455-3.21-1.614-4.692-.963-.97.426-1.655 1.285-1.65 2.37-.002.661.214 1.187.649 1.576.667.593 1.539.79 2.388.982l.309.07c.639.149 1.046.312 1.244.55.218.255.19.636-.012.89-.215.272-.618.435-1.19.435-.615 0-1.099-.194-1.367-.57a1.325 1.325 0 0 1-.226-.704H2c.009.682.163 1.246.464 1.692.603.892 1.715 1.325 3.175 1.325.985 0 1.78-.198 2.363-.57A3.985 3.985 0 0 1 9.058 9.29a2.376 2.376 0 0 0-.129-.42c-.347-.84-1.189-1.397-2.493-1.68l-.322-.07a7.232 7.232 0 0 1-.965-.25c-.473-.168-.759-.409-.741-.805.008-.482.417-.822 1.231-.822Zm7.048 2.816a4.026 4.026 0 0 0-2.084.191v-.915h-.865V5.801l.865-.017V4.233h2.084v1.568h1.18v1.534h-1.18v.724ZM8.535 14H1v1h8.354a4.019 4.019 0 0 1-.819-1Zm5.65-4.5a2.339 2.339 0 0 0-3.307 0l.661.662a1.403 1.403 0 1 1 1.985 1.984l.66.661a2.338 2.338 0 0 0 0-3.307Z"/>
+        <path d="m13.193 11.154-.662-.662-1.984 1.984.661.662 1.985-1.984Z"/>
+        <path d="M10.216 13.469a1.403 1.403 0 0 1 0-1.985l-.661-.661a2.339 2.339 0 1 0 3.307 3.307l-.661-.661a1.403 1.403 0 0 1-1.985 0Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="link-static-small" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path d="m6.525 4.525.707.707 1.475-1.474.007-.008a2.5 2.5 0 0 1 3.575 3.496l-1.521 1.522.707.707L13 7.949A3.5 3.5 0 0 0 8 3.05L6.525 4.526ZM3 8.05l1.525-1.525.707.707-1.521 1.522a2.5 2.5 0 0 0 3.535 3.535l1.522-1.521.707.707L7.949 13A3.5 3.5 0 0 1 3 8.05Z"/>
+        <path d="m6.5 10.5 4-4-1-1-4 4 1 1Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="full-height" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M1 15v-1h14v1H1ZM8.5 2 11 5H9v6h2l-2.5 3L6 11h2V5H6l2.5-3Zm0 0H15V1H1v1h7.5Z"/>
+    </symbol>
+    <symbol id="frame-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M3 3H1v1h2v8H1v1h2v2h1v-2h8v2h1v-2h2v-1h-2V4h2V3h-2V1h-1v2H4V1H3v2Zm1 1v8h8V4H4Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="frame-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M3 3H1v1h2v8H1v1h2v2h1v-2h8v2h1v-2h2v-1h-2V4h2V3h-2V1h-1v2H4V1H3v2Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="full-size" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M2.5 3.5 1 5V1h4L3.5 2.5 6 5 5 6 2.5 3.5Zm1 10L5 15H1v-4l1.5 1.5L5 10l1 1-2.5 2.5Zm9-11L11 1h4v4l-1.5-1.5L11 6l-1-1 2.5-2.5Zm1 10L15 11v4h-4l1.5-1.5L10 11l1-1 2.5 2.5Z"/>
+    </symbol>
+    <symbol id="lock-dimensions" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M1 15v-4h1v3h3v1H1ZM1 5V1h4v1H2v3H1Zm10-4h4v4h-1V2h-3V1Zm4 14v-4h-1v3h-3v1h4Zm-4.354-9.646a2.328 2.328 0 0 0-3.292 0l-.708-.708a3.328 3.328 0 0 1 4.708 4.708l-.707-.708a2.328 2.328 0 0 0 0-3.292Zm-6 1.292.708.708a2.328 2.328 0 0 0 3.292 3.292l.708.708a3.329 3.329 0 0 1-4.708-4.708Z"/>
+      <path d="m6 9 1 1 3-3-1-1-3 3Z"/>
+    </symbol>
+    <symbol id="select-area" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M1 15v-3h1v2h2.5v1H1ZM1 4V1h3.5v1H2v2H1Zm11-3h3v3h-1V2h-2V1Zm3 14v-3h-1v2h-2v1h3ZM1 6h1v4H1V6Zm13 0h1v4h-1V6ZM6 1h4v1H6V1Zm0 13h4v1H6v-1Z"/>
+    </symbol>
+    <symbol id="row-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M4 3H2v10h2V3Zm10 0h-2v10h2V3ZM9 3H7v10h2V3ZM1 2v12h4V2H1Zm10 0v12h4V2h-4Zm-1 0v12H6V2h4Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="row-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M1 2v12h4V2H1Zm10 0v12h4V2h-4Zm-1 0v12H6V2h4Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="col-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M3 12v2h10v-2H3ZM3 2v2h10V2H3Zm0 5v2h10V7H3Zm-1 8h12v-4H2v4ZM2 5h12V1H2v4Zm0 1h12v4H2V6Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="col-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M2 15h12v-4H2v4ZM2 5h12V1H2v4Zm0 1h12v4H2V6Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="grid-outline" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M4 10H2v3h2v-3Zm10 0h-2v3h2v-3Zm-5 0H7v3h2v-3ZM1 9v5h4V9H1Zm10 0v5h4V9h-4Zm-1 0v5H6V9h4ZM4 3H2v3h2V3Zm10 0h-2v3h2V3ZM9 3H7v3h2V3ZM1 2v5h4V2H1Zm10 0v5h4V2h-4Zm-1 0v5H6V2h4Z" clip-rule="evenodd"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M0 0h16v16H0z"/>
+        </clipPath>
+      </defs>
+    </symbol>
+    <symbol id="grid-fill" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <g clip-path="url(#a)">
+        <path fill-rule="evenodd" d="M1 9v5h4V9H1Zm10 0v5h4V9h-4Zm-1 0v5H6V9h4ZM1 2v5h4V2H1Zm10 0v5h4V2h-4Zm-1 0v5H6V2h4Z" clip-rule="evenodd"/>
       </g>
       <defs>
         <clipPath id="a">
