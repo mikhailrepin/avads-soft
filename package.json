@@ -3,10 +3,11 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/update-downloads.js && astro dev",
+    "build": "node scripts/update-downloads.js && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "update-downloads": "node scripts/update-downloads.js"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.3",
