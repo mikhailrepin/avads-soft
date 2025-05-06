@@ -16,16 +16,16 @@ const PROD_SOFT_PATH = path.resolve(rootDir, "src/data/prodSoft.json");
 // Шаблоны имен файлов для разных продуктов и платформ
 const FILE_PATTERNS = {
   tsdb: {
-    windows: /avads_sa_win_x64_.*\.exe$/i,
-    linux: /avads_sa_.*\.tar\.gz$/i,
+    windows: /avads_sa_win.*\.exe$/i,
+    linux: /avads_sa_linux.*\.tar\.gz$/i,
   },
   "sar-expert": {
-    windows: /sar-expert\..*\.exe$/i,
-    linux: /sar-expert\..*\.tar\.gz$/i,
+    windows: /avads_sar-expert_win.*\.exe$/i,
+    linux: /avads_sar-expert_linux.*\.tar\.gz$/i,
   },
   "opc-db": {
-    windows: /AVADS_OPC_DB_Gateway_win_.*\.exe$/i,
-    linux: /AVADS_OPC_DB_Gateway_linux_.*\.zip$/i,
+    windows: /avads_opc_db_win.*\.exe$/i,
+    linux: /avads_opc_db_linux.*\.zip$/i,
   },
 };
 

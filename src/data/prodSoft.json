@@ -152,7 +152,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/tsdb/avads_sa_win_x64_1.2.7.exe"
+              "link": "/downloads/tsdb/avads_sa_win_1.2.7.exe"
             },
             "git": {
               "icon": "github-symbol",
@@ -197,7 +197,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/tsdb/avads_sa_1.2.7.tar.gz"
+              "link": "/downloads/tsdb/avads_sa_linux_1.2.7.tar.gz"
             },
             "git": {
               "icon": "github-symbol",
@@ -284,7 +284,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/sar-expert/sar-expert.1.0.1.273.exe"
+              "link": "/downloads/sar-expert/avads_sar-expert_win_1.0.1.273.exe"
             }
           },
           "guides": {
@@ -329,7 +329,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/sar-expert/sar-expert.1.0.1.273.tar.gz"
+              "link": "/downloads/sar-expert/avads_sar-expert_linux_1.0.1.273.tar.gz"
             }
           },
           "guides": {
@@ -514,7 +514,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/opc-db/AVADS_OPC_DB_Gateway_win_x64_v1.0.3.exe"
+              "link": "/downloads/opc-db/avads_opc_db_win_1.0.3.exe"
             }
           },
           "guides": {
@@ -544,7 +544,7 @@
             "demo": {
               "icon": "download-bold",
               "label": "Скачать демо",
-              "link": "/downloads/opc-db/AVADS_OPC_DB_Gateway_linux_amd64_v1.0.3.zip"
+              "link": "/downloads/opc-db/avads_opc_db_linux_1.0.3.zip"
             }
           },
           "guides": {
