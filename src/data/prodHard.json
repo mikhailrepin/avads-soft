@@ -1,0 +1,95 @@
+{
+  "products": [
+    {
+      "id": "ASP",
+      "device": {
+        "name": "АСП",
+        "description": "Предназначены для визуализации и управления технологическими процессами в составе систем автоматизации",
+        "image": "/products/about/icon-code.svg",
+        "status": "release"
+      },
+      "prices": {
+        "type": "PriceASP"
+      },
+      "buttons": {
+        "buy": {
+          "label": "Купить",
+          "link": "https://insat.ru/products/?category=2739"
+        },
+        "more": {
+          "label": "Подробнее",
+          "link": "/all-products/asp"
+        },
+        "price": {
+          "label": "Цены",
+          "link": "/price/#asp"
+        }
+      },
+      "supports": {
+        "docs": {
+          "userguide": {
+            "icon": "",
+            "label": "Руководство пользователя",
+            "link": "/downloads/asp/ASP_User_Guide.pdf"
+          },
+          "manual": {
+            "icon": "",
+            "label": "Руководство по эксплуатации",
+            "link": "/downloads/asp/ASP_Expluatation_Guide.pdf"
+          }
+        },
+        "marketing": {
+          "presentation": {
+            "icon": "",
+            "label": "Презентация",
+            "link": "/downloads/asp/ASP_Presentation.pdf"
+          },
+          "booklet": {
+            "icon": "",
+            "label": "Буклет",
+            "link": "/downloads/asp/ASP_Booklet.pdf"
+          }
+        },
+        "visualization": {
+          "models": [
+            {
+              "id": "ASP-10",
+              "title": "АСП-10",
+              "files": {
+                "3D_Rev1": {
+                  "icon": "",
+                  "label": "3D_Rev1.2.pdf",
+                  "link": "/downloads/asp/3D_Rev1.2.pdf"
+                },
+                "3D_Rev2": {
+                  "icon": "",
+                  "label": "3D_Rev2.2.pdf",
+                  "link": "/downloads/asp/3D_Rev2.2.pdf"
+                }
+              }
+            }
+          ]
+        },
+        "social": {
+          "video": {
+            "title": "Посмотреть обучающие видеоролики",
+            "items": [
+              {
+                "id": "unboxing",
+                "title": "Распаковка и первое подключение",
+                "cover": "/products/about/icon-code.svg",
+                "link": "#"
+              },
+              {
+                "id": "lan-connection",
+                "title": "Подключение панели к сети и загрузка проекта",
+                "cover": "/products/about/icon-code.svg",
+                "link": "#"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
