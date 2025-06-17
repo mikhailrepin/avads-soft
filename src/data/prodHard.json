@@ -3,9 +3,9 @@
     {
       "id": "ASP",
       "device": {
-        "name": "АСП",
+        "name": "АВАДС АСП",
         "description": "Предназначены для визуализации и управления технологическими процессами в составе систем автоматизации",
-        "image": "/products/about/icon-code.svg",
+        "image": "/products/asp/prod-asp.png",
         "status": "В продаже"
       },
       "prices": {

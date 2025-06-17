@@ -34,7 +34,6 @@ const {
     src={Image}
     alt={Title}
     loading="lazy"
-    class="z-20 w-[64px] h-auto"
   />
   <h3 class="z-20 font-bold uppercase">{Title}</h3>
   <p class="z-20">{Description}</p>
@@ -51,6 +50,7 @@ const {
           ButtonLink={FirstButton.ButtonLink}
           Target="link"
           ButtonLabel={FirstButton.ButtonLabel}
+          CustomClass="w-full"
         />
       )
     }
@@ -66,6 +66,7 @@ const {
           ButtonLink={SecondButton.ButtonLink}
           Target="link"
           ButtonLabel={SecondButton.ButtonLabel}
+          CustomClass="w-full"
         />
       )
     }
@@ -80,7 +81,18 @@ const {
       z-index: 2;
     }
     & img {
-      @apply transition-all ease-in-out;
+      @apply z-10 w-[92%] object-contain transition-all ease-in-out;
+    }
+    & .bage {
+      @apply top-0 right-3 absolute bg-zinc-500 px-1 pt-5 pb-3 font-bold text-zinc-900 text-sm text-left uppercase transition-all;
+      writing-mode: vertical-rl;
+      white-space: nowrap;
+      transform: rotate(180deg);
+      &::after {
+        @apply block top-[-1px] right-0 absolute bg-zinc-950 w-[30px] h-[10px];
+        content: "";
+        clip-path: polygon(50% 100%, 0 0, 100% 0);
+      }
     }
     &:hover {
       & .glow-effect {
@@ -116,18 +128,6 @@ const {
     transition:
       opacity 0.3s ease-out,
       --angle 0.5s ease-in-out;
-  }
-
-  .bage {
-    @apply top-0 right-5 absolute bg-zinc-500 px-2 pt-5 pb-3 font-bold text-zinc-900 text-left uppercase transition-all;
-    writing-mode: vertical-rl;
-    white-space: nowrap;
-    transform: rotate(180deg);
-    &::after {
-      @apply block top-[-1px] right-0 absolute bg-zinc-950 w-[40px] h-[12px];
-      content: "";
-      clip-path: polygon(50% 100%, 0 0, 100% 0);
-    }
   }
 </style>
 
