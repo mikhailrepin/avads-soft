@@ -26,7 +26,7 @@ const {
 ---
 
 <div class={`card-box group ${CustomClass}`}>
-  <div class="lg:block hidden glow-effect">
+  <div class="hidden lg:block glow-effect">
     <div class="glow"></div>
   </div>
   {Status && <div class="z-20 bage">{Status}</div>}
@@ -76,7 +76,7 @@ const {
   .card-box {
     @apply relative flex flex-col gap-4 border-zinc-800/70 bg-zinc-950 p-[32px] border rounded-[8px] w-full overflow-hidden;
     &::before {
-      @apply absolute inset-[2px] content-[''] border-zinc-800 bg-zinc-950 border rounded-[4px];
+      @apply absolute inset-[2px] bg-zinc-950 border border-zinc-800 rounded-[4px] content-[''];
       z-index: 2;
     }
     & img {
@@ -93,7 +93,7 @@ const {
         }
       }
       & img {
-        @apply transition-all ease-in-out scale-[105%];
+        @apply scale-[105%] transition-all ease-in-out;
       }
     }
   }
@@ -119,7 +119,7 @@ const {
   }
 
   .bage {
-    @apply top-0 right-5 absolute bg-zinc-500 px-2 pt-5 pb-3 font-bold text-left text-zinc-900 uppercase transition-all;
+    @apply top-0 right-5 absolute bg-zinc-500 px-2 pt-5 pb-3 font-bold text-zinc-900 text-left uppercase transition-all;
     writing-mode: vertical-rl;
     white-space: nowrap;
     transform: rotate(180deg);
@@ -151,7 +151,7 @@ const {
     const degrees = (angle * 180) / Math.PI;
 
     // Обновляем только угол и прозрачность
-    glow.style.setProperty("--angle", `${degrees}deg`);
+    (glow as HTMLElement).style.setProperty("--angle", `${degrees}deg`);
     (glow.parentElement as HTMLElement).style.opacity = intensity.toString();
   };
 

@@ -151,7 +151,7 @@ const {
     const degrees = (angle * 180) / Math.PI;
 
     // Обновляем только угол и прозрачность
-    glow.style.setProperty("--angle", `${degrees}deg`);
+    (glow as HTMLElement).style.setProperty("--angle", `${degrees}deg`);
     (glow.parentElement as HTMLElement).style.opacity = intensity.toString();
   };
 
