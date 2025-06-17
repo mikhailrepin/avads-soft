@@ -6,7 +6,7 @@
         "name": "АСП",
         "description": "Предназначены для визуализации и управления технологическими процессами в составе систем автоматизации",
         "image": "/products/about/icon-code.svg",
-        "status": "release"
+        "status": "В продаже"
       },
       "prices": {
         "type": "PriceASP"

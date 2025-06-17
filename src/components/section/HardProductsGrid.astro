@@ -13,8 +13,32 @@ import HardProductCard from "@/components/card/HardProductCard.astro";
           Title={product.device.name}
           Status={product.device.status}
           Description={product.device.description}
-          FirstButton={product.buttons?.buy}
-          SecondButton={product.buttons?.more}
+          FirstButton={{
+            Visible: !!product.buttons?.buy,
+            ButtonLabel: product.buttons?.buy?.label || "",
+            ButtonLink: product.buttons?.buy?.link || "#",
+            IconLeft: {
+              IconSprite: "cart-fill",
+              IconVisible: true,
+            },
+            IconRight: {
+              IconSprite: "",
+              IconVisible: false,
+            },
+          }}
+          SecondButton={{
+            Visible: !!product.buttons?.more,
+            ButtonLabel: product.buttons?.more?.label || "",
+            ButtonLink: product.buttons?.more?.link || "#",
+            IconLeft: {
+              IconSprite: "",
+              IconVisible: false,
+            },
+            IconRight: {
+              IconSprite: "",
+              IconVisible: false,
+            },
+          }}
         />
       ))
     }
