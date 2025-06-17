@@ -7,7 +7,7 @@
 
 @layer components {
   * {
-    @apply text-pretty select-none;
+    @apply outline-none text-pretty select-none;
     box-sizing: border-box;
   }
 

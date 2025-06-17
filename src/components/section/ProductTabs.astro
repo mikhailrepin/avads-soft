@@ -48,54 +48,127 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
 
 <script>
   const tabs = document.querySelectorAll(".tabs-panel button");
+  const STORAGE_KEY = "avads-active-tab"; // Ключ для localStorage
 
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      // Обновляем состояние табов
-      tabs.forEach((t) => {
-        t.classList.remove("active");
-        t.setAttribute("aria-selected", "false");
-      });
-      tab.classList.add("active");
-      tab.setAttribute("aria-selected", "true");
+  // Функция для активации таба
+  function activateTab(targetTab: Element) {
+    // Обновляем состояние табов
+    tabs.forEach((t) => {
+      t.classList.remove("active");
+      t.setAttribute("aria-selected", "false");
+    });
+    targetTab.classList.add("active");
+    targetTab.setAttribute("aria-selected", "true");
 
-      const ariaControls = tab.getAttribute("aria-controls");
-      if (ariaControls) {
-        const activePanel = document.getElementById(ariaControls);
-        const tabPanels = document.querySelectorAll("[role='tabpanel']");
+    const ariaControls = targetTab.getAttribute("aria-controls");
+    if (ariaControls) {
+      const activePanel = document.getElementById(ariaControls);
+      const tabPanels = document.querySelectorAll("[role='tabpanel']");
 
-        if (activePanel) {
-          // Этап 1: Плавно скрываем прозрачность всех неактивных панелей
+      if (activePanel) {
+        // Этап 1: Плавно скрываем прозрачность всех неактивных панелей
+        tabPanels.forEach((panel) => {
+          if (panel !== activePanel) {
+            panel.classList.remove("opacity-100");
+            panel.classList.add("opacity-0");
+          }
+        });
+
+        // Этап 2: После fade-out уменьшаем высоту неактивных панелей
+        setTimeout(() => {
           tabPanels.forEach((panel) => {
             if (panel !== activePanel) {
-              panel.classList.remove("opacity-100");
-              panel.classList.add("opacity-0");
+              panel.classList.remove("block", "h-auto", "overflow-visible");
+              panel.classList.add("h-0", "overflow-hidden");
             }
           });
 
-          // Этап 2: После fade-out уменьшаем высоту неактивных панелей
+          // Этап 3: Показываем активную панель - сначала высота
+          activePanel.classList.remove("h-0", "overflow-hidden");
+          activePanel.classList.add("block", "h-auto", "overflow-visible");
+
+          // Этап 4: Затем плавно показываем прозрачность
           setTimeout(() => {
-            tabPanels.forEach((panel) => {
-              if (panel !== activePanel) {
-                panel.classList.remove("block", "h-auto", "overflow-visible");
-                panel.classList.add("h-0", "overflow-hidden");
-              }
-            });
+            activePanel.classList.remove("opacity-0");
+            activePanel.classList.add("opacity-100");
+          }, 50);
+        }, 150); // Ждем завершения fade-out
+      }
+    }
 
-            // Этап 3: Показываем активную панель - сначала высота
-            activePanel.classList.remove("h-0", "overflow-hidden");
-            activePanel.classList.add("block", "h-auto", "overflow-visible");
+    // Сохраняем активный таб в localStorage
+    const tabId = targetTab.getAttribute("data-os");
+    if (tabId) {
+      try {
+        localStorage.setItem(STORAGE_KEY, tabId);
+      } catch (error) {
+        console.warn("Не удалось сохранить состояние таба:", error);
+      }
+    }
+  }
 
-            // Этап 4: Затем плавно показываем прозрачность
-            setTimeout(() => {
-              activePanel.classList.remove("opacity-0");
-              activePanel.classList.add("opacity-100");
-            }, 50);
-          }, 150); // Ждем завершения fade-out
+  // Восстанавливаем активный таб при загрузке страницы
+  function restoreActiveTab() {
+    try {
+      const savedTabId = localStorage.getItem(STORAGE_KEY);
+      if (savedTabId) {
+        const savedTab = document.querySelector(`[data-os="${savedTabId}"]`);
+        if (savedTab) {
+          // Убираем активность с текущего таба
+          tabs.forEach((t) => {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+          });
+
+          // Скрываем все панели
+          const tabPanels = document.querySelectorAll("[role='tabpanel']");
+          tabPanels.forEach((panel) => {
+            panel.classList.remove(
+              "block",
+              "opacity-100",
+              "h-auto",
+              "overflow-visible"
+            );
+            panel.classList.add("opacity-0", "h-0", "overflow-hidden");
+          });
+
+          // Активируем сохраненный таб без анимации (для быстрой загрузки)
+          savedTab.classList.add("active");
+          savedTab.setAttribute("aria-selected", "true");
+
+          const ariaControls = savedTab.getAttribute("aria-controls");
+          if (ariaControls) {
+            const activePanel = document.getElementById(ariaControls);
+            if (activePanel) {
+              activePanel.classList.remove(
+                "opacity-0",
+                "h-0",
+                "overflow-hidden"
+              );
+              activePanel.classList.add(
+                "block",
+                "opacity-100",
+                "h-auto",
+                "overflow-visible"
+              );
+            }
+          }
         }
       }
+    } catch (error) {
+      console.warn("Не удалось восстановить состояние таба:", error);
+    }
+  }
+
+  // Добавляем обработчики кликов
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      activateTab(tab);
     });
   });
+
+  // Восстанавливаем состояние при загрузке страницы
+  document.addEventListener("DOMContentLoaded", restoreActiveTab);
 
   // Обработка завершения анимации для фокуса
   const tabPanels = document.querySelectorAll("[role='tabpanel']");
@@ -120,7 +193,7 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
     & button {
       @apply pb-1 border-zinc-500 border-b font-semibold text-zinc-400 text-xl uppercase;
       &:hover {
-        @apply text-zinc-100;
+        @apply text-zinc-100 transform-none;
       }
       &:active {
         @apply border-primary-400 text-primary-300;
