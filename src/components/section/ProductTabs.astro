@@ -39,7 +39,7 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
       role="tabpanel"
       id="hardware-panel"
       aria-labelledby="hardware-tab"
-      class="sr-only"
+      class="opacity-0 h-0 overflow-hidden"
       data-os="hardware">
       <HardProductsGrid />
     </div>
@@ -59,20 +59,55 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
       tab.classList.add("active");
       tab.setAttribute("aria-selected", "true");
 
-      // Скрываем все панели
-      const tabPanels = document.querySelectorAll("[role='tabpanel']");
-      tabPanels.forEach((panel) => {
-        panel.classList.remove("block");
-        panel.classList.add("sr-only");
-      });
-
-      // Показываем активную панель
       const ariaControls = tab.getAttribute("aria-controls");
       if (ariaControls) {
         const activePanel = document.getElementById(ariaControls);
+        const tabPanels = document.querySelectorAll("[role='tabpanel']");
+
         if (activePanel) {
-          activePanel.classList.remove("sr-only");
-          activePanel.classList.add("block");
+          // Этап 1: Плавно скрываем прозрачность всех неактивных панелей
+          tabPanels.forEach((panel) => {
+            if (panel !== activePanel) {
+              panel.classList.remove("opacity-100");
+              panel.classList.add("opacity-0");
+            }
+          });
+
+          // Этап 2: После fade-out уменьшаем высоту неактивных панелей
+          setTimeout(() => {
+            tabPanels.forEach((panel) => {
+              if (panel !== activePanel) {
+                panel.classList.remove("block", "h-auto", "overflow-visible");
+                panel.classList.add("h-0", "overflow-hidden");
+              }
+            });
+
+            // Этап 3: Показываем активную панель - сначала высота
+            activePanel.classList.remove("h-0", "overflow-hidden");
+            activePanel.classList.add("block", "h-auto", "overflow-visible");
+
+            // Этап 4: Затем плавно показываем прозрачность
+            setTimeout(() => {
+              activePanel.classList.remove("opacity-0");
+              activePanel.classList.add("opacity-100");
+            }, 50);
+          }, 150); // Ждем завершения fade-out
+        }
+      }
+    });
+  });
+
+  // Обработка завершения анимации для фокуса
+  const tabPanels = document.querySelectorAll("[role='tabpanel']");
+  tabPanels.forEach((panel) => {
+    panel.addEventListener("transitionend", (e) => {
+      // Фокусируем первый интерактивный элемент при показе панели
+      if (e.target === panel && panel.classList.contains("block")) {
+        const firstFocusable = panel.querySelector(
+          "a, button, input, textarea, select, [tabindex]:not([tabindex='-1'])"
+        );
+        if (firstFocusable) {
+          (firstFocusable as HTMLElement).focus();
         }
       }
     });
@@ -96,16 +131,59 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
     @apply border-primary-400 text-primary-300;
   }
 
-  /* Скрываем контент визуально, но оставляем доступным для скринридеров и SEO */
+  /* Анимированное скрытие/показ контента */
+  [role="tabpanel"] {
+    transform: translateY(10px);
+    transition:
+      opacity 0.3s ease-in-out,
+      height 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+    /* Предотвращаем скачки контента */
+    will-change: height, opacity, transform;
+  }
+
+  [role="tabpanel"].block {
+    transform: translateY(0);
+  }
+
+  /* Плавные переходы для высоты */
+  [role="tabpanel"].h-0 {
+    height: 0 !important;
+    min-height: 0 !important;
+  }
+
+  [role="tabpanel"].h-auto {
+    height: auto !important;
+  }
+
+  /* Скрываем контент полностью (не занимает место) */
   .sr-only {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    transform: translateY(10px);
+    transition:
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out,
+      height 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+    /* Убираем из потока документа */
     position: absolute;
     width: 1px;
-    height: 1px;
-    padding: 0;
     margin: -1px;
-    overflow: hidden;
+    padding: 0;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  /* Анимация табов */
+  [role="tab"] {
+    transition: all 0.2s ease-in-out;
+  }
+
+  [role="tab"]:hover {
+    transform: translateY(-1px);
   }
 </style>
