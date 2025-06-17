@@ -1,6 +1,6 @@
 ---
 import prodSoft from "@/data/prodSoft.json";
-import ProductCard from "@/components/card/ProductCard.astro";
+import SoftProductCard from "@/components/card/SoftProductCard.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 
 interface Props {
@@ -15,7 +15,7 @@ const products = Collapsed ? prodSoft.products.slice(0, 4) : prodSoft.products;
   <div class="gap-6 grid grid-cols-1 lg:grid-cols-2">
     {
       products.map((product) => (
-        <ProductCard
+        <SoftProductCard
           Image={product.app.image}
           Title={product.app.name}
           Status={product.app.status}

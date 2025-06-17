@@ -19,10 +19,6 @@
         "more": {
           "label": "Подробнее",
           "link": "/all-products/asp"
-        },
-        "price": {
-          "label": "Цены",
-          "link": "/price/#asp"
         }
       },
       "supports": {

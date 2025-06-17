@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
 import FAQ from "@/components/section/FAQ.astro";
-import ProductGrid from "@/components/section/ProductGrid.astro";
+import SoftProductGrid from "@/components/section/SoftProductsGrid.astro";
 import faqData from "@/data/faqMain.json";
 
 const heroBbackground = "/hero/pic_1.webp";
@@ -24,7 +24,7 @@ const heroBbackground = "/hero/pic_1.webp";
   </MainHero>
 
   <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
-    <ProductGrid Collapsed={false} />
+    <SoftProductGrid Collapsed={false} />
 
     <CallToAction
       Title="Свяжитесь с нами"

@@ -1,0 +1,201 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import type { BaseCard, BaseText, BaseButton } from "@/types/interfaces";
+
+const {
+  Image = "",
+  Status = "",
+  CustomClass,
+  Title = "Название продукта" as BaseText["Title"],
+  Description = "Описание продукта" as BaseText["Description"],
+  FirstButton = {
+    Visible: true,
+    ButtonLabel: "First Button",
+    ButtonLink: "#",
+    IconLeft: { IconSprite: "", IconVisible: false },
+    IconRight: { IconSprite: "", IconVisible: false },
+  } as BaseButton,
+  SecondButton = {
+    Visible: true,
+    ButtonLabel: "Second Button",
+    ButtonLink: "#",
+    IconLeft: { IconSprite: "", IconVisible: false },
+    IconRight: { IconSprite: "", IconVisible: false },
+  } as BaseButton,
+} = Astro.props as BaseCard;
+---
+
+<div class={`card-box group ${CustomClass}`}>
+  <div class="hidden lg:block glow-effect">
+    <div class="glow"></div>
+  </div>
+  {Status && <div class="z-20 bage">{Status}</div>}
+  <img
+    src={Image}
+    alt={Title}
+    loading="lazy"
+    class="z-20 w-[64px] h-auto"
+  />
+  <h3 class="z-20 font-bold uppercase">{Title}</h3>
+  <p class="z-20">{Description}</p>
+  <div class="z-20 flex gap-4 pt-4">
+    {
+      FirstButton && (
+        <ButtonGeneric
+          Variant="primary"
+          Size="default"
+          Style="filled"
+          Visible={FirstButton.Visible}
+          IconLeft={FirstButton.IconLeft}
+          IconRight={FirstButton.IconRight}
+          ButtonLink={FirstButton.ButtonLink}
+          Target="link"
+          ButtonLabel={FirstButton.ButtonLabel}
+        />
+      )
+    }
+    {
+      SecondButton && (
+        <ButtonGeneric
+          Variant="secondary"
+          Size="default"
+          Style="outlined"
+          Visible={SecondButton.Visible}
+          IconLeft={SecondButton.IconLeft}
+          IconRight={SecondButton.IconRight}
+          ButtonLink={SecondButton.ButtonLink}
+          Target="link"
+          ButtonLabel={SecondButton.ButtonLabel}
+        />
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .card-box {
+    @apply relative flex flex-col gap-4 border-zinc-800/70 bg-zinc-950 p-[32px] border rounded-[8px] w-full overflow-hidden;
+    &::before {
+      @apply absolute inset-[2px] bg-zinc-950 border border-zinc-800 rounded-[4px] content-[''];
+      z-index: 2;
+    }
+    & img {
+      @apply transition-all ease-in-out;
+    }
+    &:hover {
+      & .glow-effect {
+        @apply opacity-100;
+      }
+      & .bage {
+        @apply top-[-8px] bg-gradient-to-b from-primary-400 to-primary-300 transition-all ease-in-out;
+        &::after {
+          @apply bg-zinc-950;
+        }
+      }
+      & img {
+        @apply scale-[105%] transition-all ease-in-out;
+      }
+    }
+  }
+
+  .glow-effect {
+    @apply absolute inset-[-1px] opacity-0 rounded-md pointer-events-none;
+  }
+
+  .glow {
+    @apply absolute inset-[-1px] blur-sm rounded-md;
+    background: conic-gradient(
+      from var(--angle) at 50% 50%,
+      transparent 0%,
+      rgba(255, 255, 255, 0) 14%,
+      rgba(255, 255, 255, 1) 25%,
+      rgba(255, 255, 255, 0) 35%,
+      transparent 100%
+    );
+    --angle: 0deg;
+    transition:
+      opacity 0.3s ease-out,
+      --angle 0.5s ease-in-out;
+  }
+
+  .bage {
+    @apply top-0 right-5 absolute bg-zinc-500 px-2 pt-5 pb-3 font-bold text-zinc-900 text-left uppercase transition-all;
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+    transform: rotate(180deg);
+    &::after {
+      @apply block top-[-1px] right-0 absolute bg-zinc-950 w-[40px] h-[12px];
+      content: "";
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+  }
+</style>
+
+<script>
+  const cards = document.querySelectorAll(".card-box");
+  const ACTIVATION_DISTANCE = 100;
+
+  const updateGlowPosition = (
+    card: Element,
+    glow: Element,
+    x: number,
+    y: number,
+    intensity = 1
+  ) => {
+    if (!glow) return;
+
+    // Вычисляем угол относительно центра
+    const centerX = card.clientWidth / 2;
+    const centerY = card.clientHeight / 2;
+    const angle = Math.atan2(y - centerY, x - centerX);
+    const degrees = (angle * 180) / Math.PI;
+
+    // Обновляем только угол и прозрачность
+    glow.style.setProperty("--angle", `${degrees}deg`);
+    (glow.parentElement as HTMLElement).style.opacity = intensity.toString();
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    cards.forEach((card) => {
+      const glow = card.querySelector(".glow");
+      if (!glow) return;
+
+      const rect = card.getBoundingClientRect();
+
+      // Вычисляем расстояние от курсора до центра карточки
+      const cardCenterX = rect.left + rect.width / 2;
+      const cardCenterY = rect.top + rect.height / 2;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const distance = Math.sqrt(
+        Math.pow(mouseX - cardCenterX, 2) + Math.pow(mouseY - cardCenterY, 2)
+      );
+
+      if (distance <= rect.width / 2 + ACTIVATION_DISTANCE) {
+        // Курсор внутри зоны активации
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Вычисляем интенсивность эффекта на основе расстояния
+        const intensity = Math.max(
+          0,
+          1 - (distance - rect.width / 2) / ACTIVATION_DISTANCE
+        );
+
+        updateGlowPosition(card, glow, x, y, intensity);
+      } else {
+        // Скрываем эффект если курсор далеко
+        (glow.parentElement as HTMLElement).style.opacity = "0";
+      }
+    });
+  };
+
+  // Добавляем обработчик на весь документ
+  document.addEventListener("mousemove", handleMouseMove);
+
+  // Очистка при уничтожении компонента
+  document.addEventListener("astro:before-swap", () => {
+    document.removeEventListener("mousemove", handleMouseMove);
+  });
+</script>

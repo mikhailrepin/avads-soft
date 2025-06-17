@@ -1,0 +1,37 @@
+---
+import SoftProductsGrid from "@/components/section/SoftProductsGrid.astro";
+import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
+---
+
+<section class="wrapper">
+  <div class="tabs-panel">
+    <button
+      data-os="software"
+      class="active">
+      Программное обеспечение
+    </button>
+    <button data-os="hardware">Оборудование для автоматизации</button>
+  </div>
+  <div class="tab-content">
+    <SoftProductsGrid Collapsed={true} />
+    <HardProductsGrid />
+  </div>
+</section>
+
+<style>
+  .tabs-panel {
+    @apply flex gap-4 py-10;
+    & button {
+      @apply pb-1 border-zinc-500 border-b font-semibold text-zinc-400 text-xl uppercase;
+      &:hover {
+        @apply text-zinc-100;
+      }
+      &:active {
+        @apply border-primary-400 text-primary-300;
+      }
+    }
+  }
+  .tabs-panel button.active {
+    @apply border-primary-400 text-primary-300;
+  }
+</style>

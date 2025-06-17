@@ -3,8 +3,9 @@ import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import BgBlurSpot from "@/components/decorations/BgBlurSpot.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
-import ProductGrid from "@/components/section/ProductGrid.astro";
+import SoftProductGrid from "@/components/section/SoftProductsGrid.astro";
 import PostsGrid from "@/components/section/PostsGrid.astro";
+import ProductTabs from "@/components/section/ProductTabs.astro";
 
 const heroBbackground = "/hero/pic_15.webp";
 
@@ -64,11 +65,11 @@ const latestPosts = postsArray
     <h2>Продукты</h2>
     <div class="gap-6 grid grid-cols-1 lg:grid-cols-2">
       <p>
-        Компания АВАДС СОФТ является разработчиком программных решений для
-        автоматизации, диспетчеризации и учёта на промышленных объектах, в ЖКХ,
-        системах автоматизации зданий и умных домов. Интегрирует собственные
-        цифровые продукты с АСУТП, АСУЭ, АСКУЭ, АСТУЭ, АСУЗ (BMS). Также
-        осуществляет импортозамещение в ключевых IT секторах.
+        Компания АВАДС является разработчиком программных и аппаратных решений
+        для автоматизации, диспетчеризации и учёта на промышленных объектах, в
+        ЖКХ, системах автоматизации зданий и умных домов. Интегрирует
+        собственные цифровые продукты с АСУТП, АСУЭ, АСКУЭ, АСТУЭ, АСУЗ (BMS).
+        Также осуществляет импортозамещение в ключевых IT секторах.
       </p>
       <p>
         Вторым направлением деятельности является разработка программных систем
@@ -80,7 +81,8 @@ const latestPosts = postsArray
     </div>
 
     <div class="flex flex-col gap-[52px] my-[52px]">
-      <ProductGrid Collapsed={true} />
+      <ProductTabs />
+
       <CallToAction
         Title="Свяжитесь с нами"
         Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"

@@ -1,0 +1,22 @@
+---
+import prodHard from "@/data/prodHard.json";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import HardProductCard from "@/components/card/HardProductCard.astro";
+---
+
+<section class="flex flex-col gap-[52px] w-[100%]">
+  <div class="gap-6 grid grid-cols-1 lg:grid-cols-2">
+    {
+      prodHard.products.map((product) => (
+        <HardProductCard
+          Image={product.device.image}
+          Title={product.device.name}
+          Status={product.device.status}
+          Description={product.device.description}
+          FirstButton={product.buttons?.buy}
+          SecondButton={product.buttons?.more}
+        />
+      ))
+    }
+  </div>
+</section>
