@@ -122,9 +122,11 @@ const { Collapsed = false } = Astro.props;
             t.setAttribute("aria-selected", "false");
           });
 
-          // Скрываем все панели
+          // Скрываем все панели БЕЗ анимации
           const tabPanels = document.querySelectorAll("[role='tabpanel']");
           tabPanels.forEach((panel) => {
+            // Временно отключаем transitions
+            (panel as HTMLElement).style.transition = "none";
             panel.classList.remove(
               "block",
               "opacity-100",
@@ -134,7 +136,7 @@ const { Collapsed = false } = Astro.props;
             panel.classList.add("opacity-0", "h-0", "overflow-hidden");
           });
 
-          // Активируем сохраненный таб без анимации (для быстрой загрузки)
+          // Активируем сохраненный таб БЕЗ анимации
           savedTab.classList.add("active");
           savedTab.setAttribute("aria-selected", "true");
 
@@ -142,6 +144,8 @@ const { Collapsed = false } = Astro.props;
           if (ariaControls) {
             const activePanel = document.getElementById(ariaControls);
             if (activePanel) {
+              // Показываем активную панель БЕЗ анимации
+              (activePanel as HTMLElement).style.transition = "none";
               activePanel.classList.remove(
                 "opacity-0",
                 "h-0",
@@ -155,6 +159,13 @@ const { Collapsed = false } = Astro.props;
               );
             }
           }
+
+          // Возвращаем transitions через requestAnimationFrame
+          requestAnimationFrame(() => {
+            tabPanels.forEach((panel) => {
+              (panel as HTMLElement).style.transition = "";
+            });
+          });
         }
       }
     } catch (error) {
@@ -169,24 +180,16 @@ const { Collapsed = false } = Astro.props;
     });
   });
 
-  // Восстанавливаем состояние при загрузке страницы
-  document.addEventListener("DOMContentLoaded", restoreActiveTab);
-
-  // Обработка завершения анимации для фокуса
-  const tabPanels = document.querySelectorAll("[role='tabpanel']");
-  tabPanels.forEach((panel) => {
-    panel.addEventListener("transitionend", (e) => {
-      // Фокусируем первый интерактивный элемент при показе панели
-      if (e.target === panel && panel.classList.contains("block")) {
-        const firstFocusable = panel.querySelector(
-          "a, button, input, textarea, select, [tabindex]:not([tabindex='-1'])"
-        );
-        if (firstFocusable) {
-          (firstFocusable as HTMLElement).focus();
-        }
-      }
+  // Восстанавливаем состояние после полной загрузки страницы
+  // Используем setTimeout для отложенного выполнения
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(restoreActiveTab, 0);
     });
-  });
+  } else {
+    // Если документ уже загружен
+    setTimeout(restoreActiveTab, 0);
+  }
 </script>
 
 <style>
