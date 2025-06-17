@@ -1,11 +1,12 @@
 ---
 import SoftProductsGrid from "@/components/section/SoftProductsGrid.astro";
 import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
+import Icon from "@/components/decorations/Icon.astro";
 
 const { Collapsed = false } = Astro.props;
 ---
 
-<section class="wrapper">
+<section>
   <div
     class="tabs-panel"
     role="tablist"
@@ -17,6 +18,10 @@ const { Collapsed = false } = Astro.props;
       aria-selected="true"
       id="software-tab"
       class="active">
+      <Icon
+        IconSprite="terminal-fill"
+        IconSize={24}
+      />
       Программное обеспечение
     </button>
     <button
@@ -25,6 +30,10 @@ const { Collapsed = false } = Astro.props;
       aria-controls="hardware-panel"
       aria-selected="false"
       id="hardware-tab">
+      <Icon
+        IconSprite="hardware-chip-fill"
+        IconSize={24}
+      />
       Оборудование для автоматизации
     </button>
   </div>
@@ -194,9 +203,9 @@ const { Collapsed = false } = Astro.props;
 
 <style>
   .tabs-panel {
-    @apply flex gap-4 py-10;
+    @apply flex gap-4 pb-12;
     & button {
-      @apply pb-1 border-zinc-500 border-b font-semibold text-zinc-400 text-xl uppercase;
+      @apply flex items-center gap-2 py-2 border-zinc-500 border-b font-semibold text-zinc-400 text-xl uppercase;
       &:hover {
         @apply text-zinc-100 transform-none;
       }

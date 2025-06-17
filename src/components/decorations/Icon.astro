@@ -1,0 +1,19 @@
+---
+const { IconSprite, CustomClass = "", IconSize = 16 } = Astro.props;
+---
+
+<svg
+  class={`lib-icon ${CustomClass}`}
+  viewBox="0 0 16 16"
+  width={IconSize}
+  height={IconSize}>
+  <use xlink:href={`/sprites.svg#${IconSprite}`}></use>
+</svg>
+
+<style>
+  .lib-icon {
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>
