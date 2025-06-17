@@ -4,19 +4,80 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
 ---
 
 <section class="wrapper">
-  <div class="tabs-panel">
+  <div
+    class="tabs-panel"
+    role="tablist"
+    aria-label="Категории продуктов">
     <button
+      role="tab"
       data-os="software"
+      aria-controls="software-panel"
+      aria-selected="true"
+      id="software-tab"
       class="active">
       Программное обеспечение
     </button>
-    <button data-os="hardware">Оборудование для автоматизации</button>
+    <button
+      role="tab"
+      data-os="hardware"
+      aria-controls="hardware-panel"
+      aria-selected="false"
+      id="hardware-tab">
+      Оборудование для автоматизации
+    </button>
   </div>
   <div class="tab-content">
-    <SoftProductsGrid Collapsed={true} />
-    <HardProductsGrid />
+    <div
+      role="tabpanel"
+      id="software-panel"
+      aria-labelledby="software-tab"
+      class="block"
+      data-os="software">
+      <SoftProductsGrid Collapsed={true} />
+    </div>
+    <div
+      role="tabpanel"
+      id="hardware-panel"
+      aria-labelledby="hardware-tab"
+      class="sr-only"
+      data-os="hardware">
+      <HardProductsGrid />
+    </div>
   </div>
 </section>
+
+<script>
+  const tabs = document.querySelectorAll(".tabs-panel button");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      // Обновляем состояние табов
+      tabs.forEach((t) => {
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+      });
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+
+      // Скрываем все панели
+      const tabPanels = document.querySelectorAll("[role='tabpanel']");
+      tabPanels.forEach((panel) => {
+        panel.classList.remove("block");
+        panel.classList.add("sr-only");
+      });
+
+      // Показываем активную панель
+      const ariaControls = tab.getAttribute("aria-controls");
+      if (ariaControls) {
+        const activePanel = document.getElementById(ariaControls);
+        if (activePanel) {
+          activePanel.classList.remove("sr-only");
+          activePanel.classList.add("block");
+        }
+      }
+    });
+  });
+</script>
 
 <style>
   .tabs-panel {
@@ -33,5 +94,18 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
   }
   .tabs-panel button.active {
     @apply border-primary-400 text-primary-300;
+  }
+
+  /* Скрываем контент визуально, но оставляем доступным для скринридеров и SEO */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>
