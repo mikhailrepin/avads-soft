@@ -1,6 +1,8 @@
 ---
 import SoftProductsGrid from "@/components/section/SoftProductsGrid.astro";
 import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
+
+const { Collapsed = false } = Astro.props;
 ---
 
 <section class="wrapper">
@@ -33,7 +35,7 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
       aria-labelledby="software-tab"
       class="block"
       data-os="software">
-      <SoftProductsGrid Collapsed={true} />
+      <SoftProductsGrid Collapsed={Collapsed} />
     </div>
     <div
       role="tabpanel"
@@ -41,7 +43,7 @@ import HardProductsGrid from "@/components/section/HardProductsGrid.astro";
       aria-labelledby="hardware-tab"
       class="opacity-0 h-0 overflow-hidden"
       data-os="hardware">
-      <HardProductsGrid />
+      <HardProductsGrid Collapsed={Collapsed} />
     </div>
   </div>
 </section>

@@ -2,6 +2,13 @@
 import prodHard from "@/data/prodHard.json";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import HardProductCard from "@/components/card/HardProductCard.astro";
+
+interface Props {
+  Collapsed?: boolean;
+}
+
+const { Collapsed = false } = Astro.props;
+const products = Collapsed ? prodHard.products.slice(0, 4) : prodHard.products;
 ---
 
 <section class="flex flex-col gap-[52px] w-[100%]">
@@ -43,4 +50,18 @@ import HardProductCard from "@/components/card/HardProductCard.astro";
       ))
     }
   </div>
+  {
+    Collapsed && (
+      <div class="flex justify-center">
+        <ButtonGeneric
+          Variant="primary"
+          Size="default"
+          Style="outlined"
+          Target="link"
+          ButtonLabel="Все продукты"
+          ButtonLink="/all-products"
+        />
+      </div>
+    )
+  }
 </section>
