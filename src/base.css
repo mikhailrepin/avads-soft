@@ -39,7 +39,7 @@
 
   /* Секция с настройками контейнера для markdown-контента */
   .prose-container {
-    @apply mx-auto text-zinc-300/90 text-base leading-relaxed text-pretty font-light;
+    @apply w-full text-zinc-300/90 text-base leading-relaxed text-pretty font-light;
     letter-spacing: 0.01em;
 
     /* Стили для ссылок в Markdown-файлах - особый цвет для ссылок */
@@ -50,7 +50,6 @@
     /* Увеличиваем пространство между параграфами для лучшей читаемости */
     & p {
       @apply mb-8;
-      max-width: 70ch;
       margin-left: auto;
       margin-right: auto;
     }
@@ -103,12 +102,12 @@
 
     /* Улучшаем стили для списков */
     & ul {
-      @apply space-y-2 mt-6 mb-10 pl-10 list-disc;
+      @apply space-y-2 mt-6 mb-10 pl-4 list-disc;
       list-style-position: outside;
     }
 
     & ol {
-      @apply space-y-2 mt-6 mb-10 pl-10 list-decimal;
+      @apply space-y-2 mt-6 mb-10 pl-0 list-decimal;
       list-style-position: outside;
     }
 
@@ -116,7 +115,6 @@
     & li {
       @apply mb-2 pl-1;
       display: list-item;
-      max-width: 70ch;
       margin-left: auto;
       margin-right: auto;
     }
