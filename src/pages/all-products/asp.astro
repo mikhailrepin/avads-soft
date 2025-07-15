@@ -112,6 +112,38 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
       технологической информации, управления исполнительными устройствами
       и режимами, сбора и архивирования технологических параметров.
     </p>
+    <!-- Bento grid -->
+    <div class="gap-8 grid grid-cols-1 lg:grid-cols-2 pt-10 lg:pt-[80px]">
+      <div class="bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">Высокая производительность</h3>
+        <p class="text-zinc-400 bento-card-description">
+          6-ядерный процессор, 4ГБ оперативной памяти, 32 ГБ флеш памяти,
+          быстрый графический адаптер до 4K@60Hz, сенсорный multi-touch экран,
+          обилие интерфейсов, а так же открытость для различного прикладного ПО
+          делают АВАДС АСП мощным инструментом для решения широкого класса
+          задач.
+        </p>
+        <div class="flex gap-4 py-3">
+          <img
+            src="/products/asp/asp-core.png"
+            alt="asp-core"
+            class="-ml-6 max-w-[50%]"
+          />
+          <div class="gap-2 grid grid-cols-1 w-full max-w-[50%]">
+            <!-- Core -->
+            <div
+              class="flex flex-col items-center bg-zinc-800 p-2 rounded-md w-full h-fit">
+              <span class="font-bold text-primary-300 text-3xl">6</span>
+              <span class="font-bold text-primary-300 text-base uppercase">
+                ядер
+              </span>
+              <span class="text-base">2 Cortex A72<br />4 Cortex A53</span>
+            </div>
+            <!-- Ghz -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Полноценная SCADA -->
@@ -142,5 +174,17 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
 
   .hero-description {
     @apply text-zinc-400 text-lg lg:text-xl leading-relaxed;
+  }
+
+  .bento-card {
+    @apply flex flex-col gap-4 p-6 border border-zinc-800 rounded-md overflow-hidden transition-all duration-300;
+
+    .bento-card-header {
+      @apply font-bold text-2xl;
+    }
+
+    .bento-card-description {
+      @apply text-base;
+    }
   }
 </style>
