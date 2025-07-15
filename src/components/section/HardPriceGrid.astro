@@ -1,0 +1,205 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import prodHard from "@/data/prodHard.json";
+import PriceTable from "@/components/price/PriceTable.astro";
+import PriceSARXP from "@/components/price/PriceSARXP.astro";
+import { Image } from "astro:assets";
+
+// Фильтруем продукты с ценами прямо в компоненте
+const productsWithPrices = prodHard.products;
+
+// Функция для определения стратегии загрузки
+const getLoadingStrategy = (index: number) => {
+  // Первые два продукта загружаем сразу, остальные - лениво
+  return index < 2 ? "eager" : "lazy";
+};
+---
+
+<section class="main-max-width wrapper">
+  <!-- Левая колонка с навигацией -->
+  <aside class="nav-bar">
+    <ul>
+      {
+        productsWithPrices.map((product) => (
+          <li class={`${!product.prices ? "hidden" : ""}`}>
+            <a href={`#${product.id}`}>
+              <Image
+                src={product.device.image}
+                alt={product.id}
+                width={40}
+                height={40}
+                loading="lazy"
+                class="product-icon"
+              />
+              {product.device.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </aside>
+
+  <!-- Правая колонка с карточками продуктов -->
+  <div class="cards-col">
+    {
+      productsWithPrices.map((product) => (
+        <div
+          class={`card ${!product.prices ? "hidden" : ""}`}
+          id={product.id}>
+          <div class="card-head">
+            <Image
+              src={product.device.image}
+              alt={product.id}
+              width={60}
+              height={60}
+              loading="lazy"
+              class="product-icon"
+            />
+            <div class="card-info">
+              <span class="title">{product.device.name}</span>
+              <span class="description">{product.device.description}</span>
+            </div>
+          </div>
+
+          <div
+            class={`card-body ${!product.prices?.type ? "lg:pl-[84px]" : ""}`}>
+            {product.prices?.type === "PriceSARXP" && <PriceSARXP />}
+
+            <div class="card-footer">
+              {product.buttons?.buy &&
+                product.prices?.type !== "PriceSARXP" && (
+                  <ButtonGeneric
+                    Variant="primary"
+                    Size="default"
+                    Style="filled"
+                    Target="link"
+                    Blank={true}
+                    ButtonLabel={product.buttons.buy.label}
+                    ButtonLink={product.buttons.buy.link}
+                  />
+                )}
+              {product.buttons?.more && (
+                <ButtonGeneric
+                  Variant="primary"
+                  Size="default"
+                  Style="outlined"
+                  Target="link"
+                  ButtonLabel={product.buttons.more.label}
+                  ButtonLink={product.buttons.more.link}
+                />
+              )}
+              {product.buttons?.more && (
+                <ButtonGeneric
+                  Variant="secondary"
+                  Size="default"
+                  Style="outlined"
+                  Target="link"
+                  ButtonLabel={product.buttons.more.label}
+                  ButtonLink={product.buttons.more.link}
+                />
+              )}
+            </div>
+            <p
+              class={`mt-[12px] text-sm text-zinc-600 ${!product.prices ? "hidden" : ""}`}>
+              Все цены указаны без учёта НДС. Не является публичной офертой,
+              итоговая стоимость может быть скорректирована. Для получения
+              подробной информации обратитесь в службу по работе с клиентами.
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll<HTMLElement>(".nav-bar a");
+
+    // Обработка эффекта прозрачности
+    navLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        navLinks.forEach((otherLink) => {
+          if (otherLink !== link) {
+            otherLink.style.opacity = "0.6";
+          }
+        });
+      });
+
+      link.addEventListener("mouseleave", () => {
+        navLinks.forEach((otherLink) => {
+          otherLink.style.opacity = "1";
+        });
+      });
+    });
+
+    // Обработка плавной прокрутки
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href")?.replace("#", "") ?? "";
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const offset = 80;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .wrapper {
+    @apply flex lg:flex-row flex-col gap-[16px] mx-auto mt-20 mb-12 w-[100%];
+  }
+  .nav-bar {
+    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];
+    & ul {
+      @apply flex lg:flex-col flex-nowrap gap-[32px] lg:gap-[8px] overflow-x-auto overflow-y-hidden lg:overflow-y-auto;
+      & li > a {
+        @apply flex flex-shrink-0 items-center gap-[12px] hover:bg-zinc-900 p-2 rounded-[8px] text-zinc-400 hover:text-zinc-100 whitespace-nowrap transition-all duration-200 cursor-pointer;
+        & img {
+          @apply w-[24px] h-fit;
+        }
+      }
+    }
+  }
+  .cards-col {
+    @apply flex flex-col gap-[16px] w-full;
+  }
+  .card {
+    @apply border-zinc-900 p-[32px] border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
+    scroll-margin-top: 80px;
+  }
+  .card-head {
+    @apply flex lg:flex-row flex-col gap-[24px];
+    & img {
+      @apply bg-zinc-900 p-3 rounded-[8px] w-[60px] h-[60px];
+    }
+    & .card-info {
+      @apply flex flex-col gap-2;
+      & .title {
+        @apply mb-[-4px] font-medium text-2xl;
+      }
+      & .description {
+        @apply m-0 text-zinc-400 text-lg;
+      }
+    }
+  }
+  .card-body {
+    @apply flex flex-col gap-2;
+  }
+  .card-footer {
+    @apply flex lg:flex-row flex-col gap-3 pt-[24px];
+    & p {
+      @apply m-0 w-full text-zinc-600 text-sm;
+    }
+  }
+</style>

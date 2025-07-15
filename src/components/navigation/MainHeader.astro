@@ -12,10 +12,14 @@ import staticLogo from "@/assets/logo/logo-static.png";
 interface MainHeaderProps {
   menuItems: { label: string; href: string }[];
   downloadLink?: string;
+  buttonLabel?: string;
 }
 
-const { menuItems, downloadLink = "/downloads" } =
-  Astro.props as MainHeaderProps;
+const {
+  menuItems,
+  downloadLink = "/downloads",
+  buttonLabel = "Скачать",
+} = Astro.props as MainHeaderProps;
 const currentPath = Astro.url.pathname;
 
 // Получаем только активные продукты (те, у которых есть status)
@@ -149,7 +153,7 @@ const activeProducts = prodSoft.products.filter(
         Style="outlined"
         IconLeft={{ IconSprite: "download-light", IconVisible: false }}
         CustomClass="my-[16px] lg:m-0"
-        ButtonLabel="Скачать"
+        ButtonLabel={buttonLabel}
         ButtonLink={downloadLink}
         Target="link"
       />

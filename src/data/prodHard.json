@@ -88,11 +88,11 @@
       }
     },
     {
-      "id": "AEC",
+      "id": "AVK",
       "device": {
         "name": "АВАДС АВК",
         "description": "Предназначен для управления технологическими процессами в составе программно-технических комплексов на базе ПО MasterSCADA 4D.",
-        "image": "/products/aec/prod-aec.png",
+        "image": "/products/avk/prod-avk.png",
         "status": ""
       },
       "prices": {
@@ -105,7 +105,11 @@
         },
         "more": {
           "label": "Подробнее",
-          "link": "/all-products/aec"
+          "link": "/all-products/avk"
+        },
+        "price": {
+          "label": "Цены",
+          "link": "/price/#avk"
         }
       },
       "supports": {

@@ -1,0 +1,146 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import MainHero from "@/components/section/MainHero.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
+import Advantage from "@/components/card/Advantage.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+/* Images */
+import { Image } from "astro:assets";
+
+/* Data */
+import prodHard from "@/data/prodHard.json";
+
+/* Variables */
+const heroBbackground = "/hero/pic_21.webp";
+
+type Product = {
+  id: string;
+  device: {
+    name: string;
+    description: string;
+    image: string;
+    status: string;
+  };
+  buttons?: {
+    buy?: { label: string; link: string };
+    demo?: { label: string; link: string };
+    more?: { label: string; link: string };
+    price?: { label: string; link: string };
+  };
+  prices?: any;
+  supports?: any;
+};
+
+const asp = prodHard.products.find(
+  (product) => product.id === "ASP"
+) as Product;
+
+if (!asp) throw new Error("Product not found");
+
+// Добавляем ссылку на скачивание
+const downloadLink = asp.buttons?.buy?.link || "/downloads";
+---
+
+<Layout
+  pageTitle={asp.device.name}
+  downloadLink={downloadLink}
+  buttonLabel={asp.buttons?.buy?.label || "Купить"}>
+  <!-- Hero Section -->
+  <MainHero backgroundUrl={heroBbackground}>
+    <div
+      class="flex lg:flex-row flex-col justify-between items-center gap-8 mx-auto w-full lg:min-h-[60vh] main-max-width">
+      <div class="w-full lg:w-1/2">
+        <h1 class="mb-6 hero-title">
+          ПАНЕЛИ<br />
+          ОПЕРАТОРА<br />
+          <span class="text-primary-300">{asp.device.name}</span>
+        </h1>
+        <p class="mb-8 hero-description">
+          Предназначены для визуализации и управления технологическими
+          процессами в составе систем автоматизации.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="filled"
+            CustomClass="w-fit lg:min-w-[180px]"
+            Visible={!!asp.buttons?.buy}
+            IconLeft={{
+              IconSprite: "cart-fill",
+              IconVisible: true,
+            }}
+            Target="link"
+            ButtonLink={asp.buttons?.buy?.link || "#"}
+            ButtonLabel={asp.buttons?.buy?.label || "Купить"}
+            Blank={true}
+          />
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="outlined"
+            CustomClass="w-fit lg:min-w-[180px]"
+            Visible={!!asp.buttons?.price}
+            IconLeft={{
+              IconSprite: "",
+              IconVisible: false,
+            }}
+            Target="link"
+            ButtonLink={asp.buttons?.price?.link || "#"}
+            ButtonLabel="Цены"
+          />
+        </div>
+      </div>
+      <div class="flex justify-center w-full lg:w-1/2">
+        <div class="relative">
+          <img
+            src={asp.device.image}
+            alt={asp.device.name}
+            class="w-full max-w-[500px] h-auto object-contain"
+          />
+        </div>
+      </div>
+    </div>
+  </MainHero>
+
+  <!-- Отличительные особенности -->
+  <div class="flex flex-col mx-auto pt-14 pb-16 main-max-width">
+    <h2 class="text-3xl">Отличительные особенности</h2>
+    <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
+      Панели оператора {asp.device.name} для интерактивного отображения
+      технологической информации, управления исполнительными устройствами
+      и режимами, сбора и архивирования технологических параметров.
+    </p>
+  </div>
+
+  <!-- Полноценная SCADA -->
+
+  <!-- Модификации АСП -->
+
+  <!-- Характеристики -->
+
+  <!-- Свяжитесь с нами -->
+  <CallToAction
+    AlignItems="left"
+    BackgroundImage={"/hero/cta-call-manager.png"}
+    Hovered={false}
+    Title="Свяжитесь с нами"
+    Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+    ButtonProps={{
+      ButtonLabel: "Оставить заявку",
+      ButtonLink: "/contacts",
+    }}
+    CustomClass="bg-[#101010] rounded-none border-none"
+  />
+</Layout>
+
+<style>
+  .hero-title {
+    @apply font-bold text-4xl lg:text-6xl leading-tight;
+  }
+
+  .hero-description {
+    @apply text-zinc-400 text-lg lg:text-xl leading-relaxed;
+  }
+</style>
