@@ -10,6 +10,7 @@ import { Image } from "astro:assets";
 
 /* Data */
 import prodHard from "@/data/prodHard.json";
+import prodSoft from "@/data/prodSoft.json";
 
 /* Variables */
 const heroBbackground = "/hero/pic_21.webp";
@@ -37,6 +38,10 @@ const asp = prodHard.products.find(
 ) as Product;
 
 if (!asp) throw new Error("Product not found");
+
+const tsdb = prodSoft.products.find((product) => product.id === "tsdb");
+
+if (!tsdb) throw new Error("Product not found");
 
 // Добавляем ссылку на скачивание
 const downloadLink = asp.buttons?.buy?.link || "/downloads";
@@ -109,12 +114,13 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
     <h2 class="text-3xl">Отличительные особенности</h2>
     <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
       Панели оператора {asp.device.name} для интерактивного отображения
-      технологической информации, управления исполнительными устройствами
-      и режимами, сбора и архивирования технологических параметров.
+      технологической информации, управления исполнительными устройствами,
+      режимами сбора и архивирования технологических параметров.
     </p>
     <!-- Bento grid -->
-    <div class="gap-8 grid grid-cols-1 lg:grid-cols-2 pt-10 lg:pt-[80px]">
-      <div class="bg-zinc-900 bento-card">
+    <div class="gap-6 grid grid-cols-1 lg:grid-cols-10 pt-10 lg:pt-[80px]">
+      <!-- Performance -->
+      <div class="lg:col-span-7 bg-zinc-900 bento-card">
         <h3 class="bento-card-header">Высокая производительность</h3>
         <p class="text-zinc-400 bento-card-description">
           6-ядерный процессор, 4ГБ оперативной памяти, 32 ГБ флеш памяти,
@@ -129,19 +135,54 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
             alt="asp-core"
             class="-ml-6 max-w-[50%]"
           />
-          <div class="gap-2 grid grid-cols-1 w-full max-w-[50%]">
+          <div class="gap-2 grid grid-cols-2 w-full max-w-[50%]">
             <!-- Core -->
             <div
-              class="flex flex-col items-center bg-zinc-800 p-2 rounded-md w-full h-fit">
-              <span class="font-bold text-primary-300 text-3xl">6</span>
-              <span class="font-bold text-primary-300 text-base uppercase">
-                ядер
+              class="flex flex-col justify-center items-center col-span-2 bg-zinc-800 p-2 rounded-md w-full">
+              <span class="font-bold text-primary-300 text-3xl">6 ядер</span>
+              <span class="text-zinc-400 text-base">
+                2 Cortex A72<br />4 Cortex A53
               </span>
-              <span class="text-base">2 Cortex A72<br />4 Cortex A53</span>
             </div>
-            <!-- Ghz -->
+            <!-- Ghz A72 -->
+            <div
+              class="flex flex-col justify-center items-center bg-zinc-800 p-2 rounded-md w-full">
+              <span class="font-bold text-primary-300 text-3xl">2 ггц</span>
+              <span class="text-zinc-400 text-base">Cortex A72</span>
+            </div>
+            <!-- Ghz A53 -->
+            <div
+              class="flex flex-col justify-center items-center bg-zinc-800 p-2 rounded-md w-full">
+              <span class="font-bold text-primary-300 text-3xl">1.5 ггц</span>
+              <span class="text-zinc-400 text-base">Cortex A53</span>
+            </div>
           </div>
         </div>
+      </div>
+      <!-- Russian development -->
+      <div class="items-center lg:col-span-3 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">🇷🇺 Отечественная разработка</h3>
+        <p class="text-zinc-400 bento-card-description">
+          Разработку вела российская компания, имеющая ИТ-статус. В&nbsp;России
+          разработаны и&nbsp;производятся не&nbsp;только сами панели {
+            asp.device.name
+          }, но&nbsp;также программное обеспечение, которым они комплектуются:
+          операционная система Astra Linux*, SCADA-система MasterSCADA 4D, СУБД
+          временных рядов (TSDB) <a
+            href={tsdb.buttons?.more?.link}
+            class="text-primary-300 hover:text-primary-400 underline"
+            >АВАДС&nbsp;{tsdb.app.name}</a
+          >.
+        </p>
+        <img
+          src="/products/tsdb/tsdb.svg"
+          alt="tsdb"
+          class="my-4 w-full max-w-[40%] h-auto object-contain"
+        />
+        <span class="text-zinc-500 text-sm">
+          * получен сертификат READY FOR ASTRA, коммерческая версия вышла в июне
+          2025
+        </span>
       </div>
     </div>
   </div>
