@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
-import Advantage from "@/components/card/Advantage.astro";
+import Icon from "@/components/decorations/Icon.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 
 /* Images */
@@ -113,15 +113,26 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   <div class="flex flex-col mx-auto pt-14 pb-16 main-max-width">
     <h2 class="text-3xl">Отличительные особенности</h2>
     <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
-      Панели оператора {asp.device.name} для интерактивного отображения
-      технологической информации, управления исполнительными устройствами,
-      режимами сбора и архивирования технологических параметров.
+      Панели оператора {asp.device.name}&nbsp;для&nbsp;интерактивного
+      отображения технологической информации, управления исполнительными
+      устройствами, режимами сбора и&nbsp;архивирования технологических
+      параметров.
     </p>
     <!-- Bento grid -->
     <div class="gap-6 grid grid-cols-1 lg:grid-cols-10 pt-10 lg:pt-[80px]">
       <!-- Performance -->
       <div class="lg:col-span-7 bg-zinc-900 bento-card">
-        <h3 class="bento-card-header">Высокая производительность</h3>
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="rocket-fill"
+            CustomClass="text-teal-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-teal-400 to-red-100 text-transparent">
+            Высокая производительность
+          </span>
+        </h3>
         <p class="text-zinc-400 bento-card-description">
           6-ядерный процессор, 4ГБ оперативной памяти, 32 ГБ флеш памяти,
           быстрый графический адаптер до 4K@60Hz, сенсорный multi-touch экран,
@@ -130,11 +141,13 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           задач.
         </p>
         <div class="flex gap-4 py-3">
-          <img
-            src="/products/asp/asp-core.png"
-            alt="asp-core"
-            class="-ml-6 max-w-[50%]"
-          />
+          <div class="core-image">
+            <img
+              src="/products/asp/asp-core.png"
+              alt="asp-core"
+              class="relative -ml-6 max-w-full"
+            />
+          </div>
           <div class="gap-2 grid grid-cols-2 w-full max-w-[50%]">
             <!-- Core -->
             <div
@@ -161,7 +174,13 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
       </div>
       <!-- Russian development -->
       <div class="items-center lg:col-span-3 bg-zinc-900 bento-card">
-        <h3 class="bento-card-header">🇷🇺 Отечественная разработка</h3>
+        <h3 class="bento-card-header">
+          <span class="text-zinc-400">🇷🇺</span>
+          <span
+            class="bg-clip-text bg-gradient-to-r from-slate-100 to-blue-300 text-transparent">
+            Отечественная разработка
+          </span>
+        </h3>
         <p class="text-zinc-400 bento-card-description">
           Разработку вела российская компания, имеющая ИТ-статус. В&nbsp;России
           разработаны и&nbsp;производятся не&nbsp;только сами панели {
@@ -180,9 +199,56 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           class="my-4 w-full max-w-[40%] h-auto object-contain"
         />
         <span class="text-zinc-500 text-sm">
-          * получен сертификат READY FOR ASTRA, коммерческая версия вышла в июне
-          2025
+          * получен сертификат READY FOR ASTRA, коммерческая версия вышла
+          в&nbsp;июне 2025
         </span>
+      </div>
+      <!-- Linux -->
+      <div class="lg:col-span-5 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="linux-fill"
+            CustomClass="text-orange-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-orange-400 to-lime-300 text-transparent">
+            Наличие Linux
+          </span>
+        </h3>
+        <p class="font-semibold text-zinc-300 bento-card-description">
+          Широкий выбор прикладного ПО и&nbsp;возможность использования
+          собственных разработок
+        </p>
+        <p class="text-zinc-400 bento-card-description">
+          Панели оператора {asp.device.name} оснащены надёжной и&nbsp;удобной операционной
+          системой Linux. Она обеспечивает стабильную работу и&nbsp;безопасность
+          данных, а&nbsp;также позволяет эффективно использовать ресурсы панели.
+        </p>
+      </div>
+      <!-- Archiving -->
+      <div class="lg:col-span-5 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="database-outline"
+            CustomClass="text-blue-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-blue-400 to-pink-300 text-transparent">
+            Ведение архивов
+          </span>
+        </h3>
+        <p class="text-zinc-400 bento-card-description">
+          Панели оператора {asp.device.name}&nbsp;оснащены EMMC-диском
+          на&nbsp;32&nbsp;ГБ&nbsp;— этого достаточно, чтобы вести полноценное
+          архивирование для небольших задач. Кроме того в&nbsp;панели могут
+          опционально устанавливаться SSD диски объёмом до&nbsp;2&nbsp;ТБ.
+          В&nbsp;дополнение панели оператора могут комплектоваться СУБД
+          временных рядов (TSDB) АВАДС Сервер архивирования, обеспечивающего
+          высокоскоростное и очень компактное архивирование технологических
+          данных.
+        </p>
       </div>
     </div>
   </div>
@@ -218,7 +284,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   }
 
   .bento-card {
-    @apply flex flex-col gap-4 p-6 border border-zinc-800 rounded-md overflow-hidden transition-all duration-300;
+    @apply flex flex-col gap-4 p-6 border border-zinc-700 rounded-md overflow-hidden transition-all duration-300;
 
     .bento-card-header {
       @apply font-bold text-2xl;
@@ -226,6 +292,15 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
 
     .bento-card-description {
       @apply text-base;
+    }
+
+    .core-image {
+      @apply relative max-w-[50%];
+    }
+
+    .core-image::before {
+      content: "";
+      @apply block top-0 left-0 z-10 absolute bg-blue-400 w-5 h-5;
     }
   }
 </style>
