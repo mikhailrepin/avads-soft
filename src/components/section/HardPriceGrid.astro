@@ -55,7 +55,7 @@ const getLoadingStrategy = (index: number) => {
               width={60}
               height={60}
               loading="lazy"
-              class="product-icon"
+              class="w-[60px] h-[60px] object-contain product-icon"
             />
             <div class="card-info">
               <span class="title">{product.device.name}</span>
@@ -188,7 +188,7 @@ const getLoadingStrategy = (index: number) => {
   .card-head {
     @apply flex lg:flex-row flex-col gap-[24px];
     & img {
-      @apply bg-zinc-900 p-3 rounded-[8px] w-[60px] h-[60px];
+      @apply bg-zinc-900/20 p-0 rounded-sm w-[60px] h-[60px];
     }
     & .card-info {
       @apply flex flex-col gap-2;
