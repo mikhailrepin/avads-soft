@@ -23,6 +23,10 @@
         "price": {
           "label": "Цены",
           "link": "/price/#asp"
+        },
+        "support": {
+          "label": "Справочные материалы",
+          "link": "/support/asp"
         }
       },
       "supports": {

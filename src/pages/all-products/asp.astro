@@ -28,6 +28,7 @@ type Product = {
     demo?: { label: string; link: string };
     more?: { label: string; link: string };
     price?: { label: string; link: string };
+    support?: { label: string; link: string };
   };
   prices?: any;
   supports?: any;
@@ -554,8 +555,41 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
       <b class="text-primary-200">АСП-7-T5:</b> панель оператора АСП с&nbsp;экраном
       7&nbsp;дюймов и&nbsp;установленным SSD на&nbsp;500&nbsp;Гб.
     </p>
+    <div class="flex gap-3 bg-zinc-800 my-10 p-6 rounded-md">
+      <ButtonGeneric
+        ButtonLabel={`Купить ${asp.device.name}`}
+        Size="big"
+        IconLeft={{
+          IconSprite: "cart-fill",
+          IconVisible: true,
+        }}
+        Target="link"
+        Blank={true}
+        ButtonLink={asp.buttons?.buy?.link}
+      />
+      <ButtonGeneric
+        ButtonLabel="Цены"
+        Size="big"
+        Style="outlined"
+        CustomClass="w-[132px]"
+        Target="link"
+        ButtonLink={asp.buttons?.price?.link}
+      />
+      <ButtonGeneric
+        ButtonLabel="Справочные материалы"
+        Size="big"
+        Variant="secondary"
+        Style="outlined"
+        IconLeft={{
+          IconSprite: "book-outline",
+          IconVisible: true,
+        }}
+        Target="link"
+        ButtonLink={asp.buttons?.support?.link}
+      />
+    </div>
+    <hr class="separator silver" />
   </div>
-  <!-- Характеристики -->
 
   <!-- Свяжитесь с нами -->
   <CallToAction
