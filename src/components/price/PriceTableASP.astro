@@ -1,0 +1,81 @@
+---
+interface Props {
+  priceData: {
+    meta: {
+      rowLabel: string;
+      currency: string;
+    };
+    headers: {
+      label: string;
+    }[];
+    rows: {
+      model: string;
+      description: string;
+      price: number;
+    }[];
+  };
+}
+
+const { priceData } = Astro.props;
+---
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th class="fixed-column">{priceData.headers[0].label}</th>
+        <th>{priceData.headers[1].label}</th>
+        <th>{priceData.headers[2].label}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        priceData.rows.map((row) => (
+          <tr>
+            <td class="fixed-column">{row.model}</td>
+            <td>{row.description}</td>
+            <td>
+              {row.price.toLocaleString("ru-RU").replace(",", " ")}{" "}
+              {priceData.meta.currency}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  table tr td {
+    @apply lg:text-[0.9rem] text-nowrap;
+  }
+  tbody tr td {
+    @apply text-center;
+    &:first-child {
+      @apply text-left;
+    }
+    &:nth-child(2) {
+      @apply text-left whitespace-normal;
+      white-space: normal !important;
+    }
+  }
+  thead tr th {
+    @apply text-center;
+    &:first-child {
+      @apply text-left;
+    }
+    &:nth-child(2) {
+      @apply text-left;
+    }
+  }
+
+  /* Убираем любые дополнительные отступы для заголовка второй колонки */
+  thead tr th:nth-child(2) {
+    padding-left: 0;
+  }
+
+  /* Убираем любые дополнительные отступы для содержимого второй колонки */
+  tbody tr td:nth-child(2) {
+    padding-left: 0;
+  }
+</style>

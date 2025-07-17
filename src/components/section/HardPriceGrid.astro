@@ -2,6 +2,7 @@
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import prodHard from "@/data/prodHard.json";
 import PriceTable from "@/components/price/PriceTable.astro";
+import PriceTableASP from "@/components/price/PriceTableASP.astro";
 import PriceSARXP from "@/components/price/PriceSARXP.astro";
 import { Image } from "astro:assets";
 
@@ -65,12 +66,9 @@ const getLoadingStrategy = (index: number) => {
 
           <div class="card-body">
             {product.prices?.type === "PriceSARXP" && <PriceSARXP />}
-            {product.prices?.type === "PriceASP" && (
-              <div class="price-asp">
-                <p class="text-zinc-400 text-sm">
-                  Цены на оборудование уточняйте у менеджеров
-                </p>
-              </div>
+            {product.prices?.type === "PriceASP" && <div class="price-asp" />}
+            {product.prices?.type === "table" && product.prices.meta && (
+              <PriceTableASP priceData={product.prices} />
             )}
 
             <div class="card-footer">
@@ -94,16 +92,6 @@ const getLoadingStrategy = (index: number) => {
                   Target="link"
                   ButtonLabel={product.buttons.more.label}
                   ButtonLink={product.buttons.more.link}
-                />
-              )}
-              {product.buttons?.price && (
-                <ButtonGeneric
-                  Variant="secondary"
-                  Size="default"
-                  Style="outlined"
-                  Target="link"
-                  ButtonLabel={product.buttons.price.label}
-                  ButtonLink={product.buttons.price.link}
                 />
               )}
             </div>
@@ -139,26 +127,6 @@ const getLoadingStrategy = (index: number) => {
         });
       });
     });
-
-    // Обработка плавной прокрутки - убрана, так как теперь обрабатывается на уровне страницы
-    // navLinks.forEach((link) => {
-    //   link.addEventListener("click", (e) => {
-    //     e.preventDefault();
-    //     const targetId = link.getAttribute("href")?.replace("#", "") ?? "";
-    //     const targetElement = document.getElementById(targetId);
-
-    //     if (targetElement) {
-    //       const offset = 80;
-    //       const elementPosition = targetElement.getBoundingClientRect().top;
-    //       const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-    //       window.scrollTo({
-    //         top: offsetPosition,
-    //         behavior: "smooth",
-    //       });
-    //     }
-    //   });
-    // });
   });
 </script>
 
