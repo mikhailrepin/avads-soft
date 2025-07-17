@@ -2,18 +2,18 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
-import FAQ from "@/components/section/FAQ.astro";
+import Icon from "@/components/decorations/Icon.astro";
 import { Image } from "astro:assets";
 
 /* Data */
-import faqData from "@/data/faqMain.json";
 import prodSoftData from "@/data/prodSoft.json";
+import prodHardData from "@/data/prodHard.json";
 import helpers from "@/data/helpers.json";
 
 /* Variables */
 const heroBbackground = "/hero/pic_7.webp";
 
-interface Product {
+interface SoftProduct {
   id: string;
   app: {
     name: string;
@@ -26,6 +26,17 @@ interface Product {
       link: string;
     };
   };
+}
+
+interface HardProduct {
+  id: string;
+  device: {
+    name: string;
+    description: string;
+    image: string;
+    status: string;
+  };
+  supports?: any;
 }
 ---
 
@@ -49,46 +60,122 @@ interface Product {
   <!-- Продукты -->
   <div class="flex flex-col mx-auto mt-[24px] main-max-width">
     <h2 class="pt-[16px] text-3xl">Продукты</h2>
-    <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-3 py-[48px]">
-      {
-        prodSoftData.products
-          .filter((product: Product) => product.buttons?.demo?.link)
-          .map((product: Product) => (
-            <a
-              href={`/support/${product.id}`}
-              class="flex gap-[16px] hover:bg-zinc-900/40 p-[24px] border border-zinc-900 hover:border-zinc-700 rounded-lg transition-all duration-300 cursor-pointer">
-              <Image
-                src={product.app.image}
-                alt={product.app.name}
-                width={40}
-                height={40}
-                loading="lazy"
-                class="rounded-lg w-[40px] h-[40px]"
-              />
-              <div class="flex flex-col gap-[8px]">
-                <span class="font-semibold text-xl">{product.app.name}</span>
-                <span class="text-zinc-400 text-sm line-clamp-2">
-                  {product.app.description}
-                </span>
-              </div>
-            </a>
-          ))
-      }
+
+    <!-- Табы -->
+    <div
+      class="tabs-panel"
+      role="tablist"
+      aria-label="Категории продуктов">
+      <button
+        role="tab"
+        data-os="software"
+        aria-controls="software-panel"
+        aria-selected="true"
+        id="software-tab"
+        class="active">
+        <Icon
+          IconSprite="terminal-fill"
+          IconSize={24}
+        />
+        <span class="hidden lg:block">Программное обеспечение</span>
+        <span class="lg:hidden block">СОФТ</span>
+      </button>
+      <button
+        role="tab"
+        data-os="hardware"
+        aria-controls="hardware-panel"
+        aria-selected="false"
+        id="hardware-tab">
+        <Icon
+          IconSprite="hardware-chip-fill"
+          IconSize={24}
+        />
+        <span class="hidden lg:block">Оборудование</span>
+        <span class="lg:hidden block">ХАРД</span>
+      </button>
     </div>
+
+    <!-- Контент табов -->
+    <div class="tab-content">
+      <!-- Панель программного обеспечения -->
+      <div
+        role="tabpanel"
+        id="software-panel"
+        aria-labelledby="software-tab"
+        class="block"
+        data-os="software">
+        <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-3 py-[48px]">
+          {
+            prodSoftData.products
+              .filter((product: SoftProduct) => product.buttons?.demo?.link)
+              .map((product: SoftProduct) => (
+                <a
+                  href={`/support/${product.id}`}
+                  class="flex gap-[16px] hover:bg-zinc-900/40 p-[24px] border border-zinc-900 hover:border-zinc-700 rounded-lg transition-all duration-300 cursor-pointer">
+                  <Image
+                    src={product.app.image}
+                    alt={product.app.name}
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    class="rounded-lg w-[40px] h-[40px]"
+                  />
+                  <div class="flex flex-col gap-[8px]">
+                    <span class="font-semibold text-xl">
+                      {product.app.name}
+                    </span>
+                    <span class="text-zinc-400 text-sm line-clamp-2">
+                      {product.app.description}
+                    </span>
+                  </div>
+                </a>
+              ))
+          }
+        </div>
+      </div>
+
+      <!-- Панель оборудования -->
+      <div
+        role="tabpanel"
+        id="hardware-panel"
+        aria-labelledby="hardware-tab"
+        class="opacity-0 h-0 overflow-hidden"
+        data-os="hardware">
+        <div class="gap-[16px] grid grid-cols-1 lg:grid-cols-3 py-[48px]">
+          {
+            prodHardData.products
+              .filter((product: HardProduct) => product.supports)
+              .map((product: HardProduct) => (
+                <a
+                  href={`/support/${product.id.toLowerCase()}`}
+                  class="flex gap-[16px] hover:bg-zinc-900/40 p-[24px] border border-zinc-900 hover:border-zinc-700 rounded-lg transition-all duration-300 cursor-pointer">
+                  <Image
+                    src={product.device.image}
+                    alt={product.device.name}
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    class="w-10 h-10 object-contain aspect-square"
+                  />
+                  <div class="flex flex-col gap-[8px]">
+                    <span class="font-semibold text-xl">
+                      {product.device.name}
+                    </span>
+                    <span class="text-zinc-400 text-sm line-clamp-2">
+                      {product.device.description}
+                    </span>
+                  </div>
+                </a>
+              ))
+          }
+        </div>
+      </div>
+    </div>
+
     <hr class="separator silver" />
   </div>
 
   <div class="flex flex-col gap-[52px] mx-auto my-[52px] main-max-width">
-    <!-- <h2 class="text-3xl">Часто задаваемые вопросы</h2>
-    <FAQ faqData={faqData} /> -->
-    <!-- <CallToAction
-      Title="Не нашли ответ на вопрос?"
-      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
-      ButtonProps={{
-        ButtonLabel: "Оставить заявку",
-        ButtonLink: "/contacts",
-      }}
-    /> -->
     <CallToAction
       Title="Свяжитесь с нами"
       Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
@@ -99,3 +186,209 @@ interface Product {
     />
   </div>
 </Layout>
+
+<script>
+  const tabs = document.querySelectorAll(".tabs-panel button");
+  const STORAGE_KEY = "avads-active-tab"; // Ключ для localStorage
+
+  // Функция для активации таба
+  function activateTab(targetTab: Element) {
+    // Обновляем состояние табов
+    tabs.forEach((t) => {
+      t.classList.remove("active");
+      t.setAttribute("aria-selected", "false");
+    });
+    targetTab.classList.add("active");
+    targetTab.setAttribute("aria-selected", "true");
+
+    const ariaControls = targetTab.getAttribute("aria-controls");
+    if (ariaControls) {
+      const activePanel = document.getElementById(ariaControls);
+      const tabPanels = document.querySelectorAll("[role='tabpanel']");
+
+      if (activePanel) {
+        // Этап 1: Плавно скрываем прозрачность всех неактивных панелей
+        tabPanels.forEach((panel) => {
+          if (panel !== activePanel) {
+            panel.classList.remove("opacity-100");
+            panel.classList.add("opacity-0");
+          }
+        });
+
+        // Этап 2: После fade-out уменьшаем высоту неактивных панелей
+        setTimeout(() => {
+          tabPanels.forEach((panel) => {
+            if (panel !== activePanel) {
+              panel.classList.remove("block", "h-auto", "overflow-visible");
+              panel.classList.add("h-0", "overflow-hidden");
+            }
+          });
+
+          // Этап 3: Показываем активную панель - сначала высота
+          activePanel.classList.remove("h-0", "overflow-hidden");
+          activePanel.classList.add("block", "h-auto", "overflow-visible");
+
+          // Этап 4: Затем плавно показываем прозрачность
+          setTimeout(() => {
+            activePanel.classList.remove("opacity-0");
+            activePanel.classList.add("opacity-100");
+          }, 50);
+        }, 150); // Ждем завершения fade-out
+      }
+    }
+
+    // Сохраняем активный таб в localStorage
+    const tabId = targetTab.getAttribute("data-os");
+    if (tabId) {
+      try {
+        localStorage.setItem(STORAGE_KEY, tabId);
+      } catch (error) {
+        console.warn("Не удалось сохранить состояние таба:", error);
+      }
+    }
+  }
+
+  // Восстанавливаем активный таб при загрузке страницы
+  function restoreActiveTab() {
+    try {
+      const savedTabId = localStorage.getItem(STORAGE_KEY);
+      if (savedTabId) {
+        const savedTab = document.querySelector(`[data-os="${savedTabId}"]`);
+        if (savedTab) {
+          // Убираем активность с текущего таба
+          tabs.forEach((t) => {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+          });
+
+          // Скрываем все панели БЕЗ анимации
+          const tabPanels = document.querySelectorAll("[role='tabpanel']");
+          tabPanels.forEach((panel) => {
+            // Временно отключаем transitions
+            (panel as HTMLElement).style.transition = "none";
+            panel.classList.remove(
+              "block",
+              "opacity-100",
+              "h-auto",
+              "overflow-visible"
+            );
+            panel.classList.add("opacity-0", "h-0", "overflow-hidden");
+          });
+
+          // Активируем сохраненный таб БЕЗ анимации
+          savedTab.classList.add("active");
+          savedTab.setAttribute("aria-selected", "true");
+
+          const ariaControls = savedTab.getAttribute("aria-controls");
+          if (ariaControls) {
+            const activePanel = document.getElementById(ariaControls);
+            if (activePanel) {
+              // Показываем активную панель БЕЗ анимации
+              (activePanel as HTMLElement).style.transition = "none";
+              activePanel.classList.remove(
+                "opacity-0",
+                "h-0",
+                "overflow-hidden"
+              );
+              activePanel.classList.add(
+                "block",
+                "opacity-100",
+                "h-auto",
+                "overflow-visible"
+              );
+            }
+          }
+
+          // Возвращаем transitions через requestAnimationFrame
+          requestAnimationFrame(() => {
+            tabPanels.forEach((panel) => {
+              (panel as HTMLElement).style.transition = "";
+            });
+          });
+        }
+      }
+    } catch (error) {
+      console.warn("Не удалось восстановить состояние таба:", error);
+    }
+  }
+
+  // Добавляем обработчики кликов
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      activateTab(tab);
+    });
+  });
+
+  // Восстанавливаем состояние после полной загрузки страницы
+  // Используем setTimeout для отложенного выполнения
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(restoreActiveTab, 0);
+    });
+  } else {
+    // Если документ уже загружен
+    setTimeout(restoreActiveTab, 0);
+  }
+</script>
+
+<style>
+  .tabs-panel {
+    @apply max-md:top-[48px] z-20 lg:relative sticky flex gap-4 lg:gap-8 max-md:bg-zinc-950 mt-8 mb-4;
+    &::after {
+      @apply bg-zinc-800;
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      z-index: -1;
+    }
+    & button {
+      @apply flex items-center gap-2 py-2 border-transparent border-b font-semibold text-zinc-400 text-xl uppercase;
+      &:hover {
+        @apply text-zinc-100 transform-none;
+      }
+      &:active {
+        @apply border-primary-400 text-primary-300;
+      }
+    }
+  }
+  .tabs-panel button.active {
+    @apply border-primary-400 text-primary-300;
+  }
+
+  /* Анимированное скрытие/показ контента */
+  [role="tabpanel"] {
+    transform: translateY(10px);
+    transition:
+      opacity 0.3s ease-in-out,
+      height 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+    /* Предотвращаем скачки контента */
+    will-change: height, opacity, transform;
+  }
+
+  [role="tabpanel"].block {
+    transform: translateY(0);
+  }
+
+  /* Плавные переходы для высоты */
+  [role="tabpanel"].h-0 {
+    height: 0 !important;
+    min-height: 0 !important;
+  }
+
+  [role="tabpanel"].h-auto {
+    height: auto !important;
+  }
+
+  /* Анимация табов */
+  [role="tab"] {
+    transition: all 0.2s ease-in-out;
+  }
+
+  [role="tab"]:hover {
+    transform: translateY(-1px);
+  }
+</style>
