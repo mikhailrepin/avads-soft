@@ -166,7 +166,34 @@
         "status": ""
       },
       "prices": {
-        "type": "PriceASP"
+        "type": "table",
+        "meta": {
+          "rowLabel": "Модель",
+          "currency": "₽"
+        },
+        "headers": [
+          {
+            "label": "Модель"
+          },
+          {
+            "label": "Описание"
+          },
+          {
+            "label": "Цена"
+          }
+        ],
+        "rows": [
+          {
+            "model": "AVK-T5",
+            "description": "Контроллер с встроенным Linux и SSD диском на 500Гб, 1xHDMI, 1 x Ethernet до 1000 Мбит/с (RJ45), Wi-Fi 802.11n (до 300 Мбит/с), Bluetooth 5.0, 1xRS-232, 2xRS-485 (1 порт,разделяемый с RS-232), 2xUSB 3.0, 2xUSB2.0",
+            "price": 34800
+          },
+          {
+            "model": "AVK",
+            "description": "Контроллер с встроенным, 1xHDMI, 1 x Ethernet до 1000 Мбит/с (RJ45), Wi-Fi 802.11n (до 300 Мбит/с), Bluetooth 5.0, 1xRS-232, 2xRS-485 (1 порт,разделяемый с RS-232), 2xUSB 3.0, 2xUSB2.0",
+            "price": 30900
+          }
+        ]
       },
       "buttons": {
         "buy": {
