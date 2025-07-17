@@ -202,8 +202,8 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           class="my-4 w-full max-w-[40%] h-auto object-contain"
         />
         <span class="text-zinc-500 text-sm">
-          * получен сертификат READY FOR ASTRA, коммерческая версия вышла
-          в&nbsp;июне 2025
+          * получен сертификат READY FOR&nbsp;ASTRA, коммерческая версия вышла
+          в&nbsp;июне&nbsp;2025
         </span>
       </div>
       <!-- Linux -->
@@ -291,14 +291,179 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           <img
             src="/products/asp/asp-interfaces-side.png"
             alt="asp-interfaces"
-            class="-mr-8 w-full max-w-[40%] h-auto object-contain"
+            class="-mr-8 w-full md:max-w-[40%] h-auto object-contain"
           />
         </div>
       </div>
+      <!-- Полноценная SCADA -->
+      <div class="lg:col-span-10 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="component-outline"
+            CustomClass="text-blue-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-blue-400 to-teal-100 text-transparent">
+            Предустановленная MasterSCADA 4D
+          </span>
+        </h3>
+        <div class="flex flex-row items-center gap-10 -mt-4">
+          <p class="text-zinc-400 bento-card-description">
+            Панели оператора {asp.device.name}&nbsp;могут комплектоваться одним
+            из&nbsp;двух типов исполнительной системы MasterSCADA&nbsp;4D&nbsp;—
+            МК5 или М2К5. Их&nbsp;основные характеристики приведены
+            в&nbsp;таблице:
+          </p>
+          <img
+            src="/products/ms-scada/ms-scada.svg"
+            alt="asp-scada"
+            class="hidden md:block mr-4 w-full max-w-[7%] h-auto object-contain"
+          />
+        </div>
+        <div class="flex md:flex-row flex-col items-start gap-10">
+          <!-- Left table -->
+          <table class="-mt-2 w-[50%]">
+            <thead>
+              <tr>
+                <th class="fixed-column">Тип лицензии</th>
+                <th>МК5</th>
+                <th>М2К5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Количество точек в лицензии</td>
+                <td>500</td>
+                <td>2500</td>
+              </tr>
+              <tr>
+                <td>Функция хранения архивов</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Использование для архива внешних БД</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th class="fixed-column">Драйверы протоколов</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Межузловой обмен MasterSCADA 4D</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Modbus RTU/TCP (master/slave)</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>OPC UA (client/server)</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Mitsubishi SLMP</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>SNMP</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>BACnet</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Profinet</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>МЭК 61850</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>МЭК 60870-5-104</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>OMRON FINS и FINS Serial</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Right table -->
+          <table class="-mt-2 w-[50%]">
+            <thead>
+              <tr>
+                <th class="fixed-column w-full max-w-[70%]"
+                  >Счётчики электроэнергии</th
+                >
+                <th>МК5</th>
+                <th>М2К5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Меркурий 230, 234, 236 (Инкотекс)</td>
+                <td class="exclude">–</td>
+                <td>до 3</td>
+              </tr>
+              <tr>
+                <td
+                  >Энергомера СЕ301, СЕ303, СЕ304, ЦЭ6850 НHПО им. М.В. Фрунзе
+                  СЭТ-4ТМ, ПСЧ-4ТМ</td
+                >
+                <td class="exclude">–</td>
+                <td>до 3</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th class="fixed-column w-full max-w-[70%]"
+                  >Счётчики тепла и энергии</th
+                >
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  >Тепловом ВКТ-5, ВКТ-7, ВКТ-9 ВЗЛЁТ ТСР-024М, ТСР-042
+                  ЭСКО-Т-1, ЭСКО-Т-2 (Энергосервисная компания 33) ТЭМ-104,
+                  ТЭМ-105, ТЭСМА-1 МКТС (Интелприбор) Пульсар (Тепловодохран)</td
+                >
+                <td class="exclude">–</td>
+                <td>до 3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="pt-8 text-zinc-300 bento-card-description">
+          Кроме того, в&nbsp;исполнительной системе М2К5 поддерживается
+          архивирование данных в&nbsp;<a
+            href={tsdb.buttons?.more?.link}
+            class="text-primary-300 hover:text-primary-400 underline"
+            >АВАДС&nbsp;{tsdb.app.name}</a
+          >, а&nbsp;также использование SSD диска объёмом 500&nbsp;Гб,
+          1&nbsp;или 2&nbsp;Тб.
+        </p>
+      </div>
     </div>
   </div>
-
-  <!-- Полноценная SCADA -->
 
   <!-- Модификации АСП -->
 
@@ -431,5 +596,34 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
     opacity: 1;
     filter: blur(20px);
     border-radius: 12px;
+  }
+
+  table tr td:first-child {
+    @apply text-zinc-400;
+  }
+  table tr td {
+    @apply py-1 text-center;
+  }
+  table thead tr th {
+    @apply pt-6 pb-2 text-center;
+  }
+  table thead tr th:first-child {
+    @apply text-blue-200 text-left;
+  }
+  table tr td:first-child {
+    @apply text-left;
+  }
+  table tbody tr {
+    @apply border-zinc-800/60 border-b;
+  }
+  table tbody tr:last-child td {
+    border-bottom: none !important;
+  }
+
+  table tbody tr td.include {
+    @apply font-bold text-green-400;
+  }
+  table tbody tr td.exclude {
+    @apply font-bold text-zinc-400;
   }
 </style>
