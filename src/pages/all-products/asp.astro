@@ -140,16 +140,18 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           делают АВАДС АСП мощным инструментом для решения широкого класса
           задач.
         </p>
-        <div class="flex gap-4 py-3">
+        <div class="flex md:flex-row flex-col gap-4 py-3">
           <div class="core-image">
             <img
               src="/products/asp/asp-core.png"
               alt="asp-core"
-              class="relative -ml-6 max-w-full"
+              class="relative -ml-6 w-full"
             />
+            <div class="core-animation-blur"></div>
             <div class="core-animation"></div>
           </div>
-          <div class="gap-2 grid grid-cols-2 w-full max-w-[50%]">
+          <div
+            class="gap-2 grid grid-cols-2 w-full max-w-[100%] md:max-w-[50%]">
             <!-- Core -->
             <div
               class="flex flex-col justify-center items-center col-span-2 bg-zinc-800 p-2 rounded-md w-full">
@@ -251,6 +253,48 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           данных.
         </p>
       </div>
+      <!-- Communication interfaces -->
+      <div class="lg:col-span-10 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="connect-outline"
+            CustomClass="text-teal-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-teal-400 to-amber-300 text-transparent">
+            Широкие коммуникационные возможности
+          </span>
+        </h3>
+        <div class="flex md:flex-row flex-col gap-4">
+          <div class="flex flex-col gap-4">
+            <p class="font-semibold text-zinc-300 bento-card-description">
+              Большое число поддерживаемых интерфейсов и&nbsp;протоколов
+            </p>
+            <p class="text-zinc-400 bento-card-description">
+              Панели оператора {asp.device.name}&nbsp;имеют широкий набор
+              интерфейсов для подключения периферии, контроллеров и&nbsp;другого
+              оборудования: Ethernet 1 Gb, Wi-Fi (2,4 и 5 ГГц), Bluetooth 5.0,
+              два USB 3.0 host, два RS-485, RS-232.
+            </p>
+            <p class="font-semibold text-zinc-300 bento-card-description">
+              Поддерживаются следующие протоколы:
+            </p>
+            <p class="text-zinc-400 bento-card-description">
+              OPC UA, MODBUS RTU/TCP, Profinet, BACnet, FINS, SLMP, SNMP, МЭК
+              61850, МЭК 60870–5-104, Меркурий 230/234/236, Энергомера
+              СЕ301/303/304, ЦЭ6850, СЕТ-4ТМ, ПСЧ-4ТМ, ВКТ-5/7/9, Пульсар,
+              ТСР-034(033)/024М/026М/042/043/032, ЭСКО-Т1, ЭСКО-Т2, ТЭМ-104/106,
+              ТЭСМА-1, МКТС
+            </p>
+          </div>
+          <img
+            src="/products/asp/asp-interfaces-side.png"
+            alt="asp-interfaces"
+            class="-mr-8 w-full max-w-[40%] h-auto object-contain"
+          />
+        </div>
+      </div>
     </div>
   </div>
 
@@ -275,6 +319,67 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   />
 </Layout>
 
+<script>
+  // Скрипт для анимации вращения градиента
+  document.addEventListener("DOMContentLoaded", function () {
+    const coreAnimation = document.querySelector(
+      ".core-animation"
+    ) as HTMLElement;
+    const coreAnimationBlur = document.querySelector(
+      ".core-animation-blur"
+    ) as HTMLElement;
+
+    if (coreAnimation && coreAnimationBlur) {
+      let rotationAngle = 0;
+
+      // Цвета градиента для плавного перехода
+      const colors = [
+        "#83d9f7", // голубой
+        "#6b9af7", // переходный
+        "#5699f6", // синий
+        "#6ba8fa", // переходный
+        "#83d9f7", // светло-голубой
+        "#6bb5fb", // переходный
+        "#5987f6", // синий
+        "#6ba2f8", // переходный
+        "#76cdff", // голубой
+        "#7dc8fb", // переходный
+        "#83d9f7", // возврат к первому цвету для плавности
+      ];
+
+      function updateGradient() {
+        // Увеличиваем угол поворота
+        rotationAngle += 1.2; // Скорость вращения (градусы за кадр)
+
+        // Нормализуем угол в диапазоне 0-360
+        const normalizedAngle = rotationAngle % 360;
+
+        // Создаем плавный conic-gradient с вращением через параметр from
+        const gradientStops = colors
+          .map((color, index) => {
+            const angle = ((index * 360) / (colors.length - 1)) % 360; // Равномерно распределяем цвета
+            return `${color} ${angle}deg`;
+          })
+          .join(", ");
+
+        // Применяем градиент с вращением только градиента через параметр from
+        const newGradient = `conic-gradient(from ${normalizedAngle}deg at 50% 50%, ${gradientStops})`;
+
+        // Применяем градиент к основному элементу
+        coreAnimation.style.background = newGradient;
+        // Применяем тот же градиент к размытому элементу для эффекта свечения
+        coreAnimationBlur.style.background = newGradient;
+
+        // Запрашиваем следующий кадр
+        requestAnimationFrame(updateGradient);
+      }
+
+      // Запускаем анимацию
+      updateGradient();
+    }
+  });
+</script>
+
 <style>
   .hero-title {
     @apply font-bold text-4xl lg:text-6xl leading-tight;
@@ -296,37 +401,35 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
     }
   }
   .core-image {
-    @apply relative max-w-[50%];
+    @apply relative w-full max-w-[100%] md:max-w-[50%];
   }
 
   /* Основная анимированная рамка */
   .core-animation {
-    @apply bottom-[17%] left-[18%] absolute w-[40%] h-[36%];
+    @apply bottom-[17%] left-[18%] z-20 absolute w-[40%] h-[36%];
     content: "";
-    background: conic-gradient(
-      from 180deg at 50% 50%,
-      #83d9f7 40.96207112073898deg,
-      #5699f6 89.83491003513336deg,
-      #78d9ff 136.64101839065552deg,
-      #5987f6 219.58386898040771deg,
-      #76cdff 271.20765924453735deg,
-      #5987f6 314.0755605697632deg
-    );
-    animation: rotate-gradient 3s linear infinite;
+    /* animation: rotate-gradient 3s linear infinite; */
     opacity: 1;
     border-radius: 12px;
     /* filter: blur(10px); */
     &::before {
       content: "";
       position: absolute;
-      top: 4%;
-      left: 4%;
-      width: 92%;
-      height: 92%;
+      top: 3%;
+      left: 3%;
+      width: 94%;
+      height: 94%;
       background: url("/products/asp/core-mask.png") no-repeat center center;
       background-size: 100% 100%;
       filter: none;
       border-radius: 8px;
     }
+  }
+  .core-animation-blur {
+    @apply bottom-[17%] left-[18%] z-10 absolute w-[40%] h-[36%];
+    content: "";
+    opacity: 1;
+    filter: blur(20px);
+    border-radius: 12px;
   }
 </style>
