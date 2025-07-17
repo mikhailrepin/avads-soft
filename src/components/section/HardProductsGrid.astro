@@ -20,6 +20,7 @@ const products = Collapsed ? prodHard.products.slice(0, 4) : prodHard.products;
           Title={product.device.name}
           Status={product.device.status}
           Description={product.device.description}
+          ProductLink={product.buttons?.more?.link || ""}
           FirstButton={{
             Visible: !!product.buttons?.buy,
             ButtonLabel: product.buttons?.buy?.label || "",

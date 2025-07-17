@@ -46,6 +46,7 @@ export interface BaseButton {
 export interface BaseCard extends BaseText {
   Image: string;
   Status?: string;
+  ProductLink?: string;
   FirstButton?: BaseButton;
   SecondButton?: BaseButton;
   CustomClass?: string;

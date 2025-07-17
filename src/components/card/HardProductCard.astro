@@ -5,6 +5,7 @@ import type { BaseCard, BaseText, BaseButton } from "@/types/interfaces";
 const {
   Image = "",
   Status = "",
+  ProductLink = "",
   CustomClass,
   Title = "Название продукта" as BaseText["Title"],
   Description = "Описание продукта" as BaseText["Description"],
@@ -30,11 +31,25 @@ const {
     <div class="glow"></div>
   </div>
   {Status && <div class="z-20 bage">{Status}</div>}
-  <img
-    src={Image}
-    alt={Title}
-    loading="lazy"
-  />
+  {
+    ProductLink ? (
+      <a
+        href={ProductLink}
+        class="image-link">
+        <img
+          src={Image}
+          alt={Title}
+          loading="lazy"
+        />
+      </a>
+    ) : (
+      <img
+        src={Image}
+        alt={Title}
+        loading="lazy"
+      />
+    )
+  }
   <h3 class="z-20 font-bold uppercase">{Title}</h3>
   <p class="z-20">{Description}</p>
   <div class="z-20 flex gap-3 pt-4">
@@ -85,6 +100,12 @@ const {
     & img {
       @apply z-10 w-[95%] object-contain transition-all ease-in-out;
     }
+    & .image-link {
+      @apply block z-10 cursor-pointer;
+      & img {
+        @apply w-[95%] object-contain transition-all ease-in-out;
+      }
+    }
     & .bage {
       @apply top-0 right-3 absolute bg-zinc-500 px-1 pt-5 pb-3 font-bold text-zinc-900 text-sm text-left uppercase transition-all;
       writing-mode: vertical-rl;
@@ -107,6 +128,9 @@ const {
         }
       }
       & img {
+        @apply scale-[105%] transition-all ease-in-out;
+      }
+      & .image-link img {
         @apply scale-[105%] transition-all ease-in-out;
       }
     }
