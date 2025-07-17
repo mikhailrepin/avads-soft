@@ -321,9 +321,9 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
             class="hidden md:block mr-4 w-full max-w-[7%] h-auto object-contain"
           />
         </div>
-        <div class="flex md:flex-row flex-col items-start gap-10">
+        <div class="flex lg:flex-row flex-col items-start gap-10">
           <!-- Left table -->
-          <table class="-mt-2 w-[50%]">
+          <table class="-mt-2 w-full lg:w-[50%]">
             <thead>
               <tr>
                 <th class="fixed-column">Тип лицензии</th>
@@ -407,7 +407,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
             </tbody>
           </table>
           <!-- Right table -->
-          <table class="-mt-2 w-[50%]">
+          <table class="-mt-2 w-full lg:w-[50%]">
             <thead>
               <tr>
                 <th class="fixed-column w-full max-w-[70%]"
@@ -466,7 +466,95 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   </div>
 
   <!-- Модификации АСП -->
-
+  <div class="flex flex-col mx-auto pt-16 pb-16 main-max-width">
+    <h2 class="text-3xl">Модификации АСП</h2>
+    <p class="lg:max-w-[50vw] text-zinc-400 text-lg">
+      Панели оператора {asp.device.name} для управления технологическими процессами
+      в&nbsp;составе систем автоматизации, диспетчеризации и&nbsp;учёта, построенных
+      на&nbsp;базе широкого спектра аппаратного и&nbsp;программного обеспечения.
+    </p>
+    <Image
+      src="/products/asp/asp-modifications.png"
+      alt="asp-modifications"
+      width={1000}
+      height={1000}
+      class="self-center my-10"
+    />
+    <h2 class="pb-10 text-3xl">
+      АСП-<span class="text-primary-300">D-SCADA-SSD-T</span>
+    </h2>
+    <!-- Cards grid -->
+    <div class="modifications-grid">
+      <div class="modification-card">
+        <div class="card-header">
+          D
+          <span class="card-icon icon-scale"></span>
+        </div>
+        <span class="card-description">Диагональ экрана</span>
+        <div class="card-content">
+          <div class="col-span-2 content-item">7”</div>
+          <div class="content-item">10”</div>
+          <div class="content-item">15”</div>
+        </div>
+      </div>
+      <div class="modification-card">
+        <div class="card-header">
+          SCADA
+          <span class="card-icon icon-package"></span>
+        </div>
+        <span class="card-description"
+          >Наличие предустановленной MasterSCADA 4D</span
+        >
+        <div class="card-content">
+          <div class="col-span-2 content-item">
+            МК5:<span class="ml-2 font-normal text-zinc-400">500 точек</span>
+          </div>
+          <div class="col-span-2 content-item">
+            М2К5:<span class="ml-2 font-normal text-zinc-400">2500 точек</span>
+          </div>
+        </div>
+      </div>
+      <div class="modification-card">
+        <div class="card-header">
+          SSD
+          <span class="card-icon icon-server"></span>
+        </div>
+        <span class="card-description">Наличие SDD Диска</span>
+        <div class="card-content">
+          <div class="col-span-2 content-item">
+            T5:<span class="ml-2 font-normal text-zinc-400">500 Гб</span>
+          </div>
+          <div class="content-item">
+            1T:<span class="ml-2 font-normal text-zinc-400">1000 Гб</span>
+          </div>
+          <div class="content-item">
+            2T:<span class="ml-2 font-normal text-zinc-400">2000 Гб</span>
+          </div>
+        </div>
+      </div>
+      <div class="modification-card">
+        <div class="card-header">
+          T
+          <span class="card-icon icon-thermometer"></span>
+        </div>
+        <span class="card-description">Температурный диапазон</span>
+        <div class="pt-6 h-full card-content">
+          <div class="col-span-2 h-full content-item">
+            P:<span class="ml-2 font-normal text-zinc-400">от -20 до 60℃</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="pt-10 pb-4 text-3xl">Примеры</h3>
+    <p class="pb-2 lg:max-w-[60vw] text-zinc-400 text-lg">
+      <b class="text-primary-200">АСП-10-MK5:</b> панель оператора АСП с&nbsp;экраном
+      10&nbsp;дюймов и&nbsp;предустановленной MasterSCADA&nbsp;4D на&nbsp;500&nbsp;точек.
+    </p>
+    <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
+      <b class="text-primary-200">АСП-7-T5:</b> панель оператора АСП с&nbsp;экраном
+      7&nbsp;дюймов и&nbsp;установленным SSD на&nbsp;500&nbsp;Гб.
+    </p>
+  </div>
   <!-- Характеристики -->
 
   <!-- Свяжитесь с нами -->
@@ -565,6 +653,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
       @apply text-base;
     }
   }
+
   .core-image {
     @apply relative w-full max-w-[100%] md:max-w-[50%];
   }
@@ -590,6 +679,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
       border-radius: 8px;
     }
   }
+
   .core-animation-blur {
     @apply bottom-[17%] left-[18%] z-10 absolute w-[40%] h-[36%];
     content: "";
@@ -601,21 +691,27 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   table tr td:first-child {
     @apply text-zinc-400;
   }
+
   table tr td {
     @apply py-1 text-center;
   }
+
   table thead tr th {
-    @apply pt-6 pb-2 text-center;
+    @apply bg-transparent pt-6 pb-2 text-center;
   }
+
   table thead tr th:first-child {
     @apply text-blue-200 text-left;
   }
+
   table tr td:first-child {
     @apply text-left;
   }
+
   table tbody tr {
     @apply border-zinc-800/60 border-b;
   }
+
   table tbody tr:last-child td {
     border-bottom: none !important;
   }
@@ -623,7 +719,52 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   table tbody tr td.include {
     @apply font-bold text-green-400;
   }
+
   table tbody tr td.exclude {
     @apply font-bold text-zinc-400;
+  }
+
+  .modifications-grid {
+    @apply gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+
+    .modification-card {
+      @apply flex flex-col justify-between gap-4 bg-zinc-900 p-4 border border-zinc-700 rounded-md;
+
+      .card-header {
+        @apply flex justify-between items-center gap-2 font-bold text-primary-300 text-3xl;
+
+        .card-icon {
+          @apply bg-primary-300 w-10 h-10;
+          &.icon-scale {
+            mask: url("/symbols/scale.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+          &.icon-package {
+            mask: url("/symbols/package.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+          &.icon-server {
+            mask: url("/symbols/server.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+          &.icon-thermometer {
+            mask: url("/symbols/thermometer.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+        }
+      }
+
+      .card-description {
+        @apply text-zinc-400;
+      }
+
+      .card-content {
+        @apply items-center gap-2 grid grid-cols-2;
+
+        .content-item {
+          @apply flex justify-center items-center bg-zinc-800 p-2 border border-zinc-700 rounded-sm font-bold text-primary-300;
+        }
+      }
+    }
   }
 </style>
