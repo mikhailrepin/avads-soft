@@ -147,6 +147,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
               alt="asp-core"
               class="relative -ml-6 max-w-full"
             />
+            <div class="core-animation"></div>
           </div>
           <div class="gap-2 grid grid-cols-2 w-full max-w-[50%]">
             <!-- Core -->
@@ -293,14 +294,39 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
     .bento-card-description {
       @apply text-base;
     }
+  }
+  .core-image {
+    @apply relative max-w-[50%];
+  }
 
-    .core-image {
-      @apply relative max-w-[50%];
-    }
-
-    .core-image::before {
+  /* Основная анимированная рамка */
+  .core-animation {
+    @apply bottom-[17%] left-[18%] absolute w-[40%] h-[36%];
+    content: "";
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #83d9f7 40.96207112073898deg,
+      #5699f6 89.83491003513336deg,
+      #78d9ff 136.64101839065552deg,
+      #5987f6 219.58386898040771deg,
+      #76cdff 271.20765924453735deg,
+      #5987f6 314.0755605697632deg
+    );
+    animation: rotate-gradient 3s linear infinite;
+    opacity: 1;
+    border-radius: 12px;
+    /* filter: blur(10px); */
+    &::before {
       content: "";
-      @apply block top-0 left-0 z-10 absolute bg-blue-400 w-5 h-5;
+      position: absolute;
+      top: 4%;
+      left: 4%;
+      width: 92%;
+      height: 92%;
+      background: url("/products/asp/core-mask.png") no-repeat center center;
+      background-size: 100% 100%;
+      filter: none;
+      border-radius: 8px;
     }
   }
 </style>
