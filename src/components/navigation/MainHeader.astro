@@ -1,9 +1,11 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import { Image } from "astro:assets";
+import Icon from "@/components/decorations/Icon.astro";
 
 // Импортируем данные о продуктах
 import prodSoft from "@/data/prodSoft.json";
+import prodHard from "@/data/prodHard.json";
 import helpers from "@/data/helpers.json";
 
 // Импортируем статический логотип
@@ -26,6 +28,9 @@ const currentPath = Astro.url.pathname;
 const activeProducts = prodSoft.products.filter(
   (product) => product.app.status
 );
+
+// Получаем аппаратные продукты
+const hardwareProducts = prodHard.products;
 ---
 
 <header id="main-header">
@@ -123,22 +128,66 @@ const activeProducts = prodSoft.products.filter(
             {item.label === "Продукты" && (
               <div class="hidden lg:block dropdown-menu">
                 <div class="dropdown-content">
-                  {activeProducts.map((product) => (
-                    <a
-                      href={`/all-products/${product.id}`}
-                      class="dropdown-item">
-                      <img
-                        src={product.app.image}
-                        alt={product.app.name}
-                        width="24"
-                        height="24"
-                        loading="eager"
-                        decoding="async"
-                        class="w-6 h-6"
-                      />
-                      <span>{product.app.name}</span>
-                    </a>
-                  ))}
+                  <div class="dropdown-grid">
+                    {/* Левая колонка - Программное обеспечение */}
+                    <div class="min-w-[300px] dropdown-column">
+                      <span class="dropdown-column-title">
+                        <Icon
+                          IconSprite="terminal-fill"
+                          CustomClass="mb-0.5 mr-1 ml-1"
+                          IconSize={16}
+                        />
+                        Программное обеспечение
+                      </span>
+                      {activeProducts.map((product) => (
+                        <a
+                          href={`/all-products/${product.id}`}
+                          class="dropdown-item">
+                          <img
+                            src={product.app.image}
+                            alt={product.app.name}
+                            width="24"
+                            height="24"
+                            loading="eager"
+                            decoding="async"
+                            class="w-6 h-6"
+                          />
+                          <span>{product.app.name}</span>
+                        </a>
+                      ))}
+                    </div>
+
+                    {/* Разделитель */}
+                    <div class="dropdown-divider" />
+
+                    {/* Правая колонка - Оборудование */}
+                    <div class="min-w-[100px] dropdown-column">
+                      <span class="dropdown-column-title">
+                        <Icon
+                          IconSprite="hardware-chip-fill"
+                          CustomClass="mb-0.5 mr-1 ml-1"
+                          IconSize={16}
+                        />
+                        Оборудование
+                      </span>
+                      {hardwareProducts.map((product) => (
+                        <a
+                          href={`/all-products/${product.id.toLowerCase()}`}
+                          class="dropdown-item">
+                          <img
+                            src={product.device.image}
+                            alt={product.device.name}
+                            width="auto"
+                            height="24"
+                            loading="eager"
+                            decoding="async"
+                            class="w-6 h-6 object-contain aspect-square"
+                          />
+                          <span>{product.device.name}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -214,7 +263,7 @@ const activeProducts = prodSoft.products.filter(
 
   .dropdown-menu {
     @apply invisible opacity-0 absolute top-full left-1/2 -translate-x-1/2 
-           min-w-[320px] transition-all duration-200 ease-in-out mt-[0px] pt-[24px];
+           min-w-[640px] transition-all duration-200 ease-in-out mt-[0px] pt-[24px];
     pointer-events: none;
   }
 
@@ -224,7 +273,23 @@ const activeProducts = prodSoft.products.filter(
   }
 
   .dropdown-content {
-    @apply flex flex-col bg-zinc-950 shadow-2xl shadow-zinc-950 p-[16px] border border-zinc-900 rounded-[8px];
+    @apply bg-zinc-950 shadow-2xl shadow-zinc-950 p-[24px] border border-zinc-900 rounded-[8px];
+  }
+
+  .dropdown-grid {
+    @apply items-start gap-[24px] grid grid-cols-[1fr_1px_1fr];
+  }
+
+  .dropdown-column {
+    @apply flex flex-col;
+  }
+
+  .dropdown-column-title {
+    @apply mb-[16px] px-[16px] font-medium text-primary-300 text-sm uppercase tracking-wider;
+  }
+
+  .dropdown-divider {
+    @apply bg-zinc-800 w-full h-full min-h-[120px];
   }
 
   .dropdown-item {
