@@ -296,7 +296,7 @@ if (!tsdb) throw new Error("Product not found");
     z-index: 10;
     @apply flex gap-6 mt-6 overflow-x-auto;
     & button {
-      @apply border-primary-300/0 px-0 py-2 border-b-[6px] font-semibold text-zinc-500 uppercase text-nowrap;
+      @apply border-primary-300/0 px-0 py-2 border-b-[6px] font-semibold text-zinc-500 uppercase text-nowrap focus:outline-none;
       &:hover {
         @apply text-zinc-100;
       }

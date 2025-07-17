@@ -6,7 +6,9 @@ import PriceSARXP from "@/components/price/PriceSARXP.astro";
 import { Image } from "astro:assets";
 
 // Фильтруем продукты с ценами прямо в компоненте
-const productsWithPrices = prodHard.products;
+const productsWithPrices = prodHard.products.filter(
+  (product) => product.prices
+);
 
 // Функция для определения стратегии загрузки
 const getLoadingStrategy = (index: number) => {
@@ -15,13 +17,13 @@ const getLoadingStrategy = (index: number) => {
 };
 ---
 
-<section class="main-max-width wrapper">
+<section class="wrapper">
   <!-- Левая колонка с навигацией -->
   <aside class="nav-bar">
     <ul>
       {
         productsWithPrices.map((product) => (
-          <li class={`${!product.prices ? "hidden" : ""}`}>
+          <li>
             <a href={`#${product.id}`}>
               <Image
                 src={product.device.image}
@@ -44,7 +46,7 @@ const getLoadingStrategy = (index: number) => {
     {
       productsWithPrices.map((product) => (
         <div
-          class={`card ${!product.prices ? "hidden" : ""}`}
+          class="card"
           id={product.id}>
           <div class="card-head">
             <Image
@@ -61,9 +63,15 @@ const getLoadingStrategy = (index: number) => {
             </div>
           </div>
 
-          <div
-            class={`card-body ${!product.prices?.type ? "lg:pl-[84px]" : ""}`}>
+          <div class="card-body">
             {product.prices?.type === "PriceSARXP" && <PriceSARXP />}
+            {product.prices?.type === "PriceASP" && (
+              <div class="price-asp">
+                <p class="text-zinc-400 text-sm">
+                  Цены на оборудование уточняйте у менеджеров
+                </p>
+              </div>
+            )}
 
             <div class="card-footer">
               {product.buttons?.buy &&
@@ -88,19 +96,18 @@ const getLoadingStrategy = (index: number) => {
                   ButtonLink={product.buttons.more.link}
                 />
               )}
-              {product.buttons?.more && (
+              {product.buttons?.price && (
                 <ButtonGeneric
                   Variant="secondary"
                   Size="default"
                   Style="outlined"
                   Target="link"
-                  ButtonLabel={product.buttons.more.label}
-                  ButtonLink={product.buttons.more.link}
+                  ButtonLabel={product.buttons.price.label}
+                  ButtonLink={product.buttons.price.link}
                 />
               )}
             </div>
-            <p
-              class={`mt-[12px] text-sm text-zinc-600 ${!product.prices ? "hidden" : ""}`}>
+            <p class="mt-[12px] text-zinc-600 text-sm">
               Все цены указаны без учёта НДС. Не является публичной офертой,
               итоговая стоимость может быть скорректирована. Для получения
               подробной информации обратитесь в службу по работе с клиентами.
@@ -133,31 +140,31 @@ const getLoadingStrategy = (index: number) => {
       });
     });
 
-    // Обработка плавной прокрутки
-    navLinks.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute("href")?.replace("#", "") ?? "";
-        const targetElement = document.getElementById(targetId);
+    // Обработка плавной прокрутки - убрана, так как теперь обрабатывается на уровне страницы
+    // navLinks.forEach((link) => {
+    //   link.addEventListener("click", (e) => {
+    //     e.preventDefault();
+    //     const targetId = link.getAttribute("href")?.replace("#", "") ?? "";
+    //     const targetElement = document.getElementById(targetId);
 
-        if (targetElement) {
-          const offset = 80;
-          const elementPosition = targetElement.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - offset;
+    //     if (targetElement) {
+    //       const offset = 80;
+    //       const elementPosition = targetElement.getBoundingClientRect().top;
+    //       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      });
-    });
+    //       window.scrollTo({
+    //         top: offsetPosition,
+    //         behavior: "smooth",
+    //       });
+    //     }
+    //   });
+    // });
   });
 </script>
 
 <style>
   .wrapper {
-    @apply flex lg:flex-row flex-col gap-[16px] mx-auto mt-20 mb-12 w-[100%];
+    @apply flex lg:flex-row flex-col gap-[16px] mx-auto mb-12 w-[100%];
   }
   .nav-bar {
     @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];

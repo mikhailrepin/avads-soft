@@ -1,0 +1,40 @@
+---
+interface Props {
+  softwareContent?: any;
+  hardwareContent?: any;
+}
+
+const { softwareContent, hardwareContent } = Astro.props;
+---
+
+<div class="tab-content">
+  <!-- Панель программного обеспечения -->
+  <div
+    role="tabpanel"
+    id="software-panel"
+    aria-labelledby="software-tab"
+    class="block tab-panel"
+    data-os="software">
+    <slot name="software" />
+  </div>
+
+  <!-- Панель оборудования -->
+  <div
+    role="tabpanel"
+    id="hardware-panel"
+    aria-labelledby="hardware-tab"
+    class="opacity-0 h-0 overflow-hidden tab-panel"
+    data-os="hardware">
+    <slot name="hardware" />
+  </div>
+</div>
+
+<style>
+  .tab-content {
+    @apply w-full;
+  }
+
+  .tab-panel {
+    @apply w-full;
+  }
+</style>

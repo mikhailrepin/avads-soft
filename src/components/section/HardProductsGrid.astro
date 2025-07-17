@@ -11,7 +11,7 @@ const { Collapsed = false } = Astro.props;
 const products = Collapsed ? prodHard.products.slice(0, 4) : prodHard.products;
 ---
 
-<section class="flex flex-col gap-[52px] w-[100%]">
+<section class="flex flex-col w-[100%]">
   <div class="gap-6 grid grid-cols-1 lg:grid-cols-3">
     {
       prodHard.products.map((product) => (
@@ -53,7 +53,7 @@ const products = Collapsed ? prodHard.products.slice(0, 4) : prodHard.products;
   </div>
   {
     Collapsed && (
-      <div class="flex justify-center">
+      <div class="flex justify-center mt-[52px]">
         <ButtonGeneric
           Variant="primary"
           Size="default"

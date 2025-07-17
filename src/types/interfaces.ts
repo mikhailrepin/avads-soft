@@ -68,3 +68,56 @@ export interface Post {
   image: string;
   url: string;
 }
+
+// Типы для контекста табов
+export type TabType = "software" | "hardware";
+
+export interface TabContextState {
+  activeTab: TabType;
+  setActiveTab: (tab: TabType) => void;
+}
+
+export interface TabsProps {
+  showLabels?: boolean;
+  customClass?: string;
+  storageKey?: string;
+}
+
+// Типы для продуктов
+export interface SoftProduct {
+  id: string;
+  app: {
+    name: string;
+    description: string;
+    image: string;
+    status: string;
+  };
+  buttons?: {
+    demo?: {
+      link: string;
+      label: string;
+    };
+    buy?: {
+      link: string;
+      label: string;
+    };
+    more?: {
+      link: string;
+      label: string;
+    };
+  };
+  prices?: any;
+  supports?: any;
+}
+
+export interface HardProduct {
+  id: string;
+  device: {
+    name: string;
+    description: string;
+    image: string;
+    status: string;
+  };
+  supports?: any;
+  prices?: any;
+}

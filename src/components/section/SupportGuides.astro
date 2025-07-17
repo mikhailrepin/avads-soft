@@ -130,7 +130,7 @@ if (!product) throw new Error("Product not found");
   .tabs-panel {
     @apply flex gap-3 py-[16px];
     & button {
-      @apply pb-1 border-zinc-500 border-b text-zinc-400 text-lg;
+      @apply pb-1 border-zinc-500 border-b focus:outline-none text-zinc-400 text-lg;
       &:hover {
         @apply text-zinc-100;
       }

@@ -1,0 +1,298 @@
+---
+import Icon from "@/components/decorations/Icon.astro";
+import type { TabsProps } from "@/types/interfaces";
+
+interface Props {
+  showLabels?: boolean;
+  customClass?: string;
+  storageKey?: string;
+}
+
+const {
+  showLabels = true,
+  customClass = "",
+  storageKey = "avads-active-tab",
+} = Astro.props;
+
+const tabsClass = `tabs-panel mt-0 mb-10 max-md:top-[48px] max-md:z-20 max-md:sticky max-md:bg-zinc-950 ${customClass}`;
+---
+
+<div
+  class={tabsClass}
+  role="tablist"
+  aria-label="Категории продуктов"
+  data-storage-key={storageKey}>
+  <button
+    role="tab"
+    data-os="software"
+    aria-controls="software-panel"
+    aria-selected="true"
+    id="software-tab"
+    class="active">
+    <Icon
+      IconSprite="terminal-fill"
+      IconSize={24}
+    />
+    {
+      showLabels && (
+        <>
+          <span class="hidden lg:block">Программное обеспечение</span>
+          <span class="lg:hidden block">СОФТ</span>
+        </>
+      )
+    }
+  </button>
+  <button
+    role="tab"
+    data-os="hardware"
+    aria-controls="hardware-panel"
+    aria-selected="false"
+    id="hardware-tab">
+    <Icon
+      IconSprite="hardware-chip-fill"
+      IconSize={24}
+    />
+    {
+      showLabels && (
+        <>
+          <span class="hidden lg:block">Оборудование</span>
+          <span class="lg:hidden block">ХАРД</span>
+        </>
+      )
+    }
+  </button>
+</div>
+
+<script>
+  import TabContext from "@/utils/tabContext";
+
+  // Инициализация табов при загрузке DOM
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabContext = TabContext.getInstance();
+    const tabsPanels = document.querySelectorAll(".tabs-panel");
+
+    tabsPanels.forEach((panel) => {
+      const tabs = panel.querySelectorAll("button[role='tab']");
+      const storageKey =
+        panel.getAttribute("data-storage-key") || "avads-active-tab";
+
+      // Функция для активации таба
+      function activateTab(targetTab: Element, skipAnimation = false) {
+        // Обновляем состояние табов
+        tabs.forEach((t) => {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
+        });
+        targetTab.classList.add("active");
+        targetTab.setAttribute("aria-selected", "true");
+
+        const tabType = targetTab.getAttribute("data-os") as
+          | "software"
+          | "hardware";
+        if (tabType) {
+          tabContext.setActiveTab(tabType);
+        }
+
+        // Обновляем панели контента
+        const ariaControls = targetTab.getAttribute("aria-controls");
+        if (ariaControls) {
+          const activePanel = document.getElementById(ariaControls);
+          const tabPanels = document.querySelectorAll("[role='tabpanel']");
+
+          if (activePanel) {
+            if (skipAnimation) {
+              // Быстрое переключение без анимации
+              tabPanels.forEach((p) => {
+                if (p !== activePanel) {
+                  p.classList.remove(
+                    "block",
+                    "opacity-100",
+                    "h-auto",
+                    "overflow-visible"
+                  );
+                  p.classList.add("opacity-0", "h-0", "overflow-hidden");
+                } else {
+                  p.classList.remove("opacity-0", "h-0", "overflow-hidden");
+                  p.classList.add(
+                    "block",
+                    "opacity-100",
+                    "h-auto",
+                    "overflow-visible"
+                  );
+                }
+              });
+            } else {
+              // Анимированное переключение
+              // Этап 1: Плавно скрываем прозрачность всех неактивных панелей
+              tabPanels.forEach((p) => {
+                if (p !== activePanel) {
+                  p.classList.remove("opacity-100");
+                  p.classList.add("opacity-0");
+                }
+              });
+
+              // Этап 2: После fade-out уменьшаем высоту неактивных панелей
+              setTimeout(() => {
+                tabPanels.forEach((p) => {
+                  if (p !== activePanel) {
+                    p.classList.remove("block", "h-auto", "overflow-visible");
+                    p.classList.add("h-0", "overflow-hidden");
+                  }
+                });
+
+                // Этап 3: Показываем активную панель - сначала высота
+                activePanel.classList.remove("h-0", "overflow-hidden");
+                activePanel.classList.add(
+                  "block",
+                  "h-auto",
+                  "overflow-visible"
+                );
+
+                // Этап 4: Затем плавно показываем прозрачность
+                setTimeout(() => {
+                  activePanel.classList.remove("opacity-0");
+                  activePanel.classList.add("opacity-100");
+                }, 50);
+              }, 150);
+            }
+          }
+        }
+      }
+
+      // Восстанавливаем активный таб при загрузке страницы
+      function restoreActiveTab() {
+        const activeTab = tabContext.getActiveTab();
+        const targetTab = panel.querySelector(`[data-os="${activeTab}"]`);
+        if (targetTab) {
+          activateTab(targetTab, true);
+        }
+      }
+
+      // Обработчики клика на табы
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", (e) => {
+          e.preventDefault();
+          activateTab(tab);
+        });
+
+        // Эффект прозрачности при наведении
+        tab.addEventListener("mouseenter", () => {
+          tabs.forEach((otherTab) => {
+            if (otherTab !== tab) {
+              (otherTab as HTMLElement).style.opacity = "0.6";
+            }
+          });
+        });
+
+        tab.addEventListener("mouseleave", () => {
+          tabs.forEach((otherTab) => {
+            (otherTab as HTMLElement).style.opacity = "1";
+          });
+        });
+      });
+
+      // Подписываемся на изменения глобального контекста
+      tabContext.subscribe((activeTab) => {
+        const targetTab = panel.querySelector(`[data-os="${activeTab}"]`);
+        if (targetTab) {
+          activateTab(targetTab, true);
+        }
+      });
+
+      // Восстанавливаем состояние
+      restoreActiveTab();
+    });
+
+    // Обработка якорей в URL
+    function handleAnchorChange() {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        tabContext.switchTabByAnchor(hash);
+
+        // Скроллим к элементу после переключения таба
+        setTimeout(() => {
+          const targetElement = document.getElementById(hash);
+          if (targetElement) {
+            const offset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition =
+              elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+        }, 300);
+      }
+    }
+
+    // Обработка изменения якоря
+    window.addEventListener("hashchange", handleAnchorChange);
+
+    // Обработка якоря при загрузке страницы
+    handleAnchorChange();
+  });
+</script>
+
+<style>
+  .tabs-panel {
+    @apply relative flex gap-4 lg:gap-8;
+    &::after {
+      @apply bg-zinc-800;
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      z-index: -1;
+    }
+    & button {
+      @apply flex items-center gap-2 py-2 border-transparent border-b focus:outline-none font-semibold text-zinc-400 text-xl uppercase transition-all duration-200;
+      &:hover {
+        @apply text-zinc-100 transform-none;
+      }
+      &:active {
+        @apply border-primary-400 text-primary-300;
+      }
+    }
+  }
+
+  .tabs-panel button.active {
+    @apply border-primary-400 text-primary-300;
+  }
+
+  /* Анимированное скрытие/показ контента */
+  [role="tabpanel"] {
+    transform: translateY(10px);
+    transition:
+      opacity 0.3s ease-in-out,
+      height 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+    will-change: height, opacity, transform;
+  }
+
+  [role="tabpanel"].block {
+    transform: translateY(0);
+  }
+
+  /* Плавные переходы для высоты */
+  [role="tabpanel"].h-0 {
+    height: 0 !important;
+    min-height: 0 !important;
+  }
+
+  [role="tabpanel"].h-auto {
+    height: auto !important;
+  }
+
+  /* Анимация табов */
+  [role="tab"] {
+    transition: all 0.2s ease-in-out;
+  }
+
+  [role="tab"]:hover {
+    transform: translateY(-1px);
+  }
+</style>
