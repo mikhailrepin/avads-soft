@@ -6,9 +6,22 @@ import PriceTableASP from "@/components/price/PriceTableASP.astro";
 import PriceSARXP from "@/components/price/PriceSARXP.astro";
 import { Image } from "astro:assets";
 
-// Фильтруем продукты с ценами прямо в компоненте
+// Функция для проверки наличия хотя бы одной кнопки с данными
+const hasValidButtons = (product: any) => {
+  if (!product.buttons || typeof product.buttons !== "object") {
+    return false;
+  }
+
+  // Проверяем каждую кнопку на наличие label и link
+  return Object.values(product.buttons).some(
+    (button: any) =>
+      button && typeof button === "object" && button.label && button.link
+  );
+};
+
+// Фильтруем продукты с ценами и валидными кнопками
 const productsWithPrices = prodHard.products.filter(
-  (product) => product.prices
+  (product) => product.prices && hasValidButtons(product)
 );
 
 // Функция для определения стратегии загрузки

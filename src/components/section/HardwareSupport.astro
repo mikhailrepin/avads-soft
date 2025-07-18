@@ -1,0 +1,234 @@
+---
+interface Props {
+  productId: string;
+}
+
+interface SupportItem {
+  icon: string;
+  label: string;
+  link: string;
+}
+
+interface VideoItem {
+  id: string;
+  title: string;
+  cover: string;
+  link: string;
+}
+
+interface ModelFile {
+  icon: string;
+  label: string;
+  link: string;
+}
+
+interface VisualizationModel {
+  id: string;
+  title: string;
+  files: Record<string, ModelFile>;
+}
+
+interface ProductSupports {
+  docs?: Record<string, SupportItem>;
+  marketing?: Record<string, SupportItem>;
+  visualization?: {
+    models: VisualizationModel[];
+  };
+  social?: {
+    video?: {
+      title: string;
+      items: VideoItem[];
+    };
+  };
+}
+
+interface HardwareProduct {
+  id: string;
+  device: {
+    name: string;
+    description: string;
+    image: string;
+    status: string;
+  };
+  supports?: ProductSupports;
+}
+
+const { productId } = Astro.props;
+
+import prodHardData from "@/data/prodHard.json";
+
+const product = (prodHardData.products as HardwareProduct[]).find(
+  (product) => product.id === productId
+);
+
+if (!product) throw new Error("Product not found");
+
+const { supports } = product;
+---
+
+{supports && (
+  <div class="hardware-support">
+    <!-- Документация -->
+    {supports.docs && Object.keys(supports.docs).length > 0 && (
+      <div class="support-section">
+        <h3 class="section-title">Документация</h3>
+        <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {Object.entries(supports.docs).map(([key, doc]) => (
+            <a
+              href={doc.link}
+              target="_blank"
+              class="support-card">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                style="width: 48px; height: 48px;">
+                <use xlink:href={`/sprites.svg#${doc.icon}`} />
+              </svg>
+              <span class="text-zinc-300">{doc.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Маркетинговые материалы -->
+    {supports.marketing && Object.keys(supports.marketing).length > 0 && (
+      <div class="support-section">
+        <h3 class="section-title">Маркетинговые материалы</h3>
+        <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {Object.entries(supports.marketing).map(([key, material]) => (
+            <a
+              href={material.link}
+              target="_blank"
+              class="support-card">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                style="width: 48px; height: 48px;">
+                <use xlink:href={`/sprites.svg#${material.icon}`} />
+              </svg>
+              <span class="text-zinc-300">{material.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Визуализация -->
+    {supports.visualization && supports.visualization.models && supports.visualization.models.length > 0 && (
+      <div class="support-section">
+        <h3 class="section-title">3D модели и визуализация</h3>
+        {supports.visualization.models.map((model) => (
+          <div class="model-section">
+            <h4 class="model-title">{model.title}</h4>
+            <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+              {Object.entries(model.files).map(([key, file]) => (
+                <a
+                  href={file.link}
+                  target="_blank"
+                  class="support-card">
+                  <svg
+                    class="icon"
+                    viewBox="0 0 24 24"
+                    style="width: 48px; height: 48px;">
+                    <use xlink:href={`/sprites.svg#${file.icon}`} />
+                  </svg>
+                  <span class="text-zinc-300">{file.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- Видеоматериалы -->
+    {supports.social && supports.social.video && supports.social.video.items && supports.social.video.items.length > 0 && (
+      <div class="support-section">
+        <h3 class="section-title">{supports.social.video.title}</h3>
+        <div class="video-grid">
+          {supports.social.video.items.map((video) => (
+            <a
+              href={video.link}
+              class="video-card">
+              <div class="video-cover">
+                <img src={video.cover} alt={video.title} />
+                <div class="play-button">
+                  <svg class="play-icon" viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" fill="currentColor" />
+                  </svg>
+                </div>
+              </div>
+              <h4 class="video-title">{video.title}</h4>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
+{!supports && (
+  <div class="no-support-message">
+    <p class="text-zinc-400 text-center">
+      Данные поддержки для этого продукта в настоящее время недоступны. 
+      Пожалуйста, обратитесь в службу поддержки для получения актуальной информации.
+    </p>
+  </div>
+)}
+
+<style>
+  .hardware-support {
+    @apply space-y-12 w-full;
+  }
+
+  .support-section {
+    @apply space-y-6;
+  }
+
+  .section-title {
+    @apply mb-6 font-bold text-zinc-100 text-2xl;
+  }
+
+  .model-title {
+    @apply mb-4 font-semibold text-zinc-200 text-xl;
+  }
+
+
+
+  .video-grid {
+    @apply gap-6 grid grid-cols-1 md:grid-cols-2;
+  }
+
+  .video-card {
+    @apply bg-zinc-900 border border-zinc-800 hover:border-primary-300 rounded-lg overflow-hidden transition-colors duration-200;
+  }
+
+  .video-cover {
+    @apply relative bg-zinc-800 aspect-video;
+  }
+
+  .video-cover img {
+    @apply w-full h-full object-cover;
+  }
+
+  .play-button {
+    @apply absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-200;
+  }
+
+  .play-icon {
+    @apply w-16 h-16 text-white;
+  }
+
+  .video-title {
+    @apply p-4 font-medium text-zinc-200;
+  }
+
+  .model-section {
+    @apply space-y-4;
+  }
+
+  .no-support-message {
+    @apply px-6 py-12 text-center;
+  }
+</style> 

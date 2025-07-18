@@ -24,13 +24,24 @@ const {
 } = Astro.props as MainHeaderProps;
 const currentPath = Astro.url.pathname;
 
-// Получаем только активные продукты (те, у которых есть status)
-const activeProducts = prodSoft.products.filter(
-  (product) => product.app.status
-);
+// Функция для проверки наличия хотя бы одной кнопки с данными
+const hasValidButtons = (product: any) => {
+  if (!product.buttons || typeof product.buttons !== "object") {
+    return false;
+  }
 
-// Получаем аппаратные продукты
-const hardwareProducts = prodHard.products;
+  // Проверяем каждую кнопку на наличие label и link
+  return Object.values(product.buttons).some(
+    (button: any) =>
+      button && typeof button === "object" && button.label && button.link
+  );
+};
+
+// Получаем только продукты с валидными кнопками
+const activeProducts = prodSoft.products.filter(hasValidButtons);
+
+// Получаем аппаратные продукты с валидными кнопками
+const hardwareProducts = prodHard.products.filter(hasValidButtons);
 ---
 
 <header id="main-header">

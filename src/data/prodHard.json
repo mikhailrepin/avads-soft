@@ -94,24 +94,24 @@
       "supports": {
         "docs": {
           "userguide": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Руководство пользователя",
             "link": "/downloads/asp/ASP_User_Guide.pdf"
           },
           "manual": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Руководство по эксплуатации",
             "link": "/downloads/asp/ASP_Expluatation_Guide.pdf"
           }
         },
         "marketing": {
           "presentation": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Презентация",
             "link": "/downloads/asp/ASP_Presentation.pdf"
           },
           "booklet": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Буклет",
             "link": "/downloads/asp/ASP_Booklet.pdf"
           }
@@ -123,12 +123,12 @@
               "title": "АСП-10",
               "files": {
                 "3D_Rev1": {
-                  "icon": "",
+                  "icon": "file-blank-outline",
                   "label": "3D_Rev1.2.pdf",
                   "link": "/downloads/asp/3D_Rev1.2.pdf"
                 },
                 "3D_Rev2": {
-                  "icon": "",
+                  "icon": "file-blank-outline",
                   "label": "3D_Rev2.2.pdf",
                   "link": "/downloads/asp/3D_Rev2.2.pdf"
                 }
@@ -143,13 +143,13 @@
               {
                 "id": "unboxing",
                 "title": "Распаковка и первое подключение",
-                "cover": "/products/about/icon-code.svg",
+                "cover": "/products/about/video-cover-placeholder.png",
                 "link": "#"
               },
               {
                 "id": "lan-connection",
                 "title": "Подключение панели к сети и загрузка проекта",
-                "cover": "/products/about/icon-code.svg",
+                "cover": "/products/about/video-cover-placeholder.png",
                 "link": "#"
               }
             ]
@@ -216,24 +216,24 @@
       "supports": {
         "docs": {
           "userguide": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Руководство пользователя",
             "link": "/downloads/asp/ASP_User_Guide.pdf"
           },
           "manual": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Руководство по эксплуатации",
             "link": "/downloads/asp/ASP_Expluatation_Guide.pdf"
           }
         },
         "marketing": {
           "presentation": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Презентация",
             "link": "/downloads/asp/ASP_Presentation.pdf"
           },
           "booklet": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Буклет",
             "link": "/downloads/asp/ASP_Booklet.pdf"
           }
@@ -245,12 +245,12 @@
               "title": "АСП-10",
               "files": {
                 "3D_Rev1": {
-                  "icon": "",
+                  "icon": "file-blank-outline",
                   "label": "3D_Rev1.2.pdf",
                   "link": "/downloads/asp/3D_Rev1.2.pdf"
                 },
                 "3D_Rev2": {
-                  "icon": "",
+                  "icon": "file-blank-outline",
                   "label": "3D_Rev2.2.pdf",
                   "link": "/downloads/asp/3D_Rev2.2.pdf"
                 }
@@ -265,13 +265,13 @@
               {
                 "id": "unboxing",
                 "title": "Распаковка и первое подключение",
-                "cover": "/products/about/icon-code.svg",
+                "cover": "/products/about/video-cover-placeholder.png",
                 "link": "#"
               },
               {
                 "id": "lan-connection",
                 "title": "Подключение панели к сети и загрузка проекта",
-                "cover": "/products/about/icon-code.svg",
+                "cover": "/products/about/video-cover-placeholder.png",
                 "link": "#"
               }
             ]
@@ -294,24 +294,24 @@
       "supports": {
         "docs": {
           "userguide": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Руководство пользователя",
             "link": "/downloads/asp/ASP_User_Guide.pdf"
           },
           "manual": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Руководство по эксплуатации",
             "link": "/downloads/asp/ASP_Expluatation_Guide.pdf"
           }
         },
         "marketing": {
           "presentation": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Презентация",
             "link": "/downloads/asp/ASP_Presentation.pdf"
           },
           "booklet": {
-            "icon": "",
+            "icon": "file-blank-outline",
             "label": "Буклет",
             "link": "/downloads/asp/ASP_Booklet.pdf"
           }
@@ -323,12 +323,12 @@
               "title": "АСП-10",
               "files": {
                 "3D_Rev1": {
-                  "icon": "",
+                  "icon": "file-blank-outline",
                   "label": "3D_Rev1.2.pdf",
                   "link": "/downloads/asp/3D_Rev1.2.pdf"
                 },
                 "3D_Rev2": {
-                  "icon": "",
+                  "icon": "file-blank-outline",
                   "label": "3D_Rev2.2.pdf",
                   "link": "/downloads/asp/3D_Rev2.2.pdf"
                 }
@@ -343,13 +343,13 @@
               {
                 "id": "unboxing",
                 "title": "Распаковка и первое подключение",
-                "cover": "/products/about/icon-code.svg",
+                "cover": "/products/about/video-cover-placeholder.png",
                 "link": "#"
               },
               {
                 "id": "lan-connection",
                 "title": "Подключение панели к сети и загрузка проекта",
-                "cover": "/products/about/icon-code.svg",
+                "cover": "/products/about/video-cover-placeholder.png",
                 "link": "#"
               }
             ]

@@ -1,0 +1,52 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import FAQ from "@/components/section/FAQ.astro";
+import CallToAction from "@/components/section/CallToAction.astro";
+import SupportHero from "@/components/section/SupportHero.astro";
+import HardwareSupport from "@/components/section/HardwareSupport.astro";
+
+/* Data */
+import prodHardData from "@/data/prodHard.json";
+import faqData from "@/data/faqAMV.json";
+
+const amv = prodHardData.products.find((product) => product.id === "AMV");
+
+if (!amv) throw new Error("Product not found");
+---
+
+<Layout pageTitle={amv.device.name}>
+  <section class="mb-12 min-h-[50dvh]">
+    <SupportHero
+      productImage={amv.device.image}
+      productName={amv.device.name}
+      backgroundImage="/hero/pic_20.webp"
+    />
+    <div class="mx-auto py-12 main-max-width">
+      <p class="max-w-[700px] text-zinc-300">
+        Добро пожаловать в раздел поддержки {amv.device.name}. Здесь вы найдете
+        всю необходимую информацию для успешной работы с мобильным устройством -
+        от пошаговых руководств по установке до ответов на часто задаваемые
+        вопросы. Выберите интересующий вас раздел ниже:
+      </p>
+      <HardwareSupport productId="AMV" />
+    </div>
+    <!-- FAQ -->
+    <div class="bg-zinc-950 mx-auto my-[52px] main-max-width">
+      <FAQ faqData={faqData} />
+    </div>
+    <!-- Свяжитесь с нами -->
+    <CallToAction
+      AlignItems="left"
+      BackgroundImage={"/hero/cta-call-manager.png"}
+      Hovered={false}
+      Title="Свяжитесь с нами"
+      Description="Оставьте заявку на обратную связь, чтобы наши менеджеры проконсультировали вас по любым вопросам касаемо продукции"
+      ButtonProps={{
+        ButtonLabel: "Оставить заявку",
+        ButtonLink: "/contacts",
+      }}
+      CustomClass="bg-[#101010] rounded-none border-none"
+    />
+  </section>
+</Layout>
+

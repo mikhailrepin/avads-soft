@@ -11,6 +11,19 @@ import TabContent from "@/components/navigation/TabContent.astro";
 import type { SoftProduct, HardProduct } from "@/types/interfaces";
 import { Image } from "astro:assets";
 
+// Функция для проверки наличия хотя бы одной кнопки с данными
+const hasValidButtons = (product: any) => {
+  if (!product.buttons || typeof product.buttons !== "object") {
+    return false;
+  }
+
+  // Проверяем каждую кнопку на наличие label и link
+  return Object.values(product.buttons).some(
+    (button: any) =>
+      button && typeof button === "object" && button.label && button.link
+  );
+};
+
 const heroBbackground = "/hero/pic_17.webp";
 ---
 
@@ -44,7 +57,7 @@ const heroBbackground = "/hero/pic_17.webp";
         slot="software">
         {
           prodSoftData.products
-            .filter((product: SoftProduct) => product.buttons?.demo?.link)
+            .filter((product: SoftProduct) => hasValidButtons(product))
             .map((product: SoftProduct) => (
               <a
                 href={`/support/${product.id}`}
@@ -74,7 +87,7 @@ const heroBbackground = "/hero/pic_17.webp";
         slot="hardware">
         {
           prodHardData.products
-            .filter((product: HardProduct) => product.supports)
+            .filter((product: HardProduct) => hasValidButtons(product))
             .map((product: HardProduct) => (
               <a
                 href={`/support/${product.id.toLowerCase()}`}
