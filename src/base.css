@@ -326,6 +326,235 @@
       @apply w-12 h-12 text-primary-300;
     }
   }
+
+  /* ===== ОБЩИЕ СТИЛИ ДЛЯ КОМПОНЕНТОВ СЕТОК ПРОДУКТОВ ===== */
+
+  /* Основной контейнер-обёртка для всех компонентов с сетками продуктов */
+  .product-grid-wrapper {
+    @apply flex lg:flex-row flex-col gap-[16px] w-[100%];
+
+    /* Модификатор для добавления отступов снизу и центрирования */
+    &.with-margin {
+      @apply mx-auto mb-12;
+    }
+  }
+
+  /* Боковая навигационная панель для всех компонентов с сетками продуктов */
+  .product-nav-bar {
+    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];
+
+    /* Стили для списка навигации */
+    & ul {
+      @apply flex lg:flex-col flex-nowrap gap-[32px] lg:gap-[8px] overflow-x-auto overflow-y-hidden lg:overflow-y-auto;
+
+      /* Стили для элементов списка и ссылок */
+      & li>a {
+        @apply flex flex-shrink-0 items-center gap-[12px] hover:bg-zinc-900 p-2 rounded-[8px] text-zinc-400 hover:text-zinc-100 whitespace-nowrap transition-all duration-200 cursor-pointer;
+
+        /* Стили для иконок продуктов в навигации */
+        & img {
+          @apply w-[24px] h-fit;
+        }
+      }
+    }
+  }
+
+  /* Колонка с карточками продуктов */
+  .product-cards-col {
+    @apply flex flex-col gap-[16px] w-full;
+  }
+
+  /* Базовая карточка продукта */
+  .product-card {
+    @apply border-zinc-900 p-[32px] border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
+    scroll-margin-top: 80px;
+  }
+
+  /* Заголовок карточки продукта */
+  .product-card-head {
+    @apply flex lg:flex-row flex-col gap-[24px];
+
+    /* Стили для иконки продукта в заголовке */
+    & img {
+      @apply w-[60px] h-[60px];
+      /* Базовый стиль для иконки - может быть переопределён в компонентах */
+    }
+
+    /* Информация о продукте */
+    & .product-card-info {
+      @apply flex flex-col gap-2;
+
+      /* Название продукта */
+      & .product-title {
+        @apply mb-[-4px] font-medium text-2xl;
+      }
+
+      /* Описание продукта */
+      & .product-description {
+        @apply m-0 text-zinc-400 text-lg;
+      }
+    }
+  }
+
+  /* Тело карточки продукта */
+  .product-card-body {
+    @apply flex flex-col gap-2;
+
+    /* Модификатор для добавления отступа слева */
+    &.with-left-padding {
+      @apply gap-[16px] py-[16px] lg:pl-[84px];
+    }
+  }
+
+  /* Подвал карточки продукта с кнопками */
+  .product-card-footer {
+    @apply flex lg:flex-row flex-col gap-3 pt-[24px];
+
+    /* Стили для текста в подвале */
+    & p {
+      @apply m-0 w-full text-zinc-600 text-sm;
+    }
+  }
+
+  /* ===== СТИЛИ ДЛЯ ИКОНОК ПРОДУКТОВ В РАЗНЫХ ТИПАХ КАРТОЧЕК ===== */
+
+  /* Иконки для программных продуктов */
+  .product-card-head .software-icon {
+    @apply bg-zinc-900 p-3 rounded-[8px];
+  }
+
+  /* Иконки для аппаратных продуктов */
+  .product-card-head .hardware-icon {
+    @apply bg-zinc-900/20 p-0 rounded-sm;
+  }
+
+  /* ===== СТИЛИ ДЛЯ СЕКЦИЙ ПОДДЕРЖКИ ===== */
+
+  /* Контейнер для секций поддержки */
+  .support-sections {
+    @apply flex flex-col gap-[24px];
+  }
+
+  /* Отдельная секция поддержки */
+  .support-section {
+    @apply flex flex-col gap-[12px];
+  }
+
+  /* Заголовок секции поддержки */
+  .support-section-title {
+    @apply font-medium text-zinc-200 text-lg;
+  }
+
+  /* Элементы поддержки */
+  .support-items {
+    @apply flex flex-wrap gap-3;
+  }
+
+  /* Подсекция моделей */
+  .model-subsection {
+    @apply flex flex-col gap-[8px] mt-[8px];
+  }
+
+  /* Заголовок модели */
+  .model-title {
+    @apply font-medium text-zinc-300 text-base;
+  }
+
+  /* ===== СТИЛИ ДЛЯ ВИДЕО ЭЛЕМЕНТОВ ===== */
+
+  /* Контейнер для видео элементов */
+  .video-items {
+    @apply flex flex-wrap gap-4;
+  }
+
+  /* Карточка видео */
+  .video-card {
+    @apply flex flex-col gap-2 hover:opacity-80 max-w-[200px] transition-all duration-200 cursor-pointer;
+  }
+
+  /* Обложка видео */
+  .video-cover {
+    @apply relative bg-zinc-900 rounded-[8px] overflow-hidden;
+
+    & img {
+      @apply w-full h-[120px] object-cover;
+    }
+  }
+
+  /* Кнопка воспроизведения видео */
+  .video-play-button {
+    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-500 bg-opacity-80 rounded-full w-[40px] h-[40px] flex items-center justify-center text-white hover:bg-opacity-100 transition-all duration-200;
+  }
+
+  /* Иконка воспроизведения */
+  .video-play-icon {
+    @apply ml-[2px] w-[16px] h-[16px];
+  }
+
+  /* Заголовок видео */
+  .video-title {
+    @apply font-medium text-zinc-300 text-sm;
+  }
+
+  /* ===== СТИЛИ ДЛЯ ТАБОВ ===== */
+
+  /* Панель табов */
+  .tabs-panel {
+    @apply relative flex gap-3 py-[16px];
+
+    /* Псевдоэлемент для разделительной линии */
+    &::after {
+      content: "";
+      @apply right-0 bottom-[16px] left-0 absolute bg-zinc-800 h-[1px];
+    }
+
+    /* Кнопки табов */
+    & button {
+      @apply z-10 relative pb-1 border-zinc-500 border-b focus:outline-none text-zinc-400 text-lg;
+
+      &:hover {
+        @apply text-zinc-100;
+      }
+
+      &:active {
+        @apply border-primary-400 text-primary-300;
+      }
+
+      /* Активная кнопка таба */
+      &.active {
+        @apply border-primary-400 text-primary-300;
+      }
+    }
+  }
+
+  /* Контент таба */
+  .tab-content {
+    @apply flex flex-col;
+
+    /* Описание в контенте таба */
+    & .tab-description {
+      @apply flex flex-col gap-2 pb-[16px];
+
+      & .tab-description-title {
+        @apply pb-[4px] font-medium;
+      }
+
+      & .tab-description-subtitle {
+        @apply font-light text-zinc-400;
+      }
+    }
+  }
+
+  /* ===== ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ ОПИСАНИЙ В ТАБАХ ===== */
+
+  /* Стили для списков в описаниях табов */
+  :global(.tab-description .tab-description-title ul) {
+    @apply ml-4 pt-[16px] list-disc;
+  }
+
+  :global(.tab-description .tab-description-title li) {
+    @apply mb-1 font-normal text-zinc-300 text-sm;
+  }
 }
 
 html,

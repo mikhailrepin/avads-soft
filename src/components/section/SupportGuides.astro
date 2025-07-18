@@ -122,22 +122,4 @@ if (!product) throw new Error("Product not found");
   });
 </script>
 
-<style>
-  .support-guides {
-    @apply w-full;
-  }
-
-  .tabs-panel {
-    @apply flex gap-3 py-[16px];
-    & button {
-      @apply pb-1 border-zinc-500 border-b focus:outline-none text-zinc-400 text-lg;
-      &:hover {
-        @apply text-zinc-100;
-      }
-    }
-  }
-
-  .tabs-panel button.active {
-    @apply border-primary-300 text-primary-300;
-  }
-</style>
+<!-- Локальные стили удалены - теперь используются глобальные классы из base.css -->
