@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
+import Icon from "@/components/decorations/Icon.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 
 /* Images */
@@ -9,9 +10,10 @@ import { Image } from "astro:assets";
 
 /* Data */
 import prodHard from "@/data/prodHard.json";
+import prodSoft from "@/data/prodSoft.json";
 
 /* Variables */
-const heroBbackground = "/hero/pic_21.webp";
+const heroBbackground = "/hero/pic_16.webp";
 
 type Product = {
   id: string;
@@ -26,6 +28,7 @@ type Product = {
     demo?: { label: string; link: string };
     more?: { label: string; link: string };
     price?: { label: string; link: string };
+    support?: { label: string; link: string };
   };
   prices?: any;
   supports?: any;
@@ -36,6 +39,10 @@ const avk = prodHard.products.find(
 ) as Product;
 
 if (!avk) throw new Error("Product not found");
+
+const tsdb = prodSoft.products.find((product) => product.id === "tsdb");
+
+if (!tsdb) throw new Error("Product not found");
 
 // Добавляем ссылку на скачивание
 const downloadLink = avk.buttons?.buy?.link || "/downloads";
@@ -49,16 +56,19 @@ const downloadLink = avk.buttons?.buy?.link || "/downloads";
   <MainHero backgroundUrl={heroBbackground}>
     <div
       class="flex lg:flex-row flex-col justify-between items-center gap-8 mx-auto w-full lg:min-h-[60vh] main-max-width">
-      <div class="w-full lg:w-1/2">
+      <div class="w-full lg:w-[50%]">
         <h1 class="mb-6 hero-title">
-          ВСТРАИВАЕМЫЕ<br />
-          КОМПЬЮТЕРЫ<br />
+          ВСТРАИВАЕМЫЕ КОМПЬЮТЕРЫ<br />
           <span class="text-primary-300">{avk.device.name}</span>
         </h1>
+        <img
+          src="/products/avk/avk-variations.png"
+          alt={avk.device.name}
+          class="lg:hidden block w-full h-auto object-contain"
+        />
         <p class="mb-8 hero-description">
-          Предназначены для визуализации и управления технологическими
-          процессами в составе систем автоматизации. Обеспечивают надежную
-          работу в промышленных условиях.
+          Предназначены для визуализации и управления технологическими
+          процессами в составе систем автоматизации.
         </p>
         <div class="flex flex-wrap gap-4">
           <ButtonGeneric
@@ -92,12 +102,12 @@ const downloadLink = avk.buttons?.buy?.link || "/downloads";
           />
         </div>
       </div>
-      <div class="flex justify-center w-full lg:w-1/2">
-        <div class="relative">
+      <div class="flex justify-center w-full lg:w-[50%]">
+        <div class="relative w-full">
           <img
-            src={avk.device.image}
+            src="/products/avk/avk-variations.png"
             alt={avk.device.name}
-            class="w-full max-w-[500px] h-auto object-contain"
+            class="hidden lg:block w-full h-auto object-contain"
           />
         </div>
       </div>
@@ -105,12 +115,466 @@ const downloadLink = avk.buttons?.buy?.link || "/downloads";
   </MainHero>
 
   <!-- Отличительные особенности -->
+  <div class="flex flex-col mx-auto pt-14 pb-16 main-max-width">
+    <h2 class="text-3xl">Отличительные особенности</h2>
+    <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
+      Встраиваемые компьютеры {avk.device.name}&nbsp;для&nbsp;интерактивного
+      отображения технологической информации, управления исполнительными
+      устройствами, режимами сбора и&nbsp;архивирования технологических
+      параметров.
+    </p>
+    <!-- Bento grid -->
+    <div class="gap-6 grid grid-cols-1 lg:grid-cols-10 pt-10 lg:pt-[80px]">
+      <!-- Performance -->
+      <div class="lg:col-span-7 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="rocket-fill"
+            CustomClass="text-teal-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-teal-400 to-red-100 text-transparent">
+            Высокая производительность
+          </span>
+        </h3>
+        <p class="text-zinc-400 bento-card-description">
+          6-ядерный процессор, 4ГБ оперативной памяти, 32 ГБ флеш памяти,
+          быстрый графический адаптер до 4K@60Hz, сенсорный multi-touch экран,
+          обилие интерфейсов, а так же открытость для различного прикладного ПО
+          делают АВАДС АВК мощным инструментом для решения широкого класса
+          задач.
+        </p>
+        <div class="flex md:flex-row flex-col gap-4 py-3">
+          <div class="core-image">
+            <img
+              src="/products/avk/avk-core.png"
+              alt="avk-core"
+              class="relative -ml-6 w-full"
+            />
+            <div class="core-animation-blur"></div>
+            <div class="core-animation"></div>
+          </div>
+          <div
+            class="gap-2 grid grid-cols-2 w-full max-w-[100%] md:max-w-[50%]">
+            <!-- Core -->
+            <div
+              class="flex flex-col justify-center items-center col-span-2 bg-zinc-800 p-2 rounded-md w-full">
+              <span class="font-bold text-primary-300 text-3xl">6 ядер</span>
+              <span class="text-zinc-400 text-base">
+                2 Cortex A72<br />4 Cortex A53
+              </span>
+            </div>
+            <!-- Ghz A72 -->
+            <div
+              class="flex flex-col justify-center items-center bg-zinc-800 p-2 rounded-md w-full">
+              <span class="font-bold text-primary-300 text-3xl">2 ггц</span>
+              <span class="text-zinc-400 text-base">Cortex A72</span>
+            </div>
+            <!-- Ghz A53 -->
+            <div
+              class="flex flex-col justify-center items-center bg-zinc-800 p-2 rounded-md w-full">
+              <span class="font-bold text-primary-300 text-3xl">1.5 ггц</span>
+              <span class="text-zinc-400 text-base">Cortex A53</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Russian development -->
+      <div class="items-center lg:col-span-3 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <span class="text-zinc-400">🇷🇺</span>
+          <span
+            class="bg-clip-text bg-gradient-to-r from-slate-100 to-blue-300 text-transparent">
+            Отечественная разработка
+          </span>
+        </h3>
+        <p class="text-zinc-400 bento-card-description">
+          Разработку вела российская компания, имеющая ИТ-статус. В&nbsp;России
+          разработаны и&nbsp;производятся не&nbsp;только сами компьютеры {
+            avk.device.name
+          }, но&nbsp;также программное обеспечение, которым они комплектуются:
+          операционная система Astra Linux*, SCADA-система MasterSCADA 4D, СУБД
+          временных рядов (TSDB) <a
+            href={tsdb.buttons?.more?.link}
+            class="text-primary-300 hover:text-primary-400 underline"
+            >АВАДС&nbsp;{tsdb.app.name}</a
+          >.
+        </p>
+        <img
+          src="/products/tsdb/tsdb.svg"
+          alt="tsdb"
+          class="my-4 w-full max-w-[40%] h-auto object-contain"
+        />
+        <span class="text-zinc-500 text-sm">
+          * получен сертификат READY FOR&nbsp;ASTRA, коммерческая версия вышла
+          в&nbsp;июне&nbsp;2025
+        </span>
+      </div>
+      <!-- Linux -->
+      <div class="lg:col-span-5 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="linux-fill"
+            CustomClass="text-orange-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-orange-400 to-lime-300 text-transparent">
+            Наличие Linux
+          </span>
+        </h3>
+        <p class="font-semibold text-zinc-300 bento-card-description">
+          Широкий выбор прикладного ПО и&nbsp;возможность использования
+          собственных разработок
+        </p>
+        <p class="text-zinc-400 bento-card-description">
+          Встраиваемые компьютеры {avk.device.name} оснащены надёжной и&nbsp;удобной
+          операционной системой Linux. Она обеспечивает стабильную работу и&nbsp;безопасность
+          данных, а&nbsp;также позволяет эффективно использовать ресурсы компрьютера.
+        </p>
+      </div>
+      <!-- Archiving -->
+      <div class="lg:col-span-5 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="database-outline"
+            CustomClass="text-blue-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-blue-400 to-pink-300 text-transparent">
+            Ведение архивов
+          </span>
+        </h3>
+        <p class="text-zinc-400 bento-card-description">
+          Встраиваемые компьютеры {avk.device.name}&nbsp;оснащены EMMC-диском
+          на&nbsp;32&nbsp;ГБ&nbsp;— этого достаточно, чтобы вести полноценное
+          архивирование для небольших задач. Кроме того в&nbsp;компьютеры могут
+          опционально устанавливаться SSD диски объёмом до&nbsp;2&nbsp;ТБ.
+          В&nbsp;дополнение Встраиваемые компьютеры могут комплектоваться СУБД
+          временных рядов (TSDB) АВАДС Сервер архивирования, обеспечивающего
+          высокоскоростное и очень компактное архивирование технологических
+          данных.
+        </p>
+      </div>
+      <!-- Communication interfaces -->
+      <div class="lg:col-span-10 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="connect-outline"
+            CustomClass="text-teal-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-teal-400 to-amber-300 text-transparent">
+            Широкие коммуникационные возможности
+          </span>
+        </h3>
+        <div class="flex md:flex-row flex-col gap-4">
+          <div class="flex flex-col gap-4">
+            <p class="font-semibold text-zinc-300 bento-card-description">
+              Большое число поддерживаемых интерфейсов и&nbsp;протоколов
+            </p>
+            <p class="text-zinc-400 bento-card-description">
+              Встраиваемые компьютеры {avk.device.name}&nbsp;имеют широкий набор
+              интерфейсов для подключения периферии, контроллеров и&nbsp;другого
+              оборудования: Ethernet 1 Gb, Wi-Fi (2,4 и 5 ГГц), Bluetooth 5.0,
+              два USB 3.0 host, два RS-485, RS-232.
+            </p>
+            <p class="font-semibold text-zinc-300 bento-card-description">
+              Поддерживаются следующие протоколы:
+            </p>
+            <p class="text-zinc-400 bento-card-description">
+              OPC UA, MODBUS RTU/TCP, Profinet, BACnet, FINS, SLMP, SNMP, МЭК
+              61850, МЭК 60870–5-104, Меркурий 230/234/236, Энергомера
+              СЕ301/303/304, ЦЭ6850, СЕТ-4ТМ, ПСЧ-4ТМ, ВКТ-5/7/9, Пульсар,
+              ТСР-034(033)/024М/026М/042/043/032, ЭСКО-Т1, ЭСКО-Т2, ТЭМ-104/106,
+              ТЭСМА-1, МКТС
+            </p>
+          </div>
+          <img
+            src="/products/avk/avk-interfaces-side.png"
+            alt="avk-interfaces"
+            class="-mr-8 w-full md:max-w-[40%] h-auto object-contain"
+          />
+        </div>
+      </div>
+      <!-- Полноценная SCADA -->
+      <div class="lg:col-span-10 bg-zinc-900 bento-card">
+        <h3 class="bento-card-header">
+          <Icon
+            IconSprite="component-outline"
+            CustomClass="text-blue-400 mb-1.5"
+            IconSize={24}
+          />
+          <span
+            class="bg-clip-text bg-gradient-to-r from-blue-400 to-teal-100 text-transparent">
+            Предустановленная MasterSCADA 4D
+          </span>
+        </h3>
+        <div class="flex flex-row items-center gap-10 -mt-4">
+          <p class="text-zinc-400 bento-card-description">
+            Встраиваемые компьютеры {avk.device.name}&nbsp;могут комплектоваться
+            одним из&nbsp;двух типов исполнительной системы
+            MasterSCADA&nbsp;4D&nbsp;— МК5 или М2К5. Их&nbsp;основные
+            характеристики приведены в&nbsp;таблице:
+          </p>
+          <img
+            src="/products/ms-scada/ms-scada.svg"
+            alt="avk-scada"
+            class="hidden md:block mr-4 w-full max-w-[7%] h-auto object-contain"
+          />
+        </div>
+        <div class="flex lg:flex-row flex-col items-start gap-10">
+          <!-- Left table -->
+          <table class="-mt-2 w-full lg:w-[50%]">
+            <thead>
+              <tr>
+                <th class="fixed-column">Тип лицензии</th>
+                <th>МК5</th>
+                <th>М2К5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Количество точек в лицензии</td>
+                <td>500</td>
+                <td>2500</td>
+              </tr>
+              <tr>
+                <td>Функция хранения архивов</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Использование для архива внешних БД</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th class="fixed-column">Драйверы протоколов</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Межузловой обмен MasterSCADA 4D</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Modbus RTU/TCP (master/slave)</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>OPC UA (client/server)</td>
+                <td class="include">✓</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Mitsubishi SLMP</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>SNMP</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>BACnet</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>Profinet</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>МЭК 61850</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>МЭК 60870-5-104</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+              <tr>
+                <td>OMRON FINS и FINS Serial</td>
+                <td class="exclude">–</td>
+                <td class="include">✓</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Right table -->
+          <table class="-mt-2 w-full lg:w-[50%]">
+            <thead>
+              <tr>
+                <th class="fixed-column w-full max-w-[70%]"
+                  >Счётчики электроэнергии</th
+                >
+                <th>МК5</th>
+                <th>М2К5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Меркурий 230, 234, 236 (Инкотекс)</td>
+                <td class="exclude">–</td>
+                <td>до 3</td>
+              </tr>
+              <tr>
+                <td
+                  >Энергомера СЕ301, СЕ303, СЕ304, ЦЭ6850 НHПО им. М.В. Фрунзе
+                  СЭТ-4ТМ, ПСЧ-4ТМ</td
+                >
+                <td class="exclude">–</td>
+                <td>до 3</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th class="fixed-column w-full max-w-[70%]"
+                  >Счётчики тепла и энергии</th
+                >
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  >Тепловом ВКТ-5, ВКТ-7, ВКТ-9 ВЗЛЁТ ТСР-024М, ТСР-042
+                  ЭСКО-Т-1, ЭСКО-Т-2 (Энергосервисная компания 33) ТЭМ-104,
+                  ТЭМ-105, ТЭСМА-1 МКТС (Интелприбор) Пульсар (Тепловодохран)</td
+                >
+                <td class="exclude">–</td>
+                <td>до 3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="pt-8 text-zinc-300 bento-card-description">
+          Кроме того, в&nbsp;исполнительной системе М2К5 поддерживается
+          архивирование данных в&nbsp;<a
+            href={tsdb.buttons?.more?.link}
+            class="text-primary-300 hover:text-primary-400 underline"
+            >АВАДС&nbsp;{tsdb.app.name}</a
+          >, а&nbsp;также использование SSD диска объёмом 500&nbsp;Гб,
+          1&nbsp;или 2&nbsp;Тб.
+        </p>
+      </div>
+    </div>
+  </div>
 
-  <!-- Полноценная SCADA -->
-
-  <!-- Модификации АСП -->
-
-  <!-- Характеристики -->
+  <!-- Модификации АВК -->
+  <div class="flex flex-col mx-auto pt-16 pb-16 main-max-width">
+    <h2 class="text-3xl">Модификации АВК</h2>
+    <p class="lg:max-w-[50vw] text-zinc-400 text-lg">
+      Встраиваемые компьютеры {avk.device.name} для управления технологическими процессами
+      в&nbsp;составе систем автоматизации, диспетчеризации и&nbsp;учёта, построенных
+      на&nbsp;базе широкого спектра аппаратного и&nbsp;программного обеспечения.
+    </p>
+    <h2 class="pb-10 text-3xl">
+      АВК-<span class="text-primary-300">SCADA-SSD-T</span>
+    </h2>
+    <!-- Cards grid -->
+    <div class="modifications-grid">
+      <div class="modification-card">
+        <div class="card-header">
+          SCADA
+          <span class="card-icon icon-package"></span>
+        </div>
+        <span class="card-description"
+          >Наличие предустановленной MasterSCADA 4D</span
+        >
+        <div class="card-content">
+          <div class="col-span-2 content-item">
+            МК5:<span class="ml-2 font-normal text-zinc-400">500 точек</span>
+          </div>
+          <div class="col-span-2 content-item">
+            М2К5:<span class="ml-2 font-normal text-zinc-400">2500 точек</span>
+          </div>
+        </div>
+      </div>
+      <div class="modification-card">
+        <div class="card-header">
+          SSD
+          <span class="card-icon icon-server"></span>
+        </div>
+        <span class="card-description">Наличие SDD Диска</span>
+        <div class="card-content">
+          <div class="col-span-2 content-item">
+            T5:<span class="ml-2 font-normal text-zinc-400">500 Гб</span>
+          </div>
+          <div class="content-item">
+            1T:<span class="ml-2 font-normal text-zinc-400">1000 Гб</span>
+          </div>
+          <div class="content-item">
+            2T:<span class="ml-2 font-normal text-zinc-400">2000 Гб</span>
+          </div>
+        </div>
+      </div>
+      <div class="modification-card">
+        <div class="card-header">
+          T
+          <span class="card-icon icon-thermometer"></span>
+        </div>
+        <span class="card-description">Температурный диапазон</span>
+        <div class="pt-6 h-full card-content">
+          <div class="col-span-2 h-full content-item">
+            P:<span class="ml-2 font-normal text-zinc-400">от -20 до 60℃</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="pt-10 pb-4 text-3xl">Примеры</h3>
+    <p class="pb-2 lg:max-w-[60vw] text-zinc-400 text-lg">
+      <b class="text-primary-200">АВК-MK5:</b> встраиваемый компьютер АВК с&nbsp;предустановленной
+      MasterSCADA&nbsp;4D на&nbsp;500&nbsp;точек.
+    </p>
+    <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
+      <b class="text-primary-200">АВК-7-T5:</b> встраиваемый компьютер АВК с&nbsp;установленным
+      SSD на&nbsp;500&nbsp;Гб.
+    </p>
+    <div class="flex gap-3 bg-zinc-800 my-10 p-6 rounded-md">
+      <ButtonGeneric
+        ButtonLabel={`Купить ${avk.device.name}`}
+        Size="big"
+        IconLeft={{
+          IconSprite: "cart-fill",
+          IconVisible: true,
+        }}
+        Target="link"
+        Blank={true}
+        ButtonLink={avk.buttons?.buy?.link}
+      />
+      <ButtonGeneric
+        ButtonLabel="Цены"
+        Size="big"
+        Style="outlined"
+        CustomClass="w-[132px]"
+        Target="link"
+        ButtonLink={avk.buttons?.price?.link}
+      />
+      <ButtonGeneric
+        ButtonLabel="Справочные материалы"
+        Size="big"
+        Variant="secondary"
+        Style="outlined"
+        IconLeft={{
+          IconSprite: "book-outline",
+          IconVisible: true,
+        }}
+        Target="link"
+        ButtonLink={avk.buttons?.support?.link}
+      />
+    </div>
+    <hr class="separator silver" />
+  </div>
 
   <!-- Свяжитесь с нами -->
   <CallToAction
@@ -127,6 +591,67 @@ const downloadLink = avk.buttons?.buy?.link || "/downloads";
   />
 </Layout>
 
+<script>
+  // Скрипт для анимации вращения градиента
+  document.addEventListener("DOMContentLoaded", function () {
+    const coreAnimation = document.querySelector(
+      ".core-animation"
+    ) as HTMLElement;
+    const coreAnimationBlur = document.querySelector(
+      ".core-animation-blur"
+    ) as HTMLElement;
+
+    if (coreAnimation && coreAnimationBlur) {
+      let rotationAngle = 0;
+
+      // Цвета градиента для плавного перехода
+      const colors = [
+        "#83d9f7", // голубой
+        "#6b9af7", // переходный
+        "#5699f6", // синий
+        "#6ba8fa", // переходный
+        "#83d9f7", // светло-голубой
+        "#6bb5fb", // переходный
+        "#5987f6", // синий
+        "#6ba2f8", // переходный
+        "#76cdff", // голубой
+        "#7dc8fb", // переходный
+        "#83d9f7", // возврат к первому цвету для плавности
+      ];
+
+      function updateGradient() {
+        // Увеличиваем угол поворота
+        rotationAngle += 1.2; // Скорость вращения (градусы за кадр)
+
+        // Нормализуем угол в диапазоне 0-360
+        const normalizedAngle = rotationAngle % 360;
+
+        // Создаем плавный conic-gradient с вращением через параметр from
+        const gradientStops = colors
+          .map((color, index) => {
+            const angle = ((index * 360) / (colors.length - 1)) % 360; // Равномерно распределяем цвета
+            return `${color} ${angle}deg`;
+          })
+          .join(", ");
+
+        // Применяем градиент с вращением только градиента через параметр from
+        const newGradient = `conic-gradient(from ${normalizedAngle}deg at 50% 50%, ${gradientStops})`;
+
+        // Применяем градиент к основному элементу
+        coreAnimation.style.background = newGradient;
+        // Применяем тот же градиент к размытому элементу для эффекта свечения
+        coreAnimationBlur.style.background = newGradient;
+
+        // Запрашиваем следующий кадр
+        requestAnimationFrame(updateGradient);
+      }
+
+      // Запускаем анимацию
+      updateGradient();
+    }
+  });
+</script>
+
 <style>
   .hero-title {
     @apply font-bold text-4xl lg:text-6xl leading-tight;
@@ -134,5 +659,131 @@ const downloadLink = avk.buttons?.buy?.link || "/downloads";
 
   .hero-description {
     @apply text-zinc-400 text-lg lg:text-xl leading-relaxed;
+  }
+
+  .bento-card {
+    @apply flex flex-col gap-4 p-6 border border-zinc-700 rounded-md overflow-hidden transition-all duration-300;
+
+    .bento-card-header {
+      @apply font-bold text-2xl;
+    }
+
+    .bento-card-description {
+      @apply text-base;
+    }
+  }
+
+  .core-image {
+    @apply relative w-full max-w-[100%] md:max-w-[50%];
+  }
+
+  /* Основная анимированная рамка */
+  .core-animation {
+    @apply right-[26%] bottom-[28%] z-20 absolute w-[35%] h-[30%];
+    content: "";
+    /* animation: rotate-gradient 3s linear infinite; */
+    opacity: 1;
+    border-radius: 12px;
+    /* filter: blur(10px); */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 3%;
+      left: 3%;
+      width: 94%;
+      height: 94%;
+      background: url("/products/asp/core-mask.png") no-repeat center center;
+      background-size: 100% 100%;
+      filter: none;
+      border-radius: 8px;
+    }
+  }
+
+  .core-animation-blur {
+    @apply right-[27%] bottom-[28%] z-20 absolute w-[35%] h-[30%];
+    content: "";
+    opacity: 1;
+    filter: blur(20px);
+    border-radius: 12px;
+  }
+
+  table tr td:first-child {
+    @apply text-zinc-400;
+  }
+
+  table tr td {
+    @apply py-1 text-center;
+  }
+
+  table thead tr th {
+    @apply bg-transparent pt-6 pb-2 text-center;
+  }
+
+  table thead tr th:first-child {
+    @apply text-blue-200 text-left;
+  }
+
+  table tr td:first-child {
+    @apply text-left;
+  }
+
+  table tbody tr {
+    @apply border-zinc-800/60 border-b;
+  }
+
+  table tbody tr:last-child td {
+    border-bottom: none !important;
+  }
+
+  table tbody tr td.include {
+    @apply font-bold text-green-400;
+  }
+
+  table tbody tr td.exclude {
+    @apply font-bold text-zinc-400;
+  }
+
+  .modifications-grid {
+    @apply gap-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3;
+
+    .modification-card {
+      @apply flex flex-col justify-between gap-4 bg-zinc-900 p-4 border border-zinc-700 rounded-md;
+
+      .card-header {
+        @apply flex justify-between items-center gap-2 font-bold text-primary-300 text-3xl;
+
+        .card-icon {
+          @apply bg-primary-300 w-10 h-10;
+          &.icon-scale {
+            mask: url("/symbols/scale.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+          &.icon-package {
+            mask: url("/symbols/package.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+          &.icon-server {
+            mask: url("/symbols/server.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+          &.icon-thermometer {
+            mask: url("/symbols/thermometer.svg") no-repeat center center;
+            mask-size: 100% 100%;
+          }
+        }
+      }
+
+      .card-description {
+        @apply text-zinc-400;
+      }
+
+      .card-content {
+        @apply items-center gap-2 grid grid-cols-2;
+
+        .content-item {
+          @apply flex justify-center items-center bg-zinc-800 p-2 border border-zinc-700 rounded-sm font-bold text-primary-300;
+        }
+      }
+    }
   }
 </style>

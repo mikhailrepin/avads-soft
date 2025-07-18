@@ -28,47 +28,47 @@
         "rows": [
           {
             "model": "АСП-7-MK5",
-            "description": "Панель оператора. Экран 7\", MasterSCADA на 500 точек, ОС Linux",
+            "description": "Панель оператора. Экран 7'', MasterSCADA на 500 точек, ОС Linux",
             "price": 46800
           },
           {
             "model": "АСП-7-M2K5",
-            "description": "Панель оператора. Экран 7\", MasterSCADA на 2500 точек, ОС Linux",
+            "description": "Панель оператора. Экран 7'', MasterSCADA на 2500 точек, ОС Linux",
             "price": 74600
           },
           {
             "model": "АСП-7-M2K5-T5",
-            "description": "Панель оператора. Экран 7\", MasterSCADA на 2500 точек, ОС Linux, SSD диск на 500 Гб",
+            "description": "Панель оператора. Экран 7'', MasterSCADA на 2500 точек, ОС Linux, SSD диск на 500 Гб",
             "price": 81900
           },
           {
             "model": "АСП-10-MK5",
-            "description": "Панель оператора. Экран 10\", MasterSCADA на 500 точек, ОС Linux",
+            "description": "Панель оператора. Экран 10'', MasterSCADA на 500 точек, ОС Linux",
             "price": 60700
           },
           {
             "model": "АСП-10-M2K5",
-            "description": "Панель оператора. Экран 10\", MasterSCADA на 2500 точек, ОС Linux",
+            "description": "Панель оператора. Экран 10'', MasterSCADA на 2500 точек, ОС Linux",
             "price": 92300
           },
           {
             "model": "АСП-10-M2K5-T5",
-            "description": "Панель оператора. Экран 10\", MasterSCADA на 2500 точек, ОС Linux, SSD диск на 500 Гб",
+            "description": "Панель оператора. Экран 10'', MasterSCADA на 2500 точек, ОС Linux, SSD диск на 500 Гб",
             "price": 97700
           },
           {
             "model": "АСП-15-MK5",
-            "description": "Панель оператора. Экран 15\", MasterSCADA на 500 точек, ОС Linux",
+            "description": "Панель оператора. Экран 15'', MasterSCADA на 500 точек, ОС Linux",
             "price": 93600
           },
           {
             "model": "АСП-15-M2K5",
-            "description": "Панель оператора. Экран 15\", MasterSCADA на 2500 точек, ОС Linux",
+            "description": "Панель оператора. Экран 15'', MasterSCADA на 2500 точек, ОС Linux",
             "price": 134200
           },
           {
             "model": "АСП-15-M2K5-T5",
-            "description": "Панель оператора. Экран 15\", MasterSCADA на 2500 точек, ОС Linux, SSD диск на 500 Гб",
+            "description": "Панель оператора. Экран 15'', MasterSCADA на 2500 точек, ОС Linux, SSD диск на 500 Гб",
             "price": 139600
           }
         ]
@@ -290,12 +290,7 @@
       "prices": {
         "type": "PriceASP"
       },
-      "buttons": {
-        "more": {
-          "label": "Подробнее",
-          "link": "/all-products/amv"
-        }
-      },
+      "buttons": {},
       "supports": {
         "docs": {
           "userguide": {

@@ -6,7 +6,7 @@
         "name": "Сервер архивирования",
         "description": "Компактная и высокоскоростная база данных временных рядов (TSDB) для архивирования в системах реального времени",
         "image": "/products/tsdb/tsdb.svg",
-        "status": "релиз"
+        "status": ""
       },
       "prices": {
         "type": "table",
@@ -198,7 +198,7 @@
         "name": "САР-эксперт",
         "description": "Доступная настройка и контроль ПИД-регуляторов за несколько кликов",
         "image": "/products/sar-expert/sar-expert.svg",
-        "status": "релиз"
+        "status": ""
       },
       "prices": {
         "type": "PriceSARXP"
@@ -320,7 +320,7 @@
         "name": "OPC-DB ШЛЮЗ",
         "description": "Доступ к TSDB АВАДС Сервер архивирования",
         "image": "/products/opc-db/opc-db.svg",
-        "status": "релиз"
+        "status": ""
       },
       "prices": {
         "type": "table",
@@ -472,7 +472,7 @@
         "name": "MODBUS-OPC СЕРВЕР",
         "description": "Сервер протокола MODBUS RTU/TCP/ASCII",
         "image": "/products/modbus-opc/modbus-opc.svg",
-        "status": ""
+        "status": "в разработке"
       }
     }
   ]

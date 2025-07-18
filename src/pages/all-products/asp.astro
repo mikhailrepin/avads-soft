@@ -13,7 +13,7 @@ import prodHard from "@/data/prodHard.json";
 import prodSoft from "@/data/prodSoft.json";
 
 /* Variables */
-const heroBbackground = "/hero/pic_21.webp";
+const heroBbackground = "/hero/pic_17.webp";
 
 type Product = {
   id: string;
@@ -56,12 +56,16 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   <MainHero backgroundUrl={heroBbackground}>
     <div
       class="flex lg:flex-row flex-col justify-between items-center gap-8 mx-auto w-full lg:min-h-[60vh] main-max-width">
-      <div class="w-full lg:w-1/2">
+      <div class="w-full lg:w-[50%]">
         <h1 class="mb-6 hero-title">
-          ПАНЕЛИ<br />
-          ОПЕРАТОРА<br />
+          ПАНЕЛИ ОПЕРАТОРА<br />
           <span class="text-primary-300">{asp.device.name}</span>
         </h1>
+        <img
+          src="/products/asp/asp-variations.png"
+          alt={asp.device.name}
+          class="lg:hidden block w-full h-auto object-contain"
+        />
         <p class="mb-8 hero-description">
           Предназначены для визуализации и управления технологическими
           процессами в составе систем автоматизации.
@@ -98,12 +102,12 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           />
         </div>
       </div>
-      <div class="flex justify-center w-full lg:w-1/2">
-        <div class="relative">
+      <div class="flex justify-center w-full lg:w-[50%]">
+        <div class="relative w-full">
           <img
-            src={asp.device.image}
+            src="/products/asp/asp-variations.png"
             alt={asp.device.name}
-            class="w-full max-w-[500px] h-auto object-contain"
+            class="hidden lg:block w-full h-auto object-contain"
           />
         </div>
       </div>
@@ -548,12 +552,12 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
     </div>
     <h3 class="pt-10 pb-4 text-3xl">Примеры</h3>
     <p class="pb-2 lg:max-w-[60vw] text-zinc-400 text-lg">
-      <b class="text-primary-200">АСП-10-MK5:</b> панель оператора АСП с&nbsp;экраном
-      10&nbsp;дюймов и&nbsp;предустановленной MasterSCADA&nbsp;4D на&nbsp;500&nbsp;точек.
+      <b class="text-primary-200">АСП-10-MK5:</b> модификация с&nbsp;экраном 10&nbsp;дюймов
+      и&nbsp;предустановленной MasterSCADA&nbsp;4D на&nbsp;500&nbsp;точек.
     </p>
     <p class="lg:max-w-[60vw] text-zinc-400 text-lg">
-      <b class="text-primary-200">АСП-7-T5:</b> панель оператора АСП с&nbsp;экраном
-      7&nbsp;дюймов и&nbsp;установленным SSD на&nbsp;500&nbsp;Гб.
+      <b class="text-primary-200">АСП-7-T5:</b> модификация с&nbsp;экраном 7&nbsp;дюймов
+      и&nbsp;установленным SSD на&nbsp;500&nbsp;Гб.
     </p>
     <div class="flex gap-3 bg-zinc-800 my-10 p-6 rounded-md">
       <ButtonGeneric
