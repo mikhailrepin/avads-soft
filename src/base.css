@@ -274,7 +274,15 @@
 
   .fixed-column {
     @apply lg:relative left-0 z-10 sticky bg-zinc-950 lg:bg-zinc-950/0;
-    @apply after:top-0 after:right-0 after:absolute after:bg-zinc-800 lg:after:w-[0px] after:w-[1px] after:h-full;
+
+    &::after {
+      content: "";
+      @apply top-0 right-0 absolute bg-zinc-800 w-[1px] lg:w-[0px] h-full;
+    }
+  }
+
+  .fixed-column {
+    @apply max-md:max-w-[100px] max-md:break-words max-md:text-wrap max-md:hyphens-auto;
   }
 
   thead {
