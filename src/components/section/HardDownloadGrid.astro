@@ -1,0 +1,339 @@
+---
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import prodHard from "@/data/prodHard.json";
+
+// Функция для проверки наличия валидных кнопок
+const hasValidButtons = (product: any) => {
+  if (!product.buttons || typeof product.buttons !== "object") {
+    return false;
+  }
+  
+  // Проверяем, что в buttons есть хотя бы одна кнопка с данными
+  return Object.values(product.buttons).some(
+    (button: any) => 
+      button && 
+      typeof button === "object" && 
+      button.label && 
+      button.link
+  );
+};
+
+// Фильтруем продукты, у которых есть supports И валидные кнопки
+const productsWithSupports = prodHard.products.filter(product => 
+  product.supports && hasValidButtons(product)
+);
+
+type SupportItem = {
+  icon: string;
+  label: string;
+  link: string;
+};
+
+type SupportData = {
+  docs?: Record<string, SupportItem>;
+  marketing?: Record<string, SupportItem>;
+  visualization?: {
+    models: Array<{
+      id: string;
+      title: string;
+      files: Record<string, SupportItem>;
+    }>;
+  };
+  social?: {
+    video?: {
+      title: string;
+      items: Array<{
+        id: string;
+        title: string;
+        cover: string;
+        link: string;
+      }>;
+    };
+  };
+};
+---
+
+<section class="wrapper">
+  <!-- Левая колонка с навигацией -->
+  <aside class="nav-bar">
+    <ul>
+      {
+        productsWithSupports.map((product) => (
+          <li>
+            <a href={`#${product.id}`}>
+              <img
+                src={product.device.image}
+                alt={product.id}
+                loading="lazy"
+              />
+              {product.device.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </aside>
+
+  <!-- Правая колонка с карточками -->
+  <div class="cards-col">
+    {
+      productsWithSupports.map((product) => (
+        <div
+          class="card"
+          id={product.id}>
+          <div class="card-head">
+            <img
+              src={product.device.image}
+              alt={product.device.name}
+              loading="lazy"
+              class="w-[60px] h-[60px] object-contain product-icon"
+            />
+            <div class="card-info">
+              <span class="title">{product.device.name}</span>
+              <span class="description">{product.device.description}</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            {product.supports && (
+              <div class="support-sections">
+                <!-- Документация -->
+                {product.supports.docs && Object.keys(product.supports.docs).length > 0 && (
+                  <div class="support-section">
+                    <h4 class="section-title">Документация</h4>
+                    <div class="support-items">
+                      {Object.entries(product.supports.docs).map(([key, doc]) => (
+                        <ButtonGeneric
+                          Variant="primary"
+                          Size="small"
+                          Style="ghosted"
+                          Visible={true}
+                          IconLeft={{
+                            IconSprite: doc.icon,
+                            IconVisible: true,
+                          }}
+                          CustomClass="w-fit"
+                          Target="link"
+                          Blank={true}
+                          ButtonLabel={doc.label}
+                          ButtonLink={doc.link}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <!-- Маркетинговые материалы -->
+                {product.supports.marketing && Object.keys(product.supports.marketing).length > 0 && (
+                  <div class="support-section">
+                    <h4 class="section-title">Маркетинговые материалы</h4>
+                    <div class="support-items">
+                      {Object.entries(product.supports.marketing).map(([key, material]) => (
+                        <ButtonGeneric
+                          Variant="primary"
+                          Size="small"
+                          Style="ghosted"
+                          Visible={true}
+                          IconLeft={{
+                            IconSprite: material.icon,
+                            IconVisible: true,
+                          }}
+                          CustomClass="w-fit"
+                          Target="link"
+                          Blank={true}
+                          ButtonLabel={material.label}
+                          ButtonLink={material.link}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <!-- Визуализация -->
+                {product.supports.visualization && product.supports.visualization.models && product.supports.visualization.models.length > 0 && (
+                  <div class="support-section">
+                    <h4 class="section-title">3D модели и визуализация</h4>
+                    {product.supports.visualization.models.map((model) => (
+                      <div class="model-subsection">
+                        <h5 class="model-title">{model.title}</h5>
+                        <div class="support-items">
+                          {Object.entries(model.files).map(([key, file]) => (
+                            <ButtonGeneric
+                              Variant="primary"
+                              Size="small"
+                              Style="ghosted"
+                              Visible={true}
+                              IconLeft={{
+                                IconSprite: file.icon,
+                                IconVisible: true,
+                              }}
+                              CustomClass="w-fit"
+                              Target="link"
+                              Blank={true}
+                              ButtonLabel={file.label}
+                              ButtonLink={file.link}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <!-- Видеоматериалы -->
+                {product.supports.social && product.supports.social.video && product.supports.social.video.items && product.supports.social.video.items.length > 0 && (
+                  <div class="support-section">
+                    <h4 class="section-title">{product.supports.social.video.title}</h4>
+                    <div class="video-items">
+                      {product.supports.social.video.items.map((video) => (
+                        <a
+                          href={video.link}
+                          target="_blank"
+                          class="video-card">
+                          <div class="video-cover">
+                            <img src={video.cover} alt={video.title} />
+                            <div class="play-button">
+                              <svg class="play-icon" viewBox="0 0 24 24">
+                                <polygon points="5,3 19,12 5,21" fill="currentColor" />
+                              </svg>
+                            </div>
+                          </div>
+                          <span class="video-title">{video.title}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll<HTMLElement>(".nav-bar a");
+
+    // Обработка эффекта прозрачности
+    navLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        navLinks.forEach((otherLink) => {
+          if (otherLink !== link) {
+            otherLink.style.opacity = "0.6";
+          }
+        });
+      });
+
+      link.addEventListener("mouseleave", () => {
+        navLinks.forEach((otherLink) => {
+          otherLink.style.opacity = "1";
+        });
+      });
+    });
+
+    // Обработка плавной прокрутки
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href")?.replace("#", "") ?? "";
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const offset = 80;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .wrapper {
+    @apply flex lg:flex-row flex-col gap-[16px] w-[100%];
+  }
+  .nav-bar {
+    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];
+    & ul {
+      @apply flex lg:flex-col flex-nowrap gap-[32px] lg:gap-[8px] overflow-x-auto overflow-y-hidden lg:overflow-y-auto;
+      & li > a {
+        @apply flex flex-shrink-0 items-center gap-[12px] hover:bg-zinc-900 p-2 rounded-[8px] text-zinc-400 hover:text-zinc-100 whitespace-nowrap transition-all duration-200 cursor-pointer;
+        & img {
+          @apply w-[24px] h-fit;
+        }
+      }
+    }
+  }
+  .cards-col {
+    @apply flex flex-col gap-[16px] w-full;
+  }
+  .card {
+    @apply border-zinc-900 p-[32px] border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
+    scroll-margin-top: 80px;
+  }
+  .card-head {
+    @apply flex lg:flex-row flex-col gap-[24px];
+    & img {
+      @apply bg-zinc-900/20 p-0 rounded-sm w-[60px] h-[60px];
+    }
+    & .card-info {
+      @apply flex flex-col gap-2;
+      & .title {
+        @apply mb-[-4px] font-medium text-2xl;
+      }
+      & .description {
+        @apply m-0 text-zinc-400 text-lg;
+      }
+    }
+  }
+  .card-body {
+    @apply flex flex-col gap-[16px] py-[16px] lg:pl-[84px];
+  }
+  .support-sections {
+    @apply flex flex-col gap-[24px];
+  }
+  .support-section {
+    @apply flex flex-col gap-[12px];
+  }
+  .section-title {
+    @apply font-medium text-zinc-200 text-lg;
+  }
+  .support-items {
+    @apply flex flex-wrap gap-3;
+  }
+  .model-subsection {
+    @apply flex flex-col gap-[8px] mt-[8px];
+  }
+  .model-title {
+    @apply font-medium text-zinc-300 text-base;
+  }
+  .video-items {
+    @apply flex flex-wrap gap-4;
+  }
+  .video-card {
+    @apply flex flex-col gap-2 hover:opacity-80 max-w-[200px] transition-all duration-200 cursor-pointer;
+  }
+  .video-cover {
+    @apply relative bg-zinc-900 rounded-[8px] overflow-hidden;
+    & img {
+      @apply w-full h-[120px] object-cover;
+    }
+  }
+  .play-button {
+    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-500 bg-opacity-80 rounded-full w-[40px] h-[40px] flex items-center justify-center text-white hover:bg-opacity-100 transition-all duration-200;
+  }
+  .play-icon {
+    @apply ml-[2px] w-[16px] h-[16px];
+  }
+  .video-title {
+    @apply font-medium text-zinc-300 text-sm;
+  }
+</style> 

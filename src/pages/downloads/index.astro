@@ -4,7 +4,10 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import DownloadGrid from "@/components/section/DownloadGrid.astro";
+import HardDownloadGrid from "@/components/section/HardDownloadGrid.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
+import ProductTabsNavigation from "@/components/navigation/ProductTabs.astro";
+import TabContent from "@/components/navigation/TabContent.astro";
 
 /* Images */
 const heroBbackground = "/hero/pic_16.webp";
@@ -15,17 +18,25 @@ const heroBbackground = "/hero/pic_16.webp";
     <div
       class="flex flex-col justify-center gap-4 mx-auto w-[100%] lg:min-h-[50dvh] main-max-width">
       <h1 class="hero-title">
-        <span class="text-silver">Программное<br />обеспечение</span>
+        <span class="text-silver">Программное обеспечение</span><br />
+        <span class="text-silver">и оборудование</span>
         <span class="text-gold">АВАДС</span><br />
       </h1>
       <h3 class="hero-description">
-        Установочные файлы, а также актуальная<br /> справочная документация на всю
-        линейку продуктов
+        Установочные файлы, справочная документация<br /> и материалы для всей линейки
+        продуктов
       </h3>
     </div>
   </MainHero>
 
-  <DownloadGrid />
+  <div class="flex flex-col mx-auto mt-[24px] main-max-width">
+    <ProductTabsNavigation />
+
+    <TabContent>
+      <DownloadGrid slot="software" />
+      <HardDownloadGrid slot="hardware" />
+    </TabContent>
+  </div>
 
   <div class="flex flex-col gap-[52px] mx-auto mb-14 main-max-width">
     <CallToAction
