@@ -440,12 +440,13 @@
 
   /* Контейнер для секций поддержки */
   .support-sections {
-    @apply flex flex-col gap-[24px];
+    @apply flex flex-col gap-[16px];
   }
 
   /* Отдельная секция поддержки */
   .support-section {
     @apply flex flex-col gap-[12px];
+    padding-top: 24px !important;
   }
 
   /* Заголовок секции поддержки */
@@ -477,7 +478,7 @@
 
   /* Карточка видео */
   .video-card {
-    @apply flex flex-col gap-2 hover:opacity-80 max-w-[200px] transition-all duration-200 cursor-pointer;
+    @apply flex flex-col gap-2 hover:opacity-80 transition-all duration-200 cursor-pointer;
   }
 
   /* Обложка видео */
