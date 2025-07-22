@@ -56,6 +56,7 @@ interface HardwareProduct {
 const { productId } = Astro.props;
 
 import prodHardData from "@/data/prodHard.json";
+import Icon from "@/components/decorations/Icon.astro";
 
 const product = (prodHardData.products as HardwareProduct[]).find(
   (product) => product.id === productId
@@ -154,9 +155,10 @@ const { supports } = product;
               <div class="video-cover">
                 <img src={video.cover} alt={video.title} />
                 <div class="play-button">
-                  <svg class="play-icon" viewBox="0 0 24 24">
-                    <polygon points="5,3 19,12 5,21" fill="currentColor" />
-                  </svg>
+                  <Icon
+                    IconSprite="playback-play-big-fill"
+                    CustomClass="play-icon"
+                  />
                 </div>
               </div>
               <h4 class="video-title">{video.title}</h4>
@@ -177,75 +179,4 @@ const { supports } = product;
   </div>
 )}
 
-<style>
-  .hardware-support {
-    @apply space-y-8 w-full;
-  }
-
-  .support-section {
-    @apply space-y-4;
-  }
-
-  .section-title {
-    @apply mb-6 font-bold text-zinc-100 text-2xl;
-  }
-
-  .model-title {
-    @apply mb-4 font-semibold text-zinc-200 text-xl;
-  }
-
-
-
-  .video-grid {
-    @apply gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
-    width: 100%;
-    grid-template-columns: repeat(1, 1fr);
-  }
-  
-  @media (min-width: 768px) {
-    .video-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .video-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  .video-card {
-    @apply bg-zinc-900 border border-zinc-800 hover:border-primary-300 rounded-lg overflow-hidden transition-colors duration-200;
-    width: 100% !important;
-    min-width: 0;
-    flex: 1 1 0%;
-  }
-
-  .video-cover {
-    @apply relative bg-zinc-800 w-full aspect-video;
-  }
-
-  .video-cover img {
-    @apply w-full h-full object-cover;
-  }
-
-  .play-button {
-    @apply absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-200;
-  }
-
-  .play-icon {
-    @apply w-16 h-16 text-white;
-  }
-
-  .video-title {
-    @apply p-4 font-medium text-zinc-200;
-  }
-
-  .model-section {
-    @apply space-y-4;
-  }
-
-  .no-support-message {
-    @apply px-6 py-12 text-center;
-  }
-</style> 
+<!-- Все стили перенесены в base.css для глобального использования --> 

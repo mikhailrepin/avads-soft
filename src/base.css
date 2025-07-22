@@ -339,7 +339,7 @@
 
   /* Основной контейнер-обёртка для всех компонентов с сетками продуктов */
   .product-grid-wrapper {
-    @apply flex lg:flex-row flex-col gap-[16px] w-[100%];
+    @apply flex lg:flex-row flex-col gap-[16px] pb-12 w-[100%];
 
     /* Модификатор для добавления отступов снизу и центрирования */
     &.with-margin {
@@ -445,13 +445,13 @@
 
   /* Отдельная секция поддержки */
   .support-section {
-    @apply flex flex-col gap-[12px];
-    padding-top: 24px !important;
+    @apply space-y-4;
   }
 
   /* Заголовок секции поддержки */
-  .support-section-title {
-    @apply font-medium text-zinc-200 text-lg;
+  .support-section-title,
+  .section-title {
+    @apply mb-6 font-medium text-zinc-300 text-xl;
   }
 
   /* Элементы поддержки */
@@ -466,43 +466,102 @@
 
   /* Заголовок модели */
   .model-title {
-    @apply font-medium text-zinc-300 text-base;
+    @apply mb-4 font-semibold text-zinc-200 text-xl;
+  }
+
+  /* Подсекция модели */
+  .model-section {
+    @apply space-y-4;
   }
 
   /* ===== СТИЛИ ДЛЯ ВИДЕО ЭЛЕМЕНТОВ ===== */
 
-  /* Контейнер для видео элементов */
-  .video-items {
-    @apply flex flex-wrap gap-4;
-  }
+
 
   /* Карточка видео */
   .video-card {
-    @apply flex flex-col gap-2 hover:opacity-80 transition-all duration-200 cursor-pointer;
+    @apply bg-zinc-900 border border-zinc-800 hover:border-primary-300 rounded-lg overflow-hidden transition-colors duration-200;
+    width: 100% !important;
+    min-width: 0;
+    flex: 1 1 0%;
   }
 
   /* Обложка видео */
   .video-cover {
-    @apply relative bg-zinc-900 rounded-[8px] overflow-hidden;
+    @apply relative bg-zinc-800 w-full aspect-video;
 
     & img {
-      @apply w-full h-[120px] object-cover;
+      @apply w-full h-full object-cover;
     }
   }
 
-  /* Кнопка воспроизведения видео */
-  .video-play-button {
-    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-500 bg-opacity-80 rounded-full w-[40px] h-[40px] flex items-center justify-center text-white hover:bg-opacity-100 transition-all duration-200;
-  }
 
-  /* Иконка воспроизведения */
-  .video-play-icon {
-    @apply ml-[2px] w-[16px] h-[16px];
-  }
 
   /* Заголовок видео */
   .video-title {
-    @apply font-medium text-zinc-300 text-sm;
+    @apply p-4 font-medium text-zinc-200 leading-tight;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.3;
+  }
+
+  /* Сетка видео */
+  .video-grid {
+    @apply gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    .video-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .video-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Сетка видео для страницы загрузок (3 колонки) */
+  .video-grid-downloads {
+    @apply gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    .video-grid-downloads {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .video-grid-downloads {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Кнопка воспроизведения */
+  .play-button {
+    @apply absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-200;
+  }
+
+  /* Иконка воспроизведения */
+  .play-icon {
+    @apply w-12 h-12 text-white;
+  }
+
+  /* Контейнер поддержки оборудования */
+  .hardware-support {
+    @apply space-y-8 w-full;
+  }
+
+  /* Сообщение об отсутствии поддержки */
+  .no-support-message {
+    @apply px-6 py-12 text-center;
   }
 
   /* ===== СТИЛИ ДЛЯ ТАБОВ ===== */

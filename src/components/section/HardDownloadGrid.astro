@@ -1,5 +1,6 @@
 ---
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import Icon from "@/components/decorations/Icon.astro";
 import prodHard from "@/data/prodHard.json";
 
 // Функция для проверки наличия валидных кнопок
@@ -99,92 +100,101 @@ type SupportData = {
               <div class="support-sections">
                 <!-- Документация -->
                 {product.supports.docs && Object.keys(product.supports.docs).length > 0 && (
-                  <div class="support-section">
-                    <h4 class="support-section-title">Документация</h4>
-                    <div class="support-items">
-                      {Object.entries(product.supports.docs).map(([key, doc]) => (
-                        <ButtonGeneric
-                          Variant="primary"
-                          Size="small"
-                          Style="ghosted"
-                          Visible={true}
-                          IconLeft={{
-                            IconSprite: doc.icon,
-                            IconVisible: true,
-                          }}
-                          CustomClass="w-fit"
-                          Target="link"
-                          Blank={true}
-                          ButtonLabel={doc.label}
-                          ButtonLink={doc.link}
-                        />
-                      ))}
+                  <>
+                    <div class="support-section">
+                      <h4 class="support-section-title">Документация</h4>
+                      <div class="support-items">
+                        {Object.entries(product.supports.docs).map(([key, doc]) => (
+                          <ButtonGeneric
+                            Variant="primary"
+                            Size="small"
+                            Style="ghosted"
+                            Visible={true}
+                            IconLeft={{
+                              IconSprite: doc.icon,
+                              IconVisible: true,
+                            }}
+                            CustomClass="w-fit"
+                            Target="link"
+                            Blank={true}
+                            ButtonLabel={doc.label}
+                            ButtonLink={doc.link}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                    <hr class="separator silver" />
+                  </>
                 )}
 
                 <!-- Маркетинговые материалы -->
                 {product.supports.marketing && Object.keys(product.supports.marketing).length > 0 && (
-                  <div class="support-section">
-                    <h4 class="support-section-title">Маркетинговые материалы</h4>
-                    <div class="support-items">
-                      {Object.entries(product.supports.marketing).map(([key, material]) => (
-                        <ButtonGeneric
-                          Variant="primary"
-                          Size="small"
-                          Style="ghosted"
-                          Visible={true}
-                          IconLeft={{
-                            IconSprite: material.icon,
-                            IconVisible: true,
-                          }}
-                          CustomClass="w-fit"
-                          Target="link"
-                          Blank={true}
-                          ButtonLabel={material.label}
-                          ButtonLink={material.link}
-                        />
-                      ))}
+                  <>
+                    <div class="support-section">
+                      <h4 class="support-section-title">Маркетинговые материалы</h4>
+                      <div class="support-items">
+                        {Object.entries(product.supports.marketing).map(([key, material]) => (
+                          <ButtonGeneric
+                            Variant="primary"
+                            Size="small"
+                            Style="ghosted"
+                            Visible={true}
+                            IconLeft={{
+                              IconSprite: material.icon,
+                              IconVisible: true,
+                            }}
+                            CustomClass="w-fit"
+                            Target="link"
+                            Blank={true}
+                            ButtonLabel={material.label}
+                            ButtonLink={material.link}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                    <hr class="separator silver" />
+                  </>
                 )}
 
                 <!-- Визуализация -->
                 {product.supports.visualization && product.supports.visualization.models && product.supports.visualization.models.length > 0 && (
-                  <div class="support-section">
-                    <h4 class="support-section-title">3D модели и визуализация</h4>
-                    {product.supports.visualization.models.map((model) => (
-                      <div class="model-subsection">
-                        <h5 class="model-title">{model.title}</h5>
-                        <div class="support-items">
-                          {Object.entries(model.files).map(([key, file]) => (
-                            <ButtonGeneric
-                              Variant="primary"
-                              Size="small"
-                              Style="ghosted"
-                              Visible={true}
-                              IconLeft={{
-                                IconSprite: file.icon,
-                                IconVisible: true,
-                              }}
-                              CustomClass="w-fit"
-                              Target="link"
-                              Blank={true}
-                              ButtonLabel={file.label}
-                              ButtonLink={file.link}
-                            />
-                          ))}
+                  <>
+                    <div class="support-section">
+                      <h4 class="support-section-title">3D модели и визуализация</h4>
+                      {product.supports.visualization.models.map((model) => (
+                        <div class="model-subsection">
+                          <h5 class="model-title">{model.title}</h5>
+                          <div class="support-items">
+                            {Object.entries(model.files).map(([key, file]) => (
+                              <ButtonGeneric
+                                Variant="primary"
+                                Size="small"
+                                Style="ghosted"
+                                Visible={true}
+                                IconLeft={{
+                                  IconSprite: file.icon,
+                                  IconVisible: true,
+                                }}
+                                CustomClass="w-fit"
+                                Target="link"
+                                Blank={true}
+                                ButtonLabel={file.label}
+                                ButtonLink={file.link}
+                              />
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                    <hr class="separator silver" />
+                  </>
                 )}
 
                 <!-- Видеоматериалы -->
                 {product.supports.social && product.supports.social.video && product.supports.social.video.items && product.supports.social.video.items.length > 0 && (
                   <div class="support-section">
                     <h4 class="support-section-title">{product.supports.social.video.title}</h4>
-                    <div class="video-items">
+                    <div class="video-grid-downloads">
                       {product.supports.social.video.items.map((video) => (
                         <a
                           href={video.link}
@@ -192,13 +202,14 @@ type SupportData = {
                           class="video-card">
                           <div class="video-cover">
                             <img src={video.cover} alt={video.title} />
-                            <div class="video-play-button">
-                              <svg class="video-play-icon" viewBox="0 0 24 24">
-                                <polygon points="5,3 19,12 5,21" fill="currentColor" />
-                              </svg>
+                            <div class="play-button">
+                              <Icon
+                                IconSprite="playback-play-big-fill"
+                                CustomClass="play-icon"
+                              />
                             </div>
                           </div>
-                          <span class="video-title">{video.title}</span>
+                          <h4 class="video-title">{video.title}</h4>
                         </a>
                       ))}
                     </div>
