@@ -78,12 +78,12 @@ const advantages = [
           class="hero-description"
           set:html={opcDb.app.description}
         />
-        <div class="flex gap-3 mt-[32px]">
+        <div class="hero-buttons">
           <ButtonGeneric
             Variant="primary"
             Size="default"
             Style="filled"
-            CustomClass="w-fit lg:min-w-[150px]"
+            CustomClass="w-full md:w-fit lg:min-w-[150px]"
             Visible={true}
             IconLeft={{
               IconSprite: "download-bold",
@@ -98,7 +98,7 @@ const advantages = [
             Variant="primary"
             Size="default"
             Style="outlined"
-            CustomClass="w-fit"
+            CustomClass="w-full md:w-fit"
             Visible={true}
             IconLeft={{
               IconSprite: "download-bold",
@@ -112,7 +112,7 @@ const advantages = [
             Variant="primary"
             Size="default"
             Style="outlined"
-            CustomClass="w-fit lg:min-w-[150px]"
+            CustomClass="w-full md:w-fit lg:min-w-[150px]"
             Visible={!!opcDb.prices}
             IconLeft={{
               IconSprite: "",

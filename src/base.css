@@ -243,6 +243,10 @@
     @apply pt-3 w-fit max-w-[100%] font-medium text-zinc-400 text-lg lg:text-xl !important;
   }
 
+  .hero-buttons {
+    @apply flex md:flex-row flex-col gap-4 md:gap-3 mt-[32px];
+  }
+
   .separator {
     @apply block bg-gradient-to-r h-[2px] w-[100%] mx-auto border-0 rounded-sm
   }
