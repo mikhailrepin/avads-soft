@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+---
+
+<Layout
+  pageTitle="Страница не найдена"
+  breadcrumbs={false}>
+  <section class="main-max-width wrapper">
+    <h1>500</h1>
+    <h2>Внутренняя ошибка сервера</h2>
+    <p>Возможно, произошла ошибка при обработке вашего запроса.</p>
+    <ButtonGeneric
+      Variant="secondary"
+      Visible={true}
+      Size="default"
+      Style="outlined"
+      IconLeft={{ IconSprite: "home-outline", IconVisible: false }}
+      CustomClass="mt-[40px]"
+      ButtonLabel="На главную"
+      ButtonLink="/"
+      Target="link"
+    />
+  </section>
+</Layout>
+
+<style>
+  .wrapper {
+    @apply flex flex-col justify-center items-center mx-auto min-h-[75dvh];
+    & h1,
+    h2,
+    p {
+      @apply text-center;
+    }
+    & h1 {
+      @apply text-primary-300;
+    }
+    & h2 {
+      @apply text-2xl lg:text-4xl;
+    }
+    & p {
+      @apply text-zinc-400;
+    }
+  }
+</style>
