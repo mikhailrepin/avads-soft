@@ -14,7 +14,7 @@ const {
   storageKey = "avads-active-tab",
 } = Astro.props;
 
-const tabsClass = `tabs-panel mt-0 mb-10 max-md:top-[48px] max-md:z-20 max-md:sticky max-md:bg-zinc-950 ${customClass}`;
+const tabsClass = `tabs-panel product-tabs ${customClass}`;
 ---
 
 <div
@@ -238,24 +238,7 @@ const tabsClass = `tabs-panel mt-0 mb-10 max-md:top-[48px] max-md:z-20 max-md:st
 <style>
   /* Локальные стили для .tabs-panel удалены - теперь используются глобальные из base.css */
 
-  /* Специфичные стили для ProductTabs - переопределяем только нужные свойства */
-  .tabs-panel {
-    @apply gap-4 lg:gap-8; /* Увеличенные отступы для основной навигации */
-
-    & button {
-      @apply flex items-center gap-2 py-2 border-transparent border-b focus:outline-none font-semibold text-zinc-400 text-xl uppercase transition-all duration-200;
-      &:hover {
-        @apply text-zinc-100 transform-none;
-      }
-      &:active {
-        @apply border-primary-400 text-primary-300;
-      }
-    }
-  }
-
-  .tabs-panel button.active {
-    @apply border-primary-400 text-primary-300;
-  }
+  /* Специфичные стили для ProductTabs теперь в глобальных стилях base.css */
 
   /* Анимированное скрытие/показ контента */
   [role="tabpanel"] {
@@ -281,12 +264,5 @@ const tabsClass = `tabs-panel mt-0 mb-10 max-md:top-[48px] max-md:z-20 max-md:st
     height: auto !important;
   }
 
-  /* Анимация табов */
-  [role="tab"] {
-    transition: all 0.2s ease-in-out;
-  }
-
-  [role="tab"]:hover {
-    transform: translateY(-1px);
-  }
+  /* Анимация табов теперь в глобальных стилях base.css */
 </style>

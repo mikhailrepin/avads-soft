@@ -70,12 +70,12 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           Предназначены для визуализации и управления технологическими
           процессами в составе систем автоматизации.
         </p>
-        <div class="flex flex-wrap gap-4">
+        <div class="flex gap-3">
           <ButtonGeneric
             Variant="primary"
             Size="default"
             Style="filled"
-            CustomClass="w-fit lg:min-w-[180px]"
+            CustomClass="w-full md:w-fit lg:min-w-[180px]"
             Visible={!!asp.buttons?.buy}
             IconLeft={{
               IconSprite: "cart-fill",
@@ -90,7 +90,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
             Variant="primary"
             Size="default"
             Style="outlined"
-            CustomClass="w-fit lg:min-w-[180px]"
+            CustomClass="w-full md:w-fit lg:min-w-[180px]"
             Visible={!!asp.buttons?.price}
             IconLeft={{
               IconSprite: "",
@@ -471,7 +471,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   </div>
 
   <!-- Модификации АСП -->
-  <div class="flex flex-col mx-auto pt-16 pb-16 main-max-width">
+  <div class="flex flex-col mx-auto py-6 lg:py-16 main-max-width">
     <h2 class="text-3xl">Модификации АСП</h2>
     <p class="lg:max-w-[50vw] text-zinc-400 text-lg">
       Панели оператора {asp.device.name} для управления технологическими процессами
@@ -559,7 +559,8 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
       <b class="text-primary-200">АСП-7-T5:</b> модификация с&nbsp;экраном 7&nbsp;дюймов
       и&nbsp;установленным SSD на&nbsp;500&nbsp;Гб.
     </p>
-    <div class="flex gap-3 bg-zinc-800 my-10 p-6 rounded-md">
+    <div
+      class="flex lg:flex-row flex-col gap-3 bg-zinc-800 my-10 p-6 rounded-md">
       <ButtonGeneric
         ButtonLabel={`Купить ${asp.device.name}`}
         Size="big"
@@ -575,7 +576,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
         ButtonLabel="Цены"
         Size="big"
         Style="outlined"
-        CustomClass="w-[132px]"
+        CustomClass="w-full lg:w-[132px]"
         Target="link"
         ButtonLink={asp.buttons?.price?.link}
       />

@@ -568,17 +568,17 @@
 
   /* Панель табов */
   .tabs-panel {
-    @apply relative flex gap-3 py-[16px];
+    @apply z-10 relative flex gap-3 py-[16px];
 
     /* Псевдоэлемент для разделительной линии */
     &::after {
       content: "";
-      @apply right-0 bottom-[16px] left-0 absolute bg-zinc-800 h-[1px];
+      @apply right-0 bottom-0 md:bottom-[16px] left-0 absolute bg-zinc-800 h-[1px];
     }
 
     /* Кнопки табов */
     & button {
-      @apply z-10 relative pb-1 border-zinc-500 border-b focus:outline-none text-zinc-400 text-lg;
+      @apply z-10 relative pb-3 border-transparent border-b focus:outline-none text-zinc-400 text-lg transition-all duration-200;
 
       &:hover {
         @apply text-zinc-100;
@@ -591,6 +591,19 @@
       /* Активная кнопка таба */
       &.active {
         @apply border-primary-400 text-primary-300;
+      }
+    }
+
+    /* Стили для ProductTabs - увеличенные отступы для основной навигации */
+    &.product-tabs {
+      @apply gap-4 lg:gap-8 mt-0 mb-10;
+
+      /* Мобильные стили для sticky навигации */
+      @apply max-md:top-[48px] max-md:z-[999] max-md:sticky max-md:bg-zinc-950 max-md:shadow-lg max-md:shadow-zinc-950 max-md:pb-0;
+
+      /* Кнопки с иконками */
+      & button {
+        @apply flex items-center gap-2 font-semibold text-xl uppercase;
       }
     }
   }
