@@ -83,6 +83,11 @@ export interface TabsProps {
   storageKey?: string;
 }
 
+// Интерфейс для BgBlurSpot компонента
+export interface BgSpotProps {
+  customClass?: string;
+}
+
 // Типы для продуктов
 export interface SoftProduct {
   id: string;
