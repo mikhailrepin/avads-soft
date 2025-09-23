@@ -71,12 +71,14 @@ import helpers from "@/data/helpers.json";
 
     <!-- Область с формой -->
     <div class="form-wrapper">
-      <h3>Мы рады Вашему сообщению</h3>
-      <p class="text-zinc-400">
-        Отправьте сообщение через форму обратной связи, <br /> чтобы мы могли связаться
-        с Вами
-      </p>
-      <FeedbackForm />
+      <div class="lg:top-[80px] lg:sticky flex flex-col gap-4">
+        <h3>Мы рады Вашему сообщению</h3>
+        <p class="text-zinc-400">
+          Отправьте сообщение через форму обратной связи, <br /> чтобы мы могли связаться
+          с Вами
+        </p>
+        <FeedbackForm />
+      </div>
     </div>
   </section>
 </Layout>

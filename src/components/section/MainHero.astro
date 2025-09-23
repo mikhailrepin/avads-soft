@@ -17,7 +17,7 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
 
 <style>
   .hero-wrapper {
-    @apply relative flex justify-center items-center bg-cover bg-no-repeat bg-center mx-auto py-[40px] w-full max-w-full min-h-[400px] overflow-hidden;
+    @apply relative flex justify-center items-center bg-cover bg-no-repeat bg-center mx-auto py-[40px] w-full max-w-full h-[50dvh] min-h-[400px] overflow-hidden;
     &::before {
       @apply top-0 left-0 z-10 absolute bg-zinc-950/60 lg:bg-zinc-950/80 backdrop-blur-sm lg:backdrop-blur-none w-full h-full;
       content: "";
