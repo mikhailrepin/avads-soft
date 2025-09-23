@@ -29,20 +29,17 @@ const heroBbackground = "/hero/pic_17.webp";
 
 <Layout pageTitle="Техподдержка">
   <MainHero backgroundUrl={heroBbackground}>
-    <div
-      class="flex lg:flex-row flex-col justify-between items-center gap-4 mx-auto w-[100%]">
-      <div class="w-full min-w-[50%]">
-        <h1 class="hero-title">
-          <span class="text-silver"
-            >Нужна помощь<br />с продуктами <span class="text-gold"
-              >{helpers.company.name}</span
-            >?</span
-          ><br />
-        </h1>
-        <h3 class="hero-description">
-          Выберите необходимый продукт<br /> для перехода к его документации
-        </h3>
-      </div>
+    <div class="content">
+      <h1 class="hero-title">
+        <span class="text-silver"
+          >Нужна помощь<br />с продуктами <span class="text-gold"
+            >{helpers.company.name}</span
+          >?</span
+        ><br />
+      </h1>
+      <h3 class="hero-description">
+        Выберите необходимый продукт<br /> для перехода к его документации
+      </h3>
     </div>
   </MainHero>
 

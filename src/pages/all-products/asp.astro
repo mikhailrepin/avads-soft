@@ -55,7 +55,7 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
   <!-- Hero Section -->
   <MainHero backgroundUrl={heroBbackground}>
     <div
-      class="flex lg:flex-row flex-col justify-between items-center gap-8 mx-auto w-full lg:min-h-[60vh]">
+      class="flex lg:flex-row flex-col justify-between items-center gap-8 mx-auto w-full">
       <div class="w-full lg:w-[50%]">
         <h1 class="mb-6 hero-title">
           <span class="text-silver">ПАНЕЛИ&nbsp;ОПЕРАТОРА</span><br />
@@ -66,10 +66,10 @@ const downloadLink = asp.buttons?.buy?.link || "/downloads";
           alt={asp.device.name}
           class="lg:hidden block w-full h-auto object-contain"
         />
-        <p class="mb-8 hero-description">
+        <h3 class="mb-8 hero-description">
           Предназначены для&nbsp;визуализации и&nbsp;управления технологическими
           процессами в&nbsp;составе систем автоматизации.
-        </p>
+        </h3>
         <div class="flex gap-3">
           <ButtonGeneric
             Variant="primary"
