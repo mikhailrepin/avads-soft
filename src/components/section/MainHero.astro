@@ -1,13 +1,15 @@
 ---
 interface MainHeroProps {
   backgroundUrl: string;
+  compensateBreadcrumbs?: boolean;
 }
 
-const { backgroundUrl } = Astro.props as MainHeroProps;
+const { backgroundUrl, compensateBreadcrumbs = false } =
+  Astro.props as MainHeroProps;
 ---
 
 <section
-  class="lg:bg-fixed hero-wrapper"
+  class={`lg:bg-fixed hero-wrapper ${compensateBreadcrumbs ? "hero-wrapper--compensated" : ""}`}
   style={`background-image: url(${backgroundUrl});`}>
   <!-- Область контента -->
   <div class="content-area main-max-width">
@@ -29,5 +31,10 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
         @apply flex flex-col justify-center gap-4 mx-auto w-[100%];
       }
     }
+  }
+
+  /* Компенсированная версия для главной страницы */
+  .hero-wrapper--compensated {
+    @apply lg:h-[calc(50vh+40px)];
   }
 </style>

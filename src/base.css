@@ -5,6 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer components {
   * {
     @apply outline-none text-pretty select-none;
