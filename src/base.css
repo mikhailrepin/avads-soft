@@ -197,7 +197,7 @@
 
   /* Глобальный ограничитель ширины контейнера */
   .main-max-width {
-    @apply px-[24px];
+    @apply px-4 lg:px-[24px];
     max-width: 1240px;
 
     &.no-padding {

@@ -10,14 +10,14 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
   class="lg:bg-fixed hero-wrapper"
   style={`background-image: url(${backgroundUrl});`}>
   <!-- Область контента -->
-  <div class="px-0 content-area main-max-width">
+  <div class="content-area main-max-width">
     <slot />
   </div>
 </section>
 
 <style is:global>
   .hero-wrapper {
-    @apply relative flex justify-center items-center bg-cover bg-no-repeat bg-center py-[40px] w-full h-[50dvh] min-h-[400px] overflow-hidden;
+    @apply relative flex justify-center items-center bg-cover bg-no-repeat bg-center py-[40px] w-full h-fit lg:h-[50vh] min-h-fit overflow-hidden;
     &::before {
       @apply top-0 left-0 z-10 absolute bg-zinc-950/60 lg:bg-zinc-950/80 backdrop-blur-sm lg:backdrop-blur-none w-full h-full;
       content: "";
