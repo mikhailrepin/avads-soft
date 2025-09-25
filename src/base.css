@@ -379,7 +379,7 @@
 
   /* Базовая карточка продукта */
   .product-card {
-    @apply border-zinc-900 p-[32px] border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
+    @apply border-zinc-900 p-3 lg:p-8 border rounded-[8px] w-full hover:bg-zinc-900/20 transition-all duration-200;
     scroll-margin-top: 80px;
   }
 

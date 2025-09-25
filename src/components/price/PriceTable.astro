@@ -56,7 +56,7 @@ const { prices } = Astro.props;
 
 <style>
   table tr td {
-    @apply lg:text-[0.9rem] text-nowrap;
+    @apply max-md:overflow-hidden lg:text-[0.9rem] text-ellipsis text-nowrap;
   }
   tbody tr td {
     @apply text-center;
