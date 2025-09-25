@@ -232,7 +232,7 @@
   }
 
   .hero-title {
-    @apply lg:text-5xl uppercase tracking-[0.10rem] !important;
+    @apply text-2xl lg:text-5xl uppercase tracking-[0.10rem] !important;
   }
 
   .medium-heading {
