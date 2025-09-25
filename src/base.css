@@ -354,7 +354,7 @@
 
   /* Боковая навигационная панель для всех компонентов с сетками продуктов */
   .product-nav-bar {
-    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900 lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];
+    @apply top-[60px] lg:top-[80px] sticky bg-zinc-900/70 backdrop-blur-sm lg:bg-zinc-900/20 border-zinc-900 px-[8px] py-[8px] lg:py-[32px] lg:px-[16px] border rounded-[8px] w-full lg:w-[400px] lg:min-w-[200px] h-fit max-h-[500px] overflow-hidden transition-all duration-200 z-[20];
 
     /* Стили для списка навигации */
     & ul {
