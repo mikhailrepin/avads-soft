@@ -10,7 +10,7 @@ const { backgroundUrl } = Astro.props as MainHeroProps;
   class="lg:bg-fixed hero-wrapper"
   style={`background-image: url(${backgroundUrl});`}>
   <!-- Область контента -->
-  <div class="max-md:px-0 content-area main-max-width">
+  <div class="px-0 content-area main-max-width">
     <slot />
   </div>
 </section>
