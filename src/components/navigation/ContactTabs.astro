@@ -1,0 +1,185 @@
+---
+import helpers from "@/data/helpers.json";
+
+interface Props {
+  customClass?: string;
+}
+
+const { customClass = "" } = Astro.props;
+
+const companies = [
+  { id: "company", data: helpers.company },
+  { id: "companyHard", data: helpers.companyHard },
+  { id: "companyInsat", data: helpers.companyInsat },
+];
+
+const tabsClass = `tabs-panel contact-tabs ${customClass} lg:mx-8 !lg:mb-0 max-md:pb-0`;
+---
+
+<div
+  class={tabsClass}
+  role="tablist"
+  aria-label="Контакты компаний">
+  {
+    companies.map((company, index) => (
+      <button
+        role="tab"
+        data-company={company.id}
+        aria-controls={`${company.id}-panel`}
+        aria-selected={index === 0 ? "true" : "false"}
+        id={`${company.id}-tab`}
+        class={index === 0 ? "active" : "lg:mx-1"}>
+        <span class="!font-medium max-md:text-[16px]">
+          {company.data.fullName}
+        </span>
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  // Инициализация табов при загрузке DOM
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabsPanels = document.querySelectorAll(".contact-tabs");
+
+    tabsPanels.forEach((panel) => {
+      const tabs = panel.querySelectorAll("button[role='tab']");
+
+      // Функция для активации таба
+      function activateTab(targetTab: Element, skipAnimation = false) {
+        // Обновляем состояние табов
+        tabs.forEach((t) => {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
+        });
+        targetTab.classList.add("active");
+        targetTab.setAttribute("aria-selected", "true");
+
+        // Обновляем панели контента
+        const ariaControls = targetTab.getAttribute("aria-controls");
+        if (ariaControls) {
+          const activePanel = document.getElementById(ariaControls);
+          const tabPanels = document.querySelectorAll(
+            "[role='tabpanel'][data-contact-panel]"
+          );
+
+          if (activePanel) {
+            if (skipAnimation) {
+              // Быстрое переключение без анимации
+              tabPanels.forEach((p) => {
+                if (p !== activePanel) {
+                  p.classList.remove(
+                    "block",
+                    "opacity-100",
+                    "h-auto",
+                    "overflow-visible"
+                  );
+                  p.classList.add("opacity-0", "h-0", "overflow-hidden");
+                } else {
+                  p.classList.remove("opacity-0", "h-0", "overflow-hidden");
+                  p.classList.add(
+                    "block",
+                    "opacity-100",
+                    "h-auto",
+                    "overflow-visible"
+                  );
+                }
+              });
+            } else {
+              // Анимированное переключение
+              // Этап 1: Плавно скрываем прозрачность всех неактивных панелей
+              tabPanels.forEach((p) => {
+                if (p !== activePanel) {
+                  p.classList.remove("opacity-100");
+                  p.classList.add("opacity-0");
+                }
+              });
+
+              // Этап 2: После fade-out уменьшаем высоту неактивных панелей
+              setTimeout(() => {
+                tabPanels.forEach((p) => {
+                  if (p !== activePanel) {
+                    p.classList.remove("block", "h-auto", "overflow-visible");
+                    p.classList.add("h-0", "overflow-hidden");
+                  }
+                });
+
+                // Этап 3: Показываем активную панель - сначала высота
+                activePanel.classList.remove("h-0", "overflow-hidden");
+                activePanel.classList.add(
+                  "block",
+                  "h-auto",
+                  "overflow-visible"
+                );
+
+                // Этап 4: Затем плавно показываем прозрачность
+                setTimeout(() => {
+                  activePanel.classList.remove("opacity-0");
+                  activePanel.classList.add("opacity-100");
+                }, 50);
+              }, 150);
+            }
+          }
+        }
+      }
+
+      // Обработчики клика на табы
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", (e) => {
+          e.preventDefault();
+          activateTab(tab);
+        });
+
+        // Эффект прозрачности при наведении
+        tab.addEventListener("mouseenter", () => {
+          tabs.forEach((otherTab) => {
+            if (otherTab !== tab) {
+              (otherTab as HTMLElement).style.opacity = "0.6";
+            }
+          });
+        });
+
+        tab.addEventListener("mouseleave", () => {
+          tabs.forEach((otherTab) => {
+            (otherTab as HTMLElement).style.opacity = "1";
+          });
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Анимированное скрытие/показ контента */
+  [role="tabpanel"][data-contact-panel] {
+    transform: translateY(10px);
+    transition:
+      opacity 0.3s ease-in-out,
+      height 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+    will-change: height, opacity, transform;
+  }
+
+  [role="tabpanel"][data-contact-panel].block {
+    transform: translateY(0);
+  }
+
+  /* Плавные переходы для высоты */
+  [role="tabpanel"][data-contact-panel].h-0 {
+    height: 0 !important;
+    min-height: 0 !important;
+  }
+
+  [role="tabpanel"][data-contact-panel].h-auto {
+    height: auto !important;
+  }
+
+  /* Специфичные стили для вкладок контактов */
+  .contact-tabs {
+    @apply mb-6;
+
+    & button {
+      @apply font-semibold;
+    }
+  }
+</style>

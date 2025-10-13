@@ -1,0 +1,110 @@
+---
+import helpers from "@/data/helpers.json";
+
+const companies = [
+  { id: "company", data: helpers.company },
+  { id: "companyHard", data: helpers.companyHard },
+  { id: "companyInsat", data: helpers.companyInsat },
+];
+---
+
+<div class="tab-content">
+  {
+    companies.map((company, index) => (
+      <div
+        role="tabpanel"
+        id={`${company.id}-panel`}
+        aria-labelledby={`${company.id}-tab`}
+        class={
+          index === 0
+            ? "block opacity-100 h-auto overflow-visible tab-panel"
+            : "opacity-0 h-0 overflow-hidden tab-panel"
+        }
+        data-contact-panel
+        data-company={company.id}>
+        <div class="content-box">
+          <div class="contact-card">
+            <a
+              class="text-2xl"
+              href={`tel:${company.data.phone}`}>
+              {company.data.phone}
+            </a>
+            <a
+              class="text-xl"
+              href={`mailto:${company.data.mail.sales}`}>
+              {company.data.mail.sales}
+            </a>
+            <p class="text-zinc-300">По вопросам закупок</p>
+          </div>
+          <div class="flex lg:flex-row flex-col gap-4">
+            <div class="contact-card">
+              <a
+                class="text-xl"
+                href={`mailto:${company.data.mail.info}`}>
+                {company.data.mail.info}
+              </a>
+              <p class="text-zinc-300">По общим вопросам</p>
+            </div>
+            <div class="contact-card">
+              <a
+                class="text-xl"
+                href={`mailto:${company.data.mail.support}`}>
+                {company.data.mail.support}
+              </a>
+              <p class="text-zinc-300">Техническая поддержка</p>
+            </div>
+          </div>
+        </div>
+        <div class="content-box">
+          <h3>Адрес</h3>
+          <p class="text-zinc-300">{company.data.location.address}</p>
+          <a
+            class="text-zinc-500 hover:text-primary-400 hover:underline"
+            href={company.data.location.map}
+            target="_blank">
+            Показать на карте
+          </a>
+        </div>
+        <div class="content-box">
+          <h3>Реквизиты</h3>
+          <p
+            class="text-zinc-300 leading-[1.8]"
+            set:html={company.data.requisites}
+          />
+          <hr class="separator silver" />
+          <p class="text-zinc-300 leading-[1.8]">
+            <span class="font-semibold text-lg">
+              Почтовый и юридический адрес:
+            </span>
+            <br />
+            {company.data.location.address}
+          </p>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .tab-content {
+    @apply w-full;
+  }
+
+  .tab-panel {
+    @apply flex flex-col gap-4 w-full;
+  }
+
+  .content-box {
+    @apply flex flex-col gap-4 lg:px-8 lg:py-4;
+    & h3 {
+      @apply mb-2;
+    }
+  }
+
+  .contact-card {
+    @apply flex flex-col justify-center items-center gap-2 p-6 border-2 border-zinc-800 hover:border-zinc-600 rounded-md w-full transition-all duration-300;
+    & a {
+      @apply font-semibold text-primary-300 hover:text-primary-400 hover:underline;
+    }
+  }
+</style>
