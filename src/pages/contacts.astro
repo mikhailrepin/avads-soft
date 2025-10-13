@@ -7,65 +7,68 @@ import helpers from "@/data/helpers.json";
 <Layout pageTitle="Контакты">
   <section class="content-wrapper main-max-width">
     <!-- Область с контактами -->
-    <div class="contacts-wrapper">
-      <div class="content-box">
-        <h3>Каналы связи</h3>
-        <div class="contact-card">
-          <a
-            class="text-2xl"
-            href={`tel:${helpers.company.phone}`}>
-            {helpers.company.phone}
-          </a>
-          <a
-            class="text-xl"
-            href={`mailto:${helpers.company.mail.sales}`}>
-            {helpers.company.mail.sales}
-          </a>
-          <p class="text-zinc-300">По вопросам закупок</p>
-        </div>
-        <div class="flex lg:flex-row flex-col gap-4">
+    <div class="lg:bg-zinc-900/70 lg:py-4 rounded-lg contacts-wrapper">
+      <!-- Панель вкладок -->
+      <div class="flex flex-col">
+        <div class="content-box">
+          <h3>Каналы связи</h3>
           <div class="contact-card">
             <a
-              class="text-xl"
-              href={`mailto:${helpers.company.mail.info}`}>
-              {helpers.company.mail.info}
+              class="text-2xl"
+              href={`tel:${helpers.company.phone}`}>
+              {helpers.company.phone}
             </a>
-            <p class="text-zinc-300">По общим вопросам</p>
-          </div>
-          <div class="contact-card">
             <a
               class="text-xl"
-              href={`mailto:${helpers.company.mail.support}`}>
-              {helpers.company.mail.support}
+              href={`mailto:${helpers.company.mail.sales}`}>
+              {helpers.company.mail.sales}
             </a>
-            <p class="text-zinc-300">Техническая поддержка</p>
+            <p class="text-zinc-300">По вопросам закупок</p>
+          </div>
+          <div class="flex lg:flex-row flex-col gap-4">
+            <div class="contact-card">
+              <a
+                class="text-xl"
+                href={`mailto:${helpers.company.mail.info}`}>
+                {helpers.company.mail.info}
+              </a>
+              <p class="text-zinc-300">По общим вопросам</p>
+            </div>
+            <div class="contact-card">
+              <a
+                class="text-xl"
+                href={`mailto:${helpers.company.mail.support}`}>
+                {helpers.company.mail.support}
+              </a>
+              <p class="text-zinc-300">Техническая поддержка</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="content-box">
-        <h3>Адрес</h3>
-        <p class="text-zinc-300">{helpers.company.location.address}</p>
-        <a
-          class="text-zinc-500 hover:text-primary-400 hover:underline"
-          href={helpers.company.location.map}
-          target="_blank">
-          Показать на карте
-        </a>
-      </div>
-      <div class="content-box">
-        <h3>Реквизиты</h3>
-        <p
-          class="text-zinc-300 leading-[1.8]"
-          set:html={helpers.company.requisites}
-        />
-        <hr class="separator silver" />
-        <p class="text-zinc-300 leading-[1.8]">
-          <span class="font-semibold text-lg"
-            >Почтовый и юридический адрес:</span
-          >
-          <br />
-          {helpers.company.location.address}
-        </p>
+        <div class="content-box">
+          <h3>Адрес</h3>
+          <p class="text-zinc-300">{helpers.company.location.address}</p>
+          <a
+            class="text-zinc-500 hover:text-primary-400 hover:underline"
+            href={helpers.company.location.map}
+            target="_blank">
+            Показать на карте
+          </a>
+        </div>
+        <div class="content-box">
+          <h3>Реквизиты</h3>
+          <p
+            class="text-zinc-300 leading-[1.8]"
+            set:html={helpers.company.requisites}
+          />
+          <hr class="separator silver" />
+          <p class="text-zinc-300 leading-[1.8]">
+            <span class="font-semibold text-lg"
+              >Почтовый и юридический адрес:</span
+            >
+            <br />
+            {helpers.company.location.address}
+          </p>
+        </div>
       </div>
     </div>
 
@@ -100,7 +103,7 @@ import helpers from "@/data/helpers.json";
   }
 
   .content-box {
-    @apply flex flex-col gap-4 lg:bg-zinc-900/70 lg:p-8 rounded-lg;
+    @apply flex flex-col gap-4 lg:px-8 lg:py-4;
     & h3 {
       @apply mb-2;
     }
