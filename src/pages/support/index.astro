@@ -2,7 +2,6 @@
 import Layout from "@/layouts/Layout.astro";
 import MainHero from "@/components/section/MainHero.astro";
 import CallToAction from "@/components/section/CallToAction.astro";
-import SupportHero from "@/components/section/SupportHero.astro";
 import prodSoftData from "@/data/prodSoft.json";
 import prodHardData from "@/data/prodHard.json";
 import helpers from "@/data/helpers.json";
@@ -45,8 +44,6 @@ const heroBbackground = "/hero/pic_17.webp";
 
   <!-- Продукты -->
   <div class="flex flex-col mx-auto mt-[24px] main-max-width">
-    <h2 class="pt-[16px] text-3xl">Продукты</h2>
-
     <ProductTabsNavigation />
 
     <TabContent>

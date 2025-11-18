@@ -24,7 +24,7 @@ import prodSoft from "@/data/prodSoft.json";
 import PlatformsData from "@/assets/products/sar-expert/platforms.json";
 
 /* Variables */
-const heroBbackground = "/hero/pic_17.webp";
+const heroBbackground = "/hero/pic_19.webp";
 
 const sarExpert = prodSoft.products.find(
   (product) => product.id === "sar-expert"
@@ -264,7 +264,7 @@ const advantages = [
     <div
       class="gap-[32px] grid grid-cols-1 lg:grid-cols-2 mx-auto main-max-width">
       <!-- Кривая разгона -->
-      <div class="bordered text-card">
+      <div class="text-card bordered">
         <Image
           src={trendAcceleration}
           alt="Кривая разгона"
@@ -274,7 +274,7 @@ const advantages = [
       </div>
 
       <!-- Импульсное изменение задания -->
-      <div class="bordered text-card">
+      <div class="text-card bordered">
         <Image
           src={trendImpulseTask}
           alt="Импульсное изменение задания"
@@ -284,7 +284,7 @@ const advantages = [
       </div>
 
       <!-- Ступенчатое изменение задания -->
-      <div class="bordered text-card">
+      <div class="text-card bordered">
         <Image
           src={trendStepwise}
           alt="Ступенчатое изменение задания"
@@ -296,7 +296,7 @@ const advantages = [
       </div>
 
       <!-- Импульсное изменение положения клапана -->
-      <div class="bordered text-card">
+      <div class="text-card bordered">
         <Image
           src={trendImpulseValve}
           alt="Импульсное изменение положения клапана"
