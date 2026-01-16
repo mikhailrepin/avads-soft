@@ -1,0 +1,196 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import type { Post } from "@/types/interfaces";
+import { formatTitle, formatDescription } from "@/utils/grammar";
+
+interface Props {
+  frontmatter: Post;
+}
+
+interface PostFile {
+  frontmatter: Post;
+  file: string;
+}
+
+const { frontmatter } = Astro.props;
+const { title, description, date, image } = frontmatter;
+
+// Форматируем заголовок и описание
+const formattedTitle = formatTitle(title);
+const formattedDescription = formatDescription(description);
+
+// Добавим отладочный вывод
+console.log("BlogPostLayout: Форматирование текста");
+console.log("Исходный заголовок:", title);
+console.log("Отформатированный заголовок:", formattedTitle);
+
+// Ограничиваем длину заголовка до 60 символов
+const truncatedTitle = title.length > 60 ? title.slice(0, 60) + "..." : title;
+
+// Форматируем дату так же, как в PostCard
+const formattedDate = new Date(
+  date.split(".").reverse().join("-")
+).toLocaleDateString("ru-RU", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+// Получаем все посты и сортируем их по дате
+const posts = await import.meta.glob<PostFile>("../pages/blog/*.md", {
+  eager: true,
+});
+const postsArray = Object.values(posts);
+const sortedPosts = postsArray
+  .filter((post): post is PostFile => {
+    if (!post || !post.frontmatter) return false;
+    try {
+      const date = new Date(post.frontmatter.date);
+      return (
+        Boolean(post.frontmatter.title) &&
+        Boolean(post.frontmatter.description) &&
+        Boolean(post.frontmatter.date) &&
+        Boolean(post.frontmatter.image) &&
+        !isNaN(date.getTime())
+      );
+    } catch {
+      return false;
+    }
+  })
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  );
+
+// Находим индекс текущего поста
+const currentIndex = sortedPosts.findIndex(
+  (post) => post.frontmatter.title === title
+);
+
+// Получаем предыдущий и следующий посты
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const nextPost =
+  currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+
+// Проверяем валидность постов
+const validPrevPost =
+  prevPost && prevPost.frontmatter && prevPost.frontmatter.title;
+const validNextPost =
+  nextPost && nextPost.frontmatter && nextPost.frontmatter.title;
+---
+
+<Layout pageTitle={title}>
+  <article class="mx-auto main-max-width">
+    <!-- Секция с заголовком -->
+    <div
+      class="relative flex flex-col justify-center items-start bg-zinc-900 bg-cover bg-center my-4 px-8 lg:px-10 rounded-lg w-full min-h-[30dvh] lg:min-h-[40dvh] overflow-hidden"
+      style={`background-image: url('${image}')`}>
+      <!-- Затемняющий слой -->
+      <div class="absolute inset-0 bg-zinc-950/80"></div>
+
+      <!-- Контент поверх изображения -->
+      <div class="z-10 relative">
+        <h1 class="post-title">
+          {formattedTitle}
+        </h1>
+        <div class="flex items-center gap-2 w-fit font-medium text-zinc-400">
+          <svg class="w-[16px] h-[16px]">
+            <use xlink:href="/sprites.svg#calendar-single-fill"></use>
+          </svg>
+          <time>{formattedDate}</time>
+        </div>
+      </div>
+    </div>
+
+    <!-- Описание и контент -->
+    <div class="bg-zinc-900/50 px-2 lg:px-4 py-8 lg:py-12 rounded-lg">
+      <h4
+        class="mx-auto mb-8 font-semibold text-zinc-200 text-xl lg:text-2xl content-wrapper">
+        {formattedDescription}
+      </h4>
+      <div class="content-wrapper prose-container">
+        <slot />
+      </div>
+    </div>
+
+    <!-- Навигация между постами -->
+    <div
+      class="items-center grid grid-cols-3 bg-zinc-900/50 lg:bg-zinc-900/0 my-5 lg:my-8 p-2 lg:px-0 lg:py-5 border border-zinc-600 lg:border-0 lg:border-t rounded-lg lg:rounded-none w-full">
+      <!-- Левая кнопка -->
+      <div class="justify-self-start">
+        {
+          prevPost && (
+            <ButtonGeneric
+              Variant="secondary"
+              Size="default"
+              Style="ghosted"
+              IconLeft={{
+                IconSprite: "chevron-left-big-outline",
+                IconVisible: true,
+              }}
+              ButtonLabel={prevPost.frontmatter.title}
+              ButtonLink={`/blog/${prevPost.file.split("/").pop()?.replace(".md", "")}`}
+              Target="link"
+              CustomClass="only-desktop"
+            />
+          )
+        }
+      </div>
+
+      {/* Центральная кнопка */}
+      <div class="justify-self-center">
+        <ButtonGeneric
+          Variant="secondary"
+          Size="default"
+          Style="ghosted"
+          ButtonLabel="Все статьи блога"
+          ButtonLink="/blog"
+          Target="link"
+          CustomClass="w-fit"
+        />
+      </div>
+
+      {/* Правая кнопка */}
+      <div class="justify-self-end">
+        {
+          nextPost && (
+            <ButtonGeneric
+              Variant="secondary"
+              Size="default"
+              Style="ghosted"
+              IconRight={{
+                IconSprite: "chevron-right-big-outline",
+                IconVisible: true,
+              }}
+              ButtonLabel={nextPost.frontmatter.title}
+              ButtonLink={`/blog/${nextPost.file.split("/").pop()?.replace(".md", "")}`}
+              Target="link"
+              CustomClass="only-desktop"
+            />
+          )
+        }
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .post-title {
+    @apply mb-4 font-bold text-2xl lg:text-4xl break-words !important;
+    max-width: 90%;
+  }
+
+  .content-wrapper {
+    @apply mx-auto;
+    max-width: 800px; /* Оптимальная ширина для чтения */
+  }
+
+  /* Адаптация для мобильных устройств */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 0 24px;
+    }
+  }
+</style>

@@ -8,6 +8,8 @@ interface Props {
   showAllNewsButton?: boolean;
   currentPage?: number;
   totalPages?: number;
+  basePath?: string;
+  allButtonLabel?: string;
 }
 
 const {
@@ -15,6 +17,8 @@ const {
   showAllNewsButton = false,
   currentPage = 1,
   totalPages = 1,
+  basePath = "/news",
+  allButtonLabel = "Все новости",
 } = Astro.props;
 
 // Функция для определения количества карточек в первом ряду в зависимости от брейкпоинта
@@ -79,8 +83,8 @@ function getPaginationRange(current: number, total: number) {
           IconSprite: "chevron-right-big-outline",
           IconVisible: true,
         }}
-        ButtonLabel="Все новости"
-        ButtonLink="/news"
+        ButtonLabel={allButtonLabel}
+        ButtonLink={basePath}
         Target="link"
         CustomClass="w-fit"
       />
@@ -95,7 +99,7 @@ function getPaginationRange(current: number, total: number) {
               IconSprite: "chevron-left-big-outline",
               IconVisible: true,
             }}
-            ButtonLink={`/news?page=${currentPage - 1}`}
+            ButtonLink={`${basePath}?page=${currentPage - 1}`}
             Target="link"
             CustomClass={`w-fit ${currentPage <= 1 ? "pointer-events-none opacity-50" : ""}`}
           />
@@ -107,7 +111,7 @@ function getPaginationRange(current: number, total: number) {
                 Size="default"
                 Style={currentPage === item.value ? "filled" : "ghosted"}
                 ButtonLabel={item.value.toString()}
-                ButtonLink={`/news/${item.value}`}
+                ButtonLink={`${basePath}/${item.value}`}
                 Target="link"
                 CustomClass={`w-fit ${currentPage === item.value ? "pointer-events-none" : ""}`}
               />
@@ -124,7 +128,7 @@ function getPaginationRange(current: number, total: number) {
               IconSprite: "chevron-right-big-outline",
               IconVisible: true,
             }}
-            ButtonLink={`/news/${currentPage + 1}`}
+            ButtonLink={`${basePath}/${currentPage + 1}`}
             Target="link"
             CustomClass={`w-fit ${currentPage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
           />

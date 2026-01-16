@@ -1,0 +1,23 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PostsGrid from "@/components/section/PostsGrid.astro";
+import { getBlogPosts } from "@/utils/blog";
+
+const postsPerPage = 6;
+const { totalPages, formatPosts } = await getBlogPosts(postsPerPage);
+const currentPage = 1;
+const posts_to_show = formatPosts(0, postsPerPage);
+---
+
+<Layout pageTitle="Блог">
+  <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
+    <h1 class="mb-8 font-bold text-4xl">Блог компании</h1>
+    <PostsGrid
+      posts={posts_to_show}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      basePath="/blog"
+      allButtonLabel="Все статьи блога"
+    />
+  </section>
+</Layout>

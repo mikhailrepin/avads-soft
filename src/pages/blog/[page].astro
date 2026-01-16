@@ -1,0 +1,40 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PostsGrid from "@/components/section/PostsGrid.astro";
+import { getBlogPosts } from "@/utils/blog";
+
+export async function getStaticPaths() {
+  const postsPerPage = 6;
+  const { totalPages, formatPosts } = await getBlogPosts(postsPerPage);
+
+  return Array.from({ length: totalPages }, (_, i) => {
+    const pageNum = i + 1;
+    const pageStart = i * postsPerPage;
+    const pageEnd = pageStart + postsPerPage;
+
+    return {
+      params: { page: pageNum.toString() },
+      props: {
+        posts: formatPosts(pageStart, pageEnd),
+        currentPage: pageNum,
+        totalPages,
+      },
+    };
+  });
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+---
+
+<Layout pageTitle="Блог">
+  <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
+    <h1 class="mb-8 font-bold text-4xl">Блог компании</h1>
+    <PostsGrid
+      posts={posts}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      basePath="/blog"
+      allButtonLabel="Все статьи блога"
+    />
+  </section>
+</Layout>
