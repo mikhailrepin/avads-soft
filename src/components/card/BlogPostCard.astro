@@ -1,0 +1,184 @@
+---
+import { Image } from "astro:assets";
+import type { Post } from "@/types/interfaces";
+
+interface Props {
+  post: Post;
+  isFirstRow?: boolean;
+}
+
+const { post, isFirstRow = false } = Astro.props;
+const { title, description, date, image, author, avatar } = post;
+
+// Парсим дату из формата YYYY-MM-DD и форматируем в "dd месяца yyyy г."
+const formattedDate = new Date(
+  date.includes(".") ? date.split(".").reverse().join("-") : date
+).toLocaleDateString("ru-RU", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+// Определяем, является ли изображение локальным
+const isLocalImage = !image.startsWith("http");
+---
+
+<!-- Карточка поста блога -->
+<div class="group blog-post-card">
+  <a
+    href={post.url}
+    class="top-0 left-0 z-10 absolute w-full h-full"
+    aria-label={`Читать статью: ${title}`}
+  ></a>
+  <!-- Изображение поста -->
+  <div class="animate-pulse [&:has(img.loaded)]:animate-none image-container">
+    {
+      isLocalImage ? (
+        <img
+          src={image}
+          alt={title}
+          width={400}
+          height={225}
+          loading={isFirstRow ? "eager" : "lazy"}
+          class="invisible top-0 left-0 z-[2] absolute w-full h-full object-cover group-hover:scale-105 transition-all"
+        />
+      ) : (
+        <Image
+          src={image}
+          alt={title}
+          width={400}
+          height={225}
+          loading={isFirstRow ? "eager" : "lazy"}
+          class="invisible top-0 left-0 z-[2] absolute w-full h-full object-cover group-hover:scale-105 transition-all"
+        />
+      )
+    }
+  </div>
+  <!-- Контент поста -->
+  <div class="content-container">
+    <!-- Заголовок -->
+    <div class="relative overflow-hidden title-wrapper">
+      <span class="invisible group-hover:text-primary-300 title">{title}</span>
+      <div class="top-[8px] h-[16px] animate-pulse skeleton-layer"></div>
+      <div class="bottom-[6px] h-[16px] animate-pulse skeleton-layer"></div>
+    </div>
+    <!-- Описание -->
+    <div class="relative overflow-hidden description-wrapper">
+      <p class="invisible description">{description}</p>
+      <div class="top-[6px] h-[12px] animate-pulse skeleton-layer"></div>
+      <div class="top-[30px] h-[12px] animate-pulse skeleton-layer"></div>
+      <div class="bottom-[6px] h-[12px] animate-pulse skeleton-layer"></div>
+    </div>
+  </div>
+  <!-- Футер с автором и датой -->
+  <footer class="blog-card-footer">
+    <div class="author-info">
+      <img
+        src={avatar ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            (author || "A")
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+              .slice(0, 2)
+          )}&background=6366f1&color=fff&size=32&bold=true`}
+        alt={author || "Автор"}
+        class="author-avatar"
+        width="32"
+        height="32"
+        loading="lazy"
+      />
+      <div class="flex flex-col">
+        <span class="author-name">{author || "Автор"}</span>
+        <time
+          class="post-date"
+          datetime={date}
+          >{formattedDate}</time
+        >
+      </div>
+    </div>
+  </footer>
+</div>
+
+<style>
+  .blog-post-card {
+    @apply relative flex flex-col border border-zinc-800 rounded-lg w-full min-h-[200px] overflow-hidden transition-all;
+    &:hover {
+      @apply bg-zinc-900/30;
+    }
+  }
+  .image-container {
+    @apply relative rounded-t-lg w-full min-w-[200px] h-[200px] aspect-video overflow-hidden;
+    &::before {
+      content: "";
+      @apply top-0 left-0 z-0 absolute bg-zinc-800 w-full h-full;
+    }
+  }
+  .content-container {
+    @apply flex flex-col flex-grow gap-[8px] px-6 pt-4 pb-4;
+    & .title {
+      @apply m-0 h-fit font-medium text-xl;
+      overflow-wrap: break-word;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    & .description {
+      @apply m-0 text-zinc-400;
+      overflow-wrap: break-word;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    & .skeleton-layer {
+      @apply left-0 z-0 absolute bg-zinc-800 rounded-[4px] w-full animate-pulse;
+    }
+  }
+  .blog-card-footer {
+    @apply flex justify-between items-center gap-4 px-6 py-4 border-zinc-800 border-t;
+  }
+  .author-info {
+    @apply flex items-center gap-3;
+  }
+  .author-avatar {
+    @apply flex-shrink-0 rounded-full w-8 h-8 object-cover;
+  }
+  .author-name {
+    @apply text-zinc-400 text-sm;
+  }
+  .post-date {
+    @apply text-zinc-500 text-sm whitespace-nowrap;
+  }
+</style>
+
+<script>
+  function showContent(card: HTMLElement) {
+    setTimeout(() => {
+      // Удаляем все скелетоны
+      card.querySelectorAll(".skeleton-layer").forEach((el) => el.remove());
+      // Показываем контент
+      card.querySelectorAll(".invisible").forEach((el) => {
+        el.classList.remove("invisible");
+        el.classList.add("visible");
+      });
+      // Удаляем animate-pulse у контейнера изображения
+      card.querySelector(".image-container")?.classList.remove("animate-pulse");
+    }, 100);
+  }
+
+  // Инициализация для каждой карточки
+  document.querySelectorAll(".blog-post-card").forEach((card) => {
+    const img = card.querySelector("img");
+    if (img) {
+      if (img.complete) {
+        showContent(card as HTMLElement);
+      } else {
+        img.addEventListener("load", () => {
+          showContent(card as HTMLElement);
+        });
+      }
+    }
+  });
+</script>

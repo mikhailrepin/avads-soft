@@ -67,6 +67,8 @@ export interface Post {
   date: string;
   image: string;
   url: string;
+  author?: string;
+  avatar?: string;
 }
 
 // Типы для контекста табов

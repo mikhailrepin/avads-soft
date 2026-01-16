@@ -4,8 +4,52 @@ export interface AstroPost {
     description: string;
     date: string;
     image: string;
+    author?: string;
   };
   file: string;
+}
+
+// Моковые имена авторов для генерации, если не указаны
+const MOCK_AUTHORS = [
+  "Александра Крупская",
+  "Иван Петров",
+  "Мария Смирнова",
+  "Алексей Иванов",
+  "Ольга Волкова",
+  "Дмитрий Соколов",
+];
+
+// Функция для генерации мокового аватара на основе имени
+function generateAvatarUrl(name: string): string {
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+  
+  // Генерируем цвет на основе имени (простой хэш)
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash % 360);
+  
+  // Используем UI Avatars API для генерации аватара (32px для соответствия стилям)
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=${hue},50%,40%&color=fff&size=32&bold=true`;
+}
+
+// Функция для получения мокового автора на основе названия поста
+function getMockAuthor(title: string, existingAuthor?: string): string {
+  if (existingAuthor) return existingAuthor;
+  
+  // Генерируем индекс на основе заголовка
+  let hash = 0;
+  for (let i = 0; i < title.length; i++) {
+    hash = title.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % MOCK_AUTHORS.length;
+  return MOCK_AUTHORS[index];
 }
 
 export async function getBlogPosts(postsPerPage: number = 6) {
@@ -41,12 +85,20 @@ export async function getBlogPosts(postsPerPage: number = 6) {
   return {
     totalPages,
     formatPosts: (start: number, end: number) =>
-      sortedPosts.slice(start, end).map((post) => ({
-        title: post.frontmatter.title,
-        description: post.frontmatter.description,
-        date: post.frontmatter.date,
-        image: post.frontmatter.image,
-        url: `/blog/${post.file.split("/").pop()?.replace(".md", "")}`,
-      })),
+      sortedPosts.slice(start, end).map((post) => {
+        const author = getMockAuthor(
+          post.frontmatter.title,
+          post.frontmatter.author
+        );
+        return {
+          title: post.frontmatter.title,
+          description: post.frontmatter.description,
+          date: post.frontmatter.date,
+          image: post.frontmatter.image,
+          url: `/blog/${post.file.split("/").pop()?.replace(".md", "")}`,
+          author,
+          avatar: generateAvatarUrl(author),
+        };
+      }),
   };
 }

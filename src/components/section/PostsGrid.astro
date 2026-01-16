@@ -1,5 +1,6 @@
 ---
 import PostCard from "@/components/card/PostCard.astro";
+import BlogPostCard from "@/components/card/BlogPostCard.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import type { Post } from "@/types/interfaces";
 
@@ -62,13 +63,22 @@ function getPaginationRange(current: number, total: number) {
 
 <div class="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
   {
-    posts.map((post, index) => (
-      <PostCard
-        post={post}
-        isFirstRow={index < maxFirstRowItems}
-        transition:animate="slide"
-      />
-    ))
+    posts.map((post, index) => {
+      const isBlog = basePath === "/blog";
+      return isBlog ? (
+        <BlogPostCard
+          post={post}
+          isFirstRow={index < maxFirstRowItems}
+          transition:animate="slide"
+        />
+      ) : (
+        <PostCard
+          post={post}
+          isFirstRow={index < maxFirstRowItems}
+          transition:animate="slide"
+        />
+      );
+    })
   }
 </div>
 
