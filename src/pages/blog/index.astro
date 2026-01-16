@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import PostsGrid from "@/components/section/PostsGrid.astro";
 import { getBlogPosts } from "@/utils/blog";
+import helpers from "@/data/helpers.json";
 
 const postsPerPage = 6;
 const { totalPages, formatPosts } = await getBlogPosts(postsPerPage);
@@ -11,7 +12,7 @@ const posts_to_show = formatPosts(0, postsPerPage);
 
 <Layout pageTitle="Блог">
   <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
-    <h1 class="mb-8 font-bold text-4xl">Блог компании</h1>
+    <h2 class="text-3xl">Блог {helpers.company.name}</h2>
     <PostsGrid
       posts={posts_to_show}
       currentPage={currentPage}
