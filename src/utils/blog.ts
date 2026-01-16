@@ -19,8 +19,37 @@ const MOCK_AUTHORS = [
   "Дмитрий Соколов",
 ];
 
-// Функция для генерации мокового аватара на основе имени
+// Функция для генерации URL аватара через Unsplash на основе имени
+// Используем детерминированный подход - для одного автора всегда один аватар
 function generateAvatarUrl(name: string): string {
+  // Генерируем хэш на основе имени для детерминированного выбора изображения
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  // Используем известные ID фотографий портретов из Unsplash
+  // Выбираем детерминированно на основе хэша имени
+  const portraitIds = [
+    "1507003211169-0a1dd7228f2d", "1494790108377-be9c29b29330", "1500648767791-00dcc994a43e",
+    "1472099645785-5658abf4ff4e", "1506794778202-cad84cf45f1d", "1508214751196-bcfd4ca60f91",
+    "1517841905240-472988babdf9", "1534528741775-53994a69daeb", "1527980965255-d3b416303d12",
+    "1544005313-94ddf0286df2", "1539571696357-5a69c17a67c6", "1521119989659-a83eee488004",
+    "1492562080023-ab3db95bfbce", "1531427186611-ecfd6d936c79", "1506794778202-cad84cf45f1d",
+    "1507003211169-0a1dd7228f2d", "1494790108377-be9c29b29330", "1500648767791-00dcc994a43e",
+    "1472099645785-5658abf4ff4e", "1506794778202-cad84cf45f1d", "1508214751196-bcfd4ca60f91",
+  ];
+  
+  const imageIndex = Math.abs(hash) % portraitIds.length;
+  const photoId = portraitIds[imageIndex];
+  
+  // Используем Unsplash CDN для получения изображения портрета
+  // Параметры: w=64&h=64 - размер, fit=crop&crop=faces - обрезка по лицам
+  return `https://images.unsplash.com/photo-${photoId}?w=64&h=64&fit=crop&crop=faces&auto=format&q=80`;
+}
+
+// Функция для генерации fallback аватара с инициалами
+export function generateFallbackAvatarUrl(name: string): string {
   const initials = name
     .split(" ")
     .map((n) => n[0])
@@ -35,7 +64,7 @@ function generateAvatarUrl(name: string): string {
   }
   const hue = Math.abs(hash % 360);
   
-  // Используем UI Avatars API для генерации аватара (32px для соответствия стилям)
+  // Используем UI Avatars API для генерации аватара с инициалами
   return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=${hue},50%,40%&color=fff&size=32&bold=true`;
 }
 
@@ -98,6 +127,7 @@ export async function getBlogPosts(postsPerPage: number = 6) {
           url: `/blog/${post.file.split("/").pop()?.replace(".md", "")}`,
           author,
           avatar: generateAvatarUrl(author),
+          fallbackAvatar: generateFallbackAvatarUrl(author),
         };
       }),
   };

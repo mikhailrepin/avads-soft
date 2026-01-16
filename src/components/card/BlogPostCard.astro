@@ -8,7 +8,16 @@ interface Props {
 }
 
 const { post, isFirstRow = false } = Astro.props;
-const { title, description, date, image, author, avatar } = post;
+const { title, description, date, image, author, avatar, fallbackAvatar } =
+  post;
+
+// Генерируем инициалы для fallback
+const initials = (author || "A")
+  .split(" ")
+  .map((n) => n[0])
+  .join("")
+  .toUpperCase()
+  .slice(0, 2);
 
 // Парсим дату из формата YYYY-MM-DD и форматируем в "dd месяца yyyy г."
 const formattedDate = new Date(
@@ -73,21 +82,29 @@ const isLocalImage = !image.startsWith("http");
   <!-- Футер с автором и датой -->
   <footer class="blog-card-footer">
     <div class="author-info">
-      <img
-        src={avatar ||
-          `https://ui-avatars.com/api/?name=${encodeURIComponent(
-            (author || "A")
-              .split(" ")
-              .map((n) => n[0])
-              .join("")
-              .slice(0, 2)
-          )}&background=6366f1&color=fff&size=32&bold=true`}
-        alt={author || "Автор"}
-        class="author-avatar"
-        width="32"
-        height="32"
-        loading="lazy"
-      />
+      <!-- Контейнер для аватара с fallback -->
+      <div
+        class="author-avatar-container"
+        data-author={author || "Автор"}
+        data-initials={initials}>
+        <img
+          src={avatar ||
+            fallbackAvatar ||
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=6366f1&color=fff&size=32&bold=true`}
+          alt={author || "Автор"}
+          class="author-avatar"
+          width="32"
+          height="32"
+          loading="lazy"
+          data-fallback-initials={initials}
+        />
+        <!-- Fallback с инициалами (скрыт по умолчанию) -->
+        <div
+          class="author-avatar-fallback"
+          style="display: none;">
+          <span class="author-initials">{initials}</span>
+        </div>
+      </div>
       <div class="flex flex-col">
         <span class="author-name">{author || "Автор"}</span>
         <time
@@ -142,8 +159,17 @@ const isLocalImage = !image.startsWith("http");
   .author-info {
     @apply flex items-center gap-3;
   }
+  .author-avatar-container {
+    @apply relative flex-shrink-0;
+  }
   .author-avatar {
-    @apply flex-shrink-0 rounded-full w-8 h-8 object-cover;
+    @apply rounded-full w-8 h-8 object-cover;
+  }
+  .author-avatar-fallback {
+    @apply justify-center items-center rounded-full w-8 h-8;
+  }
+  .author-initials {
+    @apply font-bold text-white text-xs;
   }
   .author-name {
     @apply text-zinc-400 text-sm;
@@ -168,9 +194,35 @@ const isLocalImage = !image.startsWith("http");
     }, 100);
   }
 
+  // Обработка ошибок загрузки аватаров
+  function setupAvatarFallback(avatarImg: HTMLImageElement) {
+    const container = avatarImg.closest(".author-avatar-container");
+    if (!container) return;
+
+    const fallback = container.querySelector(
+      ".author-avatar-fallback .bg-primary-600"
+    ) as HTMLElement;
+    if (!fallback) return;
+
+    avatarImg.addEventListener("error", () => {
+      avatarImg.style.display = "none";
+      if (fallback) {
+        fallback.style.display = "flex";
+      }
+    });
+
+    // Если изображение уже загружено с ошибкой
+    if (avatarImg.complete && avatarImg.naturalWidth === 0) {
+      avatarImg.style.display = "none";
+      if (fallback) {
+        fallback.style.display = "flex";
+      }
+    }
+  }
+
   // Инициализация для каждой карточки
   document.querySelectorAll(".blog-post-card").forEach((card) => {
-    const img = card.querySelector("img");
+    const img = card.querySelector(".image-container img") as HTMLImageElement;
     if (img) {
       if (img.complete) {
         showContent(card as HTMLElement);
@@ -179,6 +231,12 @@ const isLocalImage = !image.startsWith("http");
           showContent(card as HTMLElement);
         });
       }
+    }
+
+    // Настройка fallback для аватаров
+    const avatarImg = card.querySelector(".author-avatar") as HTMLImageElement;
+    if (avatarImg) {
+      setupAvatarFallback(avatarImg);
     }
   });
 </script>

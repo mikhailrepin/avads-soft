@@ -69,6 +69,7 @@ export interface Post {
   url: string;
   author?: string;
   avatar?: string;
+  fallbackAvatar?: string;
 }
 
 // Типы для контекста табов
