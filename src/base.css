@@ -573,7 +573,7 @@
 
   /* Панель табов */
   .tabs-panel {
-    @apply z-10 relative flex gap-3 py-[16px];
+    @apply z-10 relative flex gap-3 py-[16px] max-md:pb-0;
 
     /* Псевдоэлемент для разделительной линии */
     &::after {
