@@ -1,0 +1,108 @@
+---
+import PostsGrid from "@/components/section/PostsGrid.astro";
+import BlogCategoryTabs from "@/components/navigation/BlogCategoryTabs.astro";
+import BlogTabContent from "@/components/navigation/BlogTabContent.astro";
+import FeaturedPost from "@/components/section/FeaturedPost.astro";
+import type { Post } from "@/types/interfaces";
+
+interface Props {
+  // Посты для категории "Все"
+  allPosts: Post[];
+  allPostsCurrentPage: number;
+  allPostsTotalPages: number;
+  
+  // Посты для других категорий
+  eventsPosts: Post[];
+  eventsPostsTotalPages: number;
+  articlesPosts: Post[];
+  articlesPostsTotalPages: number;
+  podcastsPosts: Post[];
+  podcastsPostsTotalPages: number;
+  videosPosts: Post[];
+  videosPostsTotalPages: number;
+  
+  // Свежий пост (для FeaturedPost)
+  latestPost?: Post | null;
+  
+  // Показывать ли FeaturedPost (только на первой странице категории "Все")
+  showFeaturedPost?: boolean;
+}
+
+const {
+  allPosts,
+  allPostsCurrentPage,
+  allPostsTotalPages,
+  eventsPosts,
+  eventsPostsTotalPages,
+  articlesPosts,
+  articlesPostsTotalPages,
+  podcastsPosts,
+  podcastsPostsTotalPages,
+  videosPosts,
+  videosPostsTotalPages,
+  latestPost,
+  showFeaturedPost = false,
+} = Astro.props;
+---
+
+<!-- Табы категорий -->
+<BlogCategoryTabs />
+
+<!-- Контент табов -->
+<BlogTabContent activeCategory="all">
+  <!-- Панель "Все" -->
+  <div slot="all">
+    {latestPost && showFeaturedPost && <FeaturedPost post={latestPost} />}
+    <PostsGrid
+      posts={allPosts}
+      currentPage={allPostsCurrentPage}
+      totalPages={allPostsTotalPages}
+      basePath="/blog"
+      allButtonLabel="Все статьи блога"
+    />
+  </div>
+
+  <!-- Панель "События" -->
+  <div slot="events">
+    <PostsGrid
+      posts={eventsPosts}
+      currentPage={1}
+      totalPages={eventsPostsTotalPages}
+      basePath="/blog"
+      allButtonLabel="Все события"
+    />
+  </div>
+
+  <!-- Панель "Статьи" -->
+  <div slot="articles">
+    <PostsGrid
+      posts={articlesPosts}
+      currentPage={1}
+      totalPages={articlesPostsTotalPages}
+      basePath="/blog"
+      allButtonLabel="Все статьи"
+    />
+  </div>
+
+  <!-- Панель "Подкасты" -->
+  <div slot="podcasts">
+    <PostsGrid
+      posts={podcastsPosts}
+      currentPage={1}
+      totalPages={podcastsPostsTotalPages}
+      basePath="/blog"
+      allButtonLabel="Все подкасты"
+    />
+  </div>
+
+  <!-- Панель "Обучающие видео" -->
+  <div slot="videos">
+    <PostsGrid
+      posts={videosPosts}
+      currentPage={1}
+      totalPages={videosPostsTotalPages}
+      basePath="/blog"
+      allButtonLabel="Все видео"
+    />
+  </div>
+</BlogTabContent>

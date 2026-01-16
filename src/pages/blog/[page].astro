@@ -1,11 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import PostsGrid from "@/components/section/PostsGrid.astro";
-import { getBlogPosts } from "@/utils/blog";
+import BlogContent from "@/components/section/BlogContent.astro";
+import { getBlogPosts, getLatestPost } from "@/utils/blog";
+import helpers from "@/data/helpers.json";
 
 export async function getStaticPaths() {
   const postsPerPage = 6;
-  const { totalPages, formatPosts } = await getBlogPosts(postsPerPage);
+  const latestPost = await getLatestPost();
+  const { totalPages, formatPosts } = await getBlogPosts(
+    postsPerPage,
+    "all",
+    latestPost?.url
+  );
 
   return Array.from({ length: totalPages }, (_, i) => {
     const pageNum = i + 1;
@@ -18,23 +24,49 @@ export async function getStaticPaths() {
         posts: formatPosts(pageStart, pageEnd),
         currentPage: pageNum,
         totalPages,
+        latestPost: pageNum === 1 ? latestPost : null,
       },
     };
   });
 }
 
-const { posts, currentPage, totalPages } = Astro.props;
+const { posts, currentPage, totalPages, latestPost } = Astro.props;
+
+// Получаем посты для других категорий для табов
+const postsPerPage = 6;
+const eventsPosts = await getBlogPosts(postsPerPage, "events");
+const articlesPosts = await getBlogPosts(postsPerPage, "articles");
+const podcastsPosts = await getBlogPosts(postsPerPage, "podcasts");
+const videosPosts = await getBlogPosts(postsPerPage, "videos");
+
+const eventsPostsFormatted = eventsPosts.formatPosts(0, postsPerPage);
+const articlesPostsFormatted = articlesPosts.formatPosts(0, postsPerPage);
+const podcastsPostsFormatted = podcastsPosts.formatPosts(0, postsPerPage);
+const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
 ---
 
-<!-- Пока не раскомментируем --><!-- <Layout pageTitle="Блог">
+<Layout pageTitle="Блог">
   <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
-    <h1 class="mb-8 font-bold text-4xl">Блог компании</h1>
-    <PostsGrid
-      posts={posts}
-      currentPage={currentPage}
-      totalPages={totalPages}
-      basePath="/blog"
-      allButtonLabel="Все статьи блога"
+    <h2 class="mb-8 text-3xl">
+      Все самые актуальные события <span class="text-gold"
+        >{helpers.company.name}</span
+      >
+    </h2>
+
+    <BlogContent
+      allPosts={posts}
+      allPostsCurrentPage={currentPage}
+      allPostsTotalPages={totalPages}
+      eventsPosts={eventsPostsFormatted}
+      eventsPostsTotalPages={eventsPosts.totalPages}
+      articlesPosts={articlesPostsFormatted}
+      articlesPostsTotalPages={articlesPosts.totalPages}
+      podcastsPosts={podcastsPostsFormatted}
+      podcastsPostsTotalPages={podcastsPosts.totalPages}
+      videosPosts={videosPostsFormatted}
+      videosPostsTotalPages={videosPosts.totalPages}
+      latestPost={latestPost}
+      showFeaturedPost={currentPage === 1}
     />
   </section>
-</Layout> -->
+</Layout>

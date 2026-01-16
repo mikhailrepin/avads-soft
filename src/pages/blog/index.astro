@@ -1,9 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import PostsGrid from "@/components/section/PostsGrid.astro";
-import BlogCategoryTabs from "@/components/navigation/BlogCategoryTabs.astro";
-import BlogTabContent from "@/components/navigation/BlogTabContent.astro";
-import FeaturedPost from "@/components/section/FeaturedPost.astro";
+import BlogContent from "@/components/section/BlogContent.astro";
 import { getBlogPosts, getLatestPost } from "@/utils/blog";
 import helpers from "@/data/helpers.json";
 
@@ -36,66 +33,20 @@ const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
       >
     </h2>
 
-    <!-- Табы категорий -->
-    <BlogCategoryTabs />
-
-    <!-- Контент табов -->
-    <BlogTabContent activeCategory="all">
-      <!-- Панель "Все" -->
-      <div slot="all">
-        {latestPost && <FeaturedPost post={latestPost} />}
-        <PostsGrid
-          posts={allPostsFormatted}
-          currentPage={1}
-          totalPages={allPosts.totalPages}
-          basePath="/blog"
-          allButtonLabel="Все статьи блога"
-        />
-      </div>
-
-      <!-- Панель "События" -->
-      <div slot="events">
-        <PostsGrid
-          posts={eventsPostsFormatted}
-          currentPage={1}
-          totalPages={eventsPosts.totalPages}
-          basePath="/blog"
-          allButtonLabel="Все события"
-        />
-      </div>
-
-      <!-- Панель "Статьи" -->
-      <div slot="articles">
-        <PostsGrid
-          posts={articlesPostsFormatted}
-          currentPage={1}
-          totalPages={articlesPosts.totalPages}
-          basePath="/blog"
-          allButtonLabel="Все статьи"
-        />
-      </div>
-
-      <!-- Панель "Подкасты" -->
-      <div slot="podcasts">
-        <PostsGrid
-          posts={podcastsPostsFormatted}
-          currentPage={1}
-          totalPages={podcastsPosts.totalPages}
-          basePath="/blog"
-          allButtonLabel="Все подкасты"
-        />
-      </div>
-
-      <!-- Панель "Обучающие видео" -->
-      <div slot="videos">
-        <PostsGrid
-          posts={videosPostsFormatted}
-          currentPage={1}
-          totalPages={videosPosts.totalPages}
-          basePath="/blog"
-          allButtonLabel="Все видео"
-        />
-      </div>
-    </BlogTabContent>
+    <BlogContent
+      allPosts={allPostsFormatted}
+      allPostsCurrentPage={1}
+      allPostsTotalPages={allPosts.totalPages}
+      eventsPosts={eventsPostsFormatted}
+      eventsPostsTotalPages={eventsPosts.totalPages}
+      articlesPosts={articlesPostsFormatted}
+      articlesPostsTotalPages={articlesPosts.totalPages}
+      podcastsPosts={podcastsPostsFormatted}
+      podcastsPostsTotalPages={podcastsPosts.totalPages}
+      videosPosts={videosPostsFormatted}
+      videosPostsTotalPages={videosPosts.totalPages}
+      latestPost={latestPost}
+      showFeaturedPost={true}
+    />
   </section>
 </Layout>
