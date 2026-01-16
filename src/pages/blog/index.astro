@@ -1,24 +1,95 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import PostsGrid from "@/components/section/PostsGrid.astro";
-import { getBlogPosts } from "@/utils/blog";
-import helpers from "@/data/helpers.json";
+import BlogCategoryTabs from "@/components/navigation/BlogCategoryTabs.astro";
+import BlogTabContent from "@/components/navigation/BlogTabContent.astro";
+import FeaturedPost from "@/components/section/FeaturedPost.astro";
+import { getBlogPosts, getLatestPost } from "@/utils/blog";
 
 const postsPerPage = 6;
-const { totalPages, formatPosts } = await getBlogPosts(postsPerPage);
-const currentPage = 1;
-const posts_to_show = formatPosts(0, postsPerPage);
+
+// Получаем посты для каждой категории
+const allPosts = await getBlogPosts(postsPerPage, "all");
+const eventsPosts = await getBlogPosts(postsPerPage, "events");
+const articlesPosts = await getBlogPosts(postsPerPage, "articles");
+const podcastsPosts = await getBlogPosts(postsPerPage, "podcasts");
+const videosPosts = await getBlogPosts(postsPerPage, "videos");
+
+// Получаем свежий пост
+const latestPost = await getLatestPost();
+
+// Форматируем посты для каждой категории
+const allPostsFormatted = allPosts.formatPosts(0, postsPerPage);
+const eventsPostsFormatted = eventsPosts.formatPosts(0, postsPerPage);
+const articlesPostsFormatted = articlesPosts.formatPosts(0, postsPerPage);
+const podcastsPostsFormatted = podcastsPosts.formatPosts(0, postsPerPage);
+const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
 ---
 
 <Layout pageTitle="Блог">
   <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
-    <h2 class="text-3xl">Блог {helpers.company.name}</h2>
-    <PostsGrid
-      posts={posts_to_show}
-      currentPage={currentPage}
-      totalPages={totalPages}
-      basePath="/blog"
-      allButtonLabel="Все статьи блога"
-    />
+    <h1 class="mb-8 font-bold text-4xl">Блог компании</h1>
+
+    <!-- Табы категорий -->
+    <BlogCategoryTabs />
+
+    <!-- Контент табов -->
+    <BlogTabContent activeCategory="all">
+      <!-- Панель "Все" -->
+      <div slot="all">
+        {latestPost && <FeaturedPost post={latestPost} />}
+        <PostsGrid
+          posts={allPostsFormatted}
+          currentPage={1}
+          totalPages={allPosts.totalPages}
+          basePath="/blog"
+          allButtonLabel="Все статьи блога"
+        />
+      </div>
+
+      <!-- Панель "События" -->
+      <div slot="events">
+        <PostsGrid
+          posts={eventsPostsFormatted}
+          currentPage={1}
+          totalPages={eventsPosts.totalPages}
+          basePath="/blog"
+          allButtonLabel="Все события"
+        />
+      </div>
+
+      <!-- Панель "Статьи" -->
+      <div slot="articles">
+        <PostsGrid
+          posts={articlesPostsFormatted}
+          currentPage={1}
+          totalPages={articlesPosts.totalPages}
+          basePath="/blog"
+          allButtonLabel="Все статьи"
+        />
+      </div>
+
+      <!-- Панель "Подкасты" -->
+      <div slot="podcasts">
+        <PostsGrid
+          posts={podcastsPostsFormatted}
+          currentPage={1}
+          totalPages={podcastsPosts.totalPages}
+          basePath="/blog"
+          allButtonLabel="Все подкасты"
+        />
+      </div>
+
+      <!-- Панель "Обучающие видео" -->
+      <div slot="videos">
+        <PostsGrid
+          posts={videosPostsFormatted}
+          currentPage={1}
+          totalPages={videosPosts.totalPages}
+          basePath="/blog"
+          allButtonLabel="Все видео"
+        />
+      </div>
+    </BlogTabContent>
   </section>
 </Layout>

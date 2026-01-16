@@ -5,9 +5,25 @@ export interface AstroPost {
     date: string;
     image: string;
     author?: string;
+    category?: string;
   };
   file: string;
 }
+
+// Типы категорий блога
+export type BlogCategory = "all" | "events" | "articles" | "podcasts" | "videos";
+
+// Маппинг категорий
+const CATEGORY_MAP: Record<string, BlogCategory> = {
+  "события": "events",
+  "статьи": "articles",
+  "подкасты": "podcasts",
+  "обучающие видео": "videos",
+  "videos": "videos",
+  "events": "events",
+  "articles": "articles",
+  "podcasts": "podcasts",
+};
 
 // Моковые имена авторов для генерации, если не указаны
 const MOCK_AUTHORS = [
@@ -81,7 +97,79 @@ function getMockAuthor(title: string, existingAuthor?: string): string {
   return MOCK_AUTHORS[index];
 }
 
-export async function getBlogPosts(postsPerPage: number = 6) {
+// Функция для нормализации категории
+function normalizeCategory(category?: string): BlogCategory {
+  if (!category) return "articles"; // По умолчанию "Статьи"
+  const normalized = category.toLowerCase().trim();
+  return CATEGORY_MAP[normalized] || "articles";
+}
+
+export async function getBlogPosts(
+  postsPerPage: number = 6,
+  category: BlogCategory = "all"
+) {
+  const posts = await import.meta.glob<AstroPost>("../pages/blog/*.md", {
+    eager: true,
+  });
+  const postsArray: AstroPost[] = Object.values(posts);
+
+  let filteredPosts = postsArray
+    .filter((post): post is AstroPost => {
+      if (!post || !post.frontmatter) return false;
+      try {
+        const date = new Date(post.frontmatter.date);
+        return (
+          Boolean(post.frontmatter.title) &&
+          Boolean(post.frontmatter.description) &&
+          Boolean(post.frontmatter.date) &&
+          Boolean(post.frontmatter.image) &&
+          !isNaN(date.getTime())
+        );
+      } catch {
+        return false;
+      }
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.frontmatter.date).getTime() -
+        new Date(a.frontmatter.date).getTime()
+    );
+
+  // Фильтрация по категории
+  if (category !== "all") {
+    filteredPosts = filteredPosts.filter((post) => {
+      const postCategory = normalizeCategory(post.frontmatter.category);
+      return postCategory === category;
+    });
+  }
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+  return {
+    totalPages,
+    formatPosts: (start: number, end: number) =>
+      filteredPosts.slice(start, end).map((post) => {
+        const author = getMockAuthor(
+          post.frontmatter.title,
+          post.frontmatter.author
+        );
+        return {
+          title: post.frontmatter.title,
+          description: post.frontmatter.description,
+          date: post.frontmatter.date,
+          image: post.frontmatter.image,
+          url: `/blog/${post.file.split("/").pop()?.replace(".md", "")}`,
+          author,
+          avatar: generateAvatarUrl(author),
+          fallbackAvatar: generateFallbackAvatarUrl(author),
+          category: normalizeCategory(post.frontmatter.category),
+        };
+      }),
+  };
+}
+
+// Функция для получения свежего поста (самого нового)
+export async function getLatestPost() {
   const posts = await import.meta.glob<AstroPost>("../pages/blog/*.md", {
     eager: true,
   });
@@ -109,26 +197,23 @@ export async function getBlogPosts(postsPerPage: number = 6) {
         new Date(a.frontmatter.date).getTime()
     );
 
-  const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+  if (sortedPosts.length === 0) return null;
+
+  const latestPost = sortedPosts[0];
+  const author = getMockAuthor(
+    latestPost.frontmatter.title,
+    latestPost.frontmatter.author
+  );
 
   return {
-    totalPages,
-    formatPosts: (start: number, end: number) =>
-      sortedPosts.slice(start, end).map((post) => {
-        const author = getMockAuthor(
-          post.frontmatter.title,
-          post.frontmatter.author
-        );
-        return {
-          title: post.frontmatter.title,
-          description: post.frontmatter.description,
-          date: post.frontmatter.date,
-          image: post.frontmatter.image,
-          url: `/blog/${post.file.split("/").pop()?.replace(".md", "")}`,
-          author,
-          avatar: generateAvatarUrl(author),
-          fallbackAvatar: generateFallbackAvatarUrl(author),
-        };
-      }),
+    title: latestPost.frontmatter.title,
+    description: latestPost.frontmatter.description,
+    date: latestPost.frontmatter.date,
+    image: latestPost.frontmatter.image,
+    url: `/blog/${latestPost.file.split("/").pop()?.replace(".md", "")}`,
+    author,
+    avatar: generateAvatarUrl(author),
+    fallbackAvatar: generateFallbackAvatarUrl(author),
+    category: normalizeCategory(latestPost.frontmatter.category),
   };
 }

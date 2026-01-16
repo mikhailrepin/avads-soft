@@ -1,0 +1,239 @@
+---
+interface Props {
+  customClass?: string;
+  storageKey?: string;
+}
+
+const {
+  customClass = "",
+  storageKey = "blog-active-category",
+} = Astro.props;
+
+const tabsClass = `tabs-panel blog-category-tabs ${customClass}`;
+---
+
+<div
+  class={tabsClass}
+  role="tablist"
+  aria-label="Категории блога"
+  data-storage-key={storageKey}>
+  <button
+    role="tab"
+    data-category="all"
+    aria-controls="all-panel"
+    aria-selected="true"
+    id="all-tab"
+    class="active">
+    <span>Все</span>
+  </button>
+  <button
+    role="tab"
+    data-category="events"
+    aria-controls="events-panel"
+    aria-selected="false"
+    id="events-tab">
+    <span>События</span>
+  </button>
+  <button
+    role="tab"
+    data-category="articles"
+    aria-controls="articles-panel"
+    aria-selected="false"
+    id="articles-tab">
+    <span>Статьи</span>
+  </button>
+  <button
+    role="tab"
+    data-category="podcasts"
+    aria-controls="podcasts-panel"
+    aria-selected="false"
+    id="podcasts-tab">
+    <span>Подкасты</span>
+  </button>
+  <button
+    role="tab"
+    data-category="videos"
+    aria-controls="videos-panel"
+    aria-selected="false"
+    id="videos-tab">
+    <span>Обучающие видео</span>
+  </button>
+</div>
+
+<script>
+  // Инициализация табов категорий блога
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabsPanels = document.querySelectorAll(".blog-category-tabs");
+
+    tabsPanels.forEach((panel) => {
+      const tabs = panel.querySelectorAll("button[role='tab']");
+      const storageKey =
+        panel.getAttribute("data-storage-key") || "blog-active-category";
+
+      // Функция для активации таба
+      function activateTab(targetTab: Element, skipAnimation = false) {
+        // Обновляем состояние табов
+        tabs.forEach((t) => {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
+        });
+        targetTab.classList.add("active");
+        targetTab.setAttribute("aria-selected", "true");
+
+        const category = targetTab.getAttribute("data-category");
+        if (category) {
+          // Сохраняем в localStorage
+          try {
+            localStorage.setItem(storageKey, category);
+          } catch (e) {
+            console.warn("Не удалось сохранить категорию в localStorage", e);
+          }
+
+          // Обновляем панели контента
+          const ariaControls = targetTab.getAttribute("aria-controls");
+          if (ariaControls) {
+            const activePanel = document.getElementById(ariaControls);
+            const tabPanels = document.querySelectorAll(
+              ".blog-tab-content [role='tabpanel']"
+            );
+
+            if (activePanel) {
+              if (skipAnimation) {
+                // Быстрое переключение без анимации
+                tabPanels.forEach((p) => {
+                  if (p !== activePanel) {
+                    p.classList.remove(
+                      "block",
+                      "opacity-100",
+                      "h-auto",
+                      "overflow-visible"
+                    );
+                    p.classList.add("opacity-0", "h-0", "overflow-hidden");
+                  } else {
+                    p.classList.remove("opacity-0", "h-0", "overflow-hidden");
+                    p.classList.add(
+                      "block",
+                      "opacity-100",
+                      "h-auto",
+                      "overflow-visible"
+                    );
+                  }
+                });
+              } else {
+                // Анимированное переключение
+                tabPanels.forEach((p) => {
+                  if (p !== activePanel) {
+                    p.classList.remove("opacity-100");
+                    p.classList.add("opacity-0");
+                  }
+                });
+
+                setTimeout(() => {
+                  tabPanels.forEach((p) => {
+                    if (p !== activePanel) {
+                      p.classList.remove("block", "h-auto", "overflow-visible");
+                      p.classList.add("h-0", "overflow-hidden");
+                    }
+                  });
+
+                  activePanel.classList.remove("h-0", "overflow-hidden");
+                  activePanel.classList.add(
+                    "block",
+                    "h-auto",
+                    "overflow-visible"
+                  );
+
+                  setTimeout(() => {
+                    activePanel.classList.remove("opacity-0");
+                    activePanel.classList.add("opacity-100");
+                  }, 50);
+                }, 150);
+              }
+            }
+          }
+
+          // Показываем/скрываем секцию свежего поста
+          const featuredSection = document.querySelector(
+            ".featured-post-section"
+          );
+          if (featuredSection) {
+            if (category === "all") {
+              featuredSection.classList.remove("hidden");
+            } else {
+              featuredSection.classList.add("hidden");
+            }
+          }
+        }
+      }
+
+      // Восстанавливаем активный таб при загрузке страницы
+      function restoreActiveTab() {
+        try {
+          const savedCategory = localStorage.getItem(storageKey) || "all";
+          const targetTab = panel.querySelector(
+            `[data-category="${savedCategory}"]`
+          );
+          if (targetTab) {
+            activateTab(targetTab, true);
+          }
+        } catch (e) {
+          // Если не удалось восстановить, активируем первый таб
+          const firstTab = tabs[0];
+          if (firstTab) {
+            activateTab(firstTab, true);
+          }
+        }
+      }
+
+      // Обработчики клика на табы
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", (e) => {
+          e.preventDefault();
+          activateTab(tab);
+        });
+
+        // Эффект прозрачности при наведении
+        tab.addEventListener("mouseenter", () => {
+          tabs.forEach((otherTab) => {
+            if (otherTab !== tab) {
+              (otherTab as HTMLElement).style.opacity = "0.6";
+            }
+          });
+        });
+
+        tab.addEventListener("mouseleave", () => {
+          tabs.forEach((otherTab) => {
+            (otherTab as HTMLElement).style.opacity = "1";
+          });
+        });
+      });
+
+      // Восстанавливаем состояние
+      restoreActiveTab();
+    });
+  });
+</script>
+
+<style>
+  .blog-category-tabs {
+    @apply flex gap-2 mb-8;
+  }
+
+  .blog-category-tabs button {
+    @apply px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition-all;
+  }
+
+  .blog-category-tabs button:hover {
+    @apply bg-zinc-800 text-zinc-300;
+  }
+
+  .blog-category-tabs button.active {
+    @apply text-white;
+    background-color: hsla(40, 70%, 40%, 1);
+    border-color: hsla(40, 70%, 10%, 1);
+  }
+
+  .blog-category-tabs button span {
+    @apply text-sm font-medium;
+  }
+</style>

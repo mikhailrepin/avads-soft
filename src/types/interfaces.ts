@@ -70,7 +70,11 @@ export interface Post {
   author?: string;
   avatar?: string;
   fallbackAvatar?: string;
+  category?: string;
 }
+
+// Типы категорий блога
+export type BlogCategory = "all" | "events" | "articles" | "podcasts" | "videos";
 
 // Типы для контекста табов
 export type TabType = "software" | "hardware";

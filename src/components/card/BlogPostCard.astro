@@ -100,7 +100,7 @@ const isLocalImage = !image.startsWith("http");
         />
         <!-- Fallback с инициалами (скрыт по умолчанию) -->
         <div
-          class="author-avatar-fallback"
+          class="bg-primary-400 author-avatar-fallback"
           style="display: none;">
           <span class="author-initials">{initials}</span>
         </div>
@@ -200,7 +200,7 @@ const isLocalImage = !image.startsWith("http");
     if (!container) return;
 
     const fallback = container.querySelector(
-      ".author-avatar-fallback .bg-primary-600"
+      ".author-avatar-fallback"
     ) as HTMLElement;
     if (!fallback) return;
 

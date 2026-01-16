@@ -2,8 +2,9 @@
 layout: "@/layouts/BlogPostLayout.astro"
 title: "Как выбрать идеальную тему для блога"
 description: "Выбор темы — один из первых и важных шагов при запуске блога. Она задаёт тон, визуальный стиль и помогает привлечь нужную аудиторию."
-date: "2026-01-10"
+date: "2026-01-14"
 image: "/posts/tech-abstraction-1.png"
+category: "articles"
 ---
 
 ## Введение

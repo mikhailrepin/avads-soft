@@ -1,0 +1,195 @@
+---
+import type { Post } from "@/types/interfaces";
+import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, date, image, author, avatar, fallbackAvatar, url } = post;
+
+// Форматируем дату
+const formattedDate = new Date(
+  date.includes(".") ? date.split(".").reverse().join("-") : date
+).toLocaleDateString("ru-RU", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+// Генерируем инициалы для fallback
+const initials = (author || "A")
+  .split(" ")
+  .map((n) => n[0])
+  .join("")
+  .toUpperCase()
+  .slice(0, 2);
+
+// Определяем, является ли изображение локальным
+const isLocalImage = !image.startsWith("http");
+---
+
+<section class="featured-post-section mb-12">
+  <div class="featured-post-card group relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/50">
+    <a
+      href={url}
+      class="top-0 left-0 z-10 absolute w-full h-full"
+      aria-label={`Читать статью: ${title}`}
+    ></a>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+      <!-- Изображение -->
+      <div class="relative h-[300px] lg:h-auto lg:min-h-[400px] overflow-hidden">
+        {
+          isLocalImage ? (
+            <img
+              src={image}
+              alt={title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="eager"
+            />
+          ) : (
+            <img
+              src={image}
+              alt={title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="eager"
+            />
+          )
+        }
+        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/40 to-transparent"></div>
+      </div>
+
+      <!-- Контент -->
+      <div class="flex flex-col justify-between p-8 lg:p-12 bg-zinc-900/50">
+        <div>
+          <h2 class="mb-4 font-bold text-2xl lg:text-3xl group-hover:text-primary-300 transition-colors">
+            {title}
+          </h2>
+          <p class="mb-6 text-zinc-400 text-lg line-clamp-3">
+            {description}
+          </p>
+        </div>
+
+        <!-- Футер с автором и датой -->
+        <div class="flex items-center justify-between gap-4 pt-6 border-t border-zinc-800">
+          <div class="flex items-center gap-3">
+            <!-- Контейнер для аватара с fallback -->
+            <div
+              class="author-avatar-container"
+              data-author={author || "Автор"}
+              data-initials={initials}>
+              <img
+                src={avatar ||
+                  fallbackAvatar ||
+                  `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=6366f1&color=fff&size=40&bold=true`}
+                alt={author || "Автор"}
+                class="author-avatar"
+                width="40"
+                height="40"
+                loading="lazy"
+                data-fallback-initials={initials}
+              />
+              <!-- Fallback с инициалами (скрыт по умолчанию) -->
+              <div
+                class="author-avatar-fallback bg-primary-400"
+                style="display: none;">
+                <span class="author-initials">{initials}</span>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <span class="author-name">{author || "Автор"}</span>
+              <time class="post-date" datetime={date}>{formattedDate}</time>
+            </div>
+          </div>
+          <ButtonGeneric
+            Variant="primary"
+            Size="default"
+            Style="ghosted"
+            IconRight={{
+              IconSprite: "chevron-right-big-outline",
+              IconVisible: true,
+            }}
+            ButtonLabel="Читать далее"
+            ButtonLink={url}
+            Target="link"
+            CustomClass="w-fit"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured-post-card {
+    @apply transition-all;
+  }
+
+  .featured-post-card:hover {
+    @apply bg-zinc-900/70 border-zinc-700;
+  }
+
+  .author-avatar-container {
+    @apply relative flex-shrink-0;
+  }
+
+  .author-avatar {
+    @apply rounded-full w-10 h-10 object-cover;
+  }
+
+  .author-avatar-fallback {
+    @apply justify-center items-center rounded-full w-10 h-10;
+  }
+
+  .author-initials {
+    @apply font-bold text-white text-sm;
+  }
+
+  .author-name {
+    @apply text-zinc-300 text-sm font-medium;
+  }
+
+  .post-date {
+    @apply text-zinc-500 text-xs;
+  }
+</style>
+
+<script>
+  // Обработка ошибок загрузки аватаров
+  function setupAvatarFallback(avatarImg: HTMLImageElement) {
+    const container = avatarImg.closest(".author-avatar-container");
+    if (!container) return;
+
+    const fallback = container.querySelector(
+      ".author-avatar-fallback"
+    ) as HTMLElement;
+    if (!fallback) return;
+
+    avatarImg.addEventListener("error", () => {
+      avatarImg.style.display = "none";
+      if (fallback) {
+        fallback.style.display = "flex";
+      }
+    });
+
+    // Если изображение уже загружено с ошибкой
+    if (avatarImg.complete && avatarImg.naturalWidth === 0) {
+      avatarImg.style.display = "none";
+      if (fallback) {
+        fallback.style.display = "flex";
+      }
+    }
+  }
+
+  // Инициализация для featured post
+  document.addEventListener("DOMContentLoaded", () => {
+    const avatarImg = document.querySelector(
+      ".featured-post-section .author-avatar"
+    ) as HTMLImageElement;
+    if (avatarImg) {
+      setupAvatarFallback(avatarImg);
+    }
+  });
+</script>
