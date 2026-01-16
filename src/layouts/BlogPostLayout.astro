@@ -1,8 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
+import CategoryTags from "@/components/tag/CategoryTags.astro";
 import type { Post } from "@/types/interfaces";
+import type { BlogCategory } from "@/types/interfaces";
 import { formatTitle, formatDescription } from "@/utils/grammar";
+import {
+  normalizeCategory,
+  generateAvatarUrl,
+  generateFallbackAvatarUrl,
+  getMockAuthor,
+} from "@/utils/blog";
 
 interface Props {
   frontmatter: Post;
@@ -14,7 +22,7 @@ interface PostFile {
 }
 
 const { frontmatter } = Astro.props;
-const { title, description, date, image } = frontmatter;
+const { title, description, date, image, category, author } = frontmatter;
 
 // Форматируем заголовок и описание
 const formattedTitle = formatTitle(title);
@@ -30,12 +38,29 @@ const truncatedTitle = title.length > 60 ? title.slice(0, 60) + "..." : title;
 
 // Форматируем дату так же, как в PostCard
 const formattedDate = new Date(
-  date.split(".").reverse().join("-")
+  date.includes(".") ? date.split(".").reverse().join("-") : date
 ).toLocaleDateString("ru-RU", {
   day: "numeric",
   month: "long",
   year: "numeric",
 });
+
+// Получаем категорию поста
+const postCategory = normalizeCategory(category);
+const categories: BlogCategory[] = [postCategory];
+
+// Получаем автора и аватар
+const postAuthor = getMockAuthor(title, author);
+const avatarUrl = generateAvatarUrl(postAuthor);
+const fallbackAvatarUrl = generateFallbackAvatarUrl(postAuthor);
+
+// Генерируем инициалы для fallback
+const initials = (postAuthor || "A")
+  .split(" ")
+  .map((n) => n[0])
+  .join("")
+  .toUpperCase()
+  .slice(0, 2);
 
 // Получаем все посты и сортируем их по дате
 const posts = await import.meta.glob<PostFile>("../pages/blog/*.md", {
@@ -92,14 +117,41 @@ const validNextPost =
 
       <!-- Контент поверх изображения -->
       <div class="z-10 relative">
+        <!-- Теги категорий -->
+        <CategoryTags categories={categories} customClass="mb-4" />
         <h1 class="post-title">
           {formattedTitle}
         </h1>
-        <div class="flex items-center gap-2 w-fit font-medium text-zinc-400">
-          <svg class="w-[16px] h-[16px]">
-            <use xlink:href="/sprites.svg#calendar-single-fill"></use>
-          </svg>
-          <time>{formattedDate}</time>
+        <!-- Блок с аватаром, именем и датой -->
+        <div class="flex items-center gap-3 mt-4">
+          <div
+            class="author-avatar-container"
+            data-author={postAuthor || "Автор"}
+            data-initials={initials}>
+            <img
+              src={avatarUrl || fallbackAvatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=6366f1&color=fff&size=32&bold=true`}
+              alt={postAuthor || "Автор"}
+              class="author-avatar"
+              width="32"
+              height="32"
+              loading="lazy"
+              data-fallback-initials={initials}
+            />
+            <!-- Fallback с инициалами (скрыт по умолчанию) -->
+            <div
+              class="bg-primary-400 author-avatar-fallback"
+              style="display: none;">
+              <span class="author-initials">{initials}</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="author-name">{postAuthor || "Автор"}</span>
+            <time
+              class="post-date"
+              datetime={date}
+              >{formattedDate}</time
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -193,4 +245,64 @@ const validNextPost =
       padding: 0 24px;
     }
   }
+
+  .author-avatar-container {
+    @apply relative flex-shrink-0;
+  }
+
+  .author-avatar {
+    @apply rounded-full w-8 h-8 object-cover;
+  }
+
+  .author-avatar-fallback {
+    @apply justify-center items-center rounded-full w-8 h-8;
+  }
+
+  .author-initials {
+    @apply font-bold text-white text-xs;
+  }
+
+  .author-name {
+    @apply text-zinc-300 text-sm font-medium;
+  }
+
+  .post-date {
+    @apply text-zinc-400 text-sm whitespace-nowrap;
+  }
 </style>
+
+<script>
+  // Обработка ошибок загрузки аватаров
+  function setupAvatarFallback(avatarImg: HTMLImageElement) {
+    const container = avatarImg.closest(".author-avatar-container");
+    if (!container) return;
+
+    const fallback = container.querySelector(
+      ".author-avatar-fallback"
+    ) as HTMLElement;
+    if (!fallback) return;
+
+    avatarImg.addEventListener("error", () => {
+      avatarImg.style.display = "none";
+      if (fallback) {
+        fallback.style.display = "flex";
+      }
+    });
+
+    // Если изображение уже загружено с ошибкой
+    if (avatarImg.complete && avatarImg.naturalWidth === 0) {
+      avatarImg.style.display = "none";
+      if (fallback) {
+        fallback.style.display = "flex";
+      }
+    }
+  }
+
+  // Инициализация для аватара
+  document.addEventListener("DOMContentLoaded", () => {
+    const avatarImg = document.querySelector(".author-avatar") as HTMLImageElement;
+    if (avatarImg) {
+      setupAvatarFallback(avatarImg);
+    }
+  });
+</script>

@@ -1,0 +1,60 @@
+---
+import type { BlogCategory } from "@/types/interfaces";
+
+interface Props {
+  categories: BlogCategory[];
+  customClass?: string;
+}
+
+const { categories, customClass = "" } = Astro.props;
+
+// Маппинг категорий на русские названия
+const CATEGORY_LABELS: Record<BlogCategory, string> = {
+  all: "Все",
+  events: "События",
+  articles: "Статьи",
+  podcasts: "Подкасты",
+  videos: "Обучающие видео",
+};
+---
+
+<div class={`flex flex-wrap gap-2 ${customClass}`}>
+  {
+    categories.map((category) => (
+      <a
+        href="/blog"
+        data-category={category}
+        class="category-tag"
+        aria-label={`Фильтр: ${CATEGORY_LABELS[category]}`}>
+        {CATEGORY_LABELS[category]}
+      </a>
+    ))
+  }
+</div>
+
+<script>
+  // Обработка клика по тегу категории
+  document.addEventListener("DOMContentLoaded", () => {
+    const tags = document.querySelectorAll(".category-tag");
+
+    tags.forEach((tag) => {
+      tag.addEventListener("click", (e) => {
+        const category = tag.getAttribute("data-category");
+        if (category) {
+          // Сохраняем категорию в localStorage для активации таба на странице блога
+          try {
+            localStorage.setItem("blog-active-category", category);
+          } catch (err) {
+            console.warn("Не удалось сохранить категорию в localStorage", err);
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .category-tag {
+    @apply bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded-md font-medium text-zinc-300 hover:text-white text-sm transition-colors;
+  }
+</style>

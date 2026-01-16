@@ -37,7 +37,7 @@ const MOCK_AUTHORS = [
 
 // Функция для генерации URL аватара через Unsplash на основе имени
 // Используем детерминированный подход - для одного автора всегда один аватар
-function generateAvatarUrl(name: string): string {
+export function generateAvatarUrl(name: string): string {
   // Генерируем хэш на основе имени для детерминированного выбора изображения
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
@@ -85,7 +85,7 @@ export function generateFallbackAvatarUrl(name: string): string {
 }
 
 // Функция для получения мокового автора на основе названия поста
-function getMockAuthor(title: string, existingAuthor?: string): string {
+export function getMockAuthor(title: string, existingAuthor?: string): string {
   if (existingAuthor) return existingAuthor;
   
   // Генерируем индекс на основе заголовка
@@ -98,7 +98,7 @@ function getMockAuthor(title: string, existingAuthor?: string): string {
 }
 
 // Функция для нормализации категории
-function normalizeCategory(category?: string): BlogCategory {
+export function normalizeCategory(category?: string): BlogCategory {
   if (!category) return "articles"; // По умолчанию "Статьи"
   const normalized = category.toLowerCase().trim();
   return CATEGORY_MAP[normalized] || "articles";
