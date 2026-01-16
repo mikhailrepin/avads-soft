@@ -106,7 +106,8 @@ function normalizeCategory(category?: string): BlogCategory {
 
 export async function getBlogPosts(
   postsPerPage: number = 6,
-  category: BlogCategory = "all"
+  category: BlogCategory = "all",
+  excludeUrl?: string
 ) {
   const posts = await import.meta.glob<AstroPost>("../pages/blog/*.md", {
     eager: true,
@@ -140,6 +141,14 @@ export async function getBlogPosts(
     filteredPosts = filteredPosts.filter((post) => {
       const postCategory = normalizeCategory(post.frontmatter.category);
       return postCategory === category;
+    });
+  }
+
+  // Исключаем пост по URL, если указан (для исключения свежего поста из сетки "Все")
+  if (excludeUrl) {
+    filteredPosts = filteredPosts.filter((post) => {
+      const postUrl = `/blog/${post.file.split("/").pop()?.replace(".md", "")}`;
+      return postUrl !== excludeUrl;
     });
   }
 

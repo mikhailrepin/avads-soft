@@ -8,15 +8,16 @@ import { getBlogPosts, getLatestPost } from "@/utils/blog";
 
 const postsPerPage = 6;
 
+// Получаем свежий пост
+const latestPost = await getLatestPost();
+
 // Получаем посты для каждой категории
-const allPosts = await getBlogPosts(postsPerPage, "all");
+// Для категории "Все" исключаем свежий пост, чтобы избежать дублирования
+const allPosts = await getBlogPosts(postsPerPage, "all", latestPost?.url);
 const eventsPosts = await getBlogPosts(postsPerPage, "events");
 const articlesPosts = await getBlogPosts(postsPerPage, "articles");
 const podcastsPosts = await getBlogPosts(postsPerPage, "podcasts");
 const videosPosts = await getBlogPosts(postsPerPage, "videos");
-
-// Получаем свежий пост
-const latestPost = await getLatestPost();
 
 // Форматируем посты для каждой категории
 const allPostsFormatted = allPosts.formatPosts(0, postsPerPage);
