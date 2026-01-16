@@ -31,13 +31,7 @@ const isLocalImage = !image.startsWith("http");
 ---
 
 <section class="featured-post-section mb-12">
-  <div class="featured-post-card group relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/50">
-    <a
-      href={url}
-      class="top-0 left-0 z-10 absolute w-full h-full"
-      aria-label={`Читать статью: ${title}`}
-    ></a>
-    
+  <div class="featured-post-card relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/50">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
       <!-- Изображение -->
       <div class="relative h-[300px] lg:h-auto lg:min-h-[400px] overflow-hidden">
@@ -46,14 +40,14 @@ const isLocalImage = !image.startsWith("http");
             <img
               src={image}
               alt={title}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              class="w-full h-full object-cover"
               loading="eager"
             />
           ) : (
             <img
               src={image}
               alt={title}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              class="w-full h-full object-cover"
               loading="eager"
             />
           )
@@ -64,7 +58,7 @@ const isLocalImage = !image.startsWith("http");
       <!-- Контент -->
       <div class="flex flex-col justify-between p-8 lg:p-12 bg-zinc-900/50">
         <div>
-          <h2 class="mb-4 font-bold text-2xl lg:text-3xl group-hover:text-primary-300 transition-colors">
+          <h2 class="mb-4 font-bold text-2xl lg:text-3xl">
             {title}
           </h2>
           <p class="mb-6 text-zinc-400 text-lg line-clamp-3">
@@ -125,10 +119,6 @@ const isLocalImage = !image.startsWith("http");
 <style>
   .featured-post-card {
     @apply transition-all;
-  }
-
-  .featured-post-card:hover {
-    @apply bg-zinc-900/70 border-zinc-700;
   }
 
   .author-avatar-container {
