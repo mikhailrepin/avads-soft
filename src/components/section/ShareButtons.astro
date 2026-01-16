@@ -18,7 +18,7 @@ const emailUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIC
 ---
 
 <div class="share-buttons">
-  <h3 class="share-title">Поделиться:</h3>
+  <span class="share-title">Поделиться статьей:</span>
   <div class="share-buttons-grid">
     <!-- Вконтакте -->
     <a
@@ -140,7 +140,7 @@ const emailUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIC
 
 <style>
   .share-buttons {
-    @apply flex justify-end items-center gap-4 mt-4 -mb-4;
+    @apply flex justify-end items-center gap-4;
   }
 
   .share-title {

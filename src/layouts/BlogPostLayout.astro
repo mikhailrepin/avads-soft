@@ -125,7 +125,10 @@ const postUrl = currentPost
       <!-- Контент поверх изображения -->
       <div class="z-10 relative">
         <!-- Теги категорий -->
-        <CategoryTags categories={categories} customClass="mb-4" />
+        <CategoryTags
+          categories={categories}
+          customClass="mb-4"
+        />
         <h1 class="post-title">
           {formattedTitle}
         </h1>
@@ -136,7 +139,9 @@ const postUrl = currentPost
             data-author={postAuthor || "Автор"}
             data-initials={initials}>
             <img
-              src={avatarUrl || fallbackAvatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=6366f1&color=fff&size=32&bold=true`}
+              src={avatarUrl ||
+                fallbackAvatarUrl ||
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=6366f1&color=fff&size=32&bold=true`}
               alt={postAuthor || "Автор"}
               class="author-avatar"
               width="32"
@@ -175,7 +180,12 @@ const postUrl = currentPost
     </div>
 
     <!-- Кнопки поделиться -->
-    <div class="content-wrapper">
+    <div
+      class="flex justify-between items-center mt-6 -mb-2 main-max-width no-padding">
+      <div class="flex items-center gap-2">
+        <span class="text-zinc-300 text-sm">Теги:</span>
+        <CategoryTags categories={categories} />
+      </div>
       <ShareButtons
         title={title}
         url={postUrl}
@@ -279,7 +289,7 @@ const postUrl = currentPost
   }
 
   .author-name {
-    @apply text-zinc-300 text-sm font-medium;
+    @apply font-medium text-zinc-300 text-sm;
   }
 
   .post-date {
@@ -316,7 +326,9 @@ const postUrl = currentPost
 
   // Инициализация для аватара
   document.addEventListener("DOMContentLoaded", () => {
-    const avatarImg = document.querySelector(".author-avatar") as HTMLImageElement;
+    const avatarImg = document.querySelector(
+      ".author-avatar"
+    ) as HTMLImageElement;
     if (avatarImg) {
       setupAvatarFallback(avatarImg);
     }
