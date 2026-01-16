@@ -215,25 +215,12 @@ const tabsClass = `tabs-panel blog-category-tabs ${customClass}`;
 </script>
 
 <style>
+  /* Используем базовые стили из base.css для .tabs-panel */
   .blog-category-tabs {
-    @apply flex gap-2 mb-8;
-  }
+    @apply mb-8;
 
-  .blog-category-tabs button {
-    @apply px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition-all;
-  }
-
-  .blog-category-tabs button:hover {
-    @apply bg-zinc-800 text-zinc-300;
-  }
-
-  .blog-category-tabs button.active {
-    @apply text-white;
-    background-color: hsla(40, 70%, 40%, 1);
-    border-color: hsla(40, 70%, 10%, 1);
-  }
-
-  .blog-category-tabs button span {
-    @apply text-sm font-medium;
+    & button {
+      @apply mr-2 font-[300];
+    }
   }
 </style>
