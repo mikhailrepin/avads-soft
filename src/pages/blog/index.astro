@@ -5,6 +5,7 @@ import BlogCategoryTabs from "@/components/navigation/BlogCategoryTabs.astro";
 import BlogTabContent from "@/components/navigation/BlogTabContent.astro";
 import FeaturedPost from "@/components/section/FeaturedPost.astro";
 import { getBlogPosts, getLatestPost } from "@/utils/blog";
+import helpers from "@/data/helpers.json";
 
 const postsPerPage = 6;
 
@@ -29,7 +30,11 @@ const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
 
 <Layout pageTitle="Блог">
   <section class="mx-auto py-8 min-h-[100dvh] main-max-width">
-    <h1 class="mb-8 font-bold text-4xl">Блог компании</h1>
+    <h2 class="text-3xl">
+      Все самые актуальные события <span class="text-gold"
+        >{helpers.company.name}</span
+      >
+    </h2>
 
     <!-- Табы категорий -->
     <BlogCategoryTabs />
