@@ -23,6 +23,7 @@ const menuItems = [
   { label: "Продукты", href: "/all-products" },
   { label: "Цены", href: "/price" },
   { label: "О компании", href: "/about-us" },
+  { label: "Блог", href: "/blog" },
   { label: "Техподдержка", href: "/support" },
   { label: "Контакты", href: "/contacts" },
 ];
@@ -66,11 +67,11 @@ const serviceItems = [
             return;
           }
         }
-        (k = e.createElement(t)),
+        ((k = e.createElement(t)),
           (a = e.getElementsByTagName(t)[0]),
           (k.async = 1),
           (k.src = r),
-          a.parentNode.insertBefore(k, a);
+          a.parentNode.insertBefore(k, a));
       })(
         window,
         document,
