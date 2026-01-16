@@ -3,7 +3,7 @@ layout: "@/layouts/BlogPostLayout.astro"
 title: "Подкаст: Будущее промышленной автоматизации"
 description: "В новом выпуске подкаста обсуждаем тренды развития систем автоматизации, искусственный интеллект в производстве и перспективы отрасли."
 date: "2026-01-06"
-image: "/posts/tech-abstraction-5.png"
+image: "/hero/pic_5.webp"
 category: "podcasts"
 ---
 

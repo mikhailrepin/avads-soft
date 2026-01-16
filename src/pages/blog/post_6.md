@@ -3,7 +3,7 @@ layout: "@/layouts/BlogPostLayout.astro"
 title: "Обучающее видео: Настройка ПИД-регуляторов с нуля"
 description: "Подробный видеоурок по настройке пропорционально-интегрально-дифференциальных регуляторов для систем автоматического управления."
 date: "2026-01-04"
-image: "/posts/tech-abstraction-6.png"
+image: "/hero/pic_6.webp"
 category: "videos"
 ---
 

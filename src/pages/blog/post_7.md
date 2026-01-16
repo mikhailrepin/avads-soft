@@ -3,7 +3,7 @@ layout: "@/layouts/BlogPostLayout.astro"
 title: "Технический семинар: Внедрение систем архивирования данных"
 description: "Практический семинар по внедрению и настройке систем долгосрочного архивирования технологических данных на промышленных объектах."
 date: "2026-01-02"
-image: "/posts/tech-abstraction-7.png"
+image: "/hero/pic_7.webp"
 category: "events"
 ---
 

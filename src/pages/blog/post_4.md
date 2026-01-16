@@ -3,7 +3,7 @@ layout: "@/layouts/BlogPostLayout.astro"
 title: "Веб-конференция по автоматизации промышленных процессов 2026"
 description: "Приглашаем на ежегодную веб-конференцию, посвященную современным решениям в области автоматизации и управления технологическими процессами."
 date: "2026-01-08"
-image: "/posts/tech-abstraction-4.png"
+image: "/hero/pic_4.webp"
 category: "events"
 ---
 
