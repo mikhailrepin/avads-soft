@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
 import CategoryTags from "@/components/tag/CategoryTags.astro";
+import ShareButtons from "@/components/section/ShareButtons.astro";
 import type { Post } from "@/types/interfaces";
 import type { BlogCategory } from "@/types/interfaces";
 import { formatTitle, formatDescription } from "@/utils/grammar";
@@ -104,6 +105,12 @@ const validPrevPost =
   prevPost && prevPost.frontmatter && prevPost.frontmatter.title;
 const validNextPost =
   nextPost && nextPost.frontmatter && nextPost.frontmatter.title;
+
+// Получаем URL текущего поста
+const currentPost = sortedPosts[currentIndex];
+const postUrl = currentPost
+  ? `/blog/${currentPost.file.split("/").pop()?.replace(".md", "")}`
+  : Astro.url.pathname;
 ---
 
 <Layout pageTitle={title}>
@@ -165,6 +172,15 @@ const validNextPost =
       <div class="content-wrapper prose-container">
         <slot />
       </div>
+    </div>
+
+    <!-- Кнопки поделиться -->
+    <div class="content-wrapper">
+      <ShareButtons
+        title={title}
+        url={postUrl}
+        description={description}
+      />
     </div>
 
     <!-- Навигация между постами -->

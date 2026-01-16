@@ -1,0 +1,173 @@
+---
+interface Props {
+  title: string;
+  url: string;
+  description?: string;
+}
+
+const { title, url, description = "" } = Astro.props;
+
+// Получаем полный URL
+const fullUrl = new URL(url, Astro.url.origin).href;
+
+// URL для шаринга в социальных сетях
+const vkUrl = `https://vk.com/share.php?url=${encodeURIComponent(fullUrl)}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
+const okUrl = `https://connect.ok.ru/offer?url=${encodeURIComponent(fullUrl)}&title=${encodeURIComponent(title)}`;
+const maxUrl = `https://connect.max.ru/share?url=${encodeURIComponent(fullUrl)}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
+const emailUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description + "\n\n" + fullUrl)}`;
+---
+
+<div class="share-buttons">
+  <h3 class="share-title">Поделиться:</h3>
+  <div class="share-buttons-grid">
+    <!-- Вконтакте -->
+    <a
+      href={vkUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-button share-button-social"
+      title="Поделиться в Вконтакте">
+      <img
+        src="/social-icons/vk.svg"
+        alt="Вконтакте"
+        class="icon"
+      />
+    </a>
+
+    <!-- Одноклассники -->
+    <a
+      href={okUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-button share-button-social"
+      title="Поделиться в Одноклассниках">
+      <img
+        src="/social-icons/ok.svg"
+        alt="Одноклассники"
+        class="icon"
+      />
+    </a>
+
+    <!-- Max (max.ru) -->
+    <a
+      href={maxUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-button share-button-social"
+      title="Поделиться в Максе">
+      <img
+        src="/social-icons/max.svg"
+        alt="Макс"
+        class="icon"
+      />
+    </a>
+
+    <!-- Почта -->
+    <a
+      href={emailUrl}
+      class="share-button share-button-social"
+      title="Отправить по почте">
+      <img
+        src="/social-icons/mail-ru.svg"
+        alt="Почта"
+        class="icon"
+      />
+    </a>
+
+    <!-- Копировать ссылку -->
+    <button
+      type="button"
+      class="share-button share-button-copy"
+      data-url={fullUrl}
+      title="Копировать ссылку">
+      <svg
+        class="icon"
+        viewBox="0 0 16 16">
+        <use xlink:href="/sprites.svg#copy-outline"></use>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Обработка копирования ссылки
+  document.addEventListener("DOMContentLoaded", () => {
+    const copyButton = document.querySelector(
+      ".share-button-copy"
+    ) as HTMLButtonElement;
+    if (!copyButton) return;
+
+    copyButton.addEventListener("click", async () => {
+      const url = copyButton.getAttribute("data-url");
+      if (!url) return;
+
+      try {
+        await navigator.clipboard.writeText(url);
+
+        // Показываем уведомление об успешном копировании
+        const originalTitle = copyButton.getAttribute("title");
+        copyButton.setAttribute("title", "Ссылка скопирована!");
+
+        // Восстанавливаем оригинальный title через 2 секунды
+        setTimeout(() => {
+          if (originalTitle) {
+            copyButton.setAttribute("title", originalTitle);
+          }
+        }, 2000);
+      } catch (err) {
+        console.error("Не удалось скопировать ссылку:", err);
+        // Fallback для старых браузеров
+        const textArea = document.createElement("textarea");
+        textArea.value = url;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand("copy");
+          copyButton.setAttribute("title", "Ссылка скопирована!");
+          setTimeout(() => {
+            copyButton.setAttribute("title", "Копировать ссылку");
+          }, 2000);
+        } catch (fallbackErr) {
+          console.error("Fallback копирование не удалось:", fallbackErr);
+        }
+        document.body.removeChild(textArea);
+      }
+    });
+  });
+</script>
+
+<style>
+  .share-buttons {
+    @apply flex justify-end items-center gap-4 mt-4 -mb-4;
+  }
+
+  .share-title {
+    @apply !font-medium text-zinc-300 !text-sm;
+  }
+
+  .share-buttons-grid {
+    @apply flex flex-wrap items-center gap-1;
+  }
+
+  .share-button {
+    @apply flex justify-center items-center bg-zinc-800 hover:bg-amber-400 p-1 border border-zinc-600 hover:border-amber-900 rounded aspect-square text-zinc-300 hover:text-zinc-950 transition-colors;
+  }
+
+  .share-button-social {
+    @apply no-underline;
+  }
+
+  .share-button .icon {
+    @apply w-[16px] h-[16px] object-contain;
+    filter: brightness(0) saturate(100%) invert(84%) sepia(0%) saturate(0%)
+      hue-rotate(0deg) brightness(95%) contrast(95%);
+  }
+
+  .share-button:hover .icon {
+    /* Цвет zinc-950 (#18181b) - очень темный серый */
+    filter: brightness(0) saturate(100%) invert(6%) sepia(0%) saturate(0%)
+      hue-rotate(0deg) brightness(95%) contrast(100%);
+  }
+</style>
