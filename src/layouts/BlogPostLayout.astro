@@ -1,13 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import ButtonGeneric from "@/components/inputs/ButtonGeneric.astro";
-import CategoryTags from "@/components/tag/CategoryTags.astro";
 import ShareButtons from "@/components/section/ShareButtons.astro";
 import type { Post } from "@/types/interfaces";
-import type { BlogCategory } from "@/types/interfaces";
 import { formatTitle, formatDescription } from "@/utils/grammar";
 import {
-  normalizeCategory,
   generateAvatarUrl,
   generateFallbackAvatarUrl,
   getMockAuthor,
@@ -23,7 +20,7 @@ interface PostFile {
 }
 
 const { frontmatter } = Astro.props;
-const { title, description, date, image, category, author } = frontmatter;
+const { title, description, date, image, author } = frontmatter;
 
 // Форматируем заголовок и описание
 const formattedTitle = formatTitle(title);
@@ -39,16 +36,12 @@ const truncatedTitle = title.length > 60 ? title.slice(0, 60) + "..." : title;
 
 // Форматируем дату так же, как в PostCard
 const formattedDate = new Date(
-  date.includes(".") ? date.split(".").reverse().join("-") : date
+  date.includes(".") ? date.split(".").reverse().join("-") : date,
 ).toLocaleDateString("ru-RU", {
   day: "numeric",
   month: "long",
   year: "numeric",
 });
-
-// Получаем категорию поста
-const postCategory = normalizeCategory(category);
-const categories: BlogCategory[] = [postCategory];
 
 // Получаем автора и аватар
 const postAuthor = getMockAuthor(title, author);
@@ -87,12 +80,12 @@ const sortedPosts = postsArray
   .sort(
     (a, b) =>
       new Date(b.frontmatter.date).getTime() -
-      new Date(a.frontmatter.date).getTime()
+      new Date(a.frontmatter.date).getTime(),
   );
 
 // Находим индекс текущего поста
 const currentIndex = sortedPosts.findIndex(
-  (post) => post.frontmatter.title === title
+  (post) => post.frontmatter.title === title,
 );
 
 // Получаем предыдущий и следующий посты
@@ -124,11 +117,6 @@ const postUrl = currentPost
 
       <!-- Контент поверх изображения -->
       <div class="z-10 relative">
-        <!-- Теги категорий -->
-        <CategoryTags
-          categories={categories}
-          customClass="mb-4"
-        />
         <h1 class="post-title">
           {formattedTitle}
         </h1>
@@ -181,11 +169,7 @@ const postUrl = currentPost
 
     <!-- Кнопки поделиться -->
     <div
-      class="flex justify-between items-center mt-6 -mb-2 main-max-width no-padding">
-      <div class="flex items-center gap-2">
-        <span class="text-zinc-300 text-sm">Теги:</span>
-        <CategoryTags categories={categories} />
-      </div>
+      class="flex justify-end items-center mt-6 -mb-2 main-max-width no-padding">
       <ShareButtons
         title={title}
         url={postUrl}
@@ -195,7 +179,7 @@ const postUrl = currentPost
 
     <!-- Навигация между постами -->
     <div
-      class="items-center grid grid-cols-3 bg-zinc-900/50 lg:bg-zinc-900/0 my-5 lg:my-8 p-2 lg:px-0 lg:py-5 border border-zinc-600 lg:border-0 lg:border-t rounded-lg lg:rounded-none w-full">
+      class="items-center grid grid-cols-[1fr_auto_1fr] bg-zinc-900/50 lg:bg-zinc-900/0 my-5 lg:my-8 p-2 lg:px-0 lg:py-5 border border-zinc-600 lg:border-0 lg:border-t rounded-lg lg:rounded-none w-full">
       <!-- Левая кнопка -->
       <div class="justify-self-start">
         {
@@ -304,7 +288,7 @@ const postUrl = currentPost
     if (!container) return;
 
     const fallback = container.querySelector(
-      ".author-avatar-fallback"
+      ".author-avatar-fallback",
     ) as HTMLElement;
     if (!fallback) return;
 
@@ -327,7 +311,7 @@ const postUrl = currentPost
   // Инициализация для аватара
   document.addEventListener("DOMContentLoaded", () => {
     const avatarImg = document.querySelector(
-      ".author-avatar"
+      ".author-avatar",
     ) as HTMLImageElement;
     if (avatarImg) {
       setupAvatarFallback(avatarImg);

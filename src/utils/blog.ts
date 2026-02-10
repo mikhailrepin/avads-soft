@@ -10,21 +10,6 @@ export interface AstroPost {
   file: string;
 }
 
-// Типы категорий блога
-export type BlogCategory = "all" | "events" | "articles" | "podcasts" | "videos";
-
-// Маппинг категорий
-const CATEGORY_MAP: Record<string, BlogCategory> = {
-  "события": "events",
-  "статьи": "articles",
-  "подкасты": "podcasts",
-  "обучающие видео": "videos",
-  "videos": "videos",
-  "events": "events",
-  "articles": "articles",
-  "podcasts": "podcasts",
-};
-
 // Моковые имена авторов для генерации, если не указаны
 const MOCK_AUTHORS = [
   "Александра Крупская",
@@ -97,16 +82,8 @@ export function getMockAuthor(title: string, existingAuthor?: string): string {
   return MOCK_AUTHORS[index];
 }
 
-// Функция для нормализации категории
-export function normalizeCategory(category?: string): BlogCategory {
-  if (!category) return "articles"; // По умолчанию "Статьи"
-  const normalized = category.toLowerCase().trim();
-  return CATEGORY_MAP[normalized] || "articles";
-}
-
 export async function getBlogPosts(
   postsPerPage: number = 6,
-  category: BlogCategory = "all",
   excludeUrl?: string
 ) {
   const posts = await import.meta.glob<AstroPost>("../pages/blog/*.md", {
@@ -136,14 +113,6 @@ export async function getBlogPosts(
         new Date(a.frontmatter.date).getTime()
     );
 
-  // Фильтрация по категории
-  if (category !== "all") {
-    filteredPosts = filteredPosts.filter((post) => {
-      const postCategory = normalizeCategory(post.frontmatter.category);
-      return postCategory === category;
-    });
-  }
-
   // Исключаем пост по URL, если указан (для исключения свежего поста из сетки "Все")
   if (excludeUrl) {
     filteredPosts = filteredPosts.filter((post) => {
@@ -171,7 +140,6 @@ export async function getBlogPosts(
           author,
           avatar: generateAvatarUrl(author),
           fallbackAvatar: generateFallbackAvatarUrl(author),
-          category: normalizeCategory(post.frontmatter.category),
         };
       }),
   };
@@ -223,6 +191,5 @@ export async function getLatestPost() {
     author,
     avatar: generateAvatarUrl(author),
     fallbackAvatar: generateFallbackAvatarUrl(author),
-    category: normalizeCategory(latestPost.frontmatter.category),
   };
 }

@@ -7,11 +7,7 @@ import helpers from "@/data/helpers.json";
 export async function getStaticPaths() {
   const postsPerPage = 6;
   const latestPost = await getLatestPost();
-  const { totalPages, formatPosts } = await getBlogPosts(
-    postsPerPage,
-    "all",
-    latestPost?.url
-  );
+  const { totalPages, formatPosts } = await getBlogPosts(postsPerPage, latestPost?.url);
 
   return Array.from({ length: totalPages }, (_, i) => {
     const pageNum = i + 1;
@@ -31,18 +27,6 @@ export async function getStaticPaths() {
 }
 
 const { posts, currentPage, totalPages, latestPost } = Astro.props;
-
-// Получаем посты для других категорий для табов
-const postsPerPage = 6;
-const eventsPosts = await getBlogPosts(postsPerPage, "events");
-const articlesPosts = await getBlogPosts(postsPerPage, "articles");
-const podcastsPosts = await getBlogPosts(postsPerPage, "podcasts");
-const videosPosts = await getBlogPosts(postsPerPage, "videos");
-
-const eventsPostsFormatted = eventsPosts.formatPosts(0, postsPerPage);
-const articlesPostsFormatted = articlesPosts.formatPosts(0, postsPerPage);
-const podcastsPostsFormatted = podcastsPosts.formatPosts(0, postsPerPage);
-const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
 ---
 
 <Layout pageTitle="Блог">
@@ -54,17 +38,9 @@ const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
     </h2>
 
     <BlogContent
-      allPosts={posts}
-      allPostsCurrentPage={currentPage}
-      allPostsTotalPages={totalPages}
-      eventsPosts={eventsPostsFormatted}
-      eventsPostsTotalPages={eventsPosts.totalPages}
-      articlesPosts={articlesPostsFormatted}
-      articlesPostsTotalPages={articlesPosts.totalPages}
-      podcastsPosts={podcastsPostsFormatted}
-      podcastsPostsTotalPages={podcastsPosts.totalPages}
-      videosPosts={videosPostsFormatted}
-      videosPostsTotalPages={videosPosts.totalPages}
+      posts={posts}
+      currentPage={currentPage}
+      totalPages={totalPages}
       latestPost={latestPost}
       showFeaturedPost={currentPage === 1}
     />

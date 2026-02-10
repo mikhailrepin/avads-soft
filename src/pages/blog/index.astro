@@ -9,20 +9,10 @@ const postsPerPage = 6;
 // Получаем свежий пост
 const latestPost = await getLatestPost();
 
-// Получаем посты для каждой категории
-// Для категории "Все" исключаем свежий пост, чтобы избежать дублирования
-const allPosts = await getBlogPosts(postsPerPage, "all", latestPost?.url);
-const eventsPosts = await getBlogPosts(postsPerPage, "events");
-const articlesPosts = await getBlogPosts(postsPerPage, "articles");
-const podcastsPosts = await getBlogPosts(postsPerPage, "podcasts");
-const videosPosts = await getBlogPosts(postsPerPage, "videos");
-
-// Форматируем посты для каждой категории
-const allPostsFormatted = allPosts.formatPosts(0, postsPerPage);
-const eventsPostsFormatted = eventsPosts.formatPosts(0, postsPerPage);
-const articlesPostsFormatted = articlesPosts.formatPosts(0, postsPerPage);
-const podcastsPostsFormatted = podcastsPosts.formatPosts(0, postsPerPage);
-const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
+// Получаем все посты
+// Исключаем свежий пост из сетки, чтобы избежать дублирования
+const allPosts = await getBlogPosts(postsPerPage, latestPost?.url);
+const posts = allPosts.formatPosts(0, postsPerPage);
 ---
 
 <Layout pageTitle="Блог">
@@ -34,17 +24,9 @@ const videosPostsFormatted = videosPosts.formatPosts(0, postsPerPage);
     </h2>
 
     <BlogContent
-      allPosts={allPostsFormatted}
-      allPostsCurrentPage={1}
-      allPostsTotalPages={allPosts.totalPages}
-      eventsPosts={eventsPostsFormatted}
-      eventsPostsTotalPages={eventsPosts.totalPages}
-      articlesPosts={articlesPostsFormatted}
-      articlesPostsTotalPages={articlesPosts.totalPages}
-      podcastsPosts={podcastsPostsFormatted}
-      podcastsPostsTotalPages={podcastsPosts.totalPages}
-      videosPosts={videosPostsFormatted}
-      videosPostsTotalPages={videosPosts.totalPages}
+      posts={posts}
+      currentPage={1}
+      totalPages={allPosts.totalPages}
       latestPost={latestPost}
       showFeaturedPost={true}
     />
