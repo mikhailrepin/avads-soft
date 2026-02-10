@@ -159,7 +159,7 @@ const postUrl = currentPost
     <!-- Описание и контент -->
     <div class="bg-zinc-900/50 px-2 lg:px-4 py-8 lg:py-12 rounded-lg">
       <h4
-        class="mx-auto mb-8 font-semibold text-zinc-200 text-xl lg:text-2xl content-wrapper">
+        class="post-lead mx-auto mb-8 font-semibold text-zinc-200 text-xl lg:text-2xl content-wrapper">
         {formattedDescription}
       </h4>
       <div class="content-wrapper prose-container">
@@ -242,6 +242,15 @@ const postUrl = currentPost
   .post-title {
     @apply mb-4 font-bold text-2xl lg:text-4xl break-words !important;
     max-width: 90%;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    word-break: normal;
+  }
+
+  .post-lead {
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    word-break: normal;
   }
 
   .content-wrapper {
